@@ -28,14 +28,14 @@ const App = (props) => {
   }, [])
   return (
     <div>
-      <Route path='/edit/outline/:fileID' render={(props)=> (
+      <Route path='/writing-app/edit/outline/:fileID' render={(props)=> (
         <Outline {...props} />
         // <OutlineDND {...props} />
       )} />
-      <Route path='/edit/notes/:fileID' render={(props)=> (
+      <Route path='/writing-app/edit/notes/:fileID' render={(props)=> (
         <Notes {...props} />
       )} />
-      <Route exact path='/' render={(props)=> (
+      <Route exact path='/writing-app' render={(props)=> (
         <Dashbaord {...props} />
       )} />
       {/* <Signup /> */}
