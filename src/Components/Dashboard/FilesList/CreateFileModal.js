@@ -55,7 +55,7 @@ const CreateFileModal = (props) => {
                     })
                     .then(()=> {
                         console.log('new file created')
-                        const location = `/edit/${fileType}/${fileID}`
+                        const location = `/writing-app/edit/${fileType}/${fileID}`
                         window.open(location, "_blank") || (document.location = location)
                     })
                     updateLastModified(props.userData.userID, String(props.currentProjectID))

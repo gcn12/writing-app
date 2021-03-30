@@ -84,6 +84,10 @@ const Delete = styled.button`
     height: 50px;
     width: 100px;
     color: white;
+    /* outline-color: blue; */
+    &:focus {
+        box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+    }
 `
 
 

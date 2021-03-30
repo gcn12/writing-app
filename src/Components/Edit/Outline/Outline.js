@@ -32,8 +32,6 @@ const Outline = (props) => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
     const [cardIndex, setCardIndex] = useState(null)
-    // const [dataStatic, setDataStatic] = useState(null)
-    // const [dataToChange, setDataToChange] = useState(null)
     const [itemIndexes, setItemIndexes] = useState([])
 
     useEffect(()=> {
@@ -120,10 +118,9 @@ const Outline = (props) => {
 
     return (
         <div>
-            <Link to='/'>
+            <Link to='/writing-app'>
                 <div>Home</div>
             </Link>
-            {/* <button onClick={()=>console.log(itemIndexes, props.outlineItemsForUpdate, props.outlineItemsDisplay)}>click for data</button> */}
             {props?.outlineData?.fileName}
             <button onClick={()=>setShowCreateModal(true)}>Create new card</button>
             <DndContext sensors={sensors} collisionDetection={closestCenter}onDragEnd={handleDragEnd}>

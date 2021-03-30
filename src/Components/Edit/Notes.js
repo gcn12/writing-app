@@ -66,11 +66,10 @@ const Notes = (props) => {
 
     return(
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-            <Link to='/'>Home</Link>
+            <Link to='/writing-app'>Home</Link>
             <div></div>
             {props?.notesData?.fileName}
             <div></div>
-            {/* <TextAreaPage style={{border: 'none', height: '600px', width: '700px'}} onChange={(e)=> setNote(e.target.value)} defaultValue={props?.notesData?.text} /> */}
             <TextAreaPage onChange={(e)=> setNote(e.target.value)} id='notes-textarea' />
             <div></div>
             <button onClick={saveWork}>Save work</button>
