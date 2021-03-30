@@ -54,7 +54,7 @@ const NewFile = styled.button`
     background-color: hsl(20, 30%, 90%);
     height: 40px;
     border: none;
-    margin: 20px;
+    margin: 20px 20px 20px 0;
     border-radius: 5px;
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, .1);
     padding: 10px;
