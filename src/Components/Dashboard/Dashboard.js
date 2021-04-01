@@ -2,12 +2,16 @@
 import FilesList from './FilesList/FilesList'
 import Sidebar from './Sidebar/Sidebar'
 import { connect } from 'react-redux'
+import Breadcrumbs from './Breadcrumbs'
 const Dashboard = (props) => {
 
     return(
         <div style={{display: 'flex'}}>
             <Sidebar />
-            <FilesList />
+            <div>
+                <Breadcrumbs />
+                <FilesList />
+            </div>
         </div>
     )
 }

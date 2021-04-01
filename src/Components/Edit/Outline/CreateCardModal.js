@@ -56,7 +56,7 @@ const CreateCardModal = (props) => {
             props.setShowCreateModal(false)
         })
 
-        updateLastModified(props.userData.userID, String(props.outlineData.projectID), props.match.params.fileID)
+        updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
     return(
@@ -70,8 +70,7 @@ const CreateCardModal = (props) => {
                 <Description onChange={(e)=>setText(e.target.value)} />
                 <Label>Insert at location:</Label>
                 <div>
-
-                    <Location id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineData.data.length + 1}
+                    <Location id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
                 </div>
                 <div style={{display: 'flex'}}>
                     <Cancel onClick={()=>props.setShowCreateModal(false)}>Cancel</Cancel>

@@ -1,9 +1,7 @@
 import { db } from '../../../firebase'
 import { useEffect } from 'react'
-import Files from './Files'
-import Projects from './Projects'
+import AllFiles from './AllFiles'
 import { connect } from 'react-redux'
-import { projects } from '../../../redux/actions/dashboardActions'
 
 const FilesList = (props) => {
 
@@ -22,17 +20,12 @@ const FilesList = (props) => {
             data.forEach(project=> {
                 projectArr.push(project.data())
             })
-            props.dispatch(projects(projectArr))
         })
     }
 
     return(
         <div>
-            {props.showProjects ? 
-            <Projects />
-            :
-            <Files />
-            }
+            <AllFiles />
         </div>
     )
 }

@@ -35,7 +35,7 @@ const DeleteCardModal = (props) => {
             console.log(err)
         })
 
-        updateLastModified(props.userData.userID, String(props.outlineData.projectID), props.match.params.fileID)
+        updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
     return(

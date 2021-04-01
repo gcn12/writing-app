@@ -1,21 +1,15 @@
 import * as actions from '../actions/dashboardActions'
 
 const initialState = {
-    showProjects: true,
-    projects: [],
+    breadcrumbs: [{name: 'all files', docId: null}],
 }
 
 const dashboardReducer = (state=initialState, action) => {
     switch(action.type) {
-        case actions.SHOW_PROJECTS:
+        case actions.BREADCRUMBS:
             return {
                 ...state,
-                showProjects: action.payload
-            }
-        case actions.PROJECTS:
-            return {
-                ...state,
-                projects: action.payload
+                breadcrumbs: action.payload
             }
         default:
             return state

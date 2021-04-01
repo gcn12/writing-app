@@ -4,33 +4,46 @@ import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 const RenameFileModal = (props) => {
-    const [projectName, setProjectName] = useState('')
+    const [name, setName] = useState('')
 
     useEffect(()=> {
-        document.getElementById('rename-file-input').value = props.projectSelectedName
+        document.getElementById('rename-file-input').value = props.projectSelectedData.name
         // eslint-disable-next-line
     }, [props.fileSelectedName])
 
     const renameFile = () => {
         db.collection('users')
         .doc(props.userData.userID)
-        .collection('projects')
-        .doc(String(props.projectSelectedID))
+        .collection('files-folders')
+        .doc(String(props.projectSelectedData.docID))
         .update({
-            projectName,
+            name,
         })
         .then(()=> {
             console.log('file rename successful')
             props.setShowRenameModal(false)
         })
+        if(props.projectSelectedData.type!=='folder') {
+            db.collection('users')
+            .doc(props.userData.userID)
+            .collection('files')
+            .doc(String(props.projectSelectedData.docID))
+            .update({
+                name,
+            })
+            .then(()=> {
+                console.log('file rename successful')
+                props.setShowRenameModal(false)
+            })
+        }
     }
 
     return (
         <Container>
             <Background onClick={()=>props.setShowRenameModal(false)} />
             <Modal>
-                Rename Project
-                <ProjectTitle id='rename-file-input' onChange={(e)=>setProjectName(e.target.value)} />
+                Rename {props.projectSelectedData.type}
+                <ProjectTitle id='rename-file-input' onChange={(e)=>setName(e.target.value)} />
                 <div>
                     <Cancel onClick={()=>props.setShowRenameModal(false)}>Cancel</Cancel>
                     <Create onClick={renameFile}>Rename</Create>
@@ -42,7 +55,11 @@ const RenameFileModal = (props) => {
 
 const mapStateToProps = state => ({
     userData: state.app.userData,
-    // projects: state.dashboard.projects
+    currentLayer: state.app.currentLayer,
+    rootDocs: state.app.rootDocs,
+    layerOneDocs: state.app.layerOneDocs,
+    layerTwoDocs: state.app.layerTwoDocs,
+    layerThreeDocs: state.app.layerThreeDocs,
 })
 
 export default connect(mapStateToProps)(RenameFileModal)
@@ -61,6 +78,7 @@ const Cancel = styled.button`
     height: 40px;
     width: 90px;
     border: none;
+    margin-right: 5px;
 `
 
 const ProjectTitle = styled.input`
@@ -81,6 +99,10 @@ const Modal = styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 `
 
 const Container = styled.div`

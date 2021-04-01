@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { db } from '../../../firebase'
-import { outlineItemsDisplay } from '../../../redux/actions/appActions'
+import { outlineItemsDisplay, outlineItemsForUpdate } from '../../../redux/actions/appActions'
 import { updateLastModified } from '../../../globalFunctions'
 
 const EditCardModal = (props) => {
@@ -21,6 +21,8 @@ const EditCardModal = (props) => {
         newOutline[props.cardIndex] = newCard
         newOutlineForDisplay[props.itemIndexes[props.cardIndex]] = newCard
         props.dispatch(outlineItemsDisplay([...newOutlineForDisplay]))
+        props.dispatch(outlineItemsForUpdate(newOutline))
+
 
 
         db.collection('users')
@@ -37,7 +39,7 @@ const EditCardModal = (props) => {
             console.log(err)
         })
 
-        updateLastModified(props.userData.userID, String(props.outlineData.projectID), props.match.params.fileID)
+        updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
     return(

@@ -38,13 +38,13 @@ const Card = (props) => {
                 <Title>{props.title}</Title>
                 <IconContainer>
                     <Icons>
-                        <IconBackgroundContainer onClick={()=>editCard(props.title, props.text)} onKeyDown={(e)=>keyBoardEdit(e, props.title, props.text)}>
+                        <IconBackgroundContainer role='button' onClick={()=>editCard(props.title, props.text)} onKeyDown={(e)=>keyBoardEdit(e, props.title, props.text)}>
                             <IconTitle>Rename</IconTitle>
                             <IconBackground />
                             <Icon alt='edit' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTguMzYzIDguNDY0bDEuNDMzIDEuNDMxLTEyLjY3IDEyLjY2OS03LjEyNSAxLjQzNiAxLjQzOS03LjEyNyAxMi42NjUtMTIuNjY4IDEuNDMxIDEuNDMxLTEyLjI1NSAxMi4yMjQtLjcyNiAzLjU4NCAzLjU4NC0uNzIzIDEyLjIyNC0xMi4yNTd6bS0uMDU2LTguNDY0bC0yLjgxNSAyLjgxNyA1LjY5MSA1LjY5MiAyLjgxNy0yLjgyMS01LjY5My01LjY4OHptLTEyLjMxOCAxOC43MThsMTEuMzEzLTExLjMxNi0uNzA1LS43MDctMTEuMzEzIDExLjMxNC43MDUuNzA5eiIvPjwvc3ZnPg==" />
                         </IconBackgroundContainer>
                         
-                        <IconBackgroundContainer onClick={deleteCard} onKeyDown={(e)=>keyBoardDelete(e)}>
+                        <IconBackgroundContainer role='button' onClick={deleteCard} onKeyDown={(e)=>keyBoardDelete(e)}>
                             <IconTitle>Delete</IconTitle>
                             <IconBackground />
                             <Icon alt='delete' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAxMS4yOTNsMTAuMjkzLTEwLjI5My43MDcuNzA3LTEwLjI5MyAxMC4yOTMgMTAuMjkzIDEwLjI5My0uNzA3LjcwNy0xMC4yOTMtMTAuMjkzLTEwLjI5MyAxMC4yOTMtLjcwNy0uNzA3IDEwLjI5My0xMC4yOTMtMTAuMjkzLTEwLjI5My43MDctLjcwNyAxMC4yOTMgMTAuMjkzeiIvPjwvc3ZnPg==" />
@@ -76,6 +76,7 @@ const IconTitle = styled.div`
     color: white;
     vertical-align: middle;
     padding: 5px 10px;
+    font-size: 1rem;
 `
 
 const IconBackground = styled.div`
@@ -169,7 +170,7 @@ const Text = styled.h2`
     line-height: 1.5;
 `
 
-const Container = styled.div`
+const Container = styled.article`
     font-size: 1.3rem; 
     background-color: hsl(0, 0%, 95%); 
     padding: 30px;

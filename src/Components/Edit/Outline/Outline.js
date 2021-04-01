@@ -82,7 +82,7 @@ const Outline = (props) => {
             console.log('updated')
         })
 
-        updateLastModified(props.userData.userID, String(props.outlineData.projectID), props.match.params.fileID)
+        updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
     const sensors = useSensors(
@@ -121,7 +121,7 @@ const Outline = (props) => {
             <Link to='/writing-app'>
                 <div>Home</div>
             </Link>
-            {props?.outlineData?.fileName}
+            {props?.outlineData?.name}
             <button onClick={()=>setShowCreateModal(true)}>Create new card</button>
             <DndContext sensors={sensors} collisionDetection={closestCenter}onDragEnd={handleDragEnd}>
             <SortableContext items={itemIndexes} strategy={rectSortingStrategy}>

@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
+
+    html, body {
+        background-color: hsl(200, 30%, 90%);
+    }
+
     html, body, div, span, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote,
     a, img, ol, ul, li, form, label,

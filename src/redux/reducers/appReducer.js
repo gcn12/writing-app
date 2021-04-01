@@ -10,10 +10,35 @@ const initialState = {
     dashboardCurrentSection: 'projects',
     outlineItemsForUpdate: [],
     outlineItemsDisplay: [],
+    rootDocs: [],
+    layerOneDocs: [],
+    layerTwoDocs: [],
+    layerThreeDocs: [],
+    currentLayer: null,
 }
 
 const appReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.CURRENT_LAYER:
+            return {
+                ...state,
+                currentLayer: action.payload
+            }
+        case actions.LAYER_TWO_DOCS:
+            return {
+                ...state,
+                layerTwoDocs: action.payload
+            }
+        case actions.LAYER_ONE_DOCS:
+            return {
+                ...state,
+                layerOneDocs: action.payload
+            }
+        case actions.ROOT_DOCS:
+            return {
+                ...state,
+                rootDocs: action.payload
+            }
         case actions.OUTLINE_ITEMS_DISPLAY:
             return {
                 ...state,

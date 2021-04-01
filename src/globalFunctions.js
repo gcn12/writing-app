@@ -15,8 +15,9 @@ export const updateLastModified = (userID, projectID, fileID) => {
     const ref = db.collection('users')
     .doc(userID)
 
-    if(projectID) {
-        ref.collection('projects')
+    console.log(projectID)
+    if(projectID!==undefined) {
+        ref.collection('files-folders')
         .doc(projectID)
         .update({
             lastModified: timestamp
@@ -26,10 +27,11 @@ export const updateLastModified = (userID, projectID, fileID) => {
         })
         .catch((err)=> {
             console.log(err)
+            
         })
     }
     if(fileID) {
-        ref.collection('file-previews')
+        ref.collection('files-folders')
         .doc(fileID)
         .update({
             lastModified: timestamp
@@ -39,6 +41,7 @@ export const updateLastModified = (userID, projectID, fileID) => {
         })
         .catch((err)=> {
             console.log(err)
+            console.log(2)
         })
     }
 

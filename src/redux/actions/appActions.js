@@ -7,6 +7,41 @@ export const OUTLINE_ITEMS_DISPLAY = 'OUTLINE_ITEMS_DISPLAY'
 export const OUTLINE_ITEMS_FOR_UPDATE = 'OUTLINE_ITEMS_FOR_UPDATE'
 export const NOTES_DATA = 'NOTES_DATA'
 export const DASHBOARD_CURRENT_SECTION = 'DASHBOARD_CURRENT_SECTION'
+export const ROOT_DOCS = 'ROOT_DOCS'
+export const LAYER_ONE_DOCS = 'LAYER_ONE_DOCS'
+export const LAYER_TWO_DOCS = 'LAYER_TWO_DOCS'
+export const LAYER_THREE_DOCS = 'LAYER_THREE_DOCS'
+export const CURRENT_LAYER = 'CURRENT_LAYER'
+
+export function currentLayer(data) {
+    return(dispatch) => {
+        dispatch({type: CURRENT_LAYER, payload: data})
+    }
+}
+
+export function layerThreeDocs(data) {
+    return(dispatch) => {
+        dispatch({type: LAYER_THREE_DOCS, payload: data})
+    }
+}
+
+export function layerTwoDocs(data) {
+    return(dispatch) => {
+        dispatch({type: LAYER_TWO_DOCS, payload: data})
+    }
+}
+
+export function layerOneDocs(data) {
+    return(dispatch) => {
+        dispatch({type: LAYER_ONE_DOCS, payload: data})
+    }
+}
+
+export function rootDocs(data) {
+    return(dispatch) => {
+        dispatch({type: ROOT_DOCS, payload: data})
+    }
+}
 
 export function outlineItemsForUpdate(data) {
     return(dispatch) => {
