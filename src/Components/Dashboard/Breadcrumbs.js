@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { connect } from 'react-redux'
-import { currentLayer } from '../../redux/actions/appActions'
+import { 
+    currentLayer,
+    layerOneDocs,
+    layerTwoDocs,
+    layerThreeDocs,
+ } from '../../redux/actions/appActions'
 import { breadcrumbs } from '../../redux/actions/dashboardActions'
 
 const Breadcrumbs = (props) => {
@@ -10,6 +15,9 @@ const Breadcrumbs = (props) => {
         const crumbsCopy = [...props.breadcrumbs]
         const breadcrumbsReduced = crumbsCopy.slice(0, indexToRoute+1)
         props.dispatch(breadcrumbs(breadcrumbsReduced))
+        if(indexToRoute <= 0) props.dispatch(layerOneDocs([]))
+        if(indexToRoute <= 1) props.dispatch(layerTwoDocs([]))
+        if(indexToRoute <= 2) props.dispatch(layerThreeDocs([]))
     }
 
     return(
@@ -26,6 +34,10 @@ const Breadcrumbs = (props) => {
 const mapStateToProps = state => ({
     breadcrumbs: state.dashboard.breadcrumbs,
     currentLayer: state.app.currentLayer,
+    rootLayer: state.app.rootLayer,
+    layerOneDocs: state.app.layerOneDocs,
+    layerTwoDocs: state.app.layerTwoDocs,
+    layerThreeDocs: state.app.layerThreeDocs,
 })
 
 export default connect(mapStateToProps)(Breadcrumbs)
@@ -54,4 +66,5 @@ const Crumb = styled.button`
 
 const Container = styled.nav`
     display: flex;
+    margin: 20px 0;
 `

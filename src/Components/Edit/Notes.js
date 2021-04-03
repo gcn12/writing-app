@@ -106,6 +106,7 @@ const TextAreaPage = styled.textarea`
     padding: 40px 100px;
     /* background-color: hsl(0, 10%, 95%); */
     background-color: transparent;
+    box-shadow: none;
     outline: none;
     border-radius: 15px;
     font-size: 1rem;

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { db } from '../../../firebase'
 import { 
+    rootDocs,
     layerOneDocs,
     layerTwoDocs,
     layerThreeDocs,
@@ -11,7 +12,7 @@ import RenameDocModal from './RenameDocModal'
 import DeleteProjectModal from './DeleteDocModal'
 import { useState } from 'react'
 import { connect } from 'react-redux'
-import { breadcrumbs } from '../../../redux/actions/dashboardActions'
+import { breadcrumbs, sortMethod } from '../../../redux/actions/dashboardActions'
 
 const ProjectsTable = (props) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -40,14 +41,12 @@ const ProjectsTable = (props) => {
 
     const showRenameProject = (e) => {
         e.stopPropagation()
-        document.activeElement.blur()
         setShowRenameModal(true)
     }
 
 
     const showDeleteProject = (e) => {
         e.stopPropagation()
-        document.activeElement.blur()
         setShowDeleteModal(true)
     }
 
@@ -70,6 +69,7 @@ const ProjectsTable = (props) => {
                     props.dispatch(layerTwoDocs(dataArr.sort(sortFiles)))
                 }else if(props.currentLayer === 2) {
                     props.dispatch(layerThreeDocs(dataArr.sort(sortFiles)))
+                    console.log(dataArr)
                 }
                 props.dispatch(currentLayer(props.currentLayer + 1))
                 const breadcrumb = {
@@ -90,14 +90,113 @@ const ProjectsTable = (props) => {
         window.open(location, "_blank") || (document.location = location)
     }
 
+    const sortProjectsDateAsc = (a, b) => {
+        return b.lastModified - a.lastModified  
+    }
+
+    const sortProjectsDateDesc = (a, b) => {
+        return a.lastModified - b.lastModified  
+    }
+
+    const sortProjectsNameAsc = (a, b) => {
+        return b.name.localeCompare(a.name)
+    }
+
+    const sortProjectsNameDesc = (a, b) => {
+        return a.name.localeCompare(b.name)
+    }
+
+    const sortProjectsTypeAsc = (a, b) => {
+        return b.type.localeCompare(a.type)
+    }
+
+    const sortProjectsTypeDesc = (a, b) => {
+        return a.type.localeCompare(b.type)
+    }
+
+    const changeSortOrder = (sortType) => {
+        let sortMethodToUse
+        let sortMethodName
+        if(sortType === 'name') {
+            if(props.sortMethod === 'nameDesc') {
+                sortMethodToUse = sortProjectsNameAsc
+                sortMethodName = 'nameAsc'
+            }else{
+                sortMethodToUse = sortProjectsNameDesc
+                sortMethodName = 'nameDesc'
+            }
+        }
+        if(sortType === 'type') {
+            if(props.sortMethod === 'typeDesc') {
+                sortMethodToUse = sortProjectsTypeAsc
+                sortMethodName = 'typeAsc'
+            }else{
+                sortMethodToUse = sortProjectsTypeDesc
+                sortMethodName = 'typeDesc'
+            }
+        }
+        if(sortType === 'date') {
+            if(props.sortMethod === 'dateDesc') {
+                sortMethodToUse = sortProjectsDateAsc
+                sortMethodName = 'dateAsc'
+            }else{
+                sortMethodToUse = sortProjectsDateDesc
+                sortMethodName = 'dateDesc'
+            }
+        }
+        props.dispatch(sortMethod(sortMethodName))
+        if(props.rootDocs.length > 0) {
+            props.dispatch(rootDocs(props.rootDocs.sort(sortMethodToUse)))
+        }
+        if(props.layerOneDocs.length > 0) {
+            props.dispatch(layerOneDocs(props.layerOneDocs.sort(sortMethodToUse)))
+        }
+        if(props.layerTwoDocs.length > 0) {
+            props.dispatch(layerTwoDocs(props.layerTwoDocs.sort(sortMethodToUse)))
+        }
+        if(props.layerThreeDocs.length > 0) {
+            props.dispatch(layerThreeDocs(props.layerThreeDocs.sort(sortMethodToUse)))
+        }
+    }
+
     return(
         <div>
             <Table role='table'>
                 <Head role='heading'> 
                     <RowHeader role='rowheader'>
-                        <TableHead role='heading'>Project name</TableHead>
-                        <TableHead role='heading'>Type</TableHead>
-                        <TableHead role='heading'>Last modified</TableHead>
+                        <TableHead role='heading'>
+                            <ColumnNameButton onClick={()=>changeSortOrder('name')}>
+                                Name
+                                {props.sortMethod === 'nameDesc' &&
+                                    <ArrowIcon rotate='rotate(180deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
+                                }
+                                {props.sortMethod === 'nameAsc' &&
+                                    <ArrowIcon rotate='rotate(0deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
+                                }
+                            </ColumnNameButton>
+                        </TableHead>
+                        <TableHead role='heading'>
+                            <button onClick={()=>changeSortOrder('type')}>
+                            Type
+                            {props.sortMethod === 'typeDesc' &&
+                                <ArrowIcon rotate='rotate(180deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
+                            }
+                            {props.sortMethod === 'typeAsc' &&
+                                <ArrowIcon rotate='rotate(0deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
+                            }
+                            </button>
+                        </TableHead>
+                        <TableHead role='heading'>
+                            <button onClick={()=>changeSortOrder('date')}>
+                                Last modified
+                                {props.sortMethod === 'dateDesc' &&
+                                    <ArrowIcon rotate='rotate(180deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
+                                }
+                                {props.sortMethod === 'dateAsc' &&
+                                    <ArrowIcon rotate='rotate(0deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
+                                }
+                            </button>
+                        </TableHead>
                         <TableHead aria-label='settings' role='heading'></TableHead>
                     </RowHeader>
                 </Head>
@@ -143,12 +242,12 @@ const ProjectsTable = (props) => {
                     })}
                 </TableBody>
             </Table> 
-            {showRenameModal && 
-                <RenameDocModal projectSelectedData={props.projectSelectedData} setShowRenameModal={setShowRenameModal} />
-            }
-            {showDeleteModal && 
-                <DeleteProjectModal projectSelectedData={props.projectSelectedData} setShowDeleteModal={setShowDeleteModal} />
-            }
+            {/* {showRenameModal && 
+            } */}
+            <RenameDocModal showRenameModal={showRenameModal} projectSelectedData={props.projectSelectedData} setShowRenameModal={setShowRenameModal} />
+            {/* {showDeleteModal && 
+            } */}
+            <DeleteProjectModal showDeleteModal={showDeleteModal} projectSelectedData={props.projectSelectedData} setShowDeleteModal={setShowDeleteModal} />
         </div>
     )   
 }
@@ -163,9 +262,22 @@ const mapStateToProps = state => ({
     layerTwoDocs: state.app.layerTwoDocs,
     layerThreeDocs: state.app.layerThreeDocs,
     breadcrumbs: state.dashboard.breadcrumbs,
+    sortMethod: state.dashboard.sortMethod,
 })
 
 export default connect(mapStateToProps)(ProjectsTable)
+
+const ColumnNameButton = styled.h1`
+    display: flex;
+    align-items: center;
+`
+
+const ArrowIcon = styled.img`
+    height: 10px;
+    width: 10px;
+    margin-left: 5px;
+    transform: ${props=>props.rotate};
+`
 
 const DocIconNameContainer = styled.div`
     display: flex;

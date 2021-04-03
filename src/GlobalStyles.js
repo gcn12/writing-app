@@ -6,6 +6,13 @@ const GlobalStyles = createGlobalStyle`
         background-color: hsl(200, 30%, 90%);
     }
 
+    * {
+        &:focus {
+            box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+            outline: none;
+        }
+    }
+
     html, body, div, span, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote,
     a, img, ol, ul, li, form, label,

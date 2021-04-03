@@ -6,6 +6,8 @@
   "dependencies": {
     "@dnd-kit/core": "^2.0.2",
     "@dnd-kit/sortable": "^2.0.0",
+    "@reach/dialog": "^0.14.0",
+    "@reach/menu-button": "^0.14.0",
     "@shopify/draggable": "*",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",

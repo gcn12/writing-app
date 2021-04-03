@@ -69,8 +69,6 @@ const Outline = (props) => {
         const cardsNewIndexes = cardsInput.map((card, index)=> {
             return {...card, index}
         })
-        const outlineCopy = {...outlineData}
-        outlineCopy.data = cardsNewIndexes
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
@@ -134,15 +132,14 @@ const Outline = (props) => {
                 </Grid>
             </SortableContext>
             </DndContext>
-            {showEditModal && 
-                <EditCardModal itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
-            }
-            {showDeleteModal &&
-                <DeleteCardModal setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
-            }
-            {showCreateModal && 
-                <CreateCardModal itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
-            }
+
+            <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
+            
+
+            <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
+
+
+            <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
         </div>
     );
 }

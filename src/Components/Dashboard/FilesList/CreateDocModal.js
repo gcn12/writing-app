@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { generateID } from '../../../globalFunctions'
 import { updateLastModified } from '../../../globalFunctions'
+import { Dialog } from "@reach/dialog";
+import "@reach/dialog/styles.css";
 import { 
     // currentLayer,
     rootDocs,
@@ -131,17 +133,19 @@ const CreateDocModal = (props) => {
     }
  
     return (
-        <Container>
-            <Background onClick={()=>props.setIsCreateProjectModal(false)} />
-            <Modal>
-                Create new {props.createType}
-                <ProjectTitle onChange={(e)=>setName(e.target.value)} />
-                <div>
-                    <Cancel onClick={()=>props.setIsCreateProjectModal(false)}>Cancel</Cancel>
-                    <Create onClick={createProject}>Create project</Create>
-                </div>
-            </Modal>
-        </Container>
+        <Modal aria-label='create document' isOpen={props.isCreateProjectModal} onDismiss={()=>props.setIsCreateProjectModal(false)}>
+            <HeaderIconContainer>
+                <h1>Create new {props.createType}</h1>
+                <CloseDialog label='close rename dialog' onClick={()=>props.setIsCreateProjectModal(false)}>
+                    <Icon alt='delete' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAxMS4yOTNsMTAuMjkzLTEwLjI5My43MDcuNzA3LTEwLjI5MyAxMC4yOTMgMTAuMjkzIDEwLjI5My0uNzA3LjcwNy0xMC4yOTMtMTAuMjkzLTEwLjI5MyAxMC4yOTMtLjcwNy0uNzA3IDEwLjI5My0xMC4yOTMtMTAuMjkzLTEwLjI5My43MDctLjcwNyAxMC4yOTMgMTAuMjkzeiIvPjwvc3ZnPg==" />
+                </CloseDialog>
+            </HeaderIconContainer>
+            <ProjectTitle autoComplete='off' onChange={(e)=>setName(e.target.value)} />
+            <div>
+                <Cancel onClick={()=>props.setIsCreateProjectModal(false)}>Cancel</Cancel>
+                <Create onClick={createProject}>Create project</Create>
+            </div>
+        </Modal>
     )
 }
 
@@ -157,6 +161,20 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(CreateDocModal)
 
+const HeaderIconContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const CloseDialog = styled.button`
+    align-self: flex-end;
+`
+
+const Icon = styled.img` 
+    width: 18px;
+    height: 18px;
+`
+
 const Create = styled.button`
     background-color: hsl(0, 0%, 20%);
     height: 40px;
@@ -170,6 +188,7 @@ const Cancel = styled.button`
     height: 40px;
     width: 90px;
     border: none;
+    margin-right: 10px;
 `
 
 const ProjectTitle = styled.input`
@@ -178,7 +197,7 @@ const ProjectTitle = styled.input`
     font-size: 1.25rem;
 `
 
-const Modal = styled.div`
+const Modal = styled(Dialog)`
     background-color: white;
     height: 300px;
     width: 50vw;
@@ -192,17 +211,4 @@ const Modal = styled.div`
     padding: 20px;
     align-items: center;
     justify-content: space-evenly;
-`
-
-const Container = styled.div`
-`
-
-const Background = styled.div`
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    background-color: rgba(0, 0, 0, .6);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 `

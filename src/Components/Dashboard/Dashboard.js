@@ -1,18 +1,18 @@
 // import Projects from './FilesList/Projects'
+import styled from 'styled-components'
 import FilesList from './FilesList/FilesList'
 import Sidebar from './Sidebar/Sidebar'
 import { connect } from 'react-redux'
 import Breadcrumbs from './Breadcrumbs'
-const Dashboard = (props) => {
-
+const Dashboard = () => {
     return(
-        <div style={{display: 'flex'}}>
+        <Container>
             <Sidebar />
-            <div>
+            <FilesContainer>
                 <Breadcrumbs />
                 <FilesList />
-            </div>
-        </div>
+            </FilesContainer>
+        </Container>
     )
 }
 
@@ -21,3 +21,12 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Dashboard)
+
+export const FilesContainer = styled.div`
+    padding: 0 10px 0 50px;
+`
+
+export const Container = styled.div`
+    /* width: 100vw;  */
+    display: flex;
+`

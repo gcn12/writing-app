@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 // import Signup from './Components/Signup/Signup'
 // import Signin from './Components/Signup/Signin'
-import Dashbaord from './Components/Dashboard/Dashboard'
+import Dashboard from './Components/Dashboard/Dashboard'
 import Outline from './Components/Edit/Outline/Outline'
+// import ModalTest from './ModalTest'
 import firebase from 'firebase'
 import Notes from './Components/Edit/Notes'
 import { connect } from 'react-redux'
@@ -26,6 +27,7 @@ const App = (props) => {
   }, [])
   return (
     <div>
+      {/* <ModalTest /> */}
       <Route path='/writing-app/edit/outline/:fileID' render={(props)=> (
         <Outline {...props} />
         // <OutlineDND {...props} />
@@ -34,7 +36,7 @@ const App = (props) => {
         <Notes {...props} />
       )} />
       <Route exact path='/writing-app' render={(props)=> (
-        <Dashbaord {...props} />
+        <Dashboard {...props} />
       )} />
       {/* <Signup /> */}
       {/* <Signin /> */}

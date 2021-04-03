@@ -4,6 +4,8 @@ import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import { updateLastModified } from '../../../globalFunctions'
 import { outlineItemsForUpdate, outlineItemsDisplay } from '../../../redux/actions/appActions'
+import { Dialog } from "@reach/dialog";
+import "@reach/dialog/styles.css";
 
 const CreateCardModal = (props) => {
     const [title, setTitle] = useState('')
@@ -11,10 +13,10 @@ const CreateCardModal = (props) => {
     const [location, setLocation] = useState()
 
     useEffect(()=> {
-        document.getElementById('create-card-location').value = props.outlineItemsForUpdate.length + 1
-        setLocation(props.outlineData.data.length + 1)
+        // document.getElementById('create-card-location').value = props.outlineItemsForUpdate.length + 1
+        setLocation(props?.outlineItemsForUpdate?.length + 1)
         // eslint-disable-next-line 
-    }, [])
+    }, [props.outlineItemsForUpdate])
 
 
     const createNewOutlineCard = () => {
@@ -60,24 +62,21 @@ const CreateCardModal = (props) => {
     }
 
     return(
-        <Container>
-            <Background onClick={()=>props.setShowCreateModal(false)} />
-            <Modal>
-                <Header>Create new card</Header>
-                <Label>Title</Label>
-                <Title onChange={(e)=>setTitle(e.target.value)} />
-                <Label>Description</Label>
-                <Description onChange={(e)=>setText(e.target.value)} />
-                <Label>Insert at location:</Label>
-                <div>
-                    <Location id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
-                </div>
-                <div style={{display: 'flex'}}>
-                    <Cancel onClick={()=>props.setShowCreateModal(false)}>Cancel</Cancel>
-                    <Create onClick={createNewOutlineCard}>Create</Create>
-                </div>
-            </Modal>
-        </Container>
+        <Modal aria-label='create card' isOpen={props.showCreateModal} onDismiss={()=>props.setShowCreateModal(false)}>
+            <Header>Create new card</Header>
+            <Label>Title</Label>
+            <Title onChange={(e)=>setTitle(e.target.value)} />
+            <Label>Description</Label>
+            <Description onChange={(e)=>setText(e.target.value)} />
+            <Label>Insert at location:</Label>
+            <div>
+                <Location defaultValue={props.outlineItemsForUpdate.length + 1} id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
+            </div>
+            <div style={{display: 'flex'}}>
+                <Cancel onClick={()=>props.setShowCreateModal(false)}>Cancel</Cancel>
+                <Create onClick={createNewOutlineCard}>Create</Create>
+            </div>
+        </Modal>
     )
 }
 
@@ -132,7 +131,7 @@ const Create = styled.button`
 `
 
 
-const Modal = styled.div`
+const Modal = styled(Dialog)`
     z-index: 100;
     display: grid;
     /* flex-direction: column; */
@@ -140,26 +139,12 @@ const Modal = styled.div`
     justify-content: center;
     width: 700px;
     min-height: 300px;
-    position: fixed;
+    /* position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     background-color: white;
     isolation: isolate;
     padding: 50px 15px;
     border-radius: 10px;
-`
-
-const Background = styled.div`
-    z-index: 100;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .5);
-`
-
-const Container = styled.div`
 `

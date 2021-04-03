@@ -24,6 +24,11 @@ const appReducer = (state=initialState, action) => {
                 ...state,
                 currentLayer: action.payload
             }
+        case actions.LAYER_THREE_DOCS:
+            return {
+                ...state,
+                layerThreeDocs: action.payload
+            }
         case actions.LAYER_TWO_DOCS:
             return {
                 ...state,

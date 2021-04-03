@@ -12,6 +12,7 @@ const Sidebar = (props) => {
 
     return(
         <Container>
+            <Logo>Redraft</Logo>
             <UL>
                 <LI><LiButton onClick={()=>navigateSidebar('projects')} background={props.dashboardCurrentSection==='projects' ? 'hsl(202, 40%, 85%)' : 'transparent'} hover={props.dashboardCurrentSection==='projects' ? 'hsl(202, 40%, 85%)' : 'hsl(200, 10%, 95%)'} >
                     <Icon alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNNiAyMnYtMTZoMTZ2Ny41NDNjMCA0LjEwNy02IDIuNDU3LTYgMi40NTdzMS41MTggNi0yLjYzOCA2aC03LjM2MnptMTgtNy42MTR2LTEwLjM4NmgtMjB2MjBoMTAuMTg5YzMuMTYzIDAgOS44MTEtNy4yMjMgOS44MTEtOS42MTR6bS0xMCAxLjYxNGgtNXYtMWg1djF6bTUtNGgtMTB2MWgxMHYtMXptMC0zaC0xMHYxaDEwdi0xem0yLTdoLTE5djE5aC0ydi0yMWgyMXYyeiIvPjwvc3ZnPg==" />
@@ -44,7 +45,11 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Sidebar)
 
 const Container = styled.div`
-    width: 20vw;
+    width: 18vw;
+    /* margin: 0 0 0 20px; */
+    padding: 0 20px;
+    background-color: hsl(0, 0%, 97%);
+    height: 100vh;
     /* margin-top: 115px; */
 `
 
@@ -60,6 +65,7 @@ const LiButton = styled.button`
     padding: 10px 0;
     font-size: 1.25rem;
     width: 100%;
+    border-radius: 5px;
     transition: background-color 50ms ease-in-out;
     &:hover {
         background-color: ${props=> props.hover};
@@ -71,4 +77,13 @@ const Icon = styled.img`
     margin-right: 7px;
     position: relative;
     top: 5px;
+`
+
+const Logo = styled.h1`
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: grid;
+    justify-content: center;
+    padding: 20px;
+    margin: 30px 0 70px 0;
 `

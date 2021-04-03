@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { db } from '../../../firebase'
 import { outlineItemsDisplay, outlineItemsForUpdate } from '../../../redux/actions/appActions'
 import { updateLastModified } from '../../../globalFunctions'
+import { Dialog } from "@reach/dialog";
+import "@reach/dialog/styles.css";
 
 const EditCardModal = (props) => {
     const [newTitle, setNewTitle] = useState('')
@@ -42,22 +44,27 @@ const EditCardModal = (props) => {
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
+    const closeModal = (e) => {
+        if(e.code==='Enter' || e.code==='Space' || e.code==='Escape') {
+            e.preventDefault()
+            props.setShowEditModal(false)
+            document.getElementById(`card-edit-button-${props.cardIndex}`).focus()
+        }
+    }
+
     return(
-        <Container>
-            <Background onClick={()=>props.setShowEditModal(false)}></Background>
-            <Modal>
-                <Header>Edit card</Header>
-                <div>
-                    <Title autoComplete='off' onChange={(e)=>setNewTitle(e.target.value)} id='edit-card-modal-title' defaultValue={props.title}></Title>
-                    <div style={{marginBottom: '20px'}}></div>
-                    <Text onChange={(e)=>setNewText(e.target.value)} id='edit-card-modal-text' defaultValue={props.text}></Text>
-                </div>
-                <div>
-                    <Cancel onClick={()=>props.setShowEditModal(false)}>Cancel</Cancel>
-                    <Save onClick={saveCardEdits}>Save</Save>
-                </div>
-            </Modal>
-        </Container>
+        <Modal onDismiss={()=>props.setShowEditModal(false)} aria-label='edit card' isOpen={props.showEditModal}>
+            <Header>Edit card</Header>
+            <div>
+                <Title autoComplete='off' onChange={(e)=>setNewTitle(e.target.value)} id='edit-card-modal-title' defaultValue={props.title}></Title>
+                <div style={{marginBottom: '20px'}}></div>
+                <Text onChange={(e)=>setNewText(e.target.value)} id='edit-card-modal-text' defaultValue={props.text}></Text>
+            </div>
+            <div>
+                <Cancel onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowEditModal(false)}>Cancel</Cancel>
+                <Save onClick={saveCardEdits}>Save</Save>
+            </div>
+        </Modal>
     )
 }
 
@@ -101,7 +108,7 @@ const Text = styled.textarea`
     height: 100px;
 `
 
-const Modal = styled.div`
+const Modal = styled(Dialog)`
     display: grid;
     /* flex-direction: column; */
     z-index: 100;
@@ -109,26 +116,12 @@ const Modal = styled.div`
     justify-content: center;
     width: 600px;
     min-height: 350px;
-    position: fixed;
+    /* position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     background-color: white;
     isolation: isolate;
     padding: 15px;
     border-radius: 10px;
-`
-
-const Background = styled.div`
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .5);
-    z-index: 100;
-`
-
-const Container = styled.div`
 `

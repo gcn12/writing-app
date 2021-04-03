@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { db } from '../../../firebase'
 import { outlineItemsDisplay, outlineItemsForUpdate } from '../../../redux/actions/appActions'
 import { updateLastModified } from '../../../globalFunctions'
+import { Dialog } from "@reach/dialog";
+import "@reach/dialog/styles.css";
 
 const DeleteCardModal = (props) => {
 
@@ -38,18 +40,23 @@ const DeleteCardModal = (props) => {
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
+    const closeModal = (e) => {
+        if(e.code==='Enter' || e.code==='Space' || e.code==='Escape') {
+            e.preventDefault()
+            props.setShowDeleteModal(false)
+            document.getElementById(`card-delete-button-${props.cardIndex}`).focus()
+        }
+    }
+
     return(
-        <Container>
-            <Background onClick={()=>props.setShowDeleteModal(false)}></Background>
-            <Modal>
-                <Header>Delete card</Header>
-                <p>Are you sure you want to delete this card?</p>
-                <div>
-                    <Cancel onClick={()=>props.setShowDeleteModal(false)}>Cancel</Cancel>
-                    <Delete onClick={deleteCard}>Delete</Delete>
-                </div>
-            </Modal>
-        </Container>
+        <Modal aria-label='delete card dialog' isOpen={props.showDeleteModal} onDismiss={()=>props.setShowDeleteModal(false)}>
+            <Header>Delete card</Header>
+            <p>Are you sure you want to delete this card?</p>
+            <div>
+                <Cancel onKeyDown={closeModal} onMouseDown={()=>props.setShowDeleteModal(false)}>Cancel</Cancel>
+                <Delete onClick={deleteCard}>Delete</Delete>
+            </div>
+        </Modal>
     )
 }
 
@@ -84,7 +91,7 @@ const Delete = styled.button`
 `
 
 
-const Modal = styled.div`
+const Modal = styled(Dialog)`
     z-index: 100;
     display: grid;
     /* flex-direction: column; */
@@ -92,26 +99,12 @@ const Modal = styled.div`
     justify-content: center;
     width: 600px;
     min-height: 300px;
-    position: fixed;
+    /* position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     background-color: white;
     isolation: isolate;
     padding: 15px;
     border-radius: 10px;
-`
-
-const Background = styled.div`
-    z-index: 100;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .5);
-`
-
-const Container = styled.div`
 `
