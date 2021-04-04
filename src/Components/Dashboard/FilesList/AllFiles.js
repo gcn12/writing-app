@@ -26,11 +26,11 @@ const AllFiles = (props) => {
     }, [props.userData])
 
     const sortProjectsDateAsc = (a, b) => {
-        return b.lastModified - a.lastModified  
+        return a.lastModified - b.lastModified  
     }
 
     const sortProjectsDateDesc = (a, b) => {
-        return a.lastModified - b.lastModified  
+        return b.lastModified - a.lastModified  
     }
 
     const sortProjectsNameAsc = (a, b) => {
@@ -48,8 +48,6 @@ const AllFiles = (props) => {
     const sortProjectsTypeDesc = (a, b) => {
         return a.type.localeCompare(b.type)
     }
-
-    
 
     const getInitialFilesAndFolders = () => {
         db.collection('users')

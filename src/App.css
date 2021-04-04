@@ -1,0 +1,7 @@
+.hello {
+    align-self: center;
+}
+
+.caps {
+    text-transform: capitalize;
+}

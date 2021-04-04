@@ -35,7 +35,6 @@ const Outline = (props) => {
     const [itemIndexes, setItemIndexes] = useState([])
 
     useEffect(()=> {
-        // console.log(props.match)
         getOutline()
         // eslint-disable-next-line
     }, [props.match])

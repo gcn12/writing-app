@@ -25,10 +25,6 @@ const ProjectsTable = (props) => {
         3: props.layerThreeDocs,
     }
 
-    const sortFiles = (a, b) => {
-        return b.lastModified - a.lastModified  
-    }
-
     const selectProject = (docData, index) => {
         props.setProjectSelectedData({...docData, currentIndex: index})
     }
@@ -63,12 +59,19 @@ const ProjectsTable = (props) => {
                 data.forEach(item=> {
                     dataArr.push(item.data())
                 })
+                let sortMethodToUse
+                if(props.sortMethod==='dateAsc') sortMethodToUse = sortProjectsDateAsc
+                if(props.sortMethod==='dateDesc') sortMethodToUse = sortProjectsDateDesc
+                if(props.sortMethod==='typeAsc') sortMethodToUse = sortProjectsTypeAsc
+                if(props.sortMethod==='typeDesc') sortMethodToUse = sortProjectsTypeDesc
+                if(props.sortMethod==='nameAsc') sortMethodToUse = sortProjectsNameAsc
+                if(props.sortMethod==='nameDesc') sortMethodToUse = sortProjectsNameDesc
                 if(props.currentLayer === 0) {
-                    props.dispatch(layerOneDocs(dataArr.sort(sortFiles)))
+                    props.dispatch(layerOneDocs(dataArr.sort(sortMethodToUse)))
                 }else if(props.currentLayer === 1) {
-                    props.dispatch(layerTwoDocs(dataArr.sort(sortFiles)))
+                    props.dispatch(layerTwoDocs(dataArr.sort(sortMethodToUse)))
                 }else if(props.currentLayer === 2) {
-                    props.dispatch(layerThreeDocs(dataArr.sort(sortFiles)))
+                    props.dispatch(layerThreeDocs(dataArr.sort(sortMethodToUse)))
                     console.log(dataArr)
                 }
                 props.dispatch(currentLayer(props.currentLayer + 1))
@@ -91,11 +94,11 @@ const ProjectsTable = (props) => {
     }
 
     const sortProjectsDateAsc = (a, b) => {
-        return b.lastModified - a.lastModified  
+        return a.lastModified - b.lastModified  
     }
 
     const sortProjectsDateDesc = (a, b) => {
-        return a.lastModified - b.lastModified  
+        return b.lastModified - a.lastModified  
     }
 
     const sortProjectsNameAsc = (a, b) => {
@@ -157,6 +160,13 @@ const ProjectsTable = (props) => {
         if(props.layerThreeDocs.length > 0) {
             props.dispatch(layerThreeDocs(props.layerThreeDocs.sort(sortMethodToUse)))
         }
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files-folders')
+        .doc('preferences')
+        .update({
+            sortMethod: sortMethodName
+        })
     }
 
     return(
@@ -176,7 +186,7 @@ const ProjectsTable = (props) => {
                             </ColumnNameButton>
                         </TableHead>
                         <TableHead role='heading'>
-                            <button onClick={()=>changeSortOrder('type')}>
+                            <ColumnNameButton onClick={()=>changeSortOrder('type')}>
                             Type
                             {props.sortMethod === 'typeDesc' &&
                                 <ArrowIcon rotate='rotate(180deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
@@ -184,10 +194,10 @@ const ProjectsTable = (props) => {
                             {props.sortMethod === 'typeAsc' &&
                                 <ArrowIcon rotate='rotate(0deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
                             }
-                            </button>
+                            </ColumnNameButton>
                         </TableHead>
                         <TableHead role='heading'>
-                            <button onClick={()=>changeSortOrder('date')}>
+                            <ColumnNameButton onClick={()=>changeSortOrder('date')}>
                                 Last modified
                                 {props.sortMethod === 'dateDesc' &&
                                     <ArrowIcon rotate='rotate(180deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
@@ -195,7 +205,7 @@ const ProjectsTable = (props) => {
                                 {props.sortMethod === 'dateAsc' &&
                                     <ArrowIcon rotate='rotate(0deg)' alt='' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjMuNjc3IDE4LjUyYy45MTQgMS41MjMtLjE4MyAzLjQ3Mi0xLjk2NyAzLjQ3MmgtMTkuNDE0Yy0xLjc4NCAwLTIuODgxLTEuOTQ5LTEuOTY3LTMuNDcybDkuNzA5LTE2LjE4Yy44OTEtMS40ODMgMy4wNDEtMS40OCAzLjkzIDBsOS43MDkgMTYuMTh6Ii8+PC9zdmc+" />
                                 }
-                            </button>
+                            </ColumnNameButton>
                         </TableHead>
                         <TableHead aria-label='settings' role='heading'></TableHead>
                     </RowHeader>
@@ -267,7 +277,7 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ProjectsTable)
 
-const ColumnNameButton = styled.h1`
+const ColumnNameButton = styled.button`
     display: flex;
     align-items: center;
 `
@@ -321,6 +331,7 @@ const TableHead = styled.div`
     border-top: 2px solid #dedede;
     color: hsl(0, 0%, 20%);
     font-weight: 400;
+    white-space: nowrap;
 `
 
 const TableBody = styled.div`
@@ -337,6 +348,7 @@ const Table = styled.div`
     max-width: 100%;
     border-collapse: separate;
     border-spacing: 0 10px;
+    /* table-layout: fixed; */
 `
 
 const RowHeader = styled.div`
@@ -425,6 +437,9 @@ const Cell = styled.div`
     display: table-cell;
     padding: 15px 20px;
     vertical-align: middle;
+    /* text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; */
     &:first-of-type {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
