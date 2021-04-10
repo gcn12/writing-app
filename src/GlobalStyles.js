@@ -13,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
         }
     }
 
-    html, body, div, span, object, iframe,
+    html, body, div, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote,
     a, img, ol, ul, li, form, label,
     table, caption, tbody, tfoot, thead, tr, th, td,

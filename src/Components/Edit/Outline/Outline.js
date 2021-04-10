@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
