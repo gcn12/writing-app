@@ -116,134 +116,103 @@ const EditorInterface = () => {
     }, [])
 
     const functions = {
-        checkHeading(path) {
-            const splitHeading = value[path[0]].children[0].text.split(' ')
-            const intExt = splitHeading[0].toUpperCase()
-            if(intExt === 'INT.' || intExt === 'EXT.' || intExt === 'INT./EXT.') {
-                Transforms.setNodes(
-                    editor, 
-                    {type: 'heading'},
-                    { match: n => Editor.isBlock(editor, n) }
-                )
+        checkTransition(e, currentText) {
+            if(e.code==='Semicolon' 
+            && e.shiftKey
+            && currentText === currentText.toUpperCase()
+            ) {
+                this.setNode('transition')
+                return true
             }
+            return false
         },
-        checkTransition(path, e) {
-            if(e.code==='Semicolon' && e.shiftKey) {
-                const transition = value[path[0]].children[0].text
-                const transitionText = transition.slice(0, transition.length-1)
-                if(transitionText === transitionText.toUpperCase()){
-                    Transforms.setNodes(
-                        editor,
-                        { type: 'transition' },
-                        { match: n => Editor.isBlock(editor, n) },
-                    )
-                }
+        checkDescription(path, e, currentText) {
+            const previousText = value[path[0]-1].children[path[1]].text 
+            const previousPreviousType = value[path[0]-2].type
+            const currentTextUppercase = currentText.toUpperCase()
+            if(previousText === '' 
+                && e.key !== 'Enter'
+                && !currentTextUppercase.includes('EXT.')
+                && !currentTextUppercase.includes('INT.')
+                && !currentTextUppercase.includes('INT./EXT.')
+                && previousPreviousType !== 'dialog'
+            ) {
+                this.setNode(null)
+                return true
             }
-        },
-        checkDescription(path, e) {
-            if(path[0] > 0) {
-                if(value[path[0]-1].children[path[1]].text === '' && e.key !== 'Enter' && !value[path[0]].children[path[1]].text.toUpperCase().includes('INT.')){
-                    Transforms.setNodes(
-                        editor,
-                        { type: null },
-                        { match: n => Editor.isBlock(editor, n) },
-                    )
-                }
-            }
+            return false
         },
         checkDialog(path) {
-            if(path[0] > 0) {
-                const previousLine = value[path[0]-1].children[path[1]].text
-                const previousType = value[path[0]-1].type
-                const changeType = () => Transforms.setNodes(
+            const previousText = value[path[0]-1].children[path[1]].text
+            const previousType = value[path[0]-1].type
+            if(
+                previousText === previousText.toUpperCase() 
+                && previousText.length > 0
+                && previousText[previousText.length - 1] !== ':'
+            ) {
+                Transforms.setNodes(
                     editor,
-                    { type: 'dialog' },
-                    { match: n => Editor.isBlock(editor, n) },
-                ) 
-                if(
-                    previousLine === previousLine.toUpperCase() 
-                    && previousLine.length > 0
-                    && previousLine[previousLine.length - 1] !== ':'
-                ) {
-                    Transforms.setNodes(
-                        editor,
-                        { type: 'character' },
-                        { 
-                            at: [path[0]-1],
-                            match: n => Editor.isBlock(editor, n),
-                            mode: 'lowest',
-                        },
-                    )
-                    changeType()
-                }else if(previousLine[0] === '(') {
-                    changeType()
-                }else if(previousType==='character') {
-                    changeType()
-                }
+                    { type: 'character' },
+                    { 
+                        at: [path[0]-1],
+                        match: n => Editor.isBlock(editor, n),
+                        mode: 'lowest',
+                    },
+                )
+                this.setNode('dialog')
+                return true
+            }else if(previousText[0] === '(' || previousType==='character') {
+                this.setNode('dialog')
+                return true
             }
+            return false
         },
-        checkParenthetical(path) {
-            if(path[0] > 0) {
-                const character = value[path[0]-1].children[path[1]].text
-                const currentText = value[path[0]].children[path[1]].text
-                if(character === character.toUpperCase() && currentText[0] === '(') {
-                    Transforms.setNodes(
-                        editor,
-                        { type: 'parenthetical' },
-                        { match: n => Editor.isBlock(editor, n) },
-                    )
-                    Transforms.setNodes(
-                        editor,
-                        { type: 'character' },
-                        { 
-                            at: [path[0]-1],
-                            match: n => Editor.isBlock(editor, n),
-                            mode: 'lowest',
-                        },
-                    )
-                }
+        checkParenthetical(path, currentText, e) {
+            const character = value[path[0]-1].children[path[1]].text
+            if(character === character.toUpperCase() 
+            && (currentText[0] === '(' || (e.key==='(' && e.shiftKey))
+            ) {
+                this.setNode('parenthetical')
+                Transforms.setNodes(
+                    editor,
+                    { type: 'character' },
+                    { 
+                        at: [path[0]-1],
+                        match: n => Editor.isBlock(editor, n),
+                        mode: 'lowest',
+                    },
+                )
+                return true
             }
+            return false
         },
-        checkCharacter(path) {
+        checkCharacter(path, currentText, currentType) {
             if(path[0] > 1) {
                 const previousType = value[path[0]-2].type
-                const currentType = value[path[0]].type
-                const currentText = value[path[0]].children[path[1]].text
                 if(
                     previousType === 'dialog' 
+                    && currentType
                     && currentText === currentText.toUpperCase()
                     && !currentText.includes('INT.')
                     && !currentText.includes('EXT.')
                     && !currentText.includes('INT./EXT.')
-                    && currentType
                 ) {
-                    Transforms.setNodes(
-                        editor,
-                        { type: 'character' },
-                        { match: n => Editor.isBlock(editor, n) },
-                    )
+                    this.setNode('character')
+                    return true
                 }
             }
-        },
-        deleteReset(path, e) {
-            const currentText = value[path[0]].children[path[1]].text
-            if(currentText === '' && value[path[0]].type) {
-                e.preventDefault()
-                Transforms.setNodes(
-                    editor, 
-                    { type: null },
-                    { match: n => Editor.isBlock(editor, n) },
-                )
-            }  
+            return false
         },
         incrementNameIndex(e) {
             if(e.key==='ArrowUp') {
                 e.preventDefault()
                 setNameIndex(nameIndex === 0 ? names.length - 1 : nameIndex - 1)
+                return true
             }
             if(e.key==='ArrowDown') {
                 e.preventDefault()
                 setNameIndex(nameIndex === names.length - 1 ? 0 : nameIndex + 1)
+                return true
             }
         },
         incrementLocationIndex(e) {
@@ -277,35 +246,37 @@ const EditorInterface = () => {
         },
         replaceCharacter(path) {
             setNameIndex(0)
-            Transforms.insertText(
-                editor,
-                names[nameIndex],
-                { at: [path[0]] },
-            )
+            this.insertText(names[nameIndex], [path[0]])
             if(value[path[0]].type==='character') {
-                Transforms.insertNodes(
-                    editor,
-                    [{ type: 'dialog', children: [{ text: '' }] }]
-                    )
+                this.insertNodes('dialog')
             }else{
                 editor.insertBreak()
             }
         },
+        insertNodes(type) {
+            const obj = {
+                children: [{ text: '' }]
+            }
+            if(type) {
+                obj['type'] = type
+            }
+            Transforms.insertNodes(
+                editor, 
+                [obj]
+            )
+                
+        },
         replaceLocation(path) {
             const intExt = value[path[0]].children[path[1]].text.split(' ')[0].toUpperCase() 
             setLocationIndex(0)
-            const [start] = Range.edges(editor.selection)
-            // const wordBefore = Editor.before(editor, start, { unit: 'word' })
+            const [endPosition] = Range.edges(editor.selection)
             let offset = 0
             if(intExt=== 'INT.' || intExt === 'EXT.') offset = 5
             if(intExt=== 'INT./EXT.') offset = 10
-            const wordBefore = { offset, path }
-            const beforeRange = wordBefore && Editor.range(editor, wordBefore, start)
-            Transforms.insertText(
-                editor,
-                locations[locationIndex],
-                { at: beforeRange },
-            )
+            const startPosition = { offset, path }
+            const range = Editor.range(editor, startPosition, endPosition)
+            this.insertText(locations[locationIndex], range)
+            this.insertText(' - ')
             setLocationSearch('')
         },
         replaceTime() {
@@ -314,71 +285,109 @@ const EditorInterface = () => {
             const [start] = Range.edges(editor.selection)
             const wordBefore = Editor.before(editor, start, { unit: 'word' })
             const beforeRange = wordBefore && Editor.range(editor, wordBefore, start)
+            this.insertText(times[timeIndex], beforeRange)
+            this.insertNodes(null)
+            return this.insertNodes(null)
+        },
+        handleDelete(path, e, type) {
+            const currentText = value[path[0]].children[path[1]].text
+            const offset = editor.selection.focus.offset
+            if(currentText.length > 0 && offset > 0) return
+            if(currentText === '' && (type==='heading' || !type)) return
+            e.preventDefault()
+            return this.setNode(null)
+        },
+        handleEnter(path, e, type) {
+            if(type === 'transition') {
+                editor.insertBreak()
+                return this.setNode(null)
+            }
+            if(!type) {
+                editor.insertBreak()
+            }
+            if(type === 'dialog') {
+                e.preventDefault()
+                this.insertNodes(null)
+                this.insertNodes('character')
+            }
+            if(type === 'parenthetical') {
+                e.preventDefault()
+                return this.insertNodes('dialog')
+            }
+            return this.handleReplace(path, e, type)
+        }, 
+        setNode(newType) {
+            return Transforms.setNodes(
+                editor,
+                { type: newType },
+                { match: n => Editor.isBlock(editor, n) },
+            )
+        },
+        insertText(text, position) {
             Transforms.insertText(
                 editor,
-                times[timeIndex],
-                { at: beforeRange },
+                text, 
+                { at: position }
             )
-            editor.insertBreak()
-            editor.insertBreak()
+        },
+        handleReplace(path, e, type) {
+            if(names.length > 0 && nameSearch.length>0) {
+                e.preventDefault()
+                return functions.replaceCharacter(path)
+            }else if (e.key==='Enter' && (type === 'character')) {
+                e.preventDefault()
+                return this.insertNodes('dialog')
+            }
+            if(locations.length > 0 && locationSearch.length>0) {
+                e.preventDefault()
+                return functions.replaceLocation(path)
+            }
+            if(times.length > 0 && timeSearch.length>0) {
+                e.preventDefault()
+                return functions.replaceTime()
+            }else if (e.key==='Enter' && (type === 'heading')) {
+                e.preventDefault()
+                this.insertNodes(null)
+                return this.insertNodes(null)
+            }
+        },
+        checkHeading(splitText) {
+            const intExt = splitText[0].toUpperCase()
+            if(intExt === 'INT.' || intExt === 'EXT.' || intExt === 'INT./EXT.') {
+                this.setNode('heading')
+                return true
+            }
+            return false
         },
     }
 
     const modifiers = (e) => {
         if(!editor.selection) return
-        const { path } = editor.selection.focus
-        const { type } = value[path[0]]
-        functions.checkDescription(path, e)
-        functions.checkTransition(path, e)
-        functions.checkDialog(path)
-        functions.checkCharacter(path)
-        functions.checkParenthetical(path)
-        functions.checkHeading(path)
-        if(e.key==='Backspace') functions.deleteReset(path, e)
-        if(e.key === 'Enter' && (type === 'dialog')) {
-            editor.insertBreak()
-            Transforms.setNodes(
-                editor,
-                { type: 'character' },
-                { match: n => Editor.isBlock(editor, n) },
-            )
-        }
-        if(e.key === 'Enter' && (type === 'transition')) {
-            editor.insertBreak()
-            Transforms.setNodes(
-                editor,
-                { type: 'heading' },
-                { match: n => Editor.isBlock(editor, n) },
-            )
-        }
-        if(e.key==='Enter' || e.key==='Tab') {
-            if(names.length > 0 && nameSearch.length>0) {
-                e.preventDefault()
-                functions.replaceCharacter(path)
-            }else if (e.key==='Enter' && (type === 'character')) {
-                e.preventDefault()
-                Transforms.insertNodes(
-                    editor,
-                    [{ type: 'dialog', children: [{ text: '' }] }]
-                )
-            }
-            if(locations.length > 0 && locationSearch.length>0) {
-                e.preventDefault()
-                functions.replaceLocation(path)
-            }
-            if(times.length > 0 && timeSearch.length>0) {
-                e.preventDefault()
-                functions.replaceTime()
-            }
-        }
         if(nameSearch && names.length > 0) {
-            functions.incrementNameIndex(e)
+            if(functions.incrementNameIndex(e)) return
         }
         if(locationSearch && locations.length > 0) {
-            functions.incrementLocationIndex(e)
+            if(functions.incrementLocationIndex(e)) return
         }
         if(timeSearch && times.length > 0) {
-            functions.incrementTimeIndex(e)
+            if(functions.incrementTimeIndex(e)) return
+        }
+        const { path } = editor.selection.focus
+        const { type } = value[path[0]]
+        const currentText = value[path[0]].children[0].text
+        const splitText = currentText.split(' ')
+        if (e.key==='Backspace') return functions.handleDelete(path, e, type)
+        if (e.key === 'Enter') return functions.handleEnter(path, e, type)
+        if (e.key === 'Tab') return functions.handleReplace(path, e, type)
+        if (functions.checkTransition(e, currentText)) return
+        if (functions.checkHeading(splitText)) return
+        if(path[0] > 1) {
+            if (functions.checkDescription(path, e, currentText)) return
+        }
+        if (functions.checkCharacter(path, currentText, type)) return
+        if(path[0] > 0) {
+            if (functions.checkParenthetical(path, currentText, e)) return
+            if (functions.checkDialog(path)) return
         }
     }
 
@@ -390,12 +399,13 @@ const EditorInterface = () => {
                 if(editor.selection) {
                     const { path } = editor.selection.focus
                     const currentText = newValue[path[0]]?.children[path[1]]?.text
+
                     setNameSearch(newValue[path[0]].children[0].text)
                     if (currentText?.length > 0 || newValue[path[0]].type === 'character') {
-                        const [start] = Range.edges(editor.selection)
-                        const wordBefore = Editor.before(editor, start, { unit: 'word' })
-                        const beforeRange = wordBefore && Editor.range(editor, wordBefore, start)
-                        setNameTarget(beforeRange)
+                        const [endPosition] = Range.edges(editor.selection)
+                        const startPosition = Editor.before(editor, endPosition, { unit: 'word' })
+                        const range = Editor.range(editor, startPosition, endPosition)
+                        setNameTarget(range)
                     }else{
                         setNameTarget(null)
                     }
@@ -410,15 +420,14 @@ const EditorInterface = () => {
                             const joinedValue = splitValue.join(' ')
                             setLocationSearch(joinedValue)
                             if (currentText?.length > 0) {
-                                const [start] = Range.edges(editor.selection)
+                                const [endPosition] = Range.edges(editor.selection)
                                 let offset = 0
                                 const intExt = value[path[0]].children[path[1]].text.split(' ')[0].toUpperCase()
                                 if(intExt=== 'INT.' || intExt === 'EXT.') offset = 4
                                 if(intExt=== 'INT./EXT.') offset = 9
-                                const wordBefore = { offset, path }
-                                // const wordBefore = Editor.before(editor, start, { unit: 'word' })
-                                const beforeRange = wordBefore && Editor.range(editor, wordBefore, start)
-                                setLocationTarget(beforeRange)
+                                const startPosition = { offset, path }
+                                const range = Editor.range(editor, startPosition, endPosition)
+                                setLocationTarget(range)
                             }else{
                                 setLocationTarget(null)
                             }
@@ -426,25 +435,24 @@ const EditorInterface = () => {
                     }else{
                         setLocationSearch('')
                     }
-
-                    functions.timeSearch(newValue)
-                    if (currentText?.length > 0) {
+                     
+                    if(currentText?.includes('-') && newValue[path[0]].type === 'heading') {
+                        functions.timeSearch(newValue)
                         const splitText = currentText.split('-')
                         splitText.pop()
                         const joinedText = splitText.join('')
                         let offset = joinedText.length + 1
-                        const [start] = Range.edges(editor.selection)
-                        // const wordBefore = Editor.before(editor, start, { unit: 'word' })
-                        const wordBefore = { path, offset }
-                        const beforeRange = wordBefore && Editor.range(editor, wordBefore, start)
-                        setTimeTarget(beforeRange)
+                        const [endPosition] = Range.edges(editor.selection)
+                        const startPosition = { path, offset }
+                        const range = Editor.range(editor, startPosition, endPosition)
+                        setTimeTarget(range)
                     }else{
+                        setTimeSearch('')
                         setTimeTarget(null)
                     }
                 }
             }}>
                 <Editable style={{boxShadow: 'none'}} autoFocus placeholder='Masterpiece goes here' onKeyDown={modifiers} renderElement={renderElement} />
-                {/* {nameSearch.length > 1 && */}
                 {(nameSearch.length > 1 || (nameSearch.length > 0 && value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
                 <Autocomplete position={namePosition} items={names} index={nameIndex} />
                 }

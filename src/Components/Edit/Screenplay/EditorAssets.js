@@ -4,17 +4,17 @@ import styled from 'styled-components'
 
 export const Dialog = (props) => {
     return (
-        <DialogContainer>
+        <CenteredItemsContainer>
             <DialogStyles {...props.attributes}>{props.children}</DialogStyles>
-        </DialogContainer>
+        </CenteredItemsContainer>
     )
 }
 
 export const Character = (props) => {
     return (
-        <CharacterContainer>
+        <CenteredItemsContainer>
             <CharacterStyles {...props.attributes}>{props.children}</CharacterStyles>
-        </CharacterContainer>
+        </CenteredItemsContainer>
     )
 }
 
@@ -31,7 +31,11 @@ export const Transition = (props) => {
 }
 
 export const Parenthetical = (props) => {
-    return <ParentheticalStyles {...props.attributes}>{props.children}</ParentheticalStyles>
+    return (
+        <CenteredItemsContainer>
+            <ParentheticalStyles {...props.attributes}>{props.children}</ParentheticalStyles>
+        </CenteredItemsContainer>
+    )
 }
 
 //styles 
@@ -43,6 +47,8 @@ export const TransitionStyles = styled.p`
     /* color: red; */
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
+    margin-left: 1px;
+    transform: translate(-1px);
 `
 
 export const SceneHeadingStyles = styled.p`
@@ -58,39 +64,27 @@ export const ParagraphStyles = styled.p`
     max-width: 60ch;
 `
 
+export const CenteredItemsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-left: 1px;
+    transform: translate(-1px);
+`
+
 export const CharacterStyles = styled.p`
     /* text-align: center; */
     font-family: 'Courier New', Courier, monospace;
     /* color: orange; */
 `
 
-const CharacterContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-left: 1px;
-    transform: translate(-1px);
-`
-
 export const ParentheticalStyles = styled.p`
-    display: flex;
     font-family: 'Courier New', Courier, monospace;
-    justify-content: center;
+    width: 26ch;
     /* color: brown; */
-`
-export const DialogContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-left: 1px;
-    transform: translate(-1px);
-    /* text-align: center;
-    margin: 0 auto; */
 `
 
 export const DialogStyles = styled.div`
-    /* text-align: center; */
     font-family: 'Courier New', Courier, monospace;
-    /* display: block; */
-    /* color: green; */
     width: 34ch;
 `
 
