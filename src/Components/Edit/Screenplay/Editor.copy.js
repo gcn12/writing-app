@@ -17,8 +17,15 @@ import {
 } from './EditorAssets'
 
 const EditorInterface = () => {
+
     const editor = useMemo(()=> withReact(createEditor()), [])
     const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
+    const [locationSearch, setLocationSearch] = useState('')
+    const [locationTarget, setLocationTarget] = useState()
+    const [locationIndex, setLocationIndex] = useState(0)
+    const [locationPosition, setLocationPosition] = useState({top: '-9999px', left: '-9999px', display: 'none',})
+
+
     const [target, setTarget] = useState()
     const [index, setIndex] = useState(0)
     const [position, setPosition] = useState({top: '-9999px', left: '-9999px', display: 'none',})
@@ -28,8 +35,11 @@ const EditorInterface = () => {
     const searchMap = {
         names: NAMES,
         times: TIME_OF_DAY,
-        locations: LOCATIONS,
     }
+
+    const locations = LOCATIONS.filter(location=> {
+        return location.startsWith(locationSearch.trim().toUpperCase()) && location!==locationSearch.trim().toUpperCase()
+    })
 
     const searchResults = searchMap[searchType]?.filter(item=> {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
@@ -38,8 +48,7 @@ const EditorInterface = () => {
     useEffect(() => {
         if(editor.selection) {
             const { path } = editor.selection.focus
-            const currentText = value[path[0]]?.children[0]?.text
-            if (target && searchType.length > 0 && searchResults?.length > 0 && currentText?.length > 0) {
+            if (target && (searchType==='names' || searchType==='times') && searchResults.length > 0 && value[path[0]]?.children[0]?.text.length > 0) {
                 const domRange = ReactEditor.toDOMRange(editor, target)
                 const rect = domRange.getBoundingClientRect()
                 setPosition({
@@ -56,7 +65,26 @@ const EditorInterface = () => {
             }
         }
         // eslint-disable-next-line 
-    }, [searchResults?.length, searchType, editor.selection, searchQuery, target])
+    }, [searchResults?.length, searchType, editor.selection, index, searchQuery, searchQuery.length, target])
+
+    useEffect(() => {
+        if (locationTarget && locations.length > 0) {
+            const domRange = ReactEditor.toDOMRange(editor, locationTarget)
+            const rect = domRange.getBoundingClientRect()
+            setLocationPosition({
+                top: `${rect.top + window.pageYOffset + 25}px`,
+                left: `${rect.left + window.pageXOffset}px`, 
+                display: 'flex',
+            })
+        }else{
+            setLocationPosition({
+                top: '-9999px',
+                left: '-9999px',
+                display: 'none',
+            })
+        }
+        // eslint-disable-next-line 
+    }, [locations.length, editor.selection, locationIndex, locationSearch, locationTarget])
     
     const renderElement = useCallback((props)=> {
         const { type } = props.element
@@ -156,7 +184,7 @@ const EditorInterface = () => {
             }
             return false
         },
-        incrementIndex(e) {
+        incrementNameIndex(e) {
             if(e.key==='ArrowUp') {
                 e.preventDefault()
                 setIndex(index === 0 ? searchResults.length - 1 : index - 1)
@@ -166,6 +194,26 @@ const EditorInterface = () => {
                 e.preventDefault()
                 setIndex(index === searchResults.length - 1 ? 0 : index + 1)
                 return true
+            }
+        },
+        incrementLocationIndex(e) {
+            if(e.key==='ArrowUp') {
+                e.preventDefault()
+                setLocationIndex(locationIndex === 0 ? locations.length - 1 : locationIndex - 1)
+            }
+            if(e.key==='ArrowDown') {
+                e.preventDefault()
+                setLocationIndex(locationIndex === locations.length - 1 ? 0 : locationIndex + 1)
+            }
+        },
+        incrementTimeIndex(e) {
+            if(e.key==='ArrowUp') {
+                e.preventDefault()
+                setIndex(index === 0 ? searchResults.length - 1 : index - 1)
+            }
+            if(e.key==='ArrowDown') {
+                e.preventDefault()
+                setIndex(index === searchResults.length - 1 ? 0 : index + 1)
             }
         },
         timeSearch(newValue) {
@@ -178,25 +226,33 @@ const EditorInterface = () => {
             }
         },
         insertNodes(type) {
-            const obj = {children: [{ text: '' }]}
-            if(type) obj['type'] = type
-            Transforms.insertNodes(editor, [obj])  
+            const obj = {
+                children: [{ text: '' }]
+            }
+            if(type) {
+                obj['type'] = type
+            }
+            Transforms.insertNodes(
+                editor, 
+                [obj]
+            )
+                
         },
         replaceLocation(path) {
             const currentText = value[path[0]].children[path[1]].text
             const intExt = currentText.split(' ')[0].toUpperCase() 
+            setLocationIndex(0)
             const [endPosition] = Range.edges(editor.selection)
             let offset = 0
             if(intExt=== 'INT.' || intExt === 'EXT.') offset = 5
             if(intExt=== 'INT./EXT.') offset = 10
             const startPosition = { offset, path }
             const range = Editor.range(editor, startPosition, endPosition)
-            this.insertText(searchResults[index], range)
+            this.insertText(locations[locationIndex], range)
             if(!currentText.includes('-')) {
                 this.insertText(' - ')
             }
-            setIndex(0)
-            setSearchQuery('')
+            setLocationSearch('')
         },
         handleDelete(path, e, type) {
             const currentText = value[path[0]].children[path[1]].text
@@ -256,11 +312,6 @@ const EditorInterface = () => {
             return this.insertNodes(null)
         },
         handleReplace(path, e, type) {
-            if(searchResults?.length > 0 && searchType==='locations' && searchQuery.length>0) {
-                e.preventDefault()
-                return functions.replaceLocation(path)
-            }
-
             if(searchResults?.length > 0 && searchType.length > 0 && searchQuery.length>0) {
                 e.preventDefault()
                 setSearchQuery('')
@@ -274,6 +325,11 @@ const EditorInterface = () => {
                 e.preventDefault()
                 this.insertNodes(null)
                 return this.insertNodes(null)
+            }
+
+            if(locations.length > 0 && locationSearch.length>0) {
+                e.preventDefault()
+                return functions.replaceLocation(path)
             }
         },
 
@@ -289,8 +345,14 @@ const EditorInterface = () => {
 
     const modifiers = (e) => {
         if(!editor.selection) return
-        if(searchQuery.length > 0 && searchType.length > 0 && searchResults.length > 0) {
-            if(functions.incrementIndex(e)) return
+        if(searchQuery.length > 0 && searchType==='names' && searchResults.length > 0) {
+            if(functions.incrementNameIndex(e)) return
+        }
+        if(locationSearch && locations.length > 0) {
+            if(functions.incrementLocationIndex(e)) return
+        }
+        if(searchQuery && searchType==='times' && searchResults.length > 0) {
+            if(functions.incrementTimeIndex(e)) return
         }
         const { path } = editor.selection.focus
         const { type } = value[path[0]]
@@ -311,83 +373,98 @@ const EditorInterface = () => {
         }
     }
 
-    const namesOnChange = (newValue, path) => {
-        setSearchType('names')
-        setSearchQuery(newValue[path[0]].children[0].text)
-        const [endPosition] = Range.edges(editor.selection)
-        const startPosition = Editor.before(editor, endPosition, { unit: 'word' })
-        const range = Editor.range(editor, startPosition, endPosition)
-        setTarget(range)
-    }
-
-    const locationsOnChange = (startValue, joinedValue, path) => {
-        setSearchType('locations')
-        setSearchQuery(joinedValue.split('-')[0].trim())
-        const [endPosition] = Range.edges(editor.selection)
-        let offset = 0
-        const intExt = startValue.toUpperCase()
-        if(intExt=== 'INT.' || intExt === 'EXT.') offset = 4
-        if(intExt=== 'INT./EXT.') offset = 9
-        const startPosition = { offset, path }
-        const range = Editor.range(editor, startPosition, endPosition)
-        setTarget(range)
-    }
-
-    const timesOnChange = (newValue, currentText, path) => {
-        setSearchType('times')
-        functions.timeSearch(newValue)
-        const splitText = currentText.split('-')
-        splitText.pop()
-        const joinedText = splitText.join('')
-        let offset = joinedText.length + 1
-        const [endPosition] = Range.edges(editor.selection)
-        const startPosition = { path, offset }
-        const range = Editor.range(editor, startPosition, endPosition)
-        setTarget(range)
-    }
-
-    const handleOnChange = (newValue) => {
-        const { path } = editor.selection.focus
-        const currentText = newValue[path[0]]?.children[path[1]]?.text
-
-        if((currentText?.length > 0 || newValue[path[0]].type === 'character') && currentText===currentText.toUpperCase() && !currentText?.includes('INT.') && !currentText?.includes('EXT.') && !currentText?.includes('INT./EXT.')) {
-            namesOnChange(newValue, path)
-        }else if(newValue[path[0]].type === 'heading') {
-            const currentOffset = editor.selection.anchor.offset
-            const splitValue = currentText?.split(' ')
-            const startValue = splitValue.shift()
-            const joinedValue = splitValue.join(' ')
-            const minOffset = startValue.length
-            let maxOffset = Infinity
-            if(joinedValue.includes('-')){
-                const splitDash = joinedValue.split('-')
-                maxOffset = currentText.length - splitDash.length - 4
-            }
-            if(currentOffset > minOffset && currentOffset < maxOffset) {
-                locationsOnChange(startValue, joinedValue, path)
-            } else if (currentOffset > maxOffset) {
-                timesOnChange(newValue, currentText, path)
-            }
-        }else{
-            setTarget(null)
-            setSearchType('')
-        }
-    }
-
     return(
         <Container>
+            {/* {console.log(value)} */}
             <Slate value={value} editor={editor} onChange={newValue => {
                 setValue(newValue)
                 if(editor.selection) {
-                    handleOnChange(newValue)
+                    const { path } = editor.selection.focus
+                    const currentText = newValue[path[0]]?.children[path[1]]?.text
+
+                    if((currentText?.length > 0 || newValue[path[0]].type === 'character') && currentText===currentText.toUpperCase() && !currentText?.includes('INT.') && !currentText?.includes('EXT.') && !currentText?.includes('INT./EXT.')) {
+                        setSearchType('names')
+                        setSearchQuery(newValue[path[0]].children[0].text)
+                        const [endPosition] = Range.edges(editor.selection)
+                        const startPosition = Editor.before(editor, endPosition, { unit: 'word' })
+                        const range = Editor.range(editor, startPosition, endPosition)
+                        setTarget(range)
+                    }else if(newValue[path[0]].type === 'heading') {
+                        const splitValue = currentText?.split(' ')
+                        const currentOffset = editor.selection.anchor.offset
+                        const startValue = splitValue.shift()
+                        const joinedValue = splitValue.join(' ')
+                        let minOffset = startValue.length
+                        let maxOffset = Infinity
+                        if(joinedValue.includes('-')){
+                            const splitDash = joinedValue.split('-')
+                            maxOffset = currentText.length - splitDash.length - 4
+                        }
+                        if(currentOffset > minOffset && currentOffset < maxOffset) {
+                            setLocationSearch(joinedValue.split('-')[0])
+                            const [endPosition] = Range.edges(editor.selection)
+                            let offset = 0
+                            const intExt = startValue.toUpperCase()
+                            if(intExt=== 'INT.' || intExt === 'EXT.') offset = 4
+                            if(intExt=== 'INT./EXT.') offset = 9
+                            const startPosition = { offset, path }
+                            const range = Editor.range(editor, startPosition, endPosition)
+                            setLocationTarget(range)
+                        } else if (currentText?.includes('-')) {
+                            setSearchType('times')
+                            setSearchQuery('')
+                            functions.timeSearch(newValue)
+                            const splitText = currentText.split('-')
+                            splitText.pop()
+                            const joinedText = splitText.join('')
+                            let offset = joinedText.length + 1
+                            const [endPosition] = Range.edges(editor.selection)
+                            const startPosition = { path, offset }
+                            const range = Editor.range(editor, startPosition, endPosition)
+                            setTarget(range)
+                        }
+                    }else{
+                        setTarget(null)
+                        setSearchType('')
+                        setLocationSearch('')
+                        setLocationTarget(null)
+                    }
+
+                    // const splitValue = currentText?.split(' ')
+                    // if(newValue[path[0]].type === 'heading') {
+                    //     const currentOffset = editor.selection.anchor.offset
+                    //     const startValue = splitValue.shift()
+                    //     const joinedValue = splitValue.join(' ')
+                    //     let minOffset = startValue.length
+                    //     let maxOffset = Infinity
+                    //     if(joinedValue.includes('-')){
+                    //         const splitDash = joinedValue.split('-')
+                    //         maxOffset = currentText.length - splitDash.length - 4
+                    //     }
+                    //     if(currentOffset > minOffset && currentOffset < maxOffset) {
+                    //         setLocationSearch(joinedValue.split('-')[0])
+                    //         const [endPosition] = Range.edges(editor.selection)
+                    //         let offset = 0
+                    //         const intExt = startValue.toUpperCase()
+                    //         if(intExt=== 'INT.' || intExt === 'EXT.') offset = 4
+                    //         if(intExt=== 'INT./EXT.') offset = 9
+                    //         const startPosition = { offset, path }
+                    //         const range = Editor.range(editor, startPosition, endPosition)
+                    //         setLocationTarget(range)
+                    //     }
+                    // }else{
+                    //     setLocationSearch('')
+                    //     setLocationTarget(null)
+                    // }
                 }
             }}>
+                {console.log(editor.selection)}
                 <Editable style={{boxShadow: 'none'}} autoFocus placeholder='Masterpiece goes here' onKeyDown={modifiers} renderElement={renderElement} />
                 {((searchQuery.length > 1 && searchType==='names') || (searchQuery.length > 0 && searchType==='names' && value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
                 <Autocomplete position={position} items={searchResults} index={index} />
                 }
-                {searchQuery.length > 0 && searchType==='locations' && searchResults?.length> 0 &&
-                <Autocomplete position={position} items={searchResults} index={index} />
+                {locationSearch.length > 0 && locations.length> 0 &&
+                <Autocomplete position={locationPosition} items={locations} index={locationIndex} />
                 }
                 {searchQuery.length > 0 && searchType==='times' && searchResults.length> 0 &&
                 <Autocomplete position={position} items={searchResults} index={index} />

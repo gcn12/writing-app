@@ -131,16 +131,20 @@ export const TIME_OF_DAY = [
     'AFTERNOON',
     'DUSK',
     'NIGHT',
+    'EVENING',
 ]
 
 export const LOCATIONS = [
     'HOUSE',
+    'HARRY\'S MANSION',
     '123 STREET',
     'OLD RESTAURANT',
     'MODERN MUSEUM',
+    'METRO',
     'POOL',
     'DISCO CLUB',
     'SHOPPING MALL',
+    'STREET',
     'FOREST',
 ]
 
