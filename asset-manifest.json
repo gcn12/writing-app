@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/writing-app/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/writing-app/static/js/main.0f0ed2a2.chunk.js",
-    "main.js.map": "/writing-app/static/js/main.0f0ed2a2.chunk.js.map",
+    "main.js": "/writing-app/static/js/main.d8e2ed2f.chunk.js",
+    "main.js.map": "/writing-app/static/js/main.d8e2ed2f.chunk.js.map",
     "runtime-main.js": "/writing-app/static/js/runtime-main.d29cd00c.js",
     "runtime-main.js.map": "/writing-app/static/js/runtime-main.d29cd00c.js.map",
     "static/css/2.ea627e78.chunk.css": "/writing-app/static/css/2.ea627e78.chunk.css",
-    "static/js/2.3b5c4a69.chunk.js": "/writing-app/static/js/2.3b5c4a69.chunk.js",
-    "static/js/2.3b5c4a69.chunk.js.map": "/writing-app/static/js/2.3b5c4a69.chunk.js.map",
+    "static/js/2.9b2aaf27.chunk.js": "/writing-app/static/js/2.9b2aaf27.chunk.js",
+    "static/js/2.9b2aaf27.chunk.js.map": "/writing-app/static/js/2.9b2aaf27.chunk.js.map",
     "static/js/3.f34fe6d0.chunk.js": "/writing-app/static/js/3.f34fe6d0.chunk.js",
     "static/js/3.f34fe6d0.chunk.js.map": "/writing-app/static/js/3.f34fe6d0.chunk.js.map",
     "index.html": "/writing-app/index.html",
     "static/css/2.ea627e78.chunk.css.map": "/writing-app/static/css/2.ea627e78.chunk.css.map",
     "static/css/main.6dea0f05.chunk.css.map": "/writing-app/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.3b5c4a69.chunk.js.LICENSE.txt": "/writing-app/static/js/2.3b5c4a69.chunk.js.LICENSE.txt"
+    "static/js/2.9b2aaf27.chunk.js.LICENSE.txt": "/writing-app/static/js/2.9b2aaf27.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d29cd00c.js",
     "static/css/2.ea627e78.chunk.css",
-    "static/js/2.3b5c4a69.chunk.js",
+    "static/js/2.9b2aaf27.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.0f0ed2a2.chunk.js"
+    "static/js/main.d8e2ed2f.chunk.js"
   ]
 }
