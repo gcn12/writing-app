@@ -133,29 +133,3 @@ export const TIME_OF_DAY = [
     'NIGHT',
     'EVENING',
 ]
-
-export const LOCATIONS = [
-    'HOUSE',
-    'HARRY\'S MANSION',
-    '123 STREET',
-    'OLD RESTAURANT',
-    'MODERN MUSEUM',
-    'METRO',
-    'POOL',
-    'DISCO CLUB',
-    'SHOPPING MALL',
-    'STREET',
-    'FOREST',
-]
-
-export const NAMES = [
-    'JEFF',
-    'CHRIS',
-    'DAN',
-    'AVERY',
-    'FRANCESCA',
-    'BRITTANY',
-    'BRIANNA',
-    'BRIDGET',
-    'BETHANY',
-]

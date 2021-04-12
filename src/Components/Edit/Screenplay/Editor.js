@@ -2,10 +2,10 @@
 import { createEditor, Editor, Transforms, Range } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { useMemo, useState, useCallback, useEffect } from 'react'
+import { db } from '../../../firebase'
+import { connect } from 'react-redux'
 import Autocomplete from './Autocomplete'
 import {
-    NAMES,
-    LOCATIONS,
     TIME_OF_DAY,
     Container,
     Dialog,
@@ -16,7 +16,7 @@ import {
     Parenthetical
 } from './EditorAssets'
 
-const EditorInterface = () => {
+const EditorInterface = (props) => {
     const editor = useMemo(()=> withReact(createEditor()), [])
     const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
     const [target, setTarget] = useState()
@@ -26,14 +26,50 @@ const EditorInterface = () => {
     const [searchQuery, setSearchQuery] = useState('')
 
     const searchMap = {
-        names: NAMES,
+        names: props.characters,
         times: TIME_OF_DAY,
-        locations: LOCATIONS,
+        locations: props.locations,
     }
 
     const searchResults = searchMap[searchType]?.filter(item=> {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
     })
+
+    useEffect(()=> {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files')
+        .doc(props.match.params.fileID)
+        .get()
+        .then(data=> {
+            const script = data.data().text
+            if(script.length > 0) {
+                setValue(script)
+                props.getCharacters(script)
+                props.getLocations(script)
+            }
+        })
+        // eslint-disable-next-line
+    }, [])
+
+    useEffect(()=> {
+        props.updateSavingStatus('Saving...')
+        const saveScript = (scriptObject, userID, scriptID) => {
+            db.collection('users')
+            .doc(userID)
+            .collection('files')
+            .doc(scriptID)
+            .update({
+                text: scriptObject
+            })
+            .then(()=> {
+                props.updateSavingStatus('All changes saved')
+            })
+        }
+        const save = setTimeout(()=> saveScript(value, props.userData.userID, props.match.params.fileID), 2000)
+        return ()=> clearTimeout(save)
+        // eslint-disable-next-line
+    }, [value])
 
     useEffect(() => {
         if(editor.selection) {
@@ -241,18 +277,21 @@ const EditorInterface = () => {
         },
         replaceCharacter(path) {
             this.insertText(searchResults[index], [path[0]])
+            props.addCharacter(searchResults[index])
             if(value[path[0]].type==='character') {
                 this.insertNodes('dialog')
             }else{
                 editor.insertBreak()
             }
         },
-        replaceTime() {
+        replaceTime(path) {
             const [endPosition] = Range.edges(editor.selection)
             const startPosition = Editor.before(editor, endPosition, { unit: 'word' })
             const range =  Editor.range(editor, startPosition, endPosition)
             this.insertText(searchResults[index], range)
             this.insertNodes(null)
+            const heading = value[path[0]].children[0].text
+            props.addLocation(heading)
             return this.insertNodes(null)
         },
         handleReplace(path, e, type) {
@@ -266,13 +305,17 @@ const EditorInterface = () => {
                 setSearchQuery('')
                 setIndex(0)
                 if(searchType==='names') return functions.replaceCharacter(path)
-                return functions.replaceTime()
+                return functions.replaceTime(path)
             } else if (e.key==='Enter' && type === 'character') {
                 e.preventDefault()
+                const character = value[path[0]].children[0].text
+                props.addCharacter(character)
                 return this.insertNodes('dialog')
             } else if (e.key==='Enter' && type === 'heading') {
                 e.preventDefault()
                 this.insertNodes(null)
+                const heading = value[path[0]].children[0].text
+                props.addLocation(heading)
                 return this.insertNodes(null)
             }
         },
@@ -397,4 +440,9 @@ const EditorInterface = () => {
     )
 }
 
-export default EditorInterface
+const mapStateToProps = state => ({
+    userData: state.app.userData,
+
+})
+
+export default connect(mapStateToProps)(EditorInterface)
