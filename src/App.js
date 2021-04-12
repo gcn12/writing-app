@@ -9,10 +9,12 @@ import Notes from './Components/Edit/Notes'
 import { connect } from 'react-redux'
 import GlobalStyles from './GlobalStyles'
 import { Route } from 'react-router-dom'
-import { userData } from './redux/actions/appActions'
+import { userData, colorThemes } from './redux/actions/appActions'
+import { db } from './firebase'
 
 const App = (props) => {
   const [isLoading, setIsLoading] = useState(true)
+  // const [colors, setColors] = useState({mainColor: 'red'})
   useEffect(()=> {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -21,8 +23,16 @@ const App = (props) => {
         }
         console.log('logged in')
         props.dispatch(userData(userInfo))
+        db.collection('users')
+        .doc(user.uid)
+        .get()
+        .then(data=> {
+          const preferences = data.data().preferences
+          const colors = preferences.colors
+          props.dispatch(colorThemes(colors))
+          setIsLoading(false)
+        })
       }
-      setIsLoading(false)
     });
     // eslint-disable-next-line
   }, [])
@@ -41,7 +51,7 @@ const App = (props) => {
       <Route path='/writing-app/edit/screenplay/:fileID' render={(props)=> (
         <Screenplay {...props} />
       )} />
-      <Route exact path='/writing-app' render={(props)=> (
+      <Route path='/writing-app/dashboard/' render={(props)=> (
         <Dashboard {...props} />
       )} />
       <GlobalStyles />

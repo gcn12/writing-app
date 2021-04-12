@@ -1,7 +1,9 @@
 // import Projects from './FilesList/Projects'
 import styled from 'styled-components'
+import { Route } from 'react-router-dom'
 import FilesList from './FilesList/FilesList'
 import Sidebar from './Sidebar/Sidebar'
+import Settings from '../Settings/Settings'
 import { connect } from 'react-redux'
 import Breadcrumbs from './Breadcrumbs'
 const Dashboard = () => {
@@ -9,8 +11,15 @@ const Dashboard = () => {
         <Container>
             <Sidebar />
             <FilesContainer>
-                <Breadcrumbs />
-                <FilesList />
+                <Route exact path='/writing-app/dashboard' render={(props)=> (
+                    <div>
+                        <Breadcrumbs />
+                        <FilesList {...props} />
+                    </div>
+                )} />
+                <Route exact path='/writing-app/dashboard/settings' render={(props)=> (
+                    <Settings {...props} />
+                )} />
             </FilesContainer>
         </Container>
     )

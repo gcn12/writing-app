@@ -12,6 +12,14 @@ export const LAYER_ONE_DOCS = 'LAYER_ONE_DOCS'
 export const LAYER_TWO_DOCS = 'LAYER_TWO_DOCS'
 export const LAYER_THREE_DOCS = 'LAYER_THREE_DOCS'
 export const CURRENT_LAYER = 'CURRENT_LAYER'
+export const COLOR_THEMES = 'COLOR_THEMES'
+
+export function colorThemes(data) {
+    return(dispatch) => {
+        dispatch({type: COLOR_THEMES, payload: data})
+    }
+}
+
 
 export function currentLayer(data) {
     return(dispatch) => {

@@ -1,9 +1,15 @@
 import { createGlobalStyle } from 'styled-components'
-
+import { connect } from 'react-redux'
 const GlobalStyles = createGlobalStyle`
 
+    html {
+        --background: ${props=>props.colorThemes.background};
+        --sidebar: ${props=>props.colorThemes.sidebar};
+        --primary-text: ${props=>props.colorThemes.primaryText};
+    }
+
     html, body {
-        background-color: hsl(200, 30%, 90%);
+        background-color: var(--background);
     }
 
     * {
@@ -41,8 +47,13 @@ const GlobalStyles = createGlobalStyle`
         font-weight: 500;
     }
 
-    h1, h2, h3, h4, h5, h6, p, a {
+    h1, h2, h3, h4, h5, h6, p, a, div, label {
         line-height: 1;
+        color: var(--primary-text);
+    }
+
+    button {
+        color: var(--primary-text);
     }
 
     ol, ul {
@@ -54,4 +65,8 @@ const GlobalStyles = createGlobalStyle`
     }
 `
 
-export default GlobalStyles
+const mapStateToProps = state => ({
+    colorThemes: state.app.colorThemes    
+})
+
+export default connect(mapStateToProps)(GlobalStyles)

@@ -15,10 +15,16 @@ const initialState = {
     layerTwoDocs: [],
     layerThreeDocs: [],
     currentLayer: null,
+    colorThemes: {},
 }
 
 const appReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.COLOR_THEMES:
+            return {
+                ...state,
+                colorThemes: action.payload
+            }
         case actions.CURRENT_LAYER:
             return {
                 ...state,
