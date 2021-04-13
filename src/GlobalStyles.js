@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
         --background: ${props=>props.colorThemes.background};
         --sidebar: ${props=>props.colorThemes.sidebar};
         --primary-text: ${props=>props.colorThemes.primaryText};
+        --highlight: ${props=>props.colorThemes.highlight};
     }
 
     html, body {

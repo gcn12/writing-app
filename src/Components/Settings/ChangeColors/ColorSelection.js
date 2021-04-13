@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { colorThemes } from '../../../redux/actions/appActions'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 const ColorSelection = (props) => {
     const [name, setName] = useState('')
@@ -11,7 +12,8 @@ const ColorSelection = (props) => {
         const color = document.getElementById(type).value
         props.dispatch(colorThemes({
             ...props.colorThemes,
-            [type]: color
+            [type]: color,
+            name: null,
         }))
         db.collection('users')
         .doc(props.userData.userID)
@@ -25,11 +27,12 @@ const ColorSelection = (props) => {
         const colors = {
             background: document.getElementById('background').value,
             primaryText: document.getElementById('primaryText').value,
-            sidebar: document.getElementById('sidebar').value
+            sidebar: document.getElementById('sidebar').value,
+            highlight: document.getElementById('highlight').value,
+            name,
         }
         props.addTheme({
             colors,
-            name,
         })
         db.collection('users')
         .doc(props.userData.userID)
@@ -38,31 +41,34 @@ const ColorSelection = (props) => {
         .update({
             themes: firebase.firestore.FieldValue.arrayUnion({
                 colors,
-                name,
             })
         })
     }
 
     return(
-        <div>
+        <Container>
             <h1>Change colors</h1>
-            <label htmlFor='background'>Pick background color:</label>
-            <input defaultValue={props.colorThemes.background} onChange={()=>changeColor('background')} type='color' id='background' />
-            <br></br>
-            <br></br>
-            <label htmlFor='primaryText'>Pick primary text color:</label>
-            <input defaultValue={props.colorThemes.primaryText} onChange={()=>changeColor('primaryText')} type='color' id='primaryText' />
-            <br></br>
-            <br></br>
-            <label htmlFor='sidebar'>Pick sidebar color:</label>
-            <input defaultValue={props.colorThemes.sidebar} onChange={()=>changeColor('sidebar')}type='color' id='sidebar' />
-            <br></br>
-            <br></br>
+            <ColorPickers>
+                <Picker>
+                    <label htmlFor='background'>Background:</label>
+                    <input defaultValue={props.colorThemes.background} onChange={()=>changeColor('background')} type='color' id='background' />
+                </Picker>
+                <Picker>
+                    <label htmlFor='primaryText'>Primary text:</label>
+                    <input defaultValue={props.colorThemes.primaryText} onChange={()=>changeColor('primaryText')} type='color' id='primaryText' />
+                </Picker>
+                <Picker>
+                    <label htmlFor='sidebar'>Sidebar:</label>
+                    <input defaultValue={props.colorThemes.sidebar} onChange={()=>changeColor('sidebar')}type='color' id='sidebar' />
+                </Picker>
+                <Picker>
+                    <label htmlFor='highlight'>Highlight:</label>
+                    <input defaultValue={props.colorThemes.highlight} onChange={()=>changeColor('highlight')}type='color' id='highlight' />
+                </Picker>
+            </ColorPickers>
             <input onChange={(e)=>setName(e.target.value)}></input>
             <button onClick={saveTheme}>Save theme</button>
-            <br></br>
-            <br></br>
-        </div>
+        </Container>
     )
 }
 
@@ -72,3 +78,18 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(ColorSelection)
+
+const Container = styled.div`
+
+`
+
+const ColorPickers = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px 0;
+    gap: 30px;
+`
+
+const Picker = styled.div`
+
+`

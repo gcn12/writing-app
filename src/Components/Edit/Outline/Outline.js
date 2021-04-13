@@ -115,7 +115,7 @@ const Outline = (props) => {
 
     return (
         <div>
-            <Link to='/writing-app'>
+            <Link to='/writing-app/dashboard'>
                 <div>Home</div>
             </Link>
             {props?.outlineData?.name}

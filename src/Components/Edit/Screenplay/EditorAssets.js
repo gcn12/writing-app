@@ -95,34 +95,6 @@ export const Container = styled.div`
     margin: 0 auto;
 `
 
-export const AutocompleteContainer = styled.div`
-    font-family: 'Courier New', Courier, monospace;
-`
-
-export const AutocompleteBackground = styled.div`
-    position: absolute;
-    top: ${props=>props.position.top};
-    left: ${props=>props.position.left};
-    display: ${props=>props.position.display};
-    flex-direction: column;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: white;
-    border-radius: 5px;
-`
-
-export const AutocompleteItem = styled.span`
-    padding: 8px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 600;
-    background-color: ${props=>props.isSelected ? 'hsl(217, 49%, 94%)' : 'transparent'};
-    &:first-of-type {
-        border-radius: 5px 5px 0 0;
-    }
-    &:last-of-type {
-        border-radius: 0 0 5px 5px;
-    }
-`
-
 // dropdown items
 export const TIME_OF_DAY = [
     'DAWN',

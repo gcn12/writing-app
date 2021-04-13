@@ -25,12 +25,6 @@ const Notes = (props) => {
         // eslint-disable-next-line 
     }, [note])
 
-
-    // useEffect(()=> {
-    //     const textarea = document.getElementById('notes-textarea');
-    //     fitTextarea.watch(textarea);
-    // }, [note])
-
     const getNotes = () => {
         db.collection('users')
         .doc(props.userData.userID)
@@ -43,13 +37,9 @@ const Notes = (props) => {
             }
             props.dispatch(notesData(result.data()))
             const textarea = document.getElementById('notes-textarea');
-        fitTextarea.watch(textarea);
+            fitTextarea.watch(textarea);
         })
     }
-
-    // window.onbeforeunload = function() {
-    //     // return
-    // }
 
     window.onbeforeunload = function() {
         if(savedStatus==='Saving...') {
@@ -57,8 +47,7 @@ const Notes = (props) => {
         }
     }
 
-    const saveWork = () => {
-        const currentTime = Date.now()
+    const sendToDatabase = (note) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
@@ -70,42 +59,42 @@ const Notes = (props) => {
             console.log('work saved')
             setSavedStatus('All changes saved')
         })
+    }
 
+    const updateLastUpdatedFunction = (currentTime, collectionName, fileID) => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection(collectionName)
+        .doc(fileID)
+        .update({
+            lastModified: currentTime,
+        })
+        .then(()=> {
+            console.log('updated')
+        })
+    }
+
+    const updateLastUpdated = (currentTime) => {
         if(currentTime - lastSaved > 600000) {
-            db.collection('users')
-            .doc(props.userData.userID)
-            .collection('files-folders')
-            .doc(props.match.params.fileID)
-            .update({
-                lastModified: currentTime,
-            })
-            .then(()=> {
-                console.log('updated')
-            })
-            db.collection('users')
-            .doc(props.userData.userID)
-            .collection('files-folders')
-            .doc(String(props.notesData.docID))
-            .update({
-                lastModified: currentTime,
-            })
-            .then(()=> {
-                console.log('updated')
-            })
+            updateLastUpdatedFunction(currentTime, 'files-folders', props.match.params.fileID)
+            updateLastUpdatedFunction(currentTime, 'files-folders', String(props.notesData.docID))
         }
+    }
 
+    const saveWork = () => {
+        const currentTime = Date.now()
+        sendToDatabase(note)
+        updateLastUpdated(currentTime)
         setLastSaved(currentTime)
     }
 
     return(
         <Container>
             <div>
-                <Link to='/writing-app'>Home</Link>
+                <Link to='/writing-app/dashboard'>Home</Link>
                 <Title>{props?.notesData?.name}</Title>
                 <h4>{savedStatus}</h4>
                 <TextAreaPage rows='5' placeholder='Write notes here' onChange={(e)=> setNote(e.target.value)} autoFocus id='notes-textarea' />
-                <div></div>
-                {/* <button onClick={saveWork}>Save work</button> */}
             </div>
         </Container>
     )
@@ -142,6 +131,7 @@ const TextAreaPage = styled.textarea`
     font-size: 1rem;
     line-height: 1.5;
     width: 50vw;
+    color: var(--primary-text);
     /* height: 80vh; */
     border: none;
     resize: none;
