@@ -2,7 +2,6 @@
 import { createEditor, Editor, Transforms, Range } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { useMemo, useState, useCallback, useEffect } from 'react'
-import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import Autocomplete from './Autocomplete'
 import {
@@ -18,7 +17,7 @@ import {
 
 const EditorInterface = (props) => {
     const editor = useMemo(()=> withReact(createEditor()), [])
-    const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
+    // const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
     const [target, setTarget] = useState()
     const [index, setIndex] = useState(0)
     const [position, setPosition] = useState({top: '-9999px', left: '-9999px', display: 'none',})
@@ -35,46 +34,10 @@ const EditorInterface = (props) => {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
     })
 
-    useEffect(()=> {
-        db.collection('users')
-        .doc(props.userData.userID)
-        .collection('files')
-        .doc(props.match.params.fileID)
-        .get()
-        .then(data=> {
-            const script = data.data().text
-            if(script.length > 0) {
-                setValue(script)
-                props.getCharacters(script)
-                props.getLocations(script)
-            }
-        })
-        // eslint-disable-next-line
-    }, [])
-
-    useEffect(()=> {
-        props.updateSavingStatus('Saving...')
-        const saveScript = (scriptObject, userID, scriptID) => {
-            db.collection('users')
-            .doc(userID)
-            .collection('files')
-            .doc(scriptID)
-            .update({
-                text: scriptObject
-            })
-            .then(()=> {
-                props.updateSavingStatus('All changes saved')
-            })
-        }
-        const save = setTimeout(()=> saveScript(value, props.userData.userID, props.match.params.fileID), 2000)
-        return ()=> clearTimeout(save)
-        // eslint-disable-next-line
-    }, [value])
-
     useEffect(() => {
         if(editor.selection) {
             const { path } = editor.selection.focus
-            const currentText = value[path[0]]?.children[0]?.text
+            const currentText = props.value[path[0]]?.children[0]?.text
             if (target && searchType.length > 0 && searchResults?.length > 0 && currentText?.length > 0) {
                 const domRange = ReactEditor.toDOMRange(editor, target)
                 const rect = domRange.getBoundingClientRect()
@@ -116,8 +79,8 @@ const EditorInterface = (props) => {
             return false
         },
         checkDescription(path, e, currentText) {
-            const previousText = value[path[0]-1].children[path[1]].text 
-            const previousPreviousType = value[path[0]-2].type
+            const previousText = props.value[path[0]-1].children[path[1]].text 
+            const previousPreviousType = props.value[path[0]-2].type
             const currentTextUppercase = currentText.toUpperCase()
             if(previousText === '' 
                 && e.key !== 'Enter'
@@ -132,8 +95,8 @@ const EditorInterface = (props) => {
             return false
         },
         checkDialog(path) {
-            const previousText = value[path[0]-1].children[path[1]].text
-            const previousType = value[path[0]-1].type
+            const previousText = props.value[path[0]-1].children[path[1]].text
+            const previousType = props.value[path[0]-1].type
             if(
                 previousText === previousText.toUpperCase() 
                 && previousText.length > 0
@@ -157,7 +120,7 @@ const EditorInterface = (props) => {
             return false
         },
         checkParenthetical(path, currentText, e) {
-            const character = value[path[0]-1].children[path[1]].text
+            const character = props.value[path[0]-1].children[path[1]].text
             if(character === character.toUpperCase() 
             && (currentText[0] === '(' || (e.key==='(' && e.shiftKey))
             ) {
@@ -177,7 +140,7 @@ const EditorInterface = (props) => {
         },
         checkCharacter(path, currentText, currentType) {
             if(path[0] > 1) {
-                const previousType = value[path[0]-2].type
+                const previousType = props.value[path[0]-2].type
                 if(
                     previousType === 'dialog' 
                     && currentType
@@ -219,7 +182,7 @@ const EditorInterface = (props) => {
             Transforms.insertNodes(editor, [obj])  
         },
         replaceLocation(path) {
-            const currentText = value[path[0]].children[path[1]].text
+            const currentText = props.value[path[0]].children[path[1]].text
             const intExt = currentText.split(' ')[0].toUpperCase() 
             const [endPosition] = Range.edges(editor.selection)
             let offset = 0
@@ -235,7 +198,7 @@ const EditorInterface = (props) => {
             setSearchQuery('')
         },
         handleDelete(path, e, type) {
-            const currentText = value[path[0]].children[path[1]].text
+            const currentText = props.value[path[0]].children[path[1]].text
             const offset = editor.selection.focus.offset
             if(currentText.length > 0 && offset > 0) return
             if(currentText === '' && (type==='heading' || !type)) return
@@ -278,7 +241,7 @@ const EditorInterface = (props) => {
         replaceCharacter(path) {
             this.insertText(searchResults[index], [path[0]])
             props.addCharacter(searchResults[index])
-            if(value[path[0]].type==='character') {
+            if(props.value[path[0]].type==='character') {
                 this.insertNodes('dialog')
             }else{
                 editor.insertBreak()
@@ -290,7 +253,7 @@ const EditorInterface = (props) => {
             const range =  Editor.range(editor, startPosition, endPosition)
             this.insertText(searchResults[index], range)
             this.insertNodes(null)
-            const heading = value[path[0]].children[0].text
+            const heading = props.value[path[0]].children[0].text
             props.addLocation(heading)
             return this.insertNodes(null)
         },
@@ -308,13 +271,13 @@ const EditorInterface = (props) => {
                 return functions.replaceTime(path)
             } else if (e.key==='Enter' && type === 'character') {
                 e.preventDefault()
-                const character = value[path[0]].children[0].text
+                const character = props.value[path[0]].children[0].text
                 props.addCharacter(character)
                 return this.insertNodes('dialog')
             } else if (e.key==='Enter' && type === 'heading') {
                 e.preventDefault()
                 this.insertNodes(null)
-                const heading = value[path[0]].children[0].text
+                const heading = props.value[path[0]].children[0].text
                 props.addLocation(heading)
                 return this.insertNodes(null)
             }
@@ -331,13 +294,14 @@ const EditorInterface = (props) => {
     }
 
     const modifiers = (e) => {
+        if(props.isPreventSave) props.setIsPreventSave(false)
         if(!editor.selection) return
         if(searchQuery.length > 0 && searchType.length > 0 && searchResults.length > 0) {
             if(functions.incrementIndex(e)) return
         }
         const { path } = editor.selection.focus
-        const { type } = value[path[0]]
-        const currentText = value[path[0]].children[0].text
+        const { type } = props.value[path[0]]
+        const currentText = props.value[path[0]].children[0].text
         const splitText = currentText.split(' ')
         if (e.key==='Backspace') return functions.handleDelete(path, e, type)
         if (e.key === 'Enter') return functions.handleEnter(path, e, type)
@@ -419,14 +383,14 @@ const EditorInterface = (props) => {
 
     return(
         <Container>
-            <Slate value={value} editor={editor} onChange={newValue => {
-                setValue(newValue)
+            <Slate value={props.value} editor={editor} onChange={newValue => {
+                props.setValue(newValue)
                 if(editor.selection) {
                     handleOnChange(newValue)
                 }
             }}>
                 <Editable style={{boxShadow: 'none'}} autoFocus placeholder='Masterpiece goes here' onKeyDown={modifiers} renderElement={renderElement} />
-                {((searchQuery.length > 1 && searchType==='names') || (searchQuery.length > 0 && searchType==='names' && value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
+                {((searchQuery.length > 1 && searchType==='names') || (searchQuery.length > 0 && searchType==='names' && props.value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
                 <Autocomplete position={position} items={searchResults} index={index} />
                 }
                 {searchQuery.length > 0 && searchType==='locations' && searchResults?.length> 0 &&

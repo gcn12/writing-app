@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { colorThemes } from '../../../redux/actions/appActions'
 import { db } from '../../../firebase'
+import ColorThemeCard from './ColorThemeCard'
 import styled from 'styled-components'
 
 const ColorTemplates = (props) => {
@@ -30,14 +31,7 @@ const ColorTemplates = (props) => {
             <Container>
             {props.themes.map((theme, index)=> {
                 return(
-                    <Option isSelected={theme.colors.name} key={index}>
-                        <SelectOption onClick={()=>selectTheme(theme.colors)}>
-                        {theme.colors.name}
-                        </SelectOption>
-                        {theme.colors.isDefault===false &&
-                            <DeleteOption>X</DeleteOption>
-                        }
-                    </Option>
+                    <ColorThemeCard selectTheme={selectTheme} theme={theme} key={index} />
                 )
             })}
             </Container>
@@ -52,25 +46,8 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ColorTemplates)
 
-const Option = styled.article`
-    background-color: gray;
-    padding: 10px;
-    margin: 5px 5px 5px 0px;
-    width: 200px;
-    height: 50px;
-    outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}
-`
-
 const Container = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-`
-
-const SelectOption = styled.button`
-
-`
-
-const DeleteOption = styled.button`
-
 `

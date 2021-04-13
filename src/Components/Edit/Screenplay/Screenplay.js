@@ -1,53 +1,138 @@
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { db } from '../../../firebase'
+import firebase from 'firebase'
 import EditorInterface from './Editor'
 
 const Screenplay = (props) => {
-
+    const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
+    const [isPreventSave, setIsPreventSave] = useState(true)
+    const [currentWords, setCurrentWords] = useState(0)
     const [savingStatus, setSavingStatus] = useState('All changes saved')
     const [characters, setCharacters] = useState([])
     const [charactersObj, setCharactersObj] = useState({})
     const [locations, setLocations] = useState([])
     const [locationsObj, setLocationsObj] = useState({})
 
-    const getCharacters = (scriptObject) => {
-        const characters = {}
-        scriptObject.forEach(item=> {
-            if(item?.type === 'character') {
-                const name = item.children[0].text.toUpperCase()
-                if(characters[name]) {
-                    characters[name] += 1
-                } else{
-                    characters[name] = 1
-                }
+    useEffect(()=> {
+        if(isPreventSave) return
+        updateSavingStatus('Saving...')
+        const save = setTimeout(()=> saveScript(value, props.userData.userID, props.match.params.fileID), 2000)
+        return ()=> clearTimeout(save)
+        // eslint-disable-next-line
+    }, [value])
+
+    useEffect(()=> {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files')
+        .doc(props.match.params.fileID)
+        .get()
+        .then(data=> {
+            const script = data.data().text
+            if(script.length > 0) {
+                setValue(script)
+                getCharacters(script)
+                getLocations(script)
+                setCurrentWords(getWords(script))
             }
         })
-        setCharactersObj(characters)
-        const charactersArray =  Object.entries(characters)
-        charactersArray.sort((a, b)=> b[1] - a[1])
-        const charactersFinal = charactersArray.map(item=> {
+        // eslint-disable-next-line
+    }, [])
+
+    const getWords = () => {
+        let words = 0
+        value.forEach(item=> {
+            if(item.children[0].text.length===0) return
+            let text = item.children[0].text.trim()
+            if(item.type==='heading') {
+                text = text.split(' -').join('').split(' ')
+            }else {
+                text = text.split(' ')
+            }
+            words += text.length
+        })
+        return words
+    }
+
+    const saveScript = (scriptObject, userID, scriptID) => {
+        const newWordCount = getWords(value)
+        const change = newWordCount - currentWords
+        setCurrentWords(newWordCount)
+        saveScriptToDatabase(scriptObject, userID, scriptID)
+        if(change > 0) return incrementWordsInDatabase(change)
+    }
+
+    const saveScriptToDatabase = (scriptObject, userID, scriptID) => {
+        db.collection('users')
+        .doc(userID)
+        .collection('files')
+        .doc(scriptID)
+        .update({
+            text: scriptObject
+        })
+        .then(()=> {
+            updateSavingStatus('All changes saved')
+        })
+    }
+
+    const incrementWordsInDatabase = (wordsAdded) => {
+        const wordsToAdd = firebase.firestore.FieldValue.increment(wordsAdded)
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('statistics')
+        .doc('words-written')
+        .update({
+            today: wordsToAdd,
+        })
+    }
+
+
+    const getCharacterCount = (scriptObject) => {
+        const characters = {}
+        scriptObject.forEach(item=> {
+            if(item?.type !== 'character') return
+            const name = item.children[0].text.toUpperCase()
+            incrementItem(name, characters)
+        })
+        return characters
+    }
+
+    const sortArray = (array) => {
+        array.sort((a, b)=> b[1] - a[1])
+        return array.map(item=> {
             return item[0]
         }) 
-        setCharacters(charactersFinal)
+    }
+
+    const getCharacters = (scriptObject) => {
+        const characterCount = getCharacterCount(scriptObject)
+        setCharactersObj(characterCount)
+        const charactersArray =  Object.entries(characterCount)
+        const charactersList = sortArray(charactersArray)
+        setCharacters(charactersList)
+    }
+
+    const incrementItem = (itemName, itemCount) => {
+        if(itemCount[itemName]) {
+            return itemCount[itemName] += 1
+        }else{
+            return itemCount[itemName] = 1
+        }
     }
 
     const addCharacter = (characterName) => {
-        const charactersCopy = {...charactersObj}
         const characterUppercase = characterName.toUpperCase()
-        if(characters[characterUppercase]) {
-            characters[characterUppercase] += 1
-        }else{
-            characters[characterUppercase] = 1
-        }
-        setCharactersObj(charactersCopy)
+        const characterCount = incrementItem(characterUppercase, {...charactersObj})
+        setCharactersObj(characterCount)
         const charactersArray =  Object.entries(characters)
-        charactersArray.sort((a, b)=> b[1] - a[1])
-        const charactersFinal = charactersArray.map(item=> {
-            return item[0]
-        }) 
-        setCharacters(charactersFinal)
+        const charactersList = sortArray(charactersArray)
+        setCharacters(charactersList)
     }
+
+
+
 
     const getLocations = (scriptObject) => {
         const locations = {}
@@ -62,47 +147,32 @@ const Screenplay = (props) => {
                     splitDash.pop()
                     splitDash.join('')
                     const location = splitDash[0].trim().toUpperCase()
-                    if(locations[location]) {
-                        locations[location] += 1
-                    } else{
-                        locations[location] = 1
-                    }
+                    incrementItem(location, locations)
                 } 
             }
         })
         setLocationsObj(locations)
         const locationsArray =  Object.entries(locations)
-        locationsArray.sort((a, b)=> b[1] - a[1])
-        const locationsFinal = locationsArray.map(item=> {
-            return item[0]
-        }) 
-        setLocations(locationsFinal)
+        const locationsList = sortArray(locationsArray)
+        setLocations(locationsList)
     }
 
     const addLocation = (heading) => {
-        const locationsCopy = {...locationsObj}
         const splitHeading = heading.split(' ')
-        if(splitHeading.length > 1) {
-            splitHeading.shift()
-            const joined = splitHeading.join(' ')
-            const splitDash = joined.split('-')
-            splitDash.pop()
-            splitDash.join('')
-            const location = splitDash[0].trim().toUpperCase()
-            if(locationsCopy[location]) {
-                locationsCopy[location] += 1
-            } else{
-                locationsCopy[location] = 1
-            }
-            setLocationsObj(locationsCopy)
-            const locationsArray = Object.entries(locationsCopy)
-            locationsArray.sort((a, b)=> b[1] - a[1])
-            const locationsFinal = locationsArray.map(item=> {
-                return item[0]
-            }) 
-            setLocations(locationsFinal)
-        } 
+        if(splitHeading.length < 2) return
+        splitHeading.shift()
+        const joined = splitHeading.join(' ')
+        const splitDash = joined.split('-')
+        splitDash.pop()
+        splitDash.join('')
+        const location = splitDash[0].trim().toUpperCase()
+        const incrementedLocations = incrementItem(location, {...locationsObj})
+        setLocationsObj(incrementedLocations)
+        const locationsArray = Object.entries(incrementedLocations)
+        const locationsList = sortArray(locationsArray)
+        setLocations(locationsList)
     }
+
 
     const updateSavingStatus = (status) => {
         setSavingStatus(status)
@@ -110,8 +180,9 @@ const Screenplay = (props) => {
 
     return(
         <Container>
+            <button onClick={getWords}>Words</button>
             {savingStatus}
-            <EditorInterface locations={locations} addLocation={addLocation} getLocations={getLocations} characters={characters} addCharacter={addCharacter} match={props.match} getCharacters={getCharacters} updateSavingStatus={updateSavingStatus} />
+            <EditorInterface isPreventSave={isPreventSave} setIsPreventSave={setIsPreventSave} value={value} setValue={setValue} locations={locations} addLocation={addLocation} getLocations={getLocations} characters={characters} addCharacter={addCharacter} match={props.match} getCharacters={getCharacters} updateSavingStatus={updateSavingStatus} />
         </Container>
     )
 }

@@ -112,11 +112,13 @@ const Container = styled.div`
 const Plus = styled.span`
     font-size: 1.75rem;
     margin-right: 5px;
+    background-color: inherit;
+    color: inherit;
 `
 
 const CreateNew = styled(MenuButton)`
-    background-color: black;
-    color: white;
+    background-color: var(--primary-text);
+    color: var(--sidebar);
     padding: 8px 15px;
     border-radius: 10px;
     margin: 0px 0 20px 0;

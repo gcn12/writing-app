@@ -19,16 +19,16 @@ const CreateDocModal = (props) => {
 
     const createProject = () => {
         if (props.createType==='folder' && props.currentLayer < 3) return createFolder()
-        if (props.createType!=='folder') return createFile(props.createType)
+        if (props.createType!=='folder') return startFileCreation(props.createType)
+    }
+
+    const getParentId = () => {
+        if(props.breadcrumbs.length === 1) return props.userData.userID
+        return props.breadcrumbs[props.breadcrumbs.length - 1].docID
     }
 
     const createFolder = () => {
-        let parentID
-        if(props.breadcrumbs.length === 1) {
-            parentID = props.userData.userID
-        }else{
-            parentID = props.breadcrumbs[props.breadcrumbs.length - 1].docID
-        }
+        const parentID = getParentId()
         const timestamp = Date.now()
         const folderProperties = {
             name,
@@ -37,92 +37,94 @@ const CreateDocModal = (props) => {
             docID: String(timestamp),
             lastModified: timestamp,
         }
+        addFileToPreviews(String(timestamp), folderProperties, props.setIsCreateProjectModal)
+    }
+
+    const addDocID = (docID) => {
+        db.collection('docID')
+        .add({
+            docID,
+        })
+        .catch(err=> console.log(err))
+    }
+
+    const createFile = (parentID, docID, type) => {
+        const timestamp = Date.now()
+        const fileProperties = {
+            name,
+            type,
+            parentID: String(parentID),
+            docID: String(docID),
+            dateCreated: timestamp,
+            lastModified: timestamp,
+        }
+        addFileToPreviews(docID, fileProperties)
+        if(type==='outline') {
+            fileProperties['data'] = []
+        }
+        if(type==='notes' || type==='screenplay') {
+            fileProperties['text'] = ''
+        }
+        const { lastModified, ...fileProps } = fileProperties
+        addFileToFiles(docID, fileProps, type)
+    }
+
+    const addFileToPreviews = (docID, fileProperties, closeModal) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files-folders')
-        .doc(String(timestamp))
+        .doc(docID)
         .set({
-            ...folderProperties
+            ...fileProperties
         })
         .then(()=> {
-            console.log('folder created')
-            addDocToStore(folderProperties)
-            props.setIsCreateProjectModal(false)
-        })
-        .catch(err=>{
-            console.log(err)
+            console.log('new file preview created')
+            addDocToStore(fileProperties)
+            if(closeModal) closeModal(false)
         })
     }
 
-    const createFile = (type) => {
-        let parentID
-        if(props.breadcrumbs.length === 1) {
-            parentID = props.userData.userID
-        }else{
-            parentID = props.breadcrumbs[props.breadcrumbs.length - 1].docID
-        }
-        let docID = ''
-        const generateIDAndCreateFile = () => {
-            const idAttempt = generateID()
-            db.collection('docID')
-            .where('docID', '==', idAttempt)
-            .get()
-            .then(data=> {
-                if(data.empty) {
-                    docID = idAttempt
-                    const timestamp = Date.now()
-                    const fileProperties = {
-                        name,
-                        type,
-                        parentID: String(parentID),
-                        docID: String(docID),
-                        dateCreated: timestamp,
-                        lastModified: timestamp,
-                    }
-                    db.collection('users')
-                    .doc(props.userData.userID)
-                    .collection('files-folders')
-                    .doc(docID)
-                    .set({
-                        ...fileProperties
-                    })
-                    .then(()=> {
-                        console.log('new file preview created')
-                        addDocToStore(fileProperties)
-                    })
-                    if(type==='outline') {
-                        fileProperties['data'] = []
-                    }
-                    if(type==='notes' || type==='screenplay') {
-                        fileProperties['text'] = ''
-                    }
-                    const { lastModified, ...fileProps } = fileProperties
-                    db.collection('users')
-                    .doc(props.userData.userID)
-                    .collection('files')
-                    .doc(docID)
-                    .set({
-                        ...fileProps
-                    })
-                    .then(()=> {
-                        console.log('new file created')
-                        const location = `/writing-app/edit/${type}/${docID}`
-                        window.open(location, "_blank") || (document.location = location)
-                        props.setIsCreateProjectModal(false)
-                        if(props.projectSelectedData.docID) {
-                            updateLastModified(props.userData.userID, String(props.projectSelectedData.docID))
-                        }
-                    })
-                    db.collection('docID')
-                    .add({
-                        docID,
-                    })
-                }else{
-                    generateIDAndCreateFile()
-                }
-            })
-        }
-        generateIDAndCreateFile()
+    const addFileToFiles = (docID, fileProps, type) => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files')
+        .doc(docID)
+        .set({
+            ...fileProps
+        })
+        .then(()=> {
+            console.log('new file created')
+            openFileInNewTab(type, docID)
+            props.setIsCreateProjectModal(false)
+            if(props.projectSelectedData.docID) {
+                updateLastModified(props.userData.userID, String(props.projectSelectedData.docID))
+            }
+        })
+    }
+
+    const openFileInNewTab = (type, docID) => {
+        const location = `/writing-app/edit/${type}/${docID}`
+        window.open(location, "_blank") || (document.location = location)
+    }
+
+    const startFileCreation = (type) => {
+        const parentID = getParentId()
+        generateIDAndCreateFile(parentID, type)
+    }
+
+    const generateIDAndCreateFile = (parentID, type) => {
+        const docID = generateID()
+        db.collection('docID')
+        .where('docID', '==', docID)
+        .get()
+        .then(data=> {
+            if(data.empty) {
+                createFile(parentID, docID, type)
+                addDocID(docID)
+            }else{
+                generateIDAndCreateFile()
+            }
+        })
     }
 
     const addDocToStore = (data) => {
