@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import React, { useEffect, useState } from 'react'
-import { db } from '../../firebase'
+import { useEffect, useState } from 'react'
+import { db } from '../../../firebase'
 import fitTextarea from 'fit-textarea';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { notesData } from '../../redux/actions/appActions'
+import Toolbar from './Toolbar'
+import { notesData } from '../../../redux/actions/appActions'
 
 const Notes = (props) => {
     const [note, setNote] = useState('')
@@ -90,12 +90,13 @@ const Notes = (props) => {
 
     return(
         <Container>
-            <div>
-                <Link to='/writing-app/dashboard'>Home</Link>
-                <Title>{props?.notesData?.name}</Title>
-                <h4>{savedStatus}</h4>
-                <TextAreaPage rows='5' placeholder='Write notes here' onChange={(e)=> setNote(e.target.value)} autoFocus id='notes-textarea' />
-            </div>
+            <Toolbar savingStatus={savedStatus} />
+            <NotesContainer>
+                <div>
+                    <Title>{props?.notesData?.name}</Title>
+                    <TextAreaPage rows='5' placeholder='Write notes here' onChange={(e)=> setNote(e.target.value)} autoFocus id='notes-textarea' />
+                </div>
+            </NotesContainer>
         </Container>
     )
 }
@@ -108,12 +109,17 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Notes)
 
-const Container = styled.div`
+const NotesContainer = styled.div`
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     justify-content: center;
     padding: 20px 30vw;
+    margin-top: 30px;
+`
+
+const Container = styled.div`
+    
 `
 
 const Title = styled.h1`
@@ -123,9 +129,7 @@ const Title = styled.h1`
 `
 
 const TextAreaPage = styled.textarea`
-    /* padding: 40px 0px; */
     margin: 40px 0 0 0;
-    /* background-color: hsl(0, 10%, 5%); */
     background-color: transparent;
     border-radius: 15px;
     font-size: 1rem;

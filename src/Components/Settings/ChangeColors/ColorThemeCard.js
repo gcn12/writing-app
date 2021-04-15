@@ -5,18 +5,18 @@ const ColorThemeCard = (props) => {
         <Option isSelected={props.theme.colors.name}>
             <SelectOption onClick={()=>props.selectTheme(props.theme.colors)}>
                 {props.theme.colors.name}
+                <Colors>
+                    {Object.entries(props.theme.colors).map((color, index)=> {
+                        return(
+                            color[0] !== 'name' && color[0] !== 'isDefault' &&
+                            <Color backgroundColor={color[1]} key={index}></Color>
+                        )
+                    })}
+                </Colors>
             </SelectOption>
-            {props.theme.colors.isDefault===false &&
-                <DeleteOption>X</DeleteOption>
+            {!props.theme.colors.isDefault &&
+                <DeleteOption onClick={()=>props.deleteTheme(props.index)}>X</DeleteOption>
             }
-            <Colors>
-                {Object.entries(props.theme.colors).map((color, index)=> {
-                    return(
-                        color[0] !== 'name' && color[0] !== 'isDefault' &&
-                        <Color backgroundColor={color[1]} key={index}></Color>
-                    )
-                })}
-            </Colors>
         </Option>
     )
 }
@@ -36,18 +36,21 @@ const Colors = styled.div`
 `
 
 const SelectOption = styled.button`
-
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 `
 
 const DeleteOption = styled.button`
-
 `
 
 const Option = styled.article`
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
     background-color: var(--sidebar);
-    padding: 10px;
-    margin: 5px 5px 5px 0px;
-    width: 200px;
-    height: 50px;
+    padding: 15px;
+    min-width: 200px;
+    min-height: 50px;
     outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}
 `

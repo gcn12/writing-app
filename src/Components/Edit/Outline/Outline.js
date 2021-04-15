@@ -3,11 +3,11 @@ import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { updateLastModified } from '../../../globalFunctions'
-import { Link } from 'react-router-dom'
 import { outlineData, outlineItemsDisplay, outlineItemsForUpdate } from '../../../redux/actions/appActions'
 import EditCardModal from './EditCardModal'
 import DeleteCardModal from './DeleteCardModal'
 import CreateCardModal from './CreateCardModal'
+import Toolbar from './Toolbar'
 import {
   DndContext, 
   closestCenter,
@@ -115,30 +115,25 @@ const Outline = (props) => {
 
     return (
         <div>
-            <Link to='/writing-app/dashboard'>
-                <div>Home</div>
-            </Link>
-            {props?.outlineData?.name}
-            <button onClick={()=>setShowCreateModal(true)}>Create new card</button>
-            <DndContext sensors={sensors} collisionDetection={closestCenter}onDragEnd={handleDragEnd}>
-            <SortableContext items={itemIndexes} strategy={rectSortingStrategy}>
-                <Grid>
-                    {itemIndexes.map((itemIndex, index)=> {
-                        return(
-                            <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
-                        )
-                    })}
-                </Grid>
-            </SortableContext>
-            </DndContext>
-
-            <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
-            
-
-            <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
-
-
-            <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
+            <Toolbar />
+            <Container>
+                <Title>{props?.outlineData?.name}</Title>
+                <CreateNew onClick={()=>setShowCreateModal(true)}><Plus>+</Plus> Create new card</CreateNew>
+                <DndContext sensors={sensors} collisionDetection={closestCenter}onDragEnd={handleDragEnd}>
+                <SortableContext items={itemIndexes} strategy={rectSortingStrategy}>
+                    <Grid>
+                        {itemIndexes.map((itemIndex, index)=> {
+                            return(
+                                <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
+                            )
+                        })}
+                    </Grid>
+                </SortableContext>
+                </DndContext>
+                <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
+                <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
+                <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
+            </Container>
         </div>
     );
 }
@@ -153,10 +148,38 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Outline)
 
+const Plus = styled.span`
+    font-size: 1.75rem;
+    margin-right: 5px;
+    background-color: inherit;
+    color: inherit;
+`
+
+const CreateNew = styled.button`
+    background-color: var(--primary-text);
+    position: relative;
+    color: var(--sidebar);
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin: 0px 0 20px 0;
+    display: flex;
+    align-items: center;
+    font-size: .875rem;
+`
+
+const Container = styled.div`
+    margin: 0 20px 20px 20px;
+`
+
+const Title = styled.h1`
+    font-size: 2rem;
+    margin: 40px 0 20px 0;
+`
+
 const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
-    margin: 20px;
+    /* margin: 20px; */
     grid-template-rows: auto;
 `

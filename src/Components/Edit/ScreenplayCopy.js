@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import React from 'react'
 import { jsPDF } from 'jspdf'
 import '../../App.css'
 import '../../CourierPrime-Regular-normal'

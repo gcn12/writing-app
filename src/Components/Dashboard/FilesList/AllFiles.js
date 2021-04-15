@@ -118,8 +118,9 @@ const Plus = styled.span`
 
 const CreateNew = styled(MenuButton)`
     background-color: var(--primary-text);
+    position: relative;
     color: var(--sidebar);
-    padding: 8px 15px;
+    padding: 12px 15px;
     border-radius: 10px;
     margin: 0px 0 20px 0;
     display: flex;
@@ -130,4 +131,6 @@ const CreateNew = styled(MenuButton)`
 const List = styled(MenuList)`
     min-width: 100px;
     background-color: var(--sidebar);
+    position: absolute;
+    left: 10%;
 `

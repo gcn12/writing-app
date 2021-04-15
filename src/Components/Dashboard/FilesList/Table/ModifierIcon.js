@@ -18,8 +18,8 @@ export default ModifierIcon
 const IconTitle = styled.div`
     opacity: 0;
     transition: opacity 200ms ease-in-out;
-    background-color: hsl(0, 0%, 10%);
-    height: 30px;
+    background-color: var(--primary-text);
+    min-height: 20px;
     min-width: 50px;
     position: absolute;
     z-index: 10;
@@ -27,7 +27,7 @@ const IconTitle = styled.div`
     left: 50%;
     transform: translate(-50%, -50%); 
     border-radius: 5px;
-    color: white;
+    color: var(--sidebar);
     vertical-align: middle;
     padding: 5px 10px;
 `

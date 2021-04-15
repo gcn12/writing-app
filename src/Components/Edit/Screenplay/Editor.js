@@ -34,6 +34,10 @@ const EditorInterface = (props) => {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
     })
 
+    useEffect(()=> {
+        console.log(editor.selection)
+    }, [editor.selection])
+
     useEffect(() => {
         if(editor.selection) {
             const { path } = editor.selection.focus
@@ -198,6 +202,10 @@ const EditorInterface = (props) => {
             setSearchQuery('')
         },
         handleDelete(path, e, type) {
+            const anchor = editor.selection.anchor
+            const focus = editor.selection.focus
+            if(anchor.path[0] !== focus.path[0]) return
+            if(anchor.offset !== focus.offset) return
             const currentText = props.value[path[0]].children[path[1]].text
             const offset = editor.selection.focus.offset
             if(currentText.length > 0 && offset > 0) return

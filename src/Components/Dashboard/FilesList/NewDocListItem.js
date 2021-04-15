@@ -26,6 +26,9 @@ const Item = styled(MenuItem)`
     font-size: 1rem;
     display: flex;
     align-items: center;
+    &:hover{
+        background-color: var(--highlight);
+    }
 `
 
 const Type = styled.p`

@@ -44,24 +44,25 @@ export const TransitionStyles = styled.p`
     font-weight: 500;
     display: flex;
     justify-content: flex-end;
-    /* color: red; */
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
     margin-left: 1px;
     transform: translate(-1px);
+    /* color: black; */
 `
 
 export const SceneHeadingStyles = styled.p`
     font-weight: 600;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
+    /* color: black; */
 `
 
 export const ParagraphStyles = styled.p`
-    /* color: blue; */
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
-    max-width: 60ch;
+    max-width: 63ch;
+    /* color: black; */
 `
 
 export const CenteredItemsContainer = styled.div`
@@ -72,27 +73,31 @@ export const CenteredItemsContainer = styled.div`
 `
 
 export const CharacterStyles = styled.p`
-    /* text-align: center; */
     font-family: 'Courier New', Courier, monospace;
-    /* color: orange; */
+    /* color: black; */
 `
 
 export const ParentheticalStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     width: 26ch;
-    /* color: brown; */
+    /* color: black; */
 `
 
 export const DialogStyles = styled.div`
     font-family: 'Courier New', Courier, monospace;
     width: 34ch;
+    /* color: ; */
 `
 
 export const Container = styled.div`
     font-family: 'Courier New', Courier, monospace;
-    width: 60vw;
-    max-width: 600px;
-    margin: 0 auto;
+    width: 65vw;
+    max-width: 780px;
+    background-color: var(--sidebar);
+    padding: 80px 75px 50px 75px;
+    border-radius: 5px;
+    min-height: 92vh;
+    margin: 45px 0;
 `
 
 // dropdown items

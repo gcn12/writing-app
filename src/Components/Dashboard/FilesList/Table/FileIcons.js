@@ -16,12 +16,20 @@ const FileIcons = (props) => {
             {props.docType==='outline' &&
                 <DocIcon><IconComponent><path d="M4 4v20h20v-20h-20zm18 18h-16v-13h16v13zm-3-3h-10v-1h10v1zm0-3h-10v-1h10v1zm0-3h-10v-1h10v1zm2-11h-19v19h-2v-21h21v2z"/></IconComponent></DocIcon>
             }
-            {props.docName}
+            <Name>{props.docName}</Name>
         </DocIconNameContainer>
     )
 }
 
 export default FileIcons
+
+const Name = styled.p`
+    word-break: break-all;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+`
 
 const DocIconNameContainer = styled.div`
     display: flex;

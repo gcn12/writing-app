@@ -6,11 +6,10 @@ const TableHeadComponent = (props) => {
         <TableHead role='heading'>
             <ColumnNameButton onClick={()=>props.changeSortOrder(props.sortType)}>
                 {props.name}
-                {props.sortMethod === props.sortMethodValue1 &&
-                    <ArrowIcon rotate='rotate(180deg)'><IconsComponent><path d="M24 22h-24l12-20z"/></IconsComponent></ArrowIcon>
-                }
-                {props.sortMethod === props.sortMethodValue2 &&
-                    <ArrowIcon rotate='rotate(0deg)'><IconsComponent><path d="M24 22h-24l12-20z"/></IconsComponent></ArrowIcon>
+                {props.sortMethod === props.sortMethodValue1 ? 
+                    <ArrowIcon isVisible={props.sortMethod === props.sortMethodValue1} rotate='rotate(180deg)'><IconsComponent><path d="M24 22h-24l12-20z"/></IconsComponent></ArrowIcon>
+                :
+                    <ArrowIcon isVisible={props.sortMethod === props.sortMethodValue2} rotate='rotate(0deg)'><IconsComponent><path d="M24 22h-24l12-20z"/></IconsComponent></ArrowIcon>
                 }
             </ColumnNameButton>
         </TableHead>
@@ -38,4 +37,5 @@ const ColumnNameButton = styled.button`
 const ArrowIcon = styled.div`
     transform: scale(.6) ${props=>props.rotate};
     margin-left: 5px;
+    visibility: ${props=>props.isVisible ? 'visible' : 'hidden'}
 `

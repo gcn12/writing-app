@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import { db } from '../../../firebase'
 import firebase from 'firebase'
 import EditorInterface from './Editor'
+import Toolbar from './Toolbar'
 
 const Screenplay = (props) => {
     const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
+    const [scriptID, setScriptID] = useState('')
     const [isPreventSave, setIsPreventSave] = useState(true)
     const [currentWords, setCurrentWords] = useState(0)
     const [savingStatus, setSavingStatus] = useState('All changes saved')
@@ -14,6 +16,7 @@ const Screenplay = (props) => {
     const [charactersObj, setCharactersObj] = useState({})
     const [locations, setLocations] = useState([])
     const [locationsObj, setLocationsObj] = useState({})
+    const [lastSaved, setLastSaved] = useState(0)
 
     useEffect(()=> {
         if(isPreventSave) return
@@ -31,6 +34,7 @@ const Screenplay = (props) => {
         .get()
         .then(data=> {
             const script = data.data().text
+            setScriptID(data.data().docID)
             if(script.length > 0) {
                 setValue(script)
                 getCharacters(script)
@@ -40,6 +44,26 @@ const Screenplay = (props) => {
         })
         // eslint-disable-next-line
     }, [])
+
+    const updateLastUpdatedFunction = (currentTime, collectionName, fileID) => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection(collectionName)
+        .doc(fileID)
+        .update({
+            lastModified: currentTime,
+        })
+        .then(()=> {
+            console.log('updated')
+        })
+    }
+
+    const updateLastUpdated = (currentTime) => {
+        if(currentTime - lastSaved > 600000) {
+            updateLastUpdatedFunction(currentTime, 'files-folders', props.match.params.fileID)
+            updateLastUpdatedFunction(currentTime, 'files-folders', String(scriptID))
+        }
+    }
 
     const getWords = () => {
         let words = 0
@@ -57,10 +81,13 @@ const Screenplay = (props) => {
     }
 
     const saveScript = (scriptObject, userID, scriptID) => {
+        const currentTime = Date.now()
         const newWordCount = getWords(value)
         const change = newWordCount - currentWords
         setCurrentWords(newWordCount)
         saveScriptToDatabase(scriptObject, userID, scriptID)
+        updateLastUpdated(currentTime)
+        setLastSaved(currentTime)
         if(change > 0) return incrementWordsInDatabase(change)
     }
 
@@ -131,9 +158,6 @@ const Screenplay = (props) => {
         setCharacters(charactersList)
     }
 
-
-
-
     const getLocations = (scriptObject) => {
         const locations = {}
         scriptObject.forEach(item=> {
@@ -180,9 +204,11 @@ const Screenplay = (props) => {
 
     return(
         <Container>
-            <button onClick={getWords}>Words</button>
-            {savingStatus}
-            <EditorInterface isPreventSave={isPreventSave} setIsPreventSave={setIsPreventSave} value={value} setValue={setValue} locations={locations} addLocation={addLocation} getLocations={getLocations} characters={characters} addCharacter={addCharacter} match={props.match} getCharacters={getCharacters} updateSavingStatus={updateSavingStatus} />
+            {/* <button onClick={getWords}>Words</button> */}
+            <Toolbar value={value} savingStatus={savingStatus} />
+            <InterfaceContainer>
+                <EditorInterface isPreventSave={isPreventSave} setIsPreventSave={setIsPreventSave} value={value} setValue={setValue} locations={locations} addLocation={addLocation} getLocations={getLocations} characters={characters} addCharacter={addCharacter} match={props.match} getCharacters={getCharacters} updateSavingStatus={updateSavingStatus} />
+            </InterfaceContainer>
         </Container>
     )
 }
@@ -192,6 +218,12 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Screenplay)
+
+const InterfaceContainer = styled.div`
+    display: grid;
+    align-items: center;
+    justify-content: center;
+`
 
 export const Container = styled.div`
 `

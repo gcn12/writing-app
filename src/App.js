@@ -5,11 +5,12 @@ import Dashboard from './Components/Dashboard/Dashboard'
 import Outline from './Components/Edit/Outline/Outline'
 import Screenplay from './Components/Edit/Screenplay/Screenplay'
 import firebase from 'firebase'
-import Notes from './Components/Edit/Notes'
+import Notes from './Components/Edit/Notes/Notes'
 import { connect } from 'react-redux'
 import GlobalStyles from './GlobalStyles'
 import { Route } from 'react-router-dom'
 import { userData, colorThemes } from './redux/actions/appActions'
+import LandingPage from './Components/LandingPage/LandingPage'
 import { db } from './firebase'
 
 const App = (props) => {
@@ -42,6 +43,15 @@ const App = (props) => {
     :
     (props.userData.userID ? 
     <div>
+      <Route exact path='/writing-app/' render={(props)=> (
+        <LandingPage {...props} />
+      )} />
+      <Route exact path='/writing-app/signup' render={(props)=> (
+        <Signup {...props} />
+      )} />
+      <Route exact path='/writing-app/signin' render={(props)=> (
+        <Signin {...props} />
+      )} />
       <Route path='/writing-app/edit/outline/:fileID' render={(props)=> (
         <Outline {...props} />
       )} />
@@ -51,7 +61,7 @@ const App = (props) => {
       <Route path='/writing-app/edit/screenplay/:fileID' render={(props)=> (
         <Screenplay {...props} />
       )} />
-      <Route path='/writing-app/dashboard/' render={(props)=> (
+      <Route path='/writing-app/dashboard/:page?' render={(props)=> (
         <Dashboard {...props} />
       )} />
       <GlobalStyles />

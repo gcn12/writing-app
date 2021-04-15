@@ -47,27 +47,30 @@ const ColorSelection = (props) => {
 
     return(
         <Container>
-            <h1>Change colors</h1>
+            <Title>Change colors</Title>
             <ColorPickers>
                 <Picker>
-                    <label htmlFor='background'>Background:</label>
+                    <PickerLabel htmlFor='background'>Background:</PickerLabel>
                     <input defaultValue={props.colorThemes.background} onChange={()=>changeColor('background')} type='color' id='background' />
                 </Picker>
                 <Picker>
-                    <label htmlFor='primaryText'>Primary text:</label>
+                    <PickerLabel htmlFor='primaryText'>Primary text:</PickerLabel>
                     <input defaultValue={props.colorThemes.primaryText} onChange={()=>changeColor('primaryText')} type='color' id='primaryText' />
                 </Picker>
                 <Picker>
-                    <label htmlFor='sidebar'>Sidebar:</label>
+                    <PickerLabel htmlFor='sidebar'>Sidebar:</PickerLabel>
                     <input defaultValue={props.colorThemes.sidebar} onChange={()=>changeColor('sidebar')}type='color' id='sidebar' />
                 </Picker>
                 <Picker>
-                    <label htmlFor='highlight'>Highlight:</label>
+                    <PickerLabel htmlFor='highlight'>Highlight:</PickerLabel>
                     <input defaultValue={props.colorThemes.highlight} onChange={()=>changeColor('highlight')}type='color' id='highlight' />
                 </Picker>
             </ColorPickers>
-            <input onChange={(e)=>setName(e.target.value)}></input>
-            <button onClick={saveTheme}>Save theme</button>
+            <InputContainer>
+                <NameLabel htmlFor='theme-name-input'>Theme name:</NameLabel>
+                <ThemeName autoComplete='off' onChange={(e)=>setName(e.target.value)} id='theme-name-input'></ThemeName>
+                <SaveTheme onClick={saveTheme}>Save theme</SaveTheme>
+            </InputContainer>
         </Container>
     )
 }
@@ -79,8 +82,42 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ColorSelection)
 
-const Container = styled.div`
+const NameLabel = styled.h2`
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+`
 
+const Container = styled.div`
+    margin-top: 50px;
+`
+
+const PickerLabel = styled.label`
+    margin-right: 5px;
+`
+
+const Title = styled.h1`
+    font-size: 2rem;
+`
+
+const ThemeName = styled.input`
+    height: 25px;
+    margin-bottom: 10px;
+`
+
+const SaveTheme = styled.button`
+    background-color: var(--primary-text);
+    color: var(--sidebar);
+    font-size: 1.125rem;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 70px;
+`
+
+const InputContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 `
 
 const ColorPickers = styled.div`

@@ -27,11 +27,11 @@ const ColorTemplates = (props) => {
 
     return(
         <div>
-            Color Themes:
+            <Title>Color Themes:</Title>
             <Container>
             {props.themes.map((theme, index)=> {
                 return(
-                    <ColorThemeCard selectTheme={selectTheme} theme={theme} key={index} />
+                    <ColorThemeCard index={index} deleteTheme={props.deleteTheme} selectTheme={selectTheme} theme={theme} key={index} />
                 )
             })}
             </Container>
@@ -46,8 +46,15 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ColorTemplates)
 
+const Title = styled.h2`
+    font-size: 1.125rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+`
+
 const Container = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 10px;
 `

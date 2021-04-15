@@ -92,20 +92,28 @@ const Cancel = styled.button`
 
 const Save = styled.button`
     margin: 10px;
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--primary-text);
     height: 50px;
     width: 100px;
-    color: white;
+    color: var(--sidebar);
 `
 
 const Title = styled.input`
     width: 500px;
     height: 40px;
+    background-color: var(--background);
+    color: var(--primary-text);
+    border: none;
+    outline: 1px solid var(--primary-text);
 `
 
 const Text = styled.textarea`
     width: 500px;
     height: 100px;
+    background-color: var(--background);
+    color: var(--primary-text);
+    border: none;
+    outline: 1px solid var(--primary-text);
 `
 
 const Modal = styled(Dialog)`
@@ -116,11 +124,11 @@ const Modal = styled(Dialog)`
     justify-content: center;
     width: 600px;
     min-height: 350px;
-    /* position: fixed;
+    position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); */
-    background-color: white;
+    top: 25%;
+    transform: translate(-50%, -25%);
+    background-color: var(--background);
     isolation: isolate;
     padding: 15px;
     border-radius: 10px;

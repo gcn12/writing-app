@@ -99,18 +99,30 @@ const Description = styled.textarea`
     width: 40vw;
     height: 150px;
     margin-bottom: 36px;
+    background-color: var(--background);
+    color: var(--primary-text);
+    border: none;
+    outline: 1px solid var(--primary-text);
 `
 
 const Title = styled.input`
     width: 40vw;
     height: 40px;
     margin-bottom: 36px;
+    background-color: var(--background);
+    color: var(--primary-text);
+    border: none;
+    outline: 1px solid var(--primary-text);
 `
 
 const Location = styled.input`
     width: 50px;
     height: 40px;
     margin-bottom: 36px;
+    background-color: var(--background);
+    color: var(--primary-text);
+    border: none;
+    outline: 1px solid var(--primary-text);
 `
 
 const Label = styled.label`
@@ -124,10 +136,10 @@ const Cancel = styled.button`
 
 const Create = styled.button`
     margin: 10px;
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--primary-text);
     height: 50px;
     width: 100px;
-    color: white;
+    color: var(--sidebar);
 `
 
 
@@ -141,9 +153,9 @@ const Modal = styled(Dialog)`
     min-height: 300px;
     /* position: fixed;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); */
-    background-color: white;
+    top: 25%;
+    transform: translate(-50%, -25%); */
+    background-color: var(--background);
     isolation: isolate;
     padding: 50px 15px;
     border-radius: 10px;

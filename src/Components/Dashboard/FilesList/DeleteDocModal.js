@@ -3,6 +3,7 @@ import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { connect } from 'react-redux'
 import { db } from '../../../firebase'
+import IconComponent from '../../../Icons/IconComponent'
 import { 
     rootDocs,
     layerOneDocs,
@@ -96,13 +97,13 @@ const DeleteDocModal = (props) => {
     return(      
         <div>
             <Modal isOpen={props.showDeleteModal} onDismiss={()=>props.setShowDeleteModal(false)} aria-label='cancel delete'>
+                <CloseDialog label='close rename dialog' onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowDeleteModal(false)}>
+                    <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
+                </CloseDialog>
                 <HeaderIconContainer>
                     <Header>{`Delete ${props.projectSelectedData.type}`}</Header>
-                    <CloseDialog label='close rename dialog' onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowDeleteModal(false)}>
-                        <Icon alt='delete' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAxMS4yOTNsMTAuMjkzLTEwLjI5My43MDcuNzA3LTEwLjI5MyAxMC4yOTMgMTAuMjkzIDEwLjI5My0uNzA3LjcwNy0xMC4yOTMtMTAuMjkzLTEwLjI5MyAxMC4yOTMtLjcwNy0uNzA3IDEwLjI5My0xMC4yOTMtMTAuMjkzLTEwLjI5My43MDctLjcwNyAxMC4yOTMgMTAuMjkzeiIvPjwvc3ZnPg==" />
-                    </CloseDialog>
                 </HeaderIconContainer>
-                <p>{`Are you sure you want to delete ${props.projectSelectedData.name}?`}</p>
+                <p>Are you sure you want to delete <Name>{props.projectSelectedData.name}</Name> ?</p>
                 <div>
                     <Cancel onKeyDown={(e)=> closeModal(e)}  onMouseDown={()=>props.setShowDeleteModal(false)}>Cancel</Cancel>
                     <Delete onClick={()=>initialDelete(props.projectSelectedData)}>Delete</Delete>
@@ -129,6 +130,10 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(DeleteDocModal)
 
+const Name = styled.span`
+    font-weight: 700;
+`
+
 const HeaderIconContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -139,12 +144,7 @@ const Header = styled.h1`
 `
 
 const CloseDialog = styled.button`
-    align-self: flex-end;
-`
-
-const Icon = styled.img` 
-    width: 18px;
-    height: 18px;
+    justify-self: flex-end;
 `
 
 const Cancel = styled.button`
@@ -160,27 +160,22 @@ const Delete = styled.button`
     height: 50px;
     width: 100px;
     color: white;
-    /* outline-color: blue; */
-    &:focus {
-        box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
-    }
 `
 
 
 const Modal = styled(Dialog)`
     z-index: 100;
     display: grid;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
-    width: 600px;
+    width: 700px;
     min-height: 300px;
-    /* position: fixed;
+    position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); */
-    background-color: white;
+    top: 25%;
+    transform: translate(-50%, -25%);
+    background-color: var(--sidebar);
     isolation: isolate;
-    padding: 15px;
+    padding: 15px 5px;
     border-radius: 10px;
 `
