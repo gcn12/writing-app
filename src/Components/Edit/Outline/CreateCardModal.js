@@ -99,7 +99,7 @@ const Description = styled.textarea`
     width: 40vw;
     height: 150px;
     margin-bottom: 36px;
-    background-color: var(--background);
+    background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
@@ -109,7 +109,7 @@ const Title = styled.input`
     width: 40vw;
     height: 40px;
     margin-bottom: 36px;
-    background-color: var(--background);
+    background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
@@ -119,7 +119,7 @@ const Location = styled.input`
     width: 50px;
     height: 40px;
     margin-bottom: 36px;
-    background-color: var(--background);
+    background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
@@ -151,11 +151,7 @@ const Modal = styled(Dialog)`
     justify-content: center;
     width: 700px;
     min-height: 300px;
-    /* position: fixed;
-    left: 50%;
-    top: 25%;
-    transform: translate(-50%, -25%); */
-    background-color: var(--background);
+    background-color: var(--secondary);
     isolation: isolate;
     padding: 50px 15px;
     border-radius: 10px;

@@ -98,6 +98,8 @@ export const Container = styled.div`
     border-radius: 5px;
     min-height: 92vh;
     margin: 45px 0;
+    /* overflow: scroll;
+    height: 90vh; */
 `
 
 // dropdown items

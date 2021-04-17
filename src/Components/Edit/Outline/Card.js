@@ -75,8 +75,8 @@ export default Card
 const IconTitle = styled.div`
     transition: opacity 200ms ease-in-out;
     opacity: 0;
-    background-color: hsl(0, 0%, 10%);
-    height: 30px;
+    background-color: var(--primary-text);
+    height: auto;
     min-width: 50px;
     position: absolute;
     z-index: 10;
@@ -84,9 +84,9 @@ const IconTitle = styled.div`
     left: 50%;
     transform: translate(-50%, -50%); 
     border-radius: 5px;
-    color: white;
+    color: var(--sidebar);
     vertical-align: middle;
-    padding: 5px 10px;
+    padding: 10px 10px;
     font-size: 1rem;
 `
 
@@ -168,12 +168,10 @@ const Icon = styled.div`
     top: 50%;
     left: 50%;
     position: absolute;
-    /* transform: ; */
 `
 
 const Title = styled.h1`
     font-size: 1rem;
-    /* color: hsl(0, 0%, 40%); */
     color: var(--primary-text);
     margin-bottom: 20px;
 `
@@ -185,7 +183,6 @@ const Text = styled.h2`
 
 const Container = styled.article`
     font-size: 1.3rem; 
-    /* background-color: hsl(0, 0%, 95%);  */
     background-color: var(--sidebar);
     padding: 30px;
     display: flex;

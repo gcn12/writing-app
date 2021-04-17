@@ -9,8 +9,10 @@ const Toolbar = (props) => {
             <Home to='/writing-app/dashboard'>
                 <IconComponent><path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/></IconComponent>
             </Home>
-            <Export onClick={()=> createPDF(props.value)}>Export script</Export>
-            {props.savingStatus}
+            <RightContainer>
+                {props.savingStatus}
+                <Export onClick={()=> createPDF(props.value)}>Export script</Export>
+            </RightContainer>
         </Container>
     )
 }
@@ -18,11 +20,17 @@ const Toolbar = (props) => {
 export default Toolbar
 
 const Export = styled.button`
-    height: 30px;
+    height: 40px;
     min-width: 150px;
     background-color: var(--primary-text);
     color: var(--sidebar);
     border-radius: 5px;
+`
+
+const RightContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
 `
 
 const Home = styled(Link)`
@@ -31,6 +39,7 @@ const Home = styled(Link)`
 
 const Container = styled.div`
     position: fixed;
+    top: 0;
     background-color: var(--background);
     width: 100%;
     z-index: 1;
@@ -38,7 +47,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    height: 60px;
     opacity: 0;
     transition: opacity 300ms ease-in-out;
     outline: 1px solid rgba(0, 0, 0, .1);

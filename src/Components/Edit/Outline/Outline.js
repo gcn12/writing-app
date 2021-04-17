@@ -114,9 +114,9 @@ const Outline = (props) => {
     }
 
     return (
-        <div>
+        <Container>
             <Toolbar />
-            <Container>
+            <OutlineContainer>
                 <Title>{props?.outlineData?.name}</Title>
                 <CreateNew onClick={()=>setShowCreateModal(true)}><Plus>+</Plus> Create new card</CreateNew>
                 <DndContext sensors={sensors} collisionDetection={closestCenter}onDragEnd={handleDragEnd}>
@@ -133,8 +133,8 @@ const Outline = (props) => {
                 <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
                 <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
                 <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
-            </Container>
-        </div>
+            </OutlineContainer>
+        </Container>
     );
 }
 
@@ -155,6 +155,10 @@ const Plus = styled.span`
     color: inherit;
 `
 
+const Container = styled.div`
+    width: 100%;
+`
+
 const CreateNew = styled.button`
     background-color: var(--primary-text);
     position: relative;
@@ -167,8 +171,11 @@ const CreateNew = styled.button`
     font-size: .875rem;
 `
 
-const Container = styled.div`
-    margin: 0 20px 20px 20px;
+const OutlineContainer = styled.div`
+    padding: 0 20px 20px 20px;
+    /* overflow: scroll; */
+    /* height: 100vh;
+    width: 100vw; */
 `
 
 const Title = styled.h1`

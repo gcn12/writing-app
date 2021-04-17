@@ -3,14 +3,16 @@ import { connect } from 'react-redux'
 const GlobalStyles = createGlobalStyle`
 
     html {
-        --background: ${props=>props.colorThemes.background};
-        --sidebar: ${props=>props.colorThemes.sidebar};
-        --primary-text: ${props=>props.colorThemes.primaryText};
-        --highlight: ${props=>props.colorThemes.highlight};
+        scroll-behavior: smooth;
+        --background: ${props=>props.colors.background};
+        --sidebar: ${props=>props.colors.sidebar};
+        --primary-text: ${props=>props.colors.primaryText};
+        --highlight: ${props=>props.colors.highlight};
+        --secondary: ${props=>props.colors.secondary};
     }
 
     html, body {
-        overflow: hidden;
+        overflow: ${props=>props.isDashboard ? 'hidden' : 'visible'};
         background-color: var(--background);
     }
 
@@ -68,7 +70,7 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const mapStateToProps = state => ({
-    colorThemes: state.app.colorThemes    
+    colors: state.app.colors,    
 })
 
 export default connect(mapStateToProps)(GlobalStyles)

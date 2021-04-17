@@ -1,0 +1,110 @@
+import styled from 'styled-components'
+import CircleProgress from './CircleProgress'
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { db } from '../../firebase'
+import { goals } from '../../redux/actions/appActions'
+import DailyGoalModal from './DailyGoalModal'
+
+const DailyGoals = (props) => {
+
+    const [isVisible, setIsVisible] = useState(false)
+    const [showChangeGoal, setShowChangeGoal] = useState(false)
+
+    useEffect(()=> {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('goals')
+        .doc('daily-goal')
+        .get()
+        .then(data=> {
+            const goalsObject = data.data()
+            props.dispatch(goals(goalsObject))
+            setIsVisible(true)
+        })
+        // eslint-disable-next-line
+    }, [])
+
+    return(
+        // isVisible &&
+        <Container>
+            {/* <Title>Daily goal</Title> */}
+            {props.goals.goal - props.goals.wordsWritten <= 0 ?
+            <Met>Goal Achieved</Met>
+            : 
+            <div>
+                <Goal>{isVisible && props.goals.goal - props.goals.wordsWritten}</Goal>
+                <Subtitle>words to go</Subtitle>
+            </div>
+            }
+            <SetGoal onClick={()=>setShowChangeGoal(true)}>Set daily goal</SetGoal>
+            <CircleContainer>
+                {props.goals.wordsWritten / props.goals.goal * 100 > 100 ?
+                <CircleProgress progress={100} />
+                :
+                <CircleProgress progress={props.goals.wordsWritten / props.goals.goal * 100} />
+                }
+            </CircleContainer>
+            <DailyGoalModal setShowChangeGoal={setShowChangeGoal} showChangeGoal={showChangeGoal} />
+        </Container>
+    )
+}
+
+const mapStateToProps = state => ({
+    userData: state.app.userData,
+    goals: state.app.goals,
+})
+
+export default connect(mapStateToProps)(DailyGoals)
+
+const Met = styled.h2`
+    font-size: 1.25rem;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+const Subtitle = styled.h2`
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: 500;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+const Goal = styled.h2`
+    font-size: 1.5rem;
+    font-weight: 700;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+const SetGoal = styled.button`
+    position: absolute;
+    bottom: 0;
+`
+
+const CircleContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+const Container = styled.article`
+    min-height: 200px;
+    width: 100%;
+    margin: 80px 0;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`

@@ -174,7 +174,7 @@ const Modal = styled(Dialog)`
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
-    background-color: var(--sidebar);
+    background-color: var(--secondary);
     isolation: isolate;
     padding: 15px 5px;
     border-radius: 10px;

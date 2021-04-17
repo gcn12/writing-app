@@ -102,7 +102,7 @@ const Modal = styled(Dialog)`
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
-    background-color: var(--background);
+    background-color: var(--secondary);
     isolation: isolate;
     padding: 15px;
     border-radius: 10px;

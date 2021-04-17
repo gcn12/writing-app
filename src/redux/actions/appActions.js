@@ -13,6 +13,27 @@ export const LAYER_TWO_DOCS = 'LAYER_TWO_DOCS'
 export const LAYER_THREE_DOCS = 'LAYER_THREE_DOCS'
 export const CURRENT_LAYER = 'CURRENT_LAYER'
 export const COLOR_THEMES = 'COLOR_THEMES'
+export const COLORS = 'COLORS'
+export const TASKS = 'TASKS'
+export const GOALS = 'GOALS'
+
+export function goals(data) {
+    return(dispatch) => {
+        dispatch({type: GOALS, payload: data})
+    }
+}
+
+export function tasks(data) {
+    return(dispatch) => {
+        dispatch({type: TASKS, payload: data})
+    }
+}
+
+export function colors(data) {
+    return(dispatch) => {
+        dispatch({type: COLORS, payload: data})
+    }
+}
 
 export function colorThemes(data) {
     return(dispatch) => {

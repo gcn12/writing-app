@@ -108,10 +108,10 @@ const Screenplay = (props) => {
         const wordsToAdd = firebase.firestore.FieldValue.increment(wordsAdded)
         db.collection('users')
         .doc(props.userData.userID)
-        .collection('statistics')
-        .doc('words-written')
+        .collection('goals')
+        .doc('daily-goal')
         .update({
-            today: wordsToAdd,
+            wordsWritten: wordsToAdd,
         })
     }
 
@@ -223,6 +223,9 @@ const InterfaceContainer = styled.div`
     display: grid;
     align-items: center;
     justify-content: center;
+    /* overflow: scroll; */
+    /* height: 100vh; */
+    /* margin: 45px 0; */
 `
 
 export const Container = styled.div`

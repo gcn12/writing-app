@@ -7,7 +7,7 @@ import App from './App';
 import thunk from 'redux-thunk'
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './redux/rootReducer'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -15,7 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <Route path='/writing-app/:page?' render={(props)=> (
+          <App {...props} />
+        )} />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

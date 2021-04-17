@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import IconComponent from '../../../Icons/IconComponent'
 import { connect } from 'react-redux'
 import { dashboardCurrentSection } from '../../../redux/actions/appActions'
+import DailyGoals from '../../Goals/DailyGoals'
 
 const Sidebar = (props) => {
 
@@ -18,15 +19,17 @@ const Sidebar = (props) => {
                     <StyledLink to='/writing-app/dashboard'>
                         <LiButton onClick={()=>navigateSidebar('projects')} background={props.match.params.page===undefined ? 'var(--highlight)' : 'transparent'} hover={props.dashboardCurrentSection!==undefined ? 'var(--highlight)' : null} >
                             <Icon><IconComponent><path d="M6 22v-16h16v7.543c0 4.107-6 2.457-6 2.457s1.518 6-2.638 6h-7.362zm18-7.614v-10.386h-20v20h10.189c3.163 0 9.811-7.223 9.811-9.614zm-10 1.614h-5v-1h5v1zm5-4h-10v1h10v-1zm0-3h-10v1h10v-1zm2-7h-19v19h-2v-21h21v2z"/></IconComponent></Icon>
-                            <NavigationItem>All files</NavigationItem>
+                            <NavigationItem>Files</NavigationItem>
                         </LiButton>
                     </StyledLink>
                 </LI>
                 <LI>
-                    <LiButton onClick={()=>navigateSidebar('analytics')} background={props.match.params.page==='analytics' ? 'var(--highlight)' : 'transparent'} hover={props.dashboardCurrentSection!=='analytics' ? 'var(--highlight)' : null}>
-                        <Icon><IconComponent><path d="M13 12.414v-12.364c6.158.51 11 5.66 11 11.95 0 6.627-5.373 12-12 12-2.953 0-5.654-1.072-7.744-2.842l8.744-8.744zm-2-12.364c-6.158.51-11 5.66-11 11.95 0 2.954 1.072 5.654 2.842 7.745l1.42-1.42c-1.412-1.725-2.262-3.928-2.262-6.325 0-5.177 3.953-9.446 9-9.949v-2.001z"/></IconComponent></Icon>
-                        <NavigationItem>Analytics</NavigationItem>
-                    </LiButton>
+                    <StyledLink to='/writing-app/dashboard/goals'>
+                        <LiButton onClick={()=>navigateSidebar('goals')} background={props.match.params.page==='goals' ? 'var(--highlight)' : 'transparent'} hover={props.dashboardCurrentSection!=='goals' ? 'var(--highlight)' : null}>
+                            <Icon><IconComponent><path d="M6 12c0 2.206 1.794 4 4 4 1.761 0 3.242-1.151 3.775-2.734l2.224-1.291.001.025c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6c1.084 0 2.098.292 2.975.794l-2.21 1.283c-.248-.048-.503-.077-.765-.077-2.206 0-4 1.794-4 4zm4-2c-1.105 0-2 .896-2 2s.895 2 2 2 2-.896 2-2l-.002-.015 3.36-1.95c.976-.565 2.704-.336 3.711.159l4.931-2.863-3.158-1.569.169-3.632-4.945 2.87c-.07 1.121-.734 2.736-1.705 3.301l-3.383 1.964c-.29-.163-.621-.265-.978-.265zm7.995 1.911l.005.089c0 4.411-3.589 8-8 8s-8-3.589-8-8 3.589-8 8-8c1.475 0 2.853.408 4.041 1.107.334-.586.428-1.544.146-2.18-1.275-.589-2.69-.927-4.187-.927-5.523 0-10 4.477-10 10s4.477 10 10 10c5.233 0 9.521-4.021 9.957-9.142-.301-.483-1.066-1.061-1.962-.947z"/></IconComponent></Icon>
+                            <NavigationItem>Tasks</NavigationItem>
+                        </LiButton>
+                    </StyledLink>
                 </LI>
                 <LI>
                     <StyledLink to='/writing-app/dashboard/themes'>
@@ -51,6 +54,7 @@ const Sidebar = (props) => {
                     </LiButton>
                 </LI> */}
             </UL>
+            <DailyGoals />
         </Container>
     )
 }

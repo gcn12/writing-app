@@ -6,12 +6,14 @@ const Header = () => {
         <Container>
             <UL>
                 <LI><Logo>Redraft</Logo></LI>
-                <LI>
-                    <StyledLink to='/writing-app/signin'><SignIn>Sign in</SignIn></StyledLink>
-                </LI>
-                <LI>
-                    <StyledLink to='/writing-app/signup'><SignUp>Sign up</SignUp></StyledLink>
-                </LI>
+                <RightContainer>
+                    <LI>
+                        <StyledLink to='/writing-app/signin'><SignIn>Sign in</SignIn></StyledLink>
+                    </LI>
+                    <LI>
+                        <StyledLink to='/writing-app/signup'><SignUp>Sign up</SignUp></StyledLink>
+                    </LI>
+                </RightContainer>
             </UL>
         </Container>
     )
@@ -19,12 +21,20 @@ const Header = () => {
 
 export default Header
 
+const RightContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-right: 50px;
+`
+
 const Container = styled.nav`
+    padding-top: 20px;
 `
 
 const UL = styled.ul`
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `
 
 const LI = styled.li`
@@ -50,8 +60,9 @@ const SignUp= styled.div`
 `
 
 const Logo = styled.h1`
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    padding: 20px;
+    margin-left: 50px;
+    /* padding: 20px; */
     /* margin: 30px 0 70px 0; */
 `

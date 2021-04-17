@@ -6,12 +6,11 @@ const ColorThemeCard = (props) => {
             <SelectOption onClick={()=>props.selectTheme(props.theme.colors)}>
                 {props.theme.colors.name}
                 <Colors>
-                    {Object.entries(props.theme.colors).map((color, index)=> {
-                        return(
-                            color[0] !== 'name' && color[0] !== 'isDefault' &&
-                            <Color backgroundColor={color[1]} key={index}></Color>
-                        )
-                    })}
+                    <Color backgroundColor={props.theme.colors.background} />
+                    <Color backgroundColor={props.theme.colors.primaryText} />
+                    <Color backgroundColor={props.theme.colors.sidebar} />
+                    <Color backgroundColor={props.theme.colors.highlight} />
+                    <Color backgroundColor={props.theme.colors.secondary} />
                 </Colors>
             </SelectOption>
             {!props.theme.colors.isDefault &&

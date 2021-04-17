@@ -91,6 +91,7 @@ const ProjectsTable = (props) => {
 
     const openFile = (fileType, docID) => {
         const location = `/writing-app/edit/${fileType}/${docID}`
+        // document.location = location
         window.open(location, "_blank") || (document.location = location)
     }
 

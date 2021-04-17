@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { generateID } from '../../../globalFunctions'
 import { updateLastModified } from '../../../globalFunctions'
+import IconComponent from '../../../Icons/IconComponent'
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { 
@@ -104,6 +105,7 @@ const CreateDocModal = (props) => {
 
     const openFileInNewTab = (type, docID) => {
         const location = `/writing-app/edit/${type}/${docID}`
+        // document.location = location
         window.open(location, "_blank") || (document.location = location)
     }
 
@@ -136,11 +138,11 @@ const CreateDocModal = (props) => {
  
     return (
         <Modal aria-label='create document' isOpen={props.isCreateProjectModal} onDismiss={()=>props.setIsCreateProjectModal(false)}>
+            <CloseDialog label='close rename dialog' onClick={()=>props.setIsCreateProjectModal(false)}>
+                <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
+            </CloseDialog>
             <HeaderIconContainer>
-                <h1>Create new {props.createType}</h1>
-                <CloseDialog label='close rename dialog' onClick={()=>props.setIsCreateProjectModal(false)}>
-                    <Icon alt='delete' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAxMS4yOTNsMTAuMjkzLTEwLjI5My43MDcuNzA3LTEwLjI5MyAxMC4yOTMgMTAuMjkzIDEwLjI5My0uNzA3LjcwNy0xMC4yOTMtMTAuMjkzLTEwLjI5MyAxMC4yOTMtLjcwNy0uNzA3IDEwLjI5My0xMC4yOTMtMTAuMjkzLTEwLjI5My43MDctLjcwNyAxMC4yOTMgMTAuMjkzeiIvPjwvc3ZnPg==" />
-                </CloseDialog>
+                <Header>Create new {props.createType}</Header>
             </HeaderIconContainer>
             <ProjectTitle autoComplete='off' onChange={(e)=>setName(e.target.value)} />
             <div>
@@ -163,6 +165,10 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(CreateDocModal)
 
+const Header = styled.h1`
+    font-size: 1.75rem;
+`
+
 const HeaderIconContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -172,17 +178,15 @@ const CloseDialog = styled.button`
     align-self: flex-end;
 `
 
-const Icon = styled.img` 
-    width: 18px;
-    height: 18px;
-`
-
 const Create = styled.button`
     background-color: hsl(0, 0%, 20%);
     height: 40px;
     width: 130px;
     border: none;
     color: white;
+
+    background-color: var(--primary-text);
+    color: var(--sidebar);
 `
 
 const Cancel = styled.button`
@@ -197,16 +201,20 @@ const ProjectTitle = styled.input`
     width: 200px;
     height: 40px;
     font-size: 1.25rem;
+    background-color: var(--secondary);
+    color: var(--primary-text);
+    border: none;
+    outline: 1px solid var(--primary-text);
 `
 
 const Modal = styled(Dialog)`
-    background-color: white;
+    background-color: var(--secondary);
     height: 300px;
     width: 50vw;
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 25%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -25%);
     border-radius: 15px;
     display: flex;
     flex-direction: column;

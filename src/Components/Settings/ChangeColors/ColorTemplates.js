@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { colorThemes } from '../../../redux/actions/appActions'
+import { colors } from '../../../redux/actions/appActions'
 import { db } from '../../../firebase'
 import ColorThemeCard from './ColorThemeCard'
 import styled from 'styled-components'
@@ -16,7 +16,7 @@ const ColorTemplates = (props) => {
 
     const selectTheme = (themeColors) => {
         updateColorPickers(Object.entries(themeColors))
-        props.dispatch(colorThemes(themeColors))
+        props.dispatch(colors(themeColors))
         db.collection('users')
         .doc(props.userData.userID)
         .update({
@@ -29,7 +29,7 @@ const ColorTemplates = (props) => {
         <div>
             <Title>Color Themes:</Title>
             <Container>
-            {props.themes.map((theme, index)=> {
+            {props.colorThemes.map((theme, index)=> {
                 return(
                     <ColorThemeCard index={index} deleteTheme={props.deleteTheme} selectTheme={selectTheme} theme={theme} key={index} />
                 )
@@ -42,6 +42,7 @@ const ColorTemplates = (props) => {
 const mapStateToProps = state => ({
     userData: state.app.userData,
     colorThemes: state.app.colorThemes,
+    colors: state.app.colors,
 })
 
 export default connect(mapStateToProps)(ColorTemplates)

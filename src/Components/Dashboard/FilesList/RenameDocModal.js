@@ -114,7 +114,6 @@ const Create = styled.button`
     height: 40px;
     width: 130px;
     border: none;
-    color: white;
     color: var(--sidebar);
 `
 
@@ -132,13 +131,13 @@ const ProjectTitle = styled.input`
     height: 40px;
     font-size: 1.25rem;
     color: var(--primary-text);
-    background-color: var(--sidebar);
+    background-color: var(--secondary);
     border: none;
     outline: 1px solid var(--primary-text);
 `
 
 const NewModal = styled(Dialog)`
-    background-color: var(--sidebar);
+    background-color: var(--secondary);
     min-height: 400px;
     width: 500px;
     border-radius: 15px;

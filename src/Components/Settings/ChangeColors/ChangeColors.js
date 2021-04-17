@@ -1,12 +1,11 @@
 import { db } from '../../../firebase'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import ColorSelection from './ColorSelection'
 import ColorTemplates from './ColorTemplates'
 import { connect } from 'react-redux'
+import { colorThemes } from '../../../redux/actions/appActions'
 
 const ChangeColors = (props) => {
-
-    const [themes, setThemes] = useState([])
 
     useEffect(()=> {
         db.collection('users')
@@ -15,26 +14,26 @@ const ChangeColors = (props) => {
         .doc('color-themes')
         .get()
         .then(data=> {
-            setThemes(data.data().themes.reverse())
+            props.dispatch(colorThemes(data.data().themes.reverse()))
         })
         // eslint-disable-next-line
     }, [])
 
     const addTheme = (theme) => {
-        const themesCopy = [...themes]
+        const themesCopy = [...props.colorThemes]
         themesCopy.unshift(theme)
-        setThemes(themesCopy)
+        props.dispatch(colorThemes(themesCopy))
     }
 
     const deleteTheme = (themeIndex) => {
-        const themesCopy = [...themes]
+        const themesCopy = [...props.colorThemes]
         themesCopy.splice(themeIndex, 1)
         deleteThemeFromState(themesCopy)
         deleteThemeFromDatabase(themesCopy)
     }
 
     const deleteThemeFromState = (newThemes) => {
-        setThemes(newThemes)
+        props.dispatch(colorThemes(newThemes))
     }
 
     const deleteThemeFromDatabase = (newThemes) => {
@@ -52,7 +51,7 @@ const ChangeColors = (props) => {
     return(
         <div>
             <ColorSelection addTheme={addTheme} />
-            <ColorTemplates deleteTheme={deleteTheme} themes={themes} />
+            <ColorTemplates deleteTheme={deleteTheme} />
         </div>
     )
 }

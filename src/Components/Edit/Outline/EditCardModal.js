@@ -101,7 +101,7 @@ const Save = styled.button`
 const Title = styled.input`
     width: 500px;
     height: 40px;
-    background-color: var(--background);
+    background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
@@ -110,7 +110,7 @@ const Title = styled.input`
 const Text = styled.textarea`
     width: 500px;
     height: 100px;
-    background-color: var(--background);
+    background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
@@ -118,7 +118,6 @@ const Text = styled.textarea`
 
 const Modal = styled(Dialog)`
     display: grid;
-    /* flex-direction: column; */
     z-index: 100;
     align-items: center;
     justify-content: center;
@@ -128,7 +127,7 @@ const Modal = styled(Dialog)`
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
-    background-color: var(--background);
+    background-color: var(--secondary);
     isolation: isolate;
     padding: 15px;
     border-radius: 10px;

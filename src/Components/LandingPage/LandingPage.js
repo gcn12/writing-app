@@ -1,12 +1,22 @@
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import Header from './Header'
+import { useEffect } from 'react'
+import FirstSection from './FirstSection'
+import SecondSection from './SecondSection'
+import ThirdSection from './ThirdSection'
 
 const LandingPage = () => {
+
+    useEffect(()=> {
+        document.body.style.backgroundColor = 'white'
+    }, [])
+
     return(
         <div>
             <Header />
-            <Title>The new way to write</Title>
-            <GetStarted>Get started now</GetStarted>
+            <FirstSection />
+            <SecondSection />
+            <ThirdSection />
         </div>
     )
 }
@@ -15,14 +25,3 @@ export default LandingPage
 
 
 
-const GetStarted = styled.button`
-    background-color: black;
-    color: white;
-    padding: 15px;
-    border-radius: 7px;
-`
-
-const Title = styled.h1`
-    font-size: 3rem;
-    font-weight: 700;
-`

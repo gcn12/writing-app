@@ -23,13 +23,13 @@ const IconTitle = styled.div`
     min-width: 50px;
     position: absolute;
     z-index: 10;
-    top: 160%;
+    top: 165%;
     left: 50%;
     transform: translate(-50%, -50%); 
     border-radius: 5px;
     color: var(--sidebar);
     vertical-align: middle;
-    padding: 5px 10px;
+    padding: 10px 10px;
 `
 
 const IconBackground = styled.div`
@@ -69,9 +69,7 @@ const IconBackgroundContainer = styled.button`
     }
 `
 
-const Icon = styled.div` 
-    /* width: 18px;
-    height: 18px; */
+const Icon = styled.div`
     z-index: 100;
     top: 50%;
     left: 50%;

@@ -9,7 +9,7 @@ import Notes from './Components/Edit/Notes/Notes'
 import { connect } from 'react-redux'
 import GlobalStyles from './GlobalStyles'
 import { Route } from 'react-router-dom'
-import { userData, colorThemes } from './redux/actions/appActions'
+import { userData, colors } from './redux/actions/appActions'
 import LandingPage from './Components/LandingPage/LandingPage'
 import { db } from './firebase'
 
@@ -29,10 +29,14 @@ const App = (props) => {
         .get()
         .then(data=> {
           const preferences = data.data().preferences
-          const colors = preferences.colors
-          props.dispatch(colorThemes(colors))
+          const colorsData = preferences.colors
+          props.dispatch(colors(colorsData))
           setIsLoading(false)
         })
+      }else{
+        props.dispatch(colors({
+          background: 'white'
+        }))
       }
     });
     // eslint-disable-next-line
@@ -64,7 +68,7 @@ const App = (props) => {
       <Route path='/writing-app/dashboard/:page?' render={(props)=> (
         <Dashboard {...props} />
       )} />
-      <GlobalStyles />
+      <GlobalStyles isDashboard={props.match.params.page==='dashboard'} />
     </div>
     :
     <div>
