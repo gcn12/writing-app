@@ -8,13 +8,14 @@ import firebase from 'firebase'
 import Notes from './Components/Edit/Notes/Notes'
 import { connect } from 'react-redux'
 import GlobalStyles from './GlobalStyles'
-import { Route } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
 import { userData, colors } from './redux/actions/appActions'
 import LandingPage from './Components/LandingPage/LandingPage'
 import { db } from './firebase'
 
 const App = (props) => {
   const [isLoading, setIsLoading] = useState(true)
+  const history = useHistory()
   // const [colors, setColors] = useState({mainColor: 'red'})
   useEffect(()=> {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -37,6 +38,7 @@ const App = (props) => {
         props.dispatch(colors({
           background: 'white'
         }))
+        history.push('/writing-app')
         setIsLoading(false)
       }
     });
@@ -48,9 +50,6 @@ const App = (props) => {
     :
     (props.userData.userID ? 
     <div>
-      <Route exact path='/writing-app/' render={(props)=> (
-        <LandingPage {...props} />
-      )} />
       <Route exact path='/writing-app/signup' render={(props)=> (
         <Signup {...props} />
       )} />
@@ -73,8 +72,11 @@ const App = (props) => {
     </div>
     :
     <div>
-      <Signup />
-      <Signin />
+      {/* <Signup />
+      <Signin /> */}
+      <Route exact path='/writing-app/' render={(props)=> (
+        <LandingPage {...props} />
+      )} />
     </div>)
   );
 }

@@ -127,6 +127,10 @@ const ThemeName = styled.input`
     outline: 1px solid var(--primary-text);
     color: var(--primary-text);
     font-size: 20px;
+    @media(max-width: 900px) {
+        max-width: 300px;
+        width: auto;
+    }
 `
 
 const SaveTheme = styled.button`

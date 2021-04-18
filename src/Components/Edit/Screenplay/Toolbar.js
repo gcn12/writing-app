@@ -54,4 +54,7 @@ const Container = styled.div`
     &:hover {
         opacity: 1;
     }
+    @media(max-width: 900px) {
+        opacity: 1;
+    }
 `

@@ -181,10 +181,7 @@ const CreateNew = styled.button`
 `
 
 const OutlineContainer = styled.div`
-    padding: 0 20px 20px 20px;
-    /* overflow: scroll; */
-    /* height: 100vh;
-    width: 100vw; */
+    padding: 10px 20px 20px 20px;
 `
 
 const Title = styled.h1`
@@ -196,6 +193,8 @@ const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
-    /* margin: 20px; */
     grid-template-rows: auto;
+    @media(max-width: 900px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `

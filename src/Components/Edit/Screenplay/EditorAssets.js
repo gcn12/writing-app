@@ -98,6 +98,10 @@ export const Container = styled.div`
     border-radius: 5px;
     min-height: 92vh;
     margin: 45px 0;
+    @media(max-width: 900px) {
+        width: 95vw;
+        padding: 80px 35px 50px 35px;
+    }
     /* overflow: scroll;
     height: 90vh; */
 `

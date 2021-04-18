@@ -123,7 +123,7 @@ const NotesContainer = styled.div`
     align-items: center; 
     justify-content: center;
     padding: 20px 30vw;
-    margin-top: 30px;
+    margin-top: 40px;
 `
 
 const Container = styled.div`
@@ -134,6 +134,9 @@ const Title = styled.h1`
     font-size: 3rem;
     font-weight: 600;
     margin-bottom: 10px;
+    @media(max-width: 900px) {
+        font-size: 2.5rem;
+    }
 `
 
 const TextAreaPage = styled.textarea`
@@ -144,10 +147,13 @@ const TextAreaPage = styled.textarea`
     line-height: 1.5;
     width: 50vw;
     color: var(--primary-text);
-    /* height: 80vh; */
     border: none;
     resize: none;
+    /* overflow: hidden; */
     &:focus{
         box-shadow: none;
+    }
+    @media(max-width: 900px) {
+        /* width: 90vw; */
     }
 `

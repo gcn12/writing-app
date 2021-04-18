@@ -93,7 +93,6 @@ const IconTitle = styled.div`
 const IconBackground = styled.div`
     opacity: 0;
     transition: opacity 200ms ease-in-out;
-    /* background-color: lightblue; */
     background-color: var(--background);
     height: 35px;
     width: 35px;
@@ -121,6 +120,9 @@ const CardNumber = styled.p`
 const Icons = styled.div`
     opacity: 0;
     transition: opacity 300ms ease-in-out;
+    @media(max-width: 900px) {
+        opacity: 1;
+    }
 `
 
 const IconTitleContainer = styled.div`
