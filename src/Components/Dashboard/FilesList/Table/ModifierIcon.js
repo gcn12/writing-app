@@ -5,10 +5,10 @@ const ModifierIcon = (props) => {
     return(
         <IconBackgroundContainer onClick={(e)=>props.openModal(e)} label={props.labelName} >
             <IconTitle>{props.title}</IconTitle>
+            <IconBackground />
             <Icon><IconComponent>
                 {props.children}
             </IconComponent></Icon>
-            <IconBackground />
         </IconBackgroundContainer>
     )
 }
@@ -22,7 +22,7 @@ const IconTitle = styled.div`
     min-height: 20px;
     min-width: 50px;
     position: absolute;
-    z-index: 10;
+    /* z-index: 10; */
     top: 165%;
     left: 50%;
     transform: translate(-50%, -50%); 
@@ -70,7 +70,7 @@ const IconBackgroundContainer = styled.button`
 `
 
 const Icon = styled.div`
-    z-index: 100;
+    /* z-index: 100; */
     top: 50%;
     left: 50%;
     position: absolute;

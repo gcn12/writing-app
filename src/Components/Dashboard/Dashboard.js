@@ -9,10 +9,12 @@ import ChangeColors from '../Settings/ChangeColors/ChangeColors'
 import Settings from '../Settings/Settings'
 import { connect } from 'react-redux'
 import Breadcrumbs from './Breadcrumbs'
+
 const Dashboard = (props) => {
+
     return(
         <Container>
-            <MobileHeader />
+            <MobileHeader  />
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/dashboard' render={(props)=> (

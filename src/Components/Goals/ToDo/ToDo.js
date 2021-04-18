@@ -125,7 +125,9 @@ const Title = styled.h1`
 `
 
 const Container = styled.div`
-    margin-bottom: 50px;
+    @media(max-width: 900px) {
+        margin-bottom: 110px;
+    } 
 `
 
 const CardContainer = styled.div`

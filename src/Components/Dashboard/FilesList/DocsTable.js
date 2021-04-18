@@ -172,7 +172,7 @@ const ProjectsTable = (props) => {
     }
 
     return(
-        <div>
+        <Container>
             <Table role='table'>
                 <Head role='heading'> 
                     <RowHeader role='rowheader'>
@@ -186,7 +186,7 @@ const ProjectsTable = (props) => {
             </Table> 
             <RenameDocModal showRenameModal={showRenameModal} projectSelectedData={props.projectSelectedData} setShowRenameModal={setShowRenameModal} />
             <DeleteProjectModal showDeleteModal={showDeleteModal} projectSelectedData={props.projectSelectedData} setShowDeleteModal={setShowDeleteModal} />
-        </div>
+        </Container>
     )   
 }
 
@@ -204,6 +204,12 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(ProjectsTable)
+
+const Container = styled.div`
+    @media(max-width: 900px) {
+        margin-bottom: 110px;
+    } 
+`
 
 const TableHead = styled.div`
     display: table-cell;

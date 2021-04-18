@@ -71,4 +71,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ChangeColors)
 
 const Container = styled.div`
+    /* margin-bottom: 30px; */
+    @media(max-width: 900px) {
+        margin-bottom: 110px;
+    } 
 `

@@ -164,11 +164,12 @@ const CirclePlaceholderContainer = styled.div`
 const Container = styled.article`
     min-height: 200px;
     width: 100%;
-    margin: 80px 0;
+    /* margin: 80px 0; */
     border-radius: 10px;
     padding: 10px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* border: 1px solid white; */
 `
