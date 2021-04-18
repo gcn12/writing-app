@@ -26,16 +26,16 @@ const ColorTemplates = (props) => {
     }
 
     return(
-        <div>
+        <Container>
             <Title>Color Themes:</Title>
-            <Container>
-            {props.colorThemes.map((theme, index)=> {
-                return(
-                    <ColorThemeCard index={index} deleteTheme={props.deleteTheme} selectTheme={selectTheme} theme={theme} key={index} />
-                )
-            })}
-            </Container>
-        </div>
+            <Cards>
+                {props.colorThemes.map((theme, index)=> {
+                    return(
+                        <ColorThemeCard index={index} deleteTheme={props.deleteTheme} selectTheme={selectTheme} theme={theme} key={index} />
+                    )
+                })}
+            </Cards>
+        </Container>
     )
 }
 
@@ -54,6 +54,9 @@ const Title = styled.h2`
 `
 
 const Container = styled.div`
+`
+
+const Cards = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

@@ -36,13 +36,20 @@ const DailyGoalModal = (props) => {
         props.dispatch(goals(goalsCopy))
     }
 
+    const onEnter = (e, goal) => {
+        if(e.key==='Enter') {
+            e.preventDefault()
+            updateGoal(goal)
+        }
+    }
+
     return(
         <Modal aria-label='change daily goal' onDismiss={()=>props.setShowChangeGoal(false)} isOpen={props.showChangeGoal}>
             <TitleCloseContainer>
                 <Title>Set new goal</Title>
                 <Close onClick={()=>props.setShowChangeGoal(false)}>X</Close>
             </TitleCloseContainer>
-            <GoalInput onChange={(e)=>setGoal(e.target.value)} />
+            <GoalInput onKeyDown={(e)=>onEnter(e, goal)} defaultValue={props.goals.goal} onChange={(e)=>setGoal(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setShowChangeGoal(false)}>Cancel</Cancel>
                 <Save onClick={()=>updateGoal(goal)}>Save goal</Save>

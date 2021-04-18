@@ -9,6 +9,7 @@ import { notesData } from '../../../redux/actions/appActions'
 const Notes = (props) => {
     const [note, setNote] = useState('')
     const [lastSaved, setLastSaved] = useState(0)
+    const [isPreventSave, setIsPreventSave] = useState(true)
     const [savedStatus, setSavedStatus] = useState('All changes saved')
     useEffect(()=> {
         getNotes()
@@ -17,7 +18,7 @@ const Notes = (props) => {
 
     
     useEffect(()=> {
-        if(props.userData.userID) {
+        if(props.userData.userID && !isPreventSave) {
             setSavedStatus('Saving...')
             const timeout = setTimeout(()=>saveWork(), 1000)
             return  ()=>clearTimeout(timeout)
@@ -35,7 +36,9 @@ const Notes = (props) => {
             if(result.data() !== undefined) {
                 document.getElementById('notes-textarea').value = result.data().text
             }
-            props.dispatch(notesData(result.data()))
+            const notesInfo = result.data()
+            document.title = notesInfo.name
+            props.dispatch(notesData(notesInfo))
             const textarea = document.getElementById('notes-textarea');
             fitTextarea.watch(textarea);
         })
@@ -88,13 +91,18 @@ const Notes = (props) => {
         setLastSaved(currentTime)
     }
 
+    const addNotesToState = (e) => {
+        setNote(e.target.value)
+        if(isPreventSave) setIsPreventSave(false)
+    }
+
     return(
         <Container>
             <Toolbar savingStatus={savedStatus} />
             <NotesContainer>
                 <div>
                     <Title>{props?.notesData?.name}</Title>
-                    <TextAreaPage rows='5' placeholder='Write notes here' onChange={(e)=> setNote(e.target.value)} autoFocus id='notes-textarea' />
+                    <TextAreaPage rows='5' placeholder='Write notes here' onChange={addNotesToState} autoFocus id='notes-textarea' />
                 </div>
             </NotesContainer>
         </Container>

@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import CircleProgress from './CircleProgress'
+import CirclePlaceholder from './CirclePlaceholder'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import { db } from '../../firebase'
 import { goals } from '../../redux/actions/appActions'
 import DailyGoalModal from './DailyGoalModal'
@@ -10,8 +12,22 @@ const DailyGoals = (props) => {
 
     const [isVisible, setIsVisible] = useState(false)
     const [showChangeGoal, setShowChangeGoal] = useState(false)
+    // const [progress, setProgress] = useState(0)
 
     useEffect(()=> {
+        getData()
+        goalListener()
+        // eslint-disable-next-line
+    }, [])
+
+    useEffect(()=> {
+        // const { goal, wordsWritten } = props.goals
+        // if(wordsWritten===0) return setProgress(0)
+        // const progressAmount = wordsWritten / goal * 100
+        // setProgress(progressAmount)
+    }, [props.goals])
+
+    const getData = () => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('goals')
@@ -19,11 +35,48 @@ const DailyGoals = (props) => {
         .get()
         .then(data=> {
             const goalsObject = data.data()
-            props.dispatch(goals(goalsObject))
+            const date = goalsObject.wordsWritten.date
+            const currentDate = moment().format('L')
+            if(date === moment().format('L')) {
+                props.dispatch(goals({
+                    goal: goalsObject.goal,
+                    wordsWritten: goalsObject.wordsWritten.words
+                }))
+            }else{
+                props.dispatch(goals({
+                    goal: goalsObject.goal,
+                    wordsWritten: 0
+                }))
+                db.collection('users')
+                .doc(props.userData.userID)
+                .collection('goals')
+                .doc('daily-goal')
+                .update({
+                    wordsWritten: {
+                        date: currentDate,
+                        words: 0,
+                    }
+                })
+            }
             setIsVisible(true)
         })
-        // eslint-disable-next-line
-    }, [])
+    }
+
+    const goalListener = () => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('goals')
+        .doc('daily-goal')
+        .onSnapshot((doc)=> {
+            const goalsObject = doc.data()
+            props.dispatch(goals({
+                goal: goalsObject.goal,
+                wordsWritten: goalsObject.wordsWritten.words
+            }))
+        })
+    }
+
+    
 
     return(
         // isVisible &&
@@ -45,6 +98,9 @@ const DailyGoals = (props) => {
                 <CircleProgress progress={props.goals.wordsWritten / props.goals.goal * 100} />
                 }
             </CircleContainer>
+            <CirclePlaceholderContainer>
+                <CirclePlaceholder />
+            </CirclePlaceholderContainer>
             <DailyGoalModal setShowChangeGoal={setShowChangeGoal} showChangeGoal={showChangeGoal} />
         </Container>
     )
@@ -95,6 +151,14 @@ const CircleContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+`
+
+const CirclePlaceholderContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: .2;
 `
 
 const Container = styled.article`

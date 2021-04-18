@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const FirstSection = () => {
     return(
         <Container>
-            <Image src='dark.png' alt='interface' />
+            <Image src='dark.png' alt='dark interface' />
             <div>
                 <Title>Make it yours</Title>
                 <Subtitle>Customize the app with your favorite colors.</Subtitle>

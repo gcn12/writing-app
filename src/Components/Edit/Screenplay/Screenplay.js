@@ -5,6 +5,7 @@ import { db } from '../../../firebase'
 import firebase from 'firebase'
 import EditorInterface from './Editor'
 import Toolbar from './Toolbar'
+import moment from 'moment'
 
 const Screenplay = (props) => {
     const [value, setValue] = useState([{type: 'paragraph', children: [{text: ''}]}])
@@ -27,6 +28,11 @@ const Screenplay = (props) => {
     }, [value])
 
     useEffect(()=> {
+        getScript()
+        // eslint-disable-next-line
+    }, [])
+
+    const getScript = () => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
@@ -42,8 +48,13 @@ const Screenplay = (props) => {
                 setCurrentWords(getWords(script))
             }
         })
-        // eslint-disable-next-line
-    }, [])
+    }
+
+    window.onbeforeunload = function() {
+        if(savingStatus==='Saving...') {
+            return 'saving'
+        }
+    }
 
     const updateLastUpdatedFunction = (currentTime, collectionName, fileID) => {
         db.collection('users')
@@ -65,9 +76,9 @@ const Screenplay = (props) => {
         }
     }
 
-    const getWords = () => {
+    const getWords = (script) => {
         let words = 0
-        value.forEach(item=> {
+        script.forEach(item=> {
             if(item.children[0].text.length===0) return
             let text = item.children[0].text.trim()
             if(item.type==='heading') {
@@ -82,12 +93,16 @@ const Screenplay = (props) => {
 
     const saveScript = (scriptObject, userID, scriptID) => {
         const currentTime = Date.now()
-        const newWordCount = getWords(value)
-        const change = newWordCount - currentWords
-        setCurrentWords(newWordCount)
+        updateWordCount()
         saveScriptToDatabase(scriptObject, userID, scriptID)
         updateLastUpdated(currentTime)
         setLastSaved(currentTime)
+    }
+
+    const updateWordCount = () => {
+        const newWordCount = getWords(value)
+        const change = newWordCount - currentWords
+        setCurrentWords(newWordCount)
         if(change > 0) return incrementWordsInDatabase(change)
     }
 
@@ -106,12 +121,14 @@ const Screenplay = (props) => {
 
     const incrementWordsInDatabase = (wordsAdded) => {
         const wordsToAdd = firebase.firestore.FieldValue.increment(wordsAdded)
+        const date = moment().format('L')
         db.collection('users')
         .doc(props.userData.userID)
         .collection('goals')
         .doc('daily-goal')
         .update({
-            wordsWritten: wordsToAdd,
+            'wordsWritten.words': wordsToAdd,
+            'wordsWritten.date': date
         })
     }
 
@@ -204,7 +221,6 @@ const Screenplay = (props) => {
 
     return(
         <Container>
-            {/* <button onClick={getWords}>Words</button> */}
             <Toolbar value={value} savingStatus={savingStatus} />
             <InterfaceContainer>
                 <EditorInterface isPreventSave={isPreventSave} setIsPreventSave={setIsPreventSave} value={value} setValue={setValue} locations={locations} addLocation={addLocation} getLocations={getLocations} characters={characters} addCharacter={addCharacter} match={props.match} getCharacters={getCharacters} updateSavingStatus={updateSavingStatus} />
@@ -223,9 +239,6 @@ const InterfaceContainer = styled.div`
     display: grid;
     align-items: center;
     justify-content: center;
-    /* overflow: scroll; */
-    /* height: 100vh; */
-    /* margin: 45px 0; */
 `
 
 export const Container = styled.div`

@@ -8,9 +8,9 @@ const FirstSection = () => {
                 <Title>Screenwriting, </Title>
                 <Title>essentials only.</Title>
                 <Subtitle>Redraft gives you everything you need to write your next best screenplay.</Subtitle>
-                <Link to='/writing-app/signup'>
+                <StyledLink to='/writing-app/signup'>
                     <GetStarted>Get started now</GetStarted>
-                </Link>
+                </StyledLink>
             </div>
             <Image src='dashboard.png' alt='interface' />
         </Container>
@@ -32,7 +32,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 50px;
-    margin: 25vh 0;
+    height: 95vh;
 `
 const Image = styled.img`
     max-height: 300px;
@@ -52,4 +52,15 @@ const GetStarted = styled.div`
 const Title = styled.h1`
     font-size: 2.75rem;
     font-weight: 600;
+`
+
+const StyledLink = styled(Link)`
+     &:focus {
+        box-shadow: none;
+    }
+    &:focus-within {
+        ${GetStarted} {
+            box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+        }
+    }
 `

@@ -10,7 +10,7 @@ import "@reach/dialog/styles.css";
 const CreateCardModal = (props) => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
-    const [location, setLocation] = useState()
+    const [location, setLocation] = useState(null)
 
     useEffect(()=> {
         // document.getElementById('create-card-location').value = props.outlineItemsForUpdate.length + 1
@@ -20,6 +20,7 @@ const CreateCardModal = (props) => {
 
 
     const createNewOutlineCard = () => {
+        if(!createCardCheckConditions()) return
         let numberOfCards = 0
         if(props.outlineItemsForUpdate) {
             numberOfCards = props.outlineItemsForUpdate.length 
@@ -57,25 +58,46 @@ const CreateCardModal = (props) => {
         .then(()=> {
             props.setShowCreateModal(false)
         })
+        clearState()
 
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
+    }
+
+    const createCardCheckConditions = () => {
+        if(title.length === 0) return false
+        if(text.length === 0) return false
+        if(location < 1 || location > props.outlineItemsForUpdate.length + 1) return false
+        return true
+    }
+
+    const clearState = () => {
+        setText('')
+        setTitle('')
+        setLocation(null)
+    }
+
+    const onEnter = (e) => {
+        if(e.key==='Enter') {
+            e.preventDefault()
+            createNewOutlineCard()
+        }
     }
 
     return(
         <Modal aria-label='create card' isOpen={props.showCreateModal} onDismiss={()=>props.setShowCreateModal(false)}>
             <Header>Create new card</Header>
             <Label>Title</Label>
-            <Title onChange={(e)=>setTitle(e.target.value)} />
+            <Title onKeyDown={onEnter} onChange={(e)=>setTitle(e.target.value)} />
             <Label>Description</Label>
-            <Description onChange={(e)=>setText(e.target.value)} />
+            <Description onKeyDown={onEnter} onChange={(e)=>setText(e.target.value)} />
             <Label>Insert at location:</Label>
             <div>
-                <Location defaultValue={props.outlineItemsForUpdate.length + 1} id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
+                <Location onKeyDown={onEnter} defaultValue={props.outlineItemsForUpdate.length + 1} id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
             </div>
-            <div style={{display: 'flex'}}>
+            <ButtonsComponent>
                 <Cancel onClick={()=>props.setShowCreateModal(false)}>Cancel</Cancel>
                 <Create onClick={createNewOutlineCard}>Create</Create>
-            </div>
+            </ButtonsComponent>
         </Modal>
     )
 }
@@ -89,6 +111,10 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(CreateCardModal)
+
+const ButtonsComponent = styled.div`
+    display: flex;
+`
 
 const Header = styled.h1`
     font-size: 1.75rem;
@@ -126,6 +152,7 @@ const Location = styled.input`
 `
 
 const Label = styled.label`
+    margin-bottom: 10px;
 `
 
 const Cancel = styled.button`

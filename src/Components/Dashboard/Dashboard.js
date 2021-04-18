@@ -1,7 +1,7 @@
 // import Projects from './FilesList/Projects'
 import styled from 'styled-components'
 import { Route } from 'react-router-dom'
-import FilesList from './FilesList/FilesList'
+import AllFiles from './FilesList/AllFiles'
 import Sidebar from './Sidebar/Sidebar'
 import Goals from '../Goals/Goals'
 import ChangeColors from '../Settings/ChangeColors/ChangeColors'
@@ -16,7 +16,7 @@ const Dashboard = (props) => {
                 <Route exact path='/writing-app/dashboard' render={(props)=> (
                     <div>
                         <Breadcrumbs />
-                        <FilesList {...props} />
+                        <AllFiles {...props} />
                     </div>
                 )} />
                 <Route exact path='/writing-app/dashboard/goals' render={(props)=> (
@@ -45,6 +45,10 @@ export const FilesContainer = styled.div`
     overflow: scroll;
     height: 100vh;
     width: 100%;
+    @media(max-width: 900px) {
+        margin-left: 0;
+        padding: 0 20px;
+    }
 `
 
 export const Container = styled.div`

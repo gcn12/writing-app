@@ -227,7 +227,7 @@ const Table = styled.div`
     border-collapse: separate;
     border-spacing: 0 10px;
     overflow: auto;
-    height: 200px;
+    table-layout: fixed;
 `
 
 const RowHeader = styled.div`

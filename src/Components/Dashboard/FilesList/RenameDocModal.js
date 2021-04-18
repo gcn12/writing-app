@@ -69,7 +69,15 @@ const RenameFileModal = (props) => {
 
     const renameFileOnKeyDown = (e) => {
         if(e.code==='Enter' || e.code==='Space' || e.code==='Escape') {
+            e.preventDefault()
             renameFile(e)
+        }
+    }
+
+    const onEnter = (e) => {
+        if(e.key==='Enter') {
+            e.preventDefault()
+            renameFile()
         }
     }
 
@@ -80,7 +88,7 @@ const RenameFileModal = (props) => {
                     <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
                 </CloseDialog>
                 <Header>Rename {props.projectSelectedData.type}</Header>
-                <ProjectTitle defaultValue={props.projectSelectedData.name} autoComplete='off' id='rename-file-input' onChange={(e)=>setName(e.target.value)} />
+                <DocumentTitle onKeyDown={onEnter} defaultValue={props.projectSelectedData.name} autoComplete='off' id='rename-file-input' onChange={(e)=>setName(e.target.value)} />
                 <div>
                     <Cancel onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowRenameModal(false)}>Cancel</Cancel>
                     <Create onKeyDown={renameFileOnKeyDown} onMouseDown={renameFile}>Rename</Create>
@@ -126,7 +134,7 @@ const Cancel = styled.button`
     color: var(--primary-text);
 `
 
-const ProjectTitle = styled.input`
+const DocumentTitle = styled.input`
     width: 200px;
     height: 40px;
     font-size: 1.25rem;

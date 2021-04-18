@@ -10,6 +10,13 @@ const ToDo = (props) => {
     const [newTask, setNewTask] = useState('')
 
     useEffect(()=> {
+        if(props.tasks.length === 0) {
+            getToDoItems()
+        }
+        // eslint-disable-next-line 
+    }, [])
+
+    const getToDoItems = () => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('goals')
@@ -18,8 +25,7 @@ const ToDo = (props) => {
         .then(data=> {
             props.dispatch(tasks(data.data().todo.reverse()))
         })
-        // eslint-disable-next-line 
-    }, [])
+    }
 
     const createTask = (task) => {
         if(task.length > 0) {
@@ -64,7 +70,7 @@ const ToDo = (props) => {
         <Container>
             <Title>Current tasks</Title>
             <CreateTaskContainer>
-                <TaskInput autoComplete='off' onKeyDown={(e)=>onEnter(e, newTask)} id='todo-input' onChange={(e)=>setNewTask(e.target.value)} />
+                <TaskInput placeholder='Add a new task' autoComplete='off' onKeyDown={(e)=>onEnter(e, newTask)} id='todo-input' onChange={(e)=>setNewTask(e.target.value)} />
                 <CreateTask onClick={()=>createTask(newTask)}>Create task</CreateTask>
             </CreateTaskContainer>
             <CardContainer>
@@ -108,7 +114,7 @@ const TaskInput = styled.input`
     border: none;
     border: 1px solid var(--primary-text);
     color: var(--primary-text);
-    font-size: 25px;
+    font-size: 20px;
     margin-right: 20px;
 `
 

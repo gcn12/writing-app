@@ -40,14 +40,9 @@ const UL = styled.ul`
 const LI = styled.li`
 `
 
-const StyledLink = styled(Link)`
-    text-decoration: none;
-`
-
 const SignIn = styled.div`
     background-color: transparent;
     border: 1px solid black;
-    color: black;
     padding: 15px;
     border-radius: 7px;
 `
@@ -59,10 +54,23 @@ const SignUp= styled.div`
     border-radius: 7px;
 `
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    &:focus {
+        box-shadow: none;
+    }
+    &:focus-within {
+        ${SignIn} {
+            box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+        }
+        ${SignUp} {
+            box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+        }
+    }
+`
+
 const Logo = styled.h1`
     font-size: 2rem;
     font-weight: 700;
     margin-left: 50px;
-    /* padding: 20px; */
-    /* margin: 30px 0 70px 0; */
 `

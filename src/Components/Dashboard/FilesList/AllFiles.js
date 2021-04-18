@@ -18,7 +18,7 @@ const AllFiles = (props) => {
     const [projectSelectedData, setProjectSelectedData] = useState({})
     const [createType, setCreateType] = useState('')
     useEffect(()=> {
-        if(props.userData.userID) {
+        if(props.userData.userID && props.rootDocs.length===0) {
             getInitialFilesAndFolders()
         }
         // eslint-disable-next-line
@@ -83,7 +83,7 @@ const AllFiles = (props) => {
 
     return(
         <Container>
-            <CreateDocModal isCreateProjectModal={isCreateProjectModal} projectSelectedData={projectSelectedData} setProjectSelectedData={setProjectSelectedData} createType={createType} getProjects={getInitialFilesAndFolders} setIsCreateProjectModal={setIsCreateProjectModal} />
+            <CreateDocModal isCreateProjectModal={isCreateProjectModal} projectSelectedData={projectSelectedData} setProjectSelectedData={setProjectSelectedData} createType={createType} setIsCreateProjectModal={setIsCreateProjectModal} />
             <Menu>
                 <CreateNew><Plus>+</Plus> Create new</CreateNew>
                 <List>
@@ -100,13 +100,17 @@ const AllFiles = (props) => {
 
 const mapStateToProps = state => ({
     userData: state.app.userData,
-    projects: state.dashboard.projects
+    projects: state.dashboard.projects,
+    rootDocs: state.app.rootDocs,
 })
 
 export default connect(mapStateToProps)(AllFiles)
 
 const Container = styled.div`
     width: 75vw;
+    @media(max-width: 900px) {
+        width: 100%;
+    }
 `
 
 const Plus = styled.span`

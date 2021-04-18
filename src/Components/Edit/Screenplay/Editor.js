@@ -34,10 +34,6 @@ const EditorInterface = (props) => {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
     })
 
-    useEffect(()=> {
-        console.log(editor.selection)
-    }, [editor.selection])
-
     useEffect(() => {
         if(editor.selection) {
             const { path } = editor.selection.focus

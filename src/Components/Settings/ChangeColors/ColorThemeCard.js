@@ -49,7 +49,8 @@ const Option = styled.article`
     justify-content: space-between;
     background-color: var(--sidebar);
     padding: 15px;
-    min-width: 200px;
+    max-width: 250px;
+    width: 100%;
     min-height: 50px;
     outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}
 `

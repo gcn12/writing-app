@@ -33,6 +33,7 @@ const Outline = (props) => {
     const [text, setText] = useState('')
     const [cardIndex, setCardIndex] = useState(null)
     const [itemIndexes, setItemIndexes] = useState([])
+    const [savingStatus, setSavingStatus] = useState('All changes saved')
 
     useEffect(()=> {
         getOutline()
@@ -77,6 +78,7 @@ const Outline = (props) => {
         })
         .then(()=> {
             console.log('updated')
+            setSavingStatus('All changes saved')
         })
 
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
@@ -91,8 +93,9 @@ const Outline = (props) => {
 
     
 
-    function handleDragEnd(event) {
-        const {active, over} = event;
+    const handleDragEnd = (e) => {
+        setSavingStatus('Saving...')
+        const {active, over} = e
         if (active.id !== over.id) {
             let oldIndex 
             let newIndex 
@@ -113,9 +116,15 @@ const Outline = (props) => {
         }
     }
 
+    window.onbeforeunload = function() {
+        if(savingStatus==='Saving...') {
+            return 'saving'
+        }
+    }
+
     return (
         <Container>
-            <Toolbar />
+            <Toolbar savingStatus={savingStatus} />
             <OutlineContainer>
                 <Title>{props?.outlineData?.name}</Title>
                 <CreateNew onClick={()=>setShowCreateModal(true)}><Plus>+</Plus> Create new card</CreateNew>

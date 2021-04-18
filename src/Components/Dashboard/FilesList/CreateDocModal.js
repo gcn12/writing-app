@@ -8,7 +8,6 @@ import IconComponent from '../../../Icons/IconComponent'
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { 
-    // currentLayer,
     rootDocs,
     layerOneDocs,
     layerTwoDocs,
@@ -67,7 +66,7 @@ const CreateDocModal = (props) => {
             fileProperties['text'] = ''
         }
         const { lastModified, ...fileProps } = fileProperties
-        addFileToFiles(docID, fileProps, type)
+        addFileToDatabase(docID, fileProps, type)
     }
 
     const addFileToPreviews = (docID, fileProperties, closeModal) => {
@@ -85,7 +84,7 @@ const CreateDocModal = (props) => {
         })
     }
 
-    const addFileToFiles = (docID, fileProps, type) => {
+    const addFileToDatabase = (docID, fileProps, type) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
@@ -105,7 +104,6 @@ const CreateDocModal = (props) => {
 
     const openFileInNewTab = (type, docID) => {
         const location = `/writing-app/edit/${type}/${docID}`
-        // document.location = location
         window.open(location, "_blank") || (document.location = location)
     }
 
@@ -129,6 +127,13 @@ const CreateDocModal = (props) => {
         })
     }
 
+    const onEnter = (e) => {
+        if(e.key==='Enter') {
+            e.preventDefault()
+            createProject()
+        }
+    }
+
     const addDocToStore = (data) => {
         if(props.currentLayer===0) props.dispatch(rootDocs([data, ...props.rootDocs]))
         if(props.currentLayer===1) props.dispatch(layerOneDocs([data, ...props.layerOneDocs]))
@@ -144,7 +149,7 @@ const CreateDocModal = (props) => {
             <HeaderIconContainer>
                 <Header>Create new {props.createType}</Header>
             </HeaderIconContainer>
-            <ProjectTitle autoComplete='off' onChange={(e)=>setName(e.target.value)} />
+            <DocumentTitle onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setIsCreateProjectModal(false)}>Cancel</Cancel>
                 <Create onClick={createProject}>Create project</Create>
@@ -197,7 +202,7 @@ const Cancel = styled.button`
     margin-right: 10px;
 `
 
-const ProjectTitle = styled.input`
+const DocumentTitle = styled.input`
     width: 200px;
     height: 40px;
     font-size: 1.25rem;

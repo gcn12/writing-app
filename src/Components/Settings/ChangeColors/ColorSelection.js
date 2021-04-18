@@ -1,7 +1,7 @@
 import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
-import { colorThemes } from '../../../redux/actions/appActions'
+import { colors } from '../../../redux/actions/appActions'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -10,8 +10,8 @@ const ColorSelection = (props) => {
 
     const changeColor = (type) => {
         const color = document.getElementById(type).value
-        props.dispatch(colorThemes({
-            ...props.colorThemes,
+        props.dispatch(colors({
+            ...props.colors,
             [type]: color,
             name: null,
         }))

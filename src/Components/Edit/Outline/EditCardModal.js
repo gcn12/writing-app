@@ -12,21 +12,26 @@ const EditCardModal = (props) => {
     const [newText, setNewText] = useState('')
 
     const saveCardEdits = () => {
+        const newOutline = [...props.outlineItemsForUpdate]
+        addChangesToState(newOutline)
+        addChangesToDatabase(newOutline)
+        updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
+    }
+
+    const addChangesToState = (newOutline) => {
         const newCard = {
             index: props.cardIndex,
             title: newTitle || props.title,
             text: newText || props.text,
         }
-        const newOutline = [...props.outlineItemsForUpdate]
         const newOutlineForDisplay = [...props.outlineItemsDisplay]
-        
         newOutline[props.cardIndex] = newCard
         newOutlineForDisplay[props.itemIndexes[props.cardIndex]] = newCard
         props.dispatch(outlineItemsDisplay([...newOutlineForDisplay]))
         props.dispatch(outlineItemsForUpdate(newOutline))
+    }
 
-
-
+    const addChangesToDatabase = (newOutline) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
@@ -40,8 +45,6 @@ const EditCardModal = (props) => {
         .catch(err=>{
             console.log(err)
         })
-
-        updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
     const closeModal = (e) => {
@@ -52,13 +55,20 @@ const EditCardModal = (props) => {
         }
     }
 
+    const onEnter = (e) => {
+        if(e.key==='Enter') {
+            e.preventDefault()
+            saveCardEdits()
+        }
+    }
+
     return(
         <Modal onDismiss={()=>props.setShowEditModal(false)} aria-label='edit card' isOpen={props.showEditModal}>
             <Header>Edit card</Header>
             <div>
-                <Title autoComplete='off' onChange={(e)=>setNewTitle(e.target.value)} id='edit-card-modal-title' defaultValue={props.title}></Title>
+                <Title onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setNewTitle(e.target.value)} id='edit-card-modal-title' defaultValue={props.title}></Title>
                 <div style={{marginBottom: '20px'}}></div>
-                <Text onChange={(e)=>setNewText(e.target.value)} id='edit-card-modal-text' defaultValue={props.text}></Text>
+                <Text onKeyDown={onEnter} onChange={(e)=>setNewText(e.target.value)} id='edit-card-modal-text' defaultValue={props.text}></Text>
             </div>
             <div>
                 <Cancel onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowEditModal(false)}>Cancel</Cancel>

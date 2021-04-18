@@ -4,10 +4,18 @@ import ColorSelection from './ColorSelection'
 import ColorTemplates from './ColorTemplates'
 import { connect } from 'react-redux'
 import { colorThemes } from '../../../redux/actions/appActions'
+import styled from 'styled-components'
 
 const ChangeColors = (props) => {
 
     useEffect(()=> {
+        if(props.colorThemes.length === 0) {
+            getColors()
+        }
+        // eslint-disable-next-line
+    }, [])
+
+    const getColors = () => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('page-preferences')
@@ -16,8 +24,7 @@ const ChangeColors = (props) => {
         .then(data=> {
             props.dispatch(colorThemes(data.data().themes.reverse()))
         })
-        // eslint-disable-next-line
-    }, [])
+    }
 
     const addTheme = (theme) => {
         const themesCopy = [...props.colorThemes]
@@ -49,15 +56,19 @@ const ChangeColors = (props) => {
     }
 
     return(
-        <div>
+        <Container>
             <ColorSelection addTheme={addTheme} />
             <ColorTemplates deleteTheme={deleteTheme} />
-        </div>
+        </Container>
     )
 }
 
 const mapStateToProps = state => ({
     userData: state.app.userData,
+    colorThemes: state.app.colorThemes
 })
 
 export default connect(mapStateToProps)(ChangeColors)
+
+const Container = styled.div`
+`

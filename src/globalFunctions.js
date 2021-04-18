@@ -14,8 +14,7 @@ export const updateLastModified = (userID, projectID, fileID) => {
     const timestamp = Date.now()
     const ref = db.collection('users')
     .doc(userID)
-
-    console.log(projectID)
+    
     if(projectID!==undefined) {
         ref.collection('files-folders')
         .doc(projectID)

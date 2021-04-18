@@ -12,22 +12,24 @@ const GoalCard = (props) => {
 export default GoalCard
 
 const Delete = styled.button`
-
 `
 
 const Goal = styled.h1`
-
+    line-height: 1.2;
 ` 
 
 const Container = styled.div`
-    height: 50px;
+    min-height: 50px;
     min-width: 200px;
     width: 48%;
     background-color: var(--sidebar);
-    padding: 50px 30px;
+    padding: 40px 30px;
     border-radius: 5px;
-    /* margin: 10px 0; */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
+    @media(max-width: 550px) {
+        width: 100%;
+    }
 `
