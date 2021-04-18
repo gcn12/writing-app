@@ -37,6 +37,7 @@ const App = (props) => {
         props.dispatch(colors({
           background: 'white'
         }))
+        setIsLoading(false)
       }
     });
     // eslint-disable-next-line
