@@ -122,23 +122,37 @@ const Header = styled.h1`
 `
 
 const Description = styled.textarea`
-    width: 40vw;
+    width: 400px;
     height: 150px;
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
+    @media(max-width: 1000px) {
+        width: 300px;
+    } 
+    @media(max-width: 600px) {
+        width: 60vw;
+        height: 100px;
+    } 
 `
 
 const Title = styled.input`
-    width: 40vw;
+    /* width: 40vw; */
+    width: 400px;
     height: 40px;
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
+    @media(max-width: 1000px) {
+        width: 300px;
+    } 
+    @media(max-width: 600px) {
+        width: 60vw;
+    } 
 `
 
 const Location = styled.input`
@@ -171,9 +185,7 @@ const Create = styled.button`
 
 
 const Modal = styled(Dialog)`
-    z-index: 100;
     display: grid;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     width: 700px;
@@ -182,4 +194,14 @@ const Modal = styled(Dialog)`
     isolation: isolate;
     padding: 50px 15px;
     border-radius: 10px;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -25%);
+    position: absolute;
+    @media(max-width: 1000px) {
+        width: 500px;
+    } 
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `

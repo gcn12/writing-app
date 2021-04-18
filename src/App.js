@@ -16,7 +16,6 @@ import { db } from './firebase'
 const App = (props) => {
   const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
-  // const [colors, setColors] = useState({mainColor: 'red'})
   useEffect(()=> {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {

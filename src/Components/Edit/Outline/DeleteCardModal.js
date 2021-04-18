@@ -92,18 +92,21 @@ const Delete = styled.button`
 
 
 const Modal = styled(Dialog)`
-    z-index: 100;
+    z-index: 10;
     display: grid;
     align-items: center;
     justify-content: center;
-    width: 600px;
-    min-height: 300px;
+    width: 500px;
+    height: 300px;
     position: fixed;
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
     background-color: var(--secondary);
     isolation: isolate;
-    padding: 15px;
+    padding: 0px 20px 20px 20px;
     border-radius: 10px;
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `

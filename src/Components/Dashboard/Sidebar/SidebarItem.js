@@ -37,7 +37,6 @@ const LI = styled.li`
 
 const LiButton = styled.span`
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     background-color: ${props=> props.background};
     border: none;

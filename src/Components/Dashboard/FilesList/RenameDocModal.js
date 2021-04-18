@@ -146,7 +146,7 @@ const DocumentTitle = styled.input`
 
 const NewModal = styled(Dialog)`
     background-color: var(--secondary);
-    min-height: 400px;
+    height: 300px;
     width: 500px;
     border-radius: 15px;
     flex-direction: column;
@@ -159,6 +159,9 @@ const NewModal = styled(Dialog)`
     top: 25%;
     left: 50%;
     transform: translate(-50%, -25%);
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `
 
 const Container = styled.div`

@@ -168,14 +168,17 @@ const Modal = styled(Dialog)`
     display: grid;
     align-items: center;
     justify-content: center;
-    width: 700px;
-    min-height: 300px;
+    width: 500px;
+    height: 300px;
     position: absolute;
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
     background-color: var(--secondary);
     isolation: isolate;
-    padding: 15px 5px;
+    padding: 0px 20px 20px 20px;
     border-radius: 10px;
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `

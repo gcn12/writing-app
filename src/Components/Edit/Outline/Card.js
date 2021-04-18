@@ -79,7 +79,7 @@ const IconTitle = styled.div`
     height: auto;
     min-width: 50px;
     position: absolute;
-    z-index: 10;
+    /* z-index: 5; */
     top: 160%;
     left: 50%;
     transform: translate(-50%, -50%); 
@@ -166,7 +166,7 @@ const IconBackgroundContainer = styled.button`
 
 const Icon = styled.div` 
     transform: translate(-50%, -50%) scale(.7);
-    z-index: 100;
+    /* z-index: 10; */
     top: 50%;
     left: 50%;
     position: absolute;

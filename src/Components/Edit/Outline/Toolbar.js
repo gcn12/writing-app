@@ -23,7 +23,7 @@ const Container = styled.div`
     position: fixed;
     background-color: var(--background);
     width: 100%;
-    z-index: 1;
+    /* z-index: 1; */
     padding: 0 20px;
     display: flex;
     justify-content: space-between;

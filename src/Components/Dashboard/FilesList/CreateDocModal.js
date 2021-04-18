@@ -189,7 +189,6 @@ const Create = styled.button`
     width: 130px;
     border: none;
     color: white;
-
     background-color: var(--primary-text);
     color: var(--sidebar);
 `
@@ -215,7 +214,7 @@ const DocumentTitle = styled.input`
 const Modal = styled(Dialog)`
     background-color: var(--secondary);
     height: 300px;
-    width: 50vw;
+    width: 500px;
     position: absolute;
     top: 25%;
     left: 50%;
@@ -223,7 +222,10 @@ const Modal = styled(Dialog)`
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     align-items: center;
     justify-content: space-evenly;
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `

@@ -94,9 +94,9 @@ const Outline = (props) => {
     
 
     const handleDragEnd = (e) => {
-        setSavingStatus('Saving...')
         const {active, over} = e
         if (active.id !== over.id) {
+            setSavingStatus('Saving...')
             let oldIndex 
             let newIndex 
             setItemIndexes((itemIndexes) => {
@@ -125,6 +125,7 @@ const Outline = (props) => {
     return (
         <Container>
             <Toolbar savingStatus={savingStatus} />
+            <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
             <OutlineContainer>
                 <Title>{props?.outlineData?.name}</Title>
                 <CreateNew onClick={()=>setShowCreateModal(true)}><Plus>+</Plus> Create new card</CreateNew>
@@ -139,10 +140,9 @@ const Outline = (props) => {
                     </Grid>
                 </SortableContext>
                 </DndContext>
-                <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
-                <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
-                <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
             </OutlineContainer>
+            <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
+            <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
         </Container>
     );
 }

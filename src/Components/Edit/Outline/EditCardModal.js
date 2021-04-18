@@ -109,36 +109,45 @@ const Save = styled.button`
 `
 
 const Title = styled.input`
-    width: 500px;
+    width: 400px;
     height: 40px;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
+    @media(max-width: 600px) {
+        width: 60vw;
+    } 
 `
 
 const Text = styled.textarea`
-    width: 500px;
+    width: 400px;
     height: 100px;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: none;
     outline: 1px solid var(--primary-text);
+    @media(max-width: 600px) {
+        width: 60vw;
+    } 
 `
 
 const Modal = styled(Dialog)`
     display: grid;
-    z-index: 100;
+    z-index: 10;
     align-items: center;
     justify-content: center;
-    width: 600px;
-    min-height: 350px;
+    width: 500px;
+    min-height: 400px;
     position: absolute;
     left: 50%;
     top: 25%;
     transform: translate(-50%, -25%);
     background-color: var(--secondary);
     isolation: isolate;
-    padding: 15px;
+    padding: 0px 20px 20px 20px;
     border-radius: 10px;
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `

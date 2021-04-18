@@ -24,7 +24,9 @@ const Sidebar = (props) => {
                 </SidebarItem> */}
             </UL>
             <DailyGoals />
-            <Signout />
+            <UL>
+                <Signout />
+            </UL>
         </Container>
     )
 }

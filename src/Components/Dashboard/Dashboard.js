@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import AllFiles from './FilesList/AllFiles'
 import Sidebar from './Sidebar/Sidebar'
 import Goals from '../Goals/Goals'
+import MobileHeader from './MobileHeader'
 import ChangeColors from '../Settings/ChangeColors/ChangeColors'
 import Settings from '../Settings/Settings'
 import { connect } from 'react-redux'
@@ -11,6 +12,7 @@ import Breadcrumbs from './Breadcrumbs'
 const Dashboard = (props) => {
     return(
         <Container>
+            <MobileHeader />
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/dashboard' render={(props)=> (
@@ -52,6 +54,7 @@ export const FilesContainer = styled.div`
 `
 
 export const Container = styled.div`
-    /* width: 100vw;  */
-    display: flex;
+    @media(min-width: 900px) {
+        display: flex;
+    }
 `
