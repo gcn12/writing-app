@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/writing-app/static/css/main.ada2019d.chunk.css",
-    "main.js": "/writing-app/static/js/main.5c0d7ccd.chunk.js",
-    "main.js.map": "/writing-app/static/js/main.5c0d7ccd.chunk.js.map",
-    "runtime-main.js": "/writing-app/static/js/runtime-main.9e0a3218.js",
-    "runtime-main.js.map": "/writing-app/static/js/runtime-main.9e0a3218.js.map",
-    "static/js/2.a9af49aa.chunk.js": "/writing-app/static/js/2.a9af49aa.chunk.js",
-    "static/js/2.a9af49aa.chunk.js.map": "/writing-app/static/js/2.a9af49aa.chunk.js.map",
+    "main.js": "/writing-app/static/js/main.58f4572d.chunk.js",
+    "main.js.map": "/writing-app/static/js/main.58f4572d.chunk.js.map",
+    "runtime-main.js": "/writing-app/static/js/runtime-main.36d6a954.js",
+    "runtime-main.js.map": "/writing-app/static/js/runtime-main.36d6a954.js.map",
+    "static/js/2.48da3021.chunk.js": "/writing-app/static/js/2.48da3021.chunk.js",
+    "static/js/2.48da3021.chunk.js.map": "/writing-app/static/js/2.48da3021.chunk.js.map",
     "static/css/3.ea627e78.chunk.css": "/writing-app/static/css/3.ea627e78.chunk.css",
-    "static/js/3.b5207701.chunk.js": "/writing-app/static/js/3.b5207701.chunk.js",
-    "static/js/3.b5207701.chunk.js.map": "/writing-app/static/js/3.b5207701.chunk.js.map",
+    "static/js/3.1f1ed66d.chunk.js": "/writing-app/static/js/3.1f1ed66d.chunk.js",
+    "static/js/3.1f1ed66d.chunk.js.map": "/writing-app/static/js/3.1f1ed66d.chunk.js.map",
     "static/js/4.396f542e.chunk.js": "/writing-app/static/js/4.396f542e.chunk.js",
     "static/js/4.396f542e.chunk.js.map": "/writing-app/static/js/4.396f542e.chunk.js.map",
     "static/js/5.ac6dd614.chunk.js": "/writing-app/static/js/5.ac6dd614.chunk.js",
@@ -19,16 +19,16 @@
     "index.html": "/writing-app/index.html",
     "static/css/3.ea627e78.chunk.css.map": "/writing-app/static/css/3.ea627e78.chunk.css.map",
     "static/css/main.ada2019d.chunk.css.map": "/writing-app/static/css/main.ada2019d.chunk.css.map",
-    "static/js/2.a9af49aa.chunk.js.LICENSE.txt": "/writing-app/static/js/2.a9af49aa.chunk.js.LICENSE.txt",
-    "static/js/3.b5207701.chunk.js.LICENSE.txt": "/writing-app/static/js/3.b5207701.chunk.js.LICENSE.txt",
+    "static/js/2.48da3021.chunk.js.LICENSE.txt": "/writing-app/static/js/2.48da3021.chunk.js.LICENSE.txt",
+    "static/js/3.1f1ed66d.chunk.js.LICENSE.txt": "/writing-app/static/js/3.1f1ed66d.chunk.js.LICENSE.txt",
     "static/js/4.396f542e.chunk.js.LICENSE.txt": "/writing-app/static/js/4.396f542e.chunk.js.LICENSE.txt",
     "static/js/5.ac6dd614.chunk.js.LICENSE.txt": "/writing-app/static/js/5.ac6dd614.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.9e0a3218.js",
+    "static/js/runtime-main.36d6a954.js",
     "static/css/3.ea627e78.chunk.css",
-    "static/js/3.b5207701.chunk.js",
+    "static/js/3.1f1ed66d.chunk.js",
     "static/css/main.ada2019d.chunk.css",
-    "static/js/main.5c0d7ccd.chunk.js"
+    "static/js/main.58f4572d.chunk.js"
   ]
 }
