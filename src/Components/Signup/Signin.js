@@ -1,11 +1,12 @@
 import firebase from 'firebase'
 import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { colors } from '../../redux/actions/appActions'
 import { connect } from 'react-redux'
 
 const SignUp = (props) => {
-
+    const history = useHistory()
     useEffect(()=> {
         props.dispatch(colors({
             background: 'white',
@@ -22,6 +23,7 @@ const SignUp = (props) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             console.log('signed in')
+            history.push('/writing-app/dashboard')
         })
         .catch((error) => {
             console.log(error)
@@ -33,7 +35,7 @@ const SignUp = (props) => {
             <Label>Email</Label>
             <Username onChange={(e)=>setEmail(e.target.value)} />
             <Label>Password</Label>
-            <Password onChange={(e)=>setPassword(e.target.value)} />
+            <Password type='password' onChange={(e)=>setPassword(e.target.value)} />
             <Submit onClick={submit}>Sign in</Submit>
         </Container>
     )

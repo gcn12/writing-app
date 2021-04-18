@@ -35,6 +35,8 @@ const UL = styled.ul`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    list-style-type: none;
+    padding: 0;
 `
 
 const LI = styled.li`
@@ -56,6 +58,7 @@ const SignUp= styled.div`
 
 const StyledLink = styled(Link)`
     text-decoration: none;
+    color: black;
     &:focus {
         box-shadow: none;
     }
