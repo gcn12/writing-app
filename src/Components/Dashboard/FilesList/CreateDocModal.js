@@ -216,11 +216,13 @@ const Modal = styled(Dialog)`
     height: 300px;
     width: 500px;
     position: absolute;
-    top: 25%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -25%);
+    transform: translate(-50%, -50%);
     border-radius: 15px;
     display: flex;
+    margin: 0;
+    box-shadow: none;
     flex-direction: column;
     padding: 0px 20px 20px 20px;
     align-items: center;

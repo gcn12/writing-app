@@ -3,6 +3,7 @@ import { Dialog } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import DailyGoals from '../../Components/Goals/DailyGoals'
 import MobileNavItem from './MobileNavItem'
+import MobileSignout from './MobileSignout'
 
 const MobileNavigation = (props) => {
     return(
@@ -21,18 +22,39 @@ const MobileNavigation = (props) => {
                     </MobileNavItem>
                 </UL>
             </NavContainer>
-            <DailyGoals />
+            <GoalsContainer>
+                <DailyGoals />
+            </GoalsContainer>
+            <SignoutContainer>
+                <UL>
+                    <MobileSignout />
+                </UL>
+            </SignoutContainer>
         </Modal>
     )
 }
 
 export default MobileNavigation
 
+const SignoutContainer = styled.div`
+    height: 25%;
+    /* border: 1px solid white; */
+    display: grid;
+    align-items: flex-end;
+    min-height: 150px;
+`
+
+const GoalsContainer = styled.div`
+    height: 33%;
+    min-height: 150px;
+`
+
 const NavContainer = styled.div`
     display: grid;
     justify-content: center;
     align-items: center;
     height: 33%;
+    min-height: 150px;
 `
 
 const UL = styled.ul`
@@ -43,8 +65,7 @@ const UL = styled.ul`
 `
 
 const Close = styled.button`
-    display: flex;
-    justify-content: flex-end;
+    align-self: flex-end;
     font-size: 2rem;
 `
 
@@ -57,4 +78,7 @@ const Modal = styled(Dialog)`
     top: 0;
     right: 0;
     background-color: var(--sidebar);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
 `

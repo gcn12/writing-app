@@ -141,8 +141,10 @@ const Modal = styled(Dialog)`
     min-height: 400px;
     position: absolute;
     left: 50%;
-    top: 25%;
-    transform: translate(-50%, -25%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    box-shadow: none;
     background-color: var(--secondary);
     isolation: isolate;
     padding: 0px 20px 20px 20px;

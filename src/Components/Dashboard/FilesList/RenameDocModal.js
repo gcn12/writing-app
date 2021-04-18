@@ -156,9 +156,11 @@ const NewModal = styled(Dialog)`
     align-items: center;
     justify-content: space-evenly;
     position: absolute;
-    top: 25%;
+    box-shadow: none;
+    margin: 0;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -25%);
+    transform: translate(-50%, -50%);
     @media(max-width: 600px) {
         width: 80vw;
     } 

@@ -4,6 +4,7 @@ import '@reach/dialog/styles.css'
 import { db } from '../../firebase'
 import { connect } from 'react-redux'
 import { useState } from 'react'
+import IconComponent from '../../Icons/IconComponent'
 import { goals } from '../../redux/actions/appActions'
 
 
@@ -45,9 +46,12 @@ const DailyGoalModal = (props) => {
 
     return(
         <Modal aria-label='change daily goal' onDismiss={()=>props.setShowChangeGoal(false)} isOpen={props.showChangeGoal}>
+            {/* <Close onClick={()=>props.setShowChangeGoal(false)}>X</Close> */}
+            <Close label='set new goal' onClick={()=>props.setShowChangeGoal(false)}>
+                <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
+            </Close>
             <TitleCloseContainer>
                 <Title>Set new goal</Title>
-                <Close onClick={()=>props.setShowChangeGoal(false)}>X</Close>
             </TitleCloseContainer>
             <GoalInput onKeyDown={(e)=>onEnter(e, goal)} defaultValue={props.goals.goal} onChange={(e)=>setGoal(e.target.value)} />
             <div>
@@ -66,7 +70,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(DailyGoalModal)
 
 const Close = styled.button`
-
+    align-self: flex-end;
 `
 
 const TitleCloseContainer = styled.div`
@@ -93,7 +97,7 @@ const Modal = styled(Dialog)`
     height: 300px;
     width: 500px;
     position: absolute;
-    top: 35%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--secondary);
@@ -101,6 +105,13 @@ const Modal = styled(Dialog)`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 15px;
+    padding: 0px 20px 20px 20px;
+    @media(max-width: 600px) {
+        width: 80vw;
+    } 
 `
 
 const Cancel = styled.button`

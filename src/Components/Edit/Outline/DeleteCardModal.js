@@ -100,8 +100,10 @@ const Modal = styled(Dialog)`
     height: 300px;
     position: fixed;
     left: 50%;
-    top: 25%;
-    transform: translate(-50%, -25%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    box-shadow: none;
     background-color: var(--secondary);
     isolation: isolate;
     padding: 0px 20px 20px 20px;
