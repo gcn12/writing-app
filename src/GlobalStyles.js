@@ -12,13 +12,13 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html, body {
-        
         background-color: var(--background);
         --webkit-overflow-scrolling: touch;
-        height: 100%;
     }
 
     body {
+        position: fixed;
+        height: 100%;
         overscroll-behavior-y: ${props=>props.isDashboard ? 'none' : 'scroll'};
     }
 
