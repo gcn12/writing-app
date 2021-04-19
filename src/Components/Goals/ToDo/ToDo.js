@@ -132,7 +132,7 @@ const Container = styled.div`
     /* height: 100vh; */
     min-height: 100%;
     --webkit-overflow-scrolling: touch;
-    padding: 60px 30px;
+    padding: 60px 30px 0px 30px;
     overflow: scroll;
     @media(max-width: 750px) { 
         padding: 0px 30px;
