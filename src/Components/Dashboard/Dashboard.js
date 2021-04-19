@@ -19,10 +19,10 @@ const Dashboard = (props) => {
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/dashboard' render={(props)=> (
-                    <div>
+                    <FileContainer>
                         <Breadcrumbs />
                         <AllFiles {...props} />
-                    </div>
+                    </FileContainer>
                 )} />
                 <Route exact path='/writing-app/dashboard/goals' render={(props)=> (
                     // <Goals {...props} />
@@ -45,6 +45,12 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Dashboard)
 
+const FileContainer = styled.div`
+    padding: 0 30px;
+    overflow: scroll;
+    --webkit-overflow-scrolling: touch;
+`
+
 export const FilesContainer = styled.div`
     /* overflow-y: scroll;
     --webkit-overflow-scrolling: touch; */
@@ -54,7 +60,7 @@ export const FilesContainer = styled.div`
     justify-content: center;
     @media(max-width: 800px) {
         margin-left: 0;
-        padding: 0 20px;
+        /* padding: 0 20px; */
     }
     /* padding: 0 30px; */
 `
@@ -63,5 +69,5 @@ export const Container = styled.div`
     height: 100%;
     @media(min-width: 800px) {
         display: flex;
-    }
+    } 
 `
