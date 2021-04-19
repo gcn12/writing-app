@@ -45,10 +45,11 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Sidebar)
 
 const GoalsContainer = styled.div`
-    height: 40%;
+    height: 45%;
     display: grid;
     align-items: center;
-    min-height: 300px;
+    min-height: 250px;
+    /* outline: 1px solid white; */
 `
 
 const Container = styled.div`
@@ -64,7 +65,7 @@ const Container = styled.div`
 `
 
 const ListContainer = styled.div`
-    height: 30%;
+    height: 25%;
     display: grid;
     min-height: 100px;
     /* align-items: center; */
@@ -83,6 +84,6 @@ const Logo = styled.h1`
     padding: 20px;
     margin: 0px 0 0px 0;
     height: 20%;
-    min-height: 100px;
+    /* min-height: 0px; */
     /* outline: 1px solid white; */
 `

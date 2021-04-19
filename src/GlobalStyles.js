@@ -12,8 +12,9 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html, body {
-        overflow: ${props=>props.isDashboard ? 'hidden' : 'visible'};
+        overflow: ${props=>props.isDashboard ? 'hidden' : 'scroll'};
         background-color: var(--background);
+        --webkit-overflow-scrolling: touch;
     }
 
     * {
@@ -21,7 +22,6 @@ const GlobalStyles = createGlobalStyle`
             box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
             outline: none;
         }
-        --webkit-overflow-scrolling: touch;
     }
 
     html, body, div, object, iframe,
