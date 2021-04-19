@@ -122,6 +122,9 @@ const Title = styled.h1`
     font-size: 2.5rem;
     font-weight: 600;
     margin-bottom: 25px;
+    @media(max-width: 750px) { 
+        margin-top: 20px;
+    }
 `
 
 const Container = styled.div`
@@ -130,16 +133,16 @@ const Container = styled.div`
     --webkit-overflow-scrolling: touch;
     padding: 60px 30px;
     overflow: scroll;
-    /* margin-top: 40px; */
-    /* @media(max-width: 750px) { */
-    /* }  */
+    @media(max-width: 750px) { 
+        padding: 0px 30px;
+    } 
 `
 
 const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 80px;
+    margin-bottom: 120px;
     @media(max-width: 700px) {
         grid-template-columns: 1fr;
     } 
