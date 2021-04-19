@@ -143,8 +143,8 @@ const CardContainer = styled.div`
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
     /* margin-bottom: 200px; */
-    padding-bottom: 200px;
     @media(max-width: 700px) {
+        padding-bottom: 200px;
         grid-template-columns: 1fr;
     } 
 `

@@ -63,6 +63,9 @@ export const FilesContainer = styled.div`
         margin-left: 0;
         /* padding: 0 20px; */
     }
+    @media(max-width: 700px) {
+        padding-bottom: 200px;
+    } 
     /* padding: 0 30px; */
 `
 
