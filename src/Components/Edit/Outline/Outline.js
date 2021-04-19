@@ -166,6 +166,7 @@ const Plus = styled.span`
 
 const Container = styled.div`
     width: 100%;
+    --webkit-overflow-scrolling: touch;
 `
 
 const CreateNew = styled.button`
