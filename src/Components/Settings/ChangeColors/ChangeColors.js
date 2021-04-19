@@ -82,4 +82,7 @@ const Container = styled.div`
     padding: 0 30px;
     overflow: scroll;
     --webkit-overflow-scrolling: touch;
+    @media(max-width: 700px) {
+        padding-bottom: 200px;
+    }
 `
