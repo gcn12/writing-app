@@ -149,12 +149,13 @@ const InputContainer = styled.div`
 `
 
 const ColorPickers = styled.div`
+    margin: 40px 0;
     display: flex;
     flex-wrap: wrap;
-    margin: 40px 0;
-    gap: 30px;
+    /* gap: 30px; */
 `
 
 const Picker = styled.div`
-
+    margin-right: 30px;
+    margin-bottom: 30px;
 `

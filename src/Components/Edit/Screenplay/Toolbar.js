@@ -25,11 +25,12 @@ const Export = styled.button`
     background-color: var(--primary-text);
     color: var(--sidebar);
     border-radius: 5px;
+    margin-left: 20px;
 `
 
 const RightContainer = styled.div`
     display: flex;
-    gap: 10px;
+    /* gap: 10px; */
     align-items: center;
 `
 

@@ -72,7 +72,9 @@ export default connect(mapStateToProps)(ChangeColors)
 
 const Container = styled.div`
     /* margin-bottom: 30px; */
+    width: 76vw;
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 
+    /* overflow: scroll; */
 `

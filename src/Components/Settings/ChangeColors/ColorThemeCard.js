@@ -27,17 +27,20 @@ const Color = styled.div`
     height: 15px;
     width: 15px;
     border: 1px solid var(--primary-text);
+    margin-right: 5px;
 `
 
 const Colors = styled.div`
     display: flex;
-    gap: 5px;
+    /* gap: 5px; */
+    margin-top: 5px;
 `
 
 const SelectOption = styled.button`
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
+    /* margin: 10px 0; */
 `
 
 const DeleteOption = styled.button`
@@ -52,5 +55,6 @@ const Option = styled.article`
     max-width: 250px;
     width: 100%;
     min-height: 50px;
+    margin: 0 10px 10px 0;
     outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}
 `

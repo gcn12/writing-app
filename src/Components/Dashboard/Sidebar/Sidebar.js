@@ -53,7 +53,8 @@ const GoalsContainer = styled.div`
 `
 
 const Container = styled.div`
-    width: 18vw;
+    width: 18%;
+    flex-grow: 1;
     padding: 0 20px;
     background-color: var(--sidebar);
     height: 100%;

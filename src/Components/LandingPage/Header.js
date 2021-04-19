@@ -23,7 +23,6 @@ export default Header
 
 const RightContainer = styled.div`
     display: flex;
-    gap: 10px;
     margin-right: 50px;
 `
 
@@ -54,6 +53,7 @@ const SignUp= styled.div`
     color: white;
     padding: 15px;
     border-radius: 7px;
+    margin-left: 10px;
 `
 
 const StyledLink = styled(Link)`

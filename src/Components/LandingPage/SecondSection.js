@@ -25,7 +25,6 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
     margin-bottom: 25vh;
     height: 60vh;
     position: relative;
@@ -35,6 +34,7 @@ const Image = styled.img`
     max-width: auto; 
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     outline: 1px solid rgba(0, 0, 0, .1);
+    margin-right: 50px;
 `
 
 const Title = styled.h1`

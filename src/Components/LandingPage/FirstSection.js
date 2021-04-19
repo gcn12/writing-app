@@ -31,7 +31,7 @@ const Container = styled.div`
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    /* gap: 50px; */
     height: 95vh;
 `
 const Image = styled.img`
@@ -39,6 +39,7 @@ const Image = styled.img`
     max-width: auto; 
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     outline: 1px solid rgba(0, 0, 0, .1);
+    margin-left: 50px;
 `
 
 const GetStarted = styled.div`

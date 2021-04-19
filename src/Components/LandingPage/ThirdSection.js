@@ -7,20 +7,26 @@ const ThirdSection = () => {
                 <Title>Leave the formatting to us</Title>
                 <Subtitle>Redraft follows screenwriting formatting.</Subtitle>
             </div>
-            <video height='300px' width='auto' autoPlay muted loop>
+            <Preview height='300px' width='auto' autoPlay muted loop>
                 <source src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/app%20preview.mov?alt=media&token=0e668593-cc11-410e-b899-22aeaa83938d' />
-            </video>
+            </Preview>
         </Container>
     )
 }
 
 export default ThirdSection
 
+const Preview = styled.video`
+    box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
+    outline: 1px solid rgba(0, 0, 0, .1);
+    /* margin-left: 50px; */
+`
+
 const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    /* gap: 50px; */
     padding-bottom: 25vh;
     height: 40vh;
 `
