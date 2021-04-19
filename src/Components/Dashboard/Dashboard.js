@@ -25,7 +25,6 @@ const Dashboard = (props) => {
                     </FileContainer>
                 )} />
                 <Route exact path='/writing-app/dashboard/goals' render={(props)=> (
-                    // <Goals {...props} />
                     <ToDo {...props} />
                 )} />
                 <Route exact path='/writing-app/dashboard/settings' render={(props)=> (

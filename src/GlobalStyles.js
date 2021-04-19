@@ -12,10 +12,14 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html, body {
-        overflow: ${props=>props.isDashboard ? 'hidden' : 'scroll'};
+        
         background-color: var(--background);
         --webkit-overflow-scrolling: touch;
         height: 100%;
+    }
+
+    body {
+        overscroll-behavior-y: ${props=>props.isDashboard ? 'none' : 'scroll'};
     }
 
     * {
