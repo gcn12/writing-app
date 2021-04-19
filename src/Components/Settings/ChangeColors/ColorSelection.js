@@ -4,9 +4,11 @@ import firebase from 'firebase'
 import { colors } from '../../../redux/actions/appActions'
 import { useState } from 'react'
 import styled from 'styled-components'
+import { HexColorPicker } from 'react-colorful'
 
 const ColorSelection = (props) => {
     const [name, setName] = useState('')
+    const [color1, setColor1] = useState(props.colors.background)
 
     const changeColor = (type) => {
         const color = document.getElementById(type).value
@@ -55,26 +57,47 @@ const ColorSelection = (props) => {
         <Container>
             <Title>Change colors</Title>
             <ColorPickers>
+
+
                 <Picker>
-                    <PickerLabel htmlFor='background'>Background:</PickerLabel>
-                    <input defaultValue={props.colors.background} onChange={()=>changeColor('background')} type='color' id='background' />
+                    <ColorPickerContainer>
+                        <HexColorPicker color={color1} onChange={setColor1} />
+                    </ColorPickerContainer>
+                    <ColorLabel color={color1} colore={props.colors.background}>
+                    </ColorLabel>
+                    <PickerLabel htmlFor='background'>Background</PickerLabel>
+                </Picker>
+
+
+
+                <Picker>
+                    <ColorLabel color={props.colors.primaryText}>
+                        <ColorInput defaultValue={props.colors.primaryText} onChange={()=>changeColor('primaryText')} type='color' id='primaryText' />
+                    </ColorLabel>
+                    <PickerLabel htmlFor='primaryText'>Primary text</PickerLabel>
                 </Picker>
                 <Picker>
-                    <PickerLabel htmlFor='primaryText'>Primary text:</PickerLabel>
-                    <input defaultValue={props.colors.primaryText} onChange={()=>changeColor('primaryText')} type='color' id='primaryText' />
+                    <ColorLabel color={props.colors.sidebar}>
+                        <ColorInput defaultValue={props.colors.sidebar} onChange={()=>changeColor('sidebar')} type='color' id='sidebar' />
+                    </ColorLabel>
+                    <PickerLabel htmlFor='sidebar'>Sidebar</PickerLabel>
                 </Picker>
                 <Picker>
-                    <PickerLabel htmlFor='sidebar'>Sidebar:</PickerLabel>
-                    <input defaultValue={props.colors.sidebar} onChange={()=>changeColor('sidebar')}type='color' id='sidebar' />
+                    <ColorLabel color={props.colors.highlight}>
+                        <ColorInput defaultValue={props.colors.highlight} onChange={()=>changeColor('highlight')} type='color' id='highlight' />
+                    </ColorLabel>
+                    <PickerLabel htmlFor='highlight'>Highlight</PickerLabel>
                 </Picker>
                 <Picker>
-                    <PickerLabel htmlFor='highlight'>Highlight:</PickerLabel>
-                    <input defaultValue={props.colors.highlight} onChange={()=>changeColor('highlight')}type='color' id='highlight' />
+                    <ColorLabel color={props.colors.secondary}>
+                        <ColorInput defaultValue={props.colors.secondary} onChange={()=>changeColor('secondary')} type='color' id='secondary' />
+                    </ColorLabel>
+                    <PickerLabel htmlFor='secondary'>Secondary</PickerLabel>
                 </Picker>
-                <Picker>
-                    <PickerLabel htmlFor='secondary'>Secondary:</PickerLabel>
-                    <input defaultValue={props.colors.secondary} onChange={()=>changeColor('secondary')}type='color' id='secondary' />
-                </Picker>
+
+
+
+                <ColorTest type='color' />
             </ColorPickers>
             <InputContainer>
                 <NameLabel htmlFor='theme-name-input'>Theme name:</NameLabel>
@@ -93,6 +116,38 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(ColorSelection)
+
+const ColorPickerContainer = styled.div`
+    position: absolute;
+    top: 230px;
+`
+
+const ColorTest = styled.input`
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+`
+
+const ColorLabel = styled.label`
+    background-color: ${props=>props.color};
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-text);
+    box-shadow: 0;
+    margin-bottom: 5px;
+`
+
+const ColorInput = styled.input`
+    opacity: 0;
+    &:focus ${ColorLabel} {
+        box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+        outline: none;
+    }
+`
 
 const ButtonInputContainer = styled.div`
     display: flex;
@@ -158,4 +213,8 @@ const ColorPickers = styled.div`
 const Picker = styled.div`
     margin-right: 30px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* position: relative; */
 `
