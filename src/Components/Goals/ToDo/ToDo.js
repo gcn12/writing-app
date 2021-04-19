@@ -125,8 +125,9 @@ const Title = styled.h1`
 `
 
 const Container = styled.div`
-    width: 76vw;
-    outline: 1px solid white;
+    width: 100%;
+    /* padding: 0 30px; */
+    margin-top: 40px;
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 
@@ -139,4 +140,7 @@ const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
+    @media(max-width: 700px) {
+        grid-template-columns: 1fr;
+    } 
 `

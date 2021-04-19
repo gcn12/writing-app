@@ -30,7 +30,7 @@ const Container = styled.div`
     width: 100vw;
     padding: 0 30px;
     background-color: var(--sidebar);
-    @media(min-width: 900px) {
+    @media(min-width: 800px) {
         display: none;
     }
 `

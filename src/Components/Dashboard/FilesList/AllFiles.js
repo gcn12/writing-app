@@ -107,7 +107,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(AllFiles)
 
 const Container = styled.div`
-    width: 75vw;
+    /* width: 75vw; */
+    /* padding: 0 30px; */
     @media(max-width: 900px) {
         width: 100%;
     }

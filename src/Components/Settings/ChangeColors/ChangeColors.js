@@ -72,7 +72,8 @@ export default connect(mapStateToProps)(ChangeColors)
 
 const Container = styled.div`
     /* margin-bottom: 30px; */
-    width: 76vw;
+    /* width: 76vw; */
+    width: 100%;
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 

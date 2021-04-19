@@ -49,7 +49,6 @@ const GoalsContainer = styled.div`
     display: grid;
     align-items: center;
     min-height: 250px;
-    /* outline: 1px solid white; */
 `
 
 const Container = styled.div`
@@ -57,10 +56,10 @@ const Container = styled.div`
     flex-grow: 1;
     padding: 0 20px;
     background-color: var(--sidebar);
-    height: 100%;
+    height: 100vh;
     min-width: 200px;
-    position: fixed;
-    @media(max-width: 900px) {
+    /* position: fixed; */
+    @media(max-width: 800px) {
         display: none;
     }
 `
@@ -69,8 +68,6 @@ const ListContainer = styled.div`
     height: 25%;
     display: grid;
     min-height: 100px;
-    /* align-items: center; */
-    /* outline: 1px solid white; */
 `
 
 const UL = styled.ul`
@@ -85,6 +82,4 @@ const Logo = styled.h1`
     padding: 20px;
     margin: 0px 0 0px 0;
     height: 20%;
-    /* min-height: 0px; */
-    /* outline: 1px solid white; */
 `

@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Route } from 'react-router-dom'
 import AllFiles from './FilesList/AllFiles'
 import Sidebar from './Sidebar/Sidebar'
-import Goals from '../Goals/Goals'
+// import Goals from '../Goals/Goals'
+import ToDo from '../Goals/ToDo/ToDo'
 import MobileHeader from './MobileHeader'
 import ChangeColors from '../Settings/ChangeColors/ChangeColors'
 import Settings from '../Settings/Settings'
@@ -24,7 +25,8 @@ const Dashboard = (props) => {
                     </div>
                 )} />
                 <Route exact path='/writing-app/dashboard/goals' render={(props)=> (
-                    <Goals {...props} />
+                    // <Goals {...props} />
+                    <ToDo {...props} />
                 )} />
                 <Route exact path='/writing-app/dashboard/settings' render={(props)=> (
                     <Settings {...props} />
@@ -44,25 +46,21 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Dashboard)
 
 export const FilesContainer = styled.div`
-    /* padding: 0 10px 0 50px; */
-    margin-left: 18%;
-    border: 1px solid white;
     overflow: scroll;
     --webkit-overflow-scrolling: touch;
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
-    @media(max-width: 900px) {
+    @media(max-width: 800px) {
         margin-left: 0;
         padding: 0 20px;
     }
-    /* width: 82%; */
-    flex-shrink: 10000;
+    padding: 0 30px;
 `
 
 export const Container = styled.div`
-    @media(min-width: 900px) {
+    @media(min-width: 800px) {
         display: flex;
     }
 `

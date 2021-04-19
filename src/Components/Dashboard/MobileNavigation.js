@@ -38,7 +38,6 @@ export default MobileNavigation
 
 const SignoutContainer = styled.div`
     height: 25%;
-    /* border: 1px solid white; */
     display: grid;
     align-items: flex-end;
     min-height: 150px;
@@ -61,7 +60,6 @@ const UL = styled.ul`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border: 1px solid white; */
 `
 
 const Close = styled.button`
