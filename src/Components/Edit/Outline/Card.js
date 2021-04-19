@@ -118,10 +118,11 @@ const CardNumber = styled.p`
 `
 
 const Icons = styled.div`
-    opacity: 0;
     transition: opacity 300ms ease-in-out;
-    @media(max-width: 900px) {
-        opacity: 1;
+    @media(hover: hover) {
+        &:not(:hover) {
+            opacity: 0;
+        }
     }
 `
 

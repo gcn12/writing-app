@@ -75,7 +75,7 @@ const Container = styled.div`
     /* width: 76vw; */
     /* width: 100vh;
     overflow: scroll; */
-    /* width: 100%; */
+    width: 100%;
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 
