@@ -126,7 +126,7 @@ const Title = styled.h1`
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     --webkit-overflow-scrolling: touch;
     padding: 60px 30px;
     overflow: auto;
