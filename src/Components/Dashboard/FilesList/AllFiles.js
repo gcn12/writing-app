@@ -109,7 +109,7 @@ export default connect(mapStateToProps)(AllFiles)
 const Container = styled.div`
     /* width: 75vw; */
     /* padding: 0 30px; */
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 `
 
 const Plus = styled.span`

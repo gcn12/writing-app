@@ -139,7 +139,7 @@ const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
     @media(max-width: 700px) {
         grid-template-columns: 1fr;
     } 
