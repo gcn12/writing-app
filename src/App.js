@@ -51,7 +51,7 @@ const App = (props) => {
     isLoading ? 
     null
     :
-    <div>
+    <div style={{minHeight: '100%'}}>
       <Route exact path='/writing-app/signup' render={(props)=> (
         <Signup {...props} />
       )} />
