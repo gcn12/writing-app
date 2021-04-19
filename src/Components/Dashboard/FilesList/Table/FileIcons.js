@@ -25,7 +25,7 @@ export default FileIcons
 
 const Name = styled.p`
     word-break: break-all;
-    width: 200px;
+    /* max-width: 200px; */
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

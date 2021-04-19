@@ -190,7 +190,6 @@ const ProjectsTable = (props) => {
     )   
 }
 
-
 const mapStateToProps = state => ({
     userData: state.app.userData,
     rootDocs: state.app.rootDocs,
@@ -229,7 +228,7 @@ const Head = styled.div`
 const Table = styled.div`
     display: table;
     width: 100%;
-    max-width: 100%;
+    /* max-width: 100%; */
     border-collapse: separate;
     border-spacing: 0 10px;
     overflow: auto;
