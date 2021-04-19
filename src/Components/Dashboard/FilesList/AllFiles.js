@@ -112,7 +112,7 @@ const Container = styled.div`
     /* margin-bottom: 100px; */
     /* padding-bottom: 40px; */
     padding-bottom: 100px;
-    height: 100vh;
+    /* height: 100vh; */
     @media(max-width: 700px) {
         padding-bottom: 100px;
     }
