@@ -110,6 +110,7 @@ const Container = styled.div`
     /* width: 75vw; */
     /* padding: 0 30px; */
     /* margin-bottom: 100px; */
+    padding-bottom: 40px;
     @media(max-width: 700px) {
         padding-bottom: 100px;
     }
