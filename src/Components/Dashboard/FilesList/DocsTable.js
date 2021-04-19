@@ -208,6 +208,7 @@ const Container = styled.div`
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 
+    padding: 0 30px;
 `
 
 const TableHead = styled.div`

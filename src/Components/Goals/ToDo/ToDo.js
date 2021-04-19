@@ -134,6 +134,7 @@ const Container = styled.div`
     --webkit-overflow-scrolling: touch;
     padding: 60px 30px;
     overflow: scroll;
+    padding: 0 30px;
     @media(max-width: 750px) { 
         padding: 0px 30px;
     } 
