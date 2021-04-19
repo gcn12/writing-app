@@ -134,7 +134,7 @@ const Container = styled.div`
     padding: 60px 30px;
     overflow: scroll;
     @media(max-width: 750px) { 
-        padding: 0px 30px;
+        padding: 0px 30px 100px 30px;
     } 
 `
 
