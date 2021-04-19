@@ -63,6 +63,7 @@ export const FilesContainer = styled.div`
         margin-left: 0;
         /* padding: 0 20px; */
     } 
+    margin-bottom: 200px;
     /* padding: 0 30px; */
 `
 
