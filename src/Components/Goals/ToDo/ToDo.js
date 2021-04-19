@@ -134,7 +134,7 @@ const Container = styled.div`
     padding: 60px 30px;
     overflow: scroll;
     @media(max-width: 750px) { 
-        padding: 0px 30px 100px 30px;
+        padding: 0px 30px;
     } 
 `
 
@@ -142,7 +142,8 @@ const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 120px;
+    margin-bottom: 200px;
+    padding-bottom: 200px;
     @media(max-width: 700px) {
         grid-template-columns: 1fr;
     } 
