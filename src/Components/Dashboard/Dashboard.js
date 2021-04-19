@@ -59,6 +59,7 @@ export const FilesContainer = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+
     @media(max-width: 800px) {
         margin-left: 0;
         /* padding: 0 20px; */
@@ -67,7 +68,7 @@ export const FilesContainer = styled.div`
 `
 
 export const Container = styled.div`
-    height: 100%;
+    /* height: 100%; */
     @media(min-width: 800px) {
         display: flex;
     } 

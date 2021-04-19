@@ -126,20 +126,20 @@ const Title = styled.h1`
 
 const Container = styled.div`
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     --webkit-overflow-scrolling: touch;
     padding: 60px 30px;
-    overflow: auto;
+    overflow: scroll;
     /* margin-top: 40px; */
-    @media(max-width: 900px) {
-        margin-bottom: 110px;
-    } 
+    /* @media(max-width: 750px) { */
+    /* }  */
 `
 
 const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
+    margin-bottom: 100px;
     @media(max-width: 700px) {
         grid-template-columns: 1fr;
     } 
