@@ -34,10 +34,15 @@ const TableBodyComponent = (props) => {
 export default TableBodyComponent
 
 const IconContainer = styled.div`
-    opacity: 0;
+    /* opacity: 0; */
     display: flex;
-    @media(max-width: 900px) {
+    /* @media(max-width: 900px) {
         opacity: 1;
+    } */
+    @media(hover: hover) {
+        &:not(:hover) {
+            opacity: 0;
+        }
     }
 `
 

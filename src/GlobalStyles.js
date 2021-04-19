@@ -15,6 +15,7 @@ const GlobalStyles = createGlobalStyle`
         overflow: ${props=>props.isDashboard ? 'hidden' : 'scroll'};
         background-color: var(--background);
         --webkit-overflow-scrolling: touch;
+        height: 100%;
     }
 
     * {

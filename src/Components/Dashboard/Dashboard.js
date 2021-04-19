@@ -46,7 +46,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Dashboard)
 
 export const FilesContainer = styled.div`
-    overflow: scroll;
+    overflow-y: scroll;
     --webkit-overflow-scrolling: touch;
     height: 100vh;
     width: 100%;
@@ -60,6 +60,7 @@ export const FilesContainer = styled.div`
 `
 
 export const Container = styled.div`
+    height: 100%;
     @media(min-width: 800px) {
         display: flex;
     }
