@@ -3,7 +3,7 @@ import IconsComponent from '../../../../Icons/IconComponent'
 
 const TableHeadComponent = (props) => {
     return(
-        <TableHead role='heading'>
+        <TableHead hide={props.hide} role='heading'>
             <ColumnNameButton onClick={()=>props.changeSortOrder(props.sortType)}>
                 {props.name}
                 {props.sortMethod === props.sortMethodValue1 ? 
@@ -27,6 +27,9 @@ const TableHead = styled.div`
     color: hsl(0, 0%, 20%);
     font-weight: 400;
     white-space: nowrap;
+    @media(max-width: ${props=>props.hide}) {
+        display: none;
+    }
 `
 
 const ColumnNameButton = styled.button`

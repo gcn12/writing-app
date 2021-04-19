@@ -177,9 +177,9 @@ const ProjectsTable = (props) => {
                 <Head role='heading'> 
                     <RowHeader role='rowheader'>
                         <TableHeadComponent name='Name' sortType='name' sortMethodValue1='nameDesc' sortMethodValue2='nameAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
-                        <TableHeadComponent name='Type' sortType='type' sortMethodValue1='typeDesc' sortMethodValue2='typeAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
+                        <TableHeadComponent hide='550px' name='Type' sortType='type' sortMethodValue1='typeDesc' sortMethodValue2='typeAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
                         <TableHeadComponent name='Last modified' sortType='date' sortMethodValue1='dateDesc' sortMethodValue2='dateAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
-                        <TableHead aria-label='settings' role='heading'></TableHead>
+                        <TableHead hide='550px' aria-label='settings' role='heading'></TableHead>
                     </RowHeader>
                 </Head>
                 <TableBodyComponent selectItem={selectItem} selectProject={selectProject} showRenameProject={showRenameProject} showDeleteProject={showDeleteProject} buttonPress={buttonPress} currentLayer={props.currentLayer} folderMap={folderMap} />
@@ -220,6 +220,9 @@ const TableHead = styled.div`
     color: hsl(0, 0%, 20%);
     font-weight: 400;
     white-space: nowrap;
+    @media(max-width: ${props=>props.hide}) {
+        display: none;
+    }
 `
 
 const Head = styled.div`

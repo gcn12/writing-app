@@ -54,7 +54,6 @@ export const FilesContainer = styled.div`
     /* overflow-y: scroll;
     --webkit-overflow-scrolling: touch; */
     height: 100vh;
-    /* min-height: 100vh; */
     width: 100%;
     display: flex;
     justify-content: center;
