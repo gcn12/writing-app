@@ -16,7 +16,6 @@ const ColorSelection = (props) => {
 
     useEffect(()=> {
         if(background!==props.colors.background) {
-            setSecondary(props.colors.background)
             const timeout = setTimeout(()=>changeColor('background', background), 400)
             return()=> clearTimeout(timeout)
         }
@@ -25,7 +24,6 @@ const ColorSelection = (props) => {
 
     useEffect(()=> {
         if(primaryText!==props.colors.primaryText) {
-            setSecondary(props.colors.primaryText)
             const timeout = setTimeout(()=>changeColor('primaryText', primaryText), 400)
             return()=> clearTimeout(timeout)
         }
@@ -34,7 +32,6 @@ const ColorSelection = (props) => {
 
     useEffect(()=> {
         if(sidebar!==props.colors.sidebar) {
-            setSecondary(props.colors.sidebar)
             const timeout = setTimeout(()=>changeColor('sidebar', sidebar), 400)
             return()=> clearTimeout(timeout)
         }
@@ -43,7 +40,6 @@ const ColorSelection = (props) => {
 
     useEffect(()=> {
         if(highlight!==props.colors.highlight) {
-            setSecondary(props.colors.highlight)
             const timeout = setTimeout(()=>changeColor('highlight', highlight), 400)
             return()=> clearTimeout(timeout)
         }
@@ -52,27 +48,26 @@ const ColorSelection = (props) => {
 
     useEffect(()=> {
         if(secondary!==props.colors.secondary) {
-            console.log('aa')
-            setSecondary(props.colors.secondary)
             const timeout = setTimeout(()=>changeColor('secondary', secondary), 400)
             return()=> clearTimeout(timeout)
         }
         // eslint-disable-next-line
     }, [secondary, props.colors.secondary])
 
-    // useEffect(()=> {
-    //     console.log('hello')
-
-    // }, [props.colors])
+    useEffect(()=> {
+        setBackground(props.colors.background)
+        setHighlight(props.colors.highlight)
+        setPrimaryText(props.colors.primaryText)
+        setSidebar(props.colors.sidebar)
+        setSecondary(props.colors.secondary)
+    }, [props.colors])
 
     const changeColor = (type, color) => {
-        // const color = document.getElementById(type).value
         props.dispatch(colors({
             ...props.colors,
             [type]: color,
             name: null,
         }))
-        console.log('updating database')
         db.collection('users')
         .doc(props.userData.userID)
         .update({

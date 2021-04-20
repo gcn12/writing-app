@@ -35,7 +35,7 @@ const ColorPicker = (props) => {
             <PickerLabel htmlFor='background'>{props.name}</PickerLabel>
             {isPickerVisible &&
                 <ColorPickerContainer>
-                    <StyledColorPicker id='color-picker' color={props.color} onChange={props.setColor} />
+                    <StyledColorPicker color={props.color} onChange={props.setColor} />
                 </ColorPickerContainer>
             }
         </Picker>

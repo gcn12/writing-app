@@ -17,10 +17,8 @@ const ColorTemplates = (props) => {
     }
 
     const selectTheme = (themeColors) => {
-        console.log(themeColors)
         updateColorPickers(Object.entries(themeColors))
         props.dispatch(colors(themeColors))
-        console.log('updating database')
         db.collection('users')
         .doc(props.userData.userID)
         .update({
