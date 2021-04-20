@@ -52,7 +52,6 @@ const TableBody = styled.div`
 
 const Row = styled.div`
     cursor: pointer;
-    /* width: 10%; */
     height: 65px;
     display: table-row;
     background-color: var(--sidebar);

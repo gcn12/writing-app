@@ -4,7 +4,7 @@ const ColorThemeCard = (props) => {
     return(
         <Option isSelected={props.theme.colors.name}>
             <SelectOption onClick={()=>props.selectTheme(props.theme.colors)}>
-                {props.theme.colors.name}
+                <Name>{props.theme.colors.name}</Name>
                 <Colors>
                     <Color backgroundColor={props.theme.colors.background} />
                     <Color backgroundColor={props.theme.colors.primaryText} />
@@ -39,11 +39,16 @@ const Colors = styled.div`
 const SelectOption = styled.button`
     display: flex;
     flex-direction: column;
-    /* gap: 10px; */
-    /* margin: 10px 0; */
+    width: 100%;
+    height: 100%;
 `
 
 const DeleteOption = styled.button`
+    margin-left: 20px;
+`
+
+const Name = styled.p`
+    text-align: left;
 `
 
 const Option = styled.article`
@@ -52,9 +57,9 @@ const Option = styled.article`
     justify-content: space-between;
     background-color: var(--sidebar);
     padding: 15px;
-    max-width: 250px;
+    max-width: 300px;
     width: 100%;
     min-height: 50px;
-    margin: 0 10px 10px 0;
-    outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}
+    /* margin: 0 10px 10px 0; */
+    outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'};
 `
