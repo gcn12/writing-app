@@ -189,7 +189,9 @@ const InputContainer = styled.div`
 
 const ColorPickers = styled.div`
     margin: 40px 0;
-    display: flex;
-    flex-wrap: wrap;
-    /* gap: 30px; */
+    /* display: flex;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-gap: 30px;
 ` 
