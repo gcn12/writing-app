@@ -13,7 +13,7 @@ const TableBodyComponent = (props) => {
                             <FileIcons docType={doc.type} docName={doc.name} />
                         </Cell>
                         <Cell hide='550px' role='cell'>{doc.type}</Cell>
-                        <Cell role='cell'><Date>{moment(doc.lastModified).format('ll')}</Date></Cell>
+                        <CellDate hide='550px' role='cell'><Date>{moment(doc.lastModified).format('ll')}</Date></CellDate>
                         <Cell hide='550px' role='cell'>
                             <IconContainer>
                                 <ModifierIcon title='Rename' openModal={props.showRenameProject} labelName='rename file'>
@@ -53,7 +53,7 @@ const TableBody = styled.div`
 const Row = styled.div`
     cursor: pointer;
     /* width: 10%; */
-    height: 60px;
+    height: 65px;
     display: table-row;
     background-color: var(--sidebar);
     transition: background-color 70ms ease-in-out;
@@ -96,5 +96,16 @@ const Cell = styled.div`
     }
     @media(max-width: ${props=>props.hide}) {
         display: none;
+    }
+`
+
+const CellDate = styled.div`
+    width: 0px;
+    display: table-cell;
+    padding: 15px 20px;
+    vertical-align: middle;
+    @media(max-width: ${props=>props.hide}) {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 `

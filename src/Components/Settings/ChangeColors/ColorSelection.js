@@ -156,24 +156,29 @@ const ThemeName = styled.input`
     height: 40px;
     margin: 0px 10px 0px 0px;
     width: 300px;
+    flex: 1;
     background-color: var(--background);
     border: none;
     outline: 1px solid var(--primary-text);
     color: var(--primary-text);
     font-size: 20px;
     @media(max-width: 900px) {
-        max-width: 300px;
-        width: auto;
+        width: 100%;
     }
 `
 
 const SaveTheme = styled.button`
     height: 40px;
+    flex: 0;
     background-color: var(--primary-text);
     outline: 1px solid var(--primary-text);
     color: var(--sidebar);
     font-size: 1.125rem;
     padding: 10px 30px;
+    white-space: nowrap;
+    @media(max-width: 400px) {
+        padding: 10px 15px;
+    }
 `
 
 const InputContainer = styled.div`

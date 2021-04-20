@@ -129,13 +129,12 @@ const Title = styled.h1`
 
 const Container = styled.div`
     width: 100%;
-    /* height: 100vh; */
     min-height: 100%;
     --webkit-overflow-scrolling: touch;
     padding: 60px 30px 0px 30px;
     overflow: scroll;
     @media(max-width: 750px) { 
-        padding: 0px 30px;
+        padding: 0px 15px;
     } 
 `
 
@@ -143,7 +142,6 @@ const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
-    /* margin-bottom: 200px; */
     padding-bottom: 100px;
     @media(max-width: 700px) {
         padding-bottom: 200px;

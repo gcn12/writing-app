@@ -4,7 +4,7 @@ import IconComponent from '../../../../Icons/IconComponent'
 const FileIcons = (props) => {
     return(
         <DocIconNameContainer>
-            <IconsContainer hide='600px'>
+            <IconsContainer hide='0px'>
                 {props.docType==='folder' &&
                     <DocIcon><IconComponent><path d="M6.083 4c1.38 1.612 2.578 3 4.917 3h11v13h-20v-16h4.083zm.917-2h-7v20h24v-17h-13c-1.629 0-2.305-1.058-4-3z"/></IconComponent></DocIcon>
                 }
@@ -46,4 +46,7 @@ const DocIconNameContainer = styled.div`
 
 const DocIcon = styled.div`
     margin-right: 10px;
+    @media(max-width: 800px) {
+        transform: scale(.8);
+    }
 `

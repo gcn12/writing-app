@@ -208,7 +208,6 @@ const Container = styled.div`
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 
-    /* padding: 0 30px; */
 `
 
 const TableHead = styled.div`
@@ -232,7 +231,6 @@ const Head = styled.div`
 const Table = styled.div`
     display: table;
     width: 100%;
-    /* max-width: 100%; */
     border-collapse: separate;
     border-spacing: 0 10px;
     overflow: auto;

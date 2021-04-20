@@ -71,10 +71,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ChangeColors)
 
 const Container = styled.div`
-    /* margin-bottom: 30px; */
-    /* width: 76vw; */
-    /* width: 100vh;
-    overflow: scroll; */
     width: 100%;
     @media(max-width: 750px) {
     } 
@@ -84,5 +80,8 @@ const Container = styled.div`
     --webkit-overflow-scrolling: touch;
     @media(max-width: 750px) {
         padding-bottom: 100px;
+    }
+    @media(max-width: 500px) {
+        padding: 0 15px;
     }
 `

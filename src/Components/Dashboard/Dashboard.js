@@ -47,7 +47,9 @@ export default connect(mapStateToProps)(Dashboard)
 const FileContainer = styled.div`
     padding: 0 30px;
     overflow: scroll;
-    --webkit-overflow-scrolling: touch;
+    @media(max-width: 500px) {
+        padding: 0 15px;
+    }
 `
 
 export const FilesContainer = styled.div`
