@@ -2,21 +2,77 @@ import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { colors } from '../../../redux/actions/appActions'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { HexColorPicker } from 'react-colorful'
+import ColorPicker from './ColorPicker'
 
 const ColorSelection = (props) => {
     const [name, setName] = useState('')
-    const [color1, setColor1] = useState(props.colors.background)
+    const [background, setBackground] = useState(props.colors.background)
+    const [primaryText, setPrimaryText] = useState(props.colors.primaryText)
+    const [sidebar, setSidebar] = useState(props.colors.sidebar)
+    const [highlight, setHighlight] = useState(props.colors.highlight)
+    const [secondary, setSecondary] = useState(props.colors.secondary)
 
-    const changeColor = (type) => {
-        const color = document.getElementById(type).value
+    useEffect(()=> {
+        if(background!==props.colors.background) {
+            setSecondary(props.colors.background)
+            const timeout = setTimeout(()=>changeColor('background', background), 400)
+            return()=> clearTimeout(timeout)
+        }
+        // eslint-disable-next-line
+    }, [background, props.colors.background])
+
+    useEffect(()=> {
+        if(primaryText!==props.colors.primaryText) {
+            setSecondary(props.colors.primaryText)
+            const timeout = setTimeout(()=>changeColor('primaryText', primaryText), 400)
+            return()=> clearTimeout(timeout)
+        }
+        // eslint-disable-next-line
+    }, [primaryText, props.colors.primaryText])
+
+    useEffect(()=> {
+        if(sidebar!==props.colors.sidebar) {
+            setSecondary(props.colors.sidebar)
+            const timeout = setTimeout(()=>changeColor('sidebar', sidebar), 400)
+            return()=> clearTimeout(timeout)
+        }
+        // eslint-disable-next-line
+    }, [sidebar, props.colors.sidebar])
+
+    useEffect(()=> {
+        if(highlight!==props.colors.highlight) {
+            setSecondary(props.colors.highlight)
+            const timeout = setTimeout(()=>changeColor('highlight', highlight), 400)
+            return()=> clearTimeout(timeout)
+        }
+        // eslint-disable-next-line
+    }, [highlight, props.colors.highlight])
+
+    useEffect(()=> {
+        if(secondary!==props.colors.secondary) {
+            console.log('aa')
+            setSecondary(props.colors.secondary)
+            const timeout = setTimeout(()=>changeColor('secondary', secondary), 400)
+            return()=> clearTimeout(timeout)
+        }
+        // eslint-disable-next-line
+    }, [secondary, props.colors.secondary])
+
+    // useEffect(()=> {
+    //     console.log('hello')
+
+    // }, [props.colors])
+
+    const changeColor = (type, color) => {
+        // const color = document.getElementById(type).value
         props.dispatch(colors({
             ...props.colors,
             [type]: color,
             name: null,
         }))
+        console.log('updating database')
         db.collection('users')
         .doc(props.userData.userID)
         .update({
@@ -27,11 +83,11 @@ const ColorSelection = (props) => {
 
     const saveTheme = () => {
         const colors = {
-            background: document.getElementById('background').value,
-            primaryText: document.getElementById('primaryText').value,
-            sidebar: document.getElementById('sidebar').value,
-            highlight: document.getElementById('highlight').value,
-            secondary: document.getElementById('secondary').value,
+            background,
+            primaryText,
+            sidebar,
+            highlight,
+            secondary,
             name,
         }
         props.addTheme({
@@ -57,47 +113,11 @@ const ColorSelection = (props) => {
         <Container>
             <Title>Change colors</Title>
             <ColorPickers>
-
-
-                <Picker>
-                    <ColorPickerContainer>
-                        <HexColorPicker color={color1} onChange={setColor1} />
-                    </ColorPickerContainer>
-                    <ColorLabel color={color1} colore={props.colors.background}>
-                    </ColorLabel>
-                    <PickerLabel htmlFor='background'>Background</PickerLabel>
-                </Picker>
-
-
-
-                <Picker>
-                    <ColorLabel color={props.colors.primaryText}>
-                        <ColorInput defaultValue={props.colors.primaryText} onChange={()=>changeColor('primaryText')} type='color' id='primaryText' />
-                    </ColorLabel>
-                    <PickerLabel htmlFor='primaryText'>Primary text</PickerLabel>
-                </Picker>
-                <Picker>
-                    <ColorLabel color={props.colors.sidebar}>
-                        <ColorInput defaultValue={props.colors.sidebar} onChange={()=>changeColor('sidebar')} type='color' id='sidebar' />
-                    </ColorLabel>
-                    <PickerLabel htmlFor='sidebar'>Sidebar</PickerLabel>
-                </Picker>
-                <Picker>
-                    <ColorLabel color={props.colors.highlight}>
-                        <ColorInput defaultValue={props.colors.highlight} onChange={()=>changeColor('highlight')} type='color' id='highlight' />
-                    </ColorLabel>
-                    <PickerLabel htmlFor='highlight'>Highlight</PickerLabel>
-                </Picker>
-                <Picker>
-                    <ColorLabel color={props.colors.secondary}>
-                        <ColorInput defaultValue={props.colors.secondary} onChange={()=>changeColor('secondary')} type='color' id='secondary' />
-                    </ColorLabel>
-                    <PickerLabel htmlFor='secondary'>Secondary</PickerLabel>
-                </Picker>
-
-
-
-                <ColorTest type='color' />
+                <ColorPicker color={background} setColor={setBackground} name='Background' />
+                <ColorPicker color={primaryText} setColor={setPrimaryText} name='Primary text' />
+                <ColorPicker color={sidebar} setColor={setSidebar} name='Sidebar' />
+                <ColorPicker color={highlight} setColor={setHighlight} name='Highlight' />
+                <ColorPicker color={secondary} setColor={setSecondary} name='Secondary' />
             </ColorPickers>
             <InputContainer>
                 <NameLabel htmlFor='theme-name-input'>Theme name:</NameLabel>
@@ -117,38 +137,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ColorSelection)
 
-const ColorPickerContainer = styled.div`
-    position: absolute;
-    top: 230px;
-`
-
-const ColorTest = styled.input`
-    border-radius: 50%;
-    height: 70px;
-    width: 70px;
-    border: none;
-    box-shadow: none;
-    outline: none;
-`
-
-const ColorLabel = styled.label`
-    background-color: ${props=>props.color};
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    border: 1px solid var(--primary-text);
-    box-shadow: 0;
-    margin-bottom: 5px;
-`
-
-const ColorInput = styled.input`
-    opacity: 0;
-    &:focus ${ColorLabel} {
-        box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
-        outline: none;
-    }
-`
-
 const ButtonInputContainer = styled.div`
     display: flex;
     align-items: center;
@@ -163,10 +151,6 @@ const NameLabel = styled.h2`
 
 const Container = styled.div`
     margin-top: 50px;
-`
-
-const PickerLabel = styled.label`
-    margin-right: 5px;
 `
 
 const Title = styled.h1`
@@ -208,13 +192,4 @@ const ColorPickers = styled.div`
     display: flex;
     flex-wrap: wrap;
     /* gap: 30px; */
-`
-
-const Picker = styled.div`
-    margin-right: 30px;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* position: relative; */
-`
+` 

@@ -7,16 +7,20 @@ import styled from 'styled-components'
 const ColorTemplates = (props) => {
 
     const updateColorPickers = (colorsArray) => {
+        const colorsObject = {}
         colorsArray.forEach(color=> {
             if(color[0] === 'name') return
             if(color[0] === 'isDefault') return
-            document.getElementById(color[0]).value = color[1]
+            colorsObject[color[0]] = color[1]
+            // document.getElementById(color[0]).value = color[1]
         })
     }
 
     const selectTheme = (themeColors) => {
+        console.log(themeColors)
         updateColorPickers(Object.entries(themeColors))
         props.dispatch(colors(themeColors))
+        console.log('updating database')
         db.collection('users')
         .doc(props.userData.userID)
         .update({
@@ -61,11 +65,4 @@ const Cards = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* gap: 10px; */
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 10px; */
-    @media(max-width: 700px) {
-        /* padding-bottom: 200px; */
-    } 
 `
