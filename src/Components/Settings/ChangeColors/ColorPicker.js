@@ -47,7 +47,6 @@ export default ColorPicker
 const Picker = styled.div`
     /* margin-right: 30px;
     margin-bottom: 30px; */
-    border: 1px solid white;
     display: flex;
     flex-direction: column;
     align-items: center;
