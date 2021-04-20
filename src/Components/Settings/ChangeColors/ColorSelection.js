@@ -192,6 +192,9 @@ const ColorPickers = styled.div`
     /* display: flex;
     flex-wrap: wrap; */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-gap: 30px;
+    @media(max-width: 400px) {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    } 
 ` 
