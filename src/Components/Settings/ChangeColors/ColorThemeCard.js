@@ -62,4 +62,7 @@ const Option = styled.article`
     min-height: 50px;
     /* margin: 0 10px 10px 0; */
     outline: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'};
+    @media(max-width: 500px) {
+        min-height: 80px;
+    } 
 `
