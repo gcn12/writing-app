@@ -33,6 +33,13 @@ const Container = styled.div`
     @media(min-width: 800px) {
         display: none;
     }
+    /* display: none;
+    @media(max-height: 550px) {
+        display: block;
+    }
+    @media(max-width: 800px) {
+        display: block;
+    } */
 `
 
 const Logo = styled.h1`

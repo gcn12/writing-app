@@ -28,9 +28,9 @@ const Sidebar = (props) => {
             <GoalsContainer>
                 <DailyGoals />
             </GoalsContainer>
-            <UL>
+            <SignoutContainer>
                 <Signout />
-            </UL>
+            </SignoutContainer>
         </Container>
     )
 }
@@ -44,6 +44,10 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Sidebar)
 
+const SignoutContainer = styled.ul`
+    position: absolute;
+`
+
 const GoalsContainer = styled.div`
     height: 45%;
     display: grid;
@@ -56,12 +60,15 @@ const Container = styled.div`
     flex-grow: 1;
     padding: 0 20px;
     background-color: var(--sidebar);
-    height: 100%;
+    height: 100vh;
     min-width: 200px;
     position: fixed;
     @media(max-width: 800px) {
         display: none;
     }
+    /* @media(max-height: 550px) {
+        display: none;
+    } */
 `
 
 const ListContainer = styled.div`
