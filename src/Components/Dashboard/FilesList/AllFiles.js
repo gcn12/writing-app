@@ -112,7 +112,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     /* padding-bottom: 100px; */
-    /* height: 100%; */
+    height: 100%;
     @media(max-width: 800px) {
         /* padding-bottom: 100px; */
     }
