@@ -209,7 +209,7 @@ const Container = styled.div`
     /* flex-grow: 1; */
     /* overflow: scroll; */
     @media(max-width: 900px) {
-        margin-bottom: 110px;
+        /* margin-bottom: 110px; */
     } 
 `
 

@@ -111,9 +111,9 @@ export default connect(mapStateToProps)(AllFiles)
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
+    /* padding-bottom: 100px; */
     @media(max-width: 800px) {
-        padding-bottom: 100px;
+        /* padding-bottom: 100px; */
     }
 `
 

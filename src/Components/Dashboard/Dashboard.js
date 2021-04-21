@@ -15,7 +15,7 @@ const Dashboard = (props) => {
 
     return(
         <Container>
-            <MobileHeader  />
+            
             {/* <EmptySidebar /> */}
             <Sidebar match={props.match} />
             <FilesContainer>
@@ -35,6 +35,7 @@ const Dashboard = (props) => {
                     <ChangeColors {...props} />
                 )} />
             </FilesContainer>
+            <MobileHeader />
         </Container>
     )
 }
