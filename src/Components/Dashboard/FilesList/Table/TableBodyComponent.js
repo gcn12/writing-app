@@ -68,12 +68,19 @@ const Row = styled.div`
         }
     }
     &:focus-within{ 
+        background-color: var(--highlight);
+        ${IconContainer} {
+            opacity: 1;
+            transition: opacity 500ms ease-in-out;
+        }
+        &:active{
             background-color: var(--highlight);
             ${IconContainer} {
                 opacity: 1;
                 transition: opacity 500ms ease-in-out;
             }
         }
+    }
     &:first-of-type {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
