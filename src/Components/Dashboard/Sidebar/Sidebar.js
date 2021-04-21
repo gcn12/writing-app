@@ -45,10 +45,10 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Sidebar)
 
 const SignoutContainer = styled.ul`
-    /* position: absolute; */
+    position: absolute;
     /* bottom: 15px; */
-    /* bottom: 2vh; */
-    height: 6vh;
+    bottom: 5%;
+    /* height: 6vh; */
 `
 
 const GoalsContainer = styled.div`
