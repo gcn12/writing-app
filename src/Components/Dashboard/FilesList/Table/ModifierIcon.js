@@ -35,11 +35,19 @@ const IconTitle = styled.div`
 const IconBackground = styled.div`
     opacity: 0;
     transition: opacity 200ms ease-in-out;
-    background-color: var(--sidebar);
     height: 35px;
     width: 35px;
     position: relative;
     border-radius: 50%;
+    background-color: var(--background);
+    @media(hover: hover) {
+
+            background-color: var(--sidebar);
+        &:not(:hover) {
+        /* background-color: var(--background); */
+
+        }
+    }
     &:hover{
         opacity: 1;
     }
@@ -51,25 +59,20 @@ const IconBackground = styled.div`
 const IconBackgroundContainer = styled.button`
     position: relative;
     margin-right: 10px;
-    @media(hover: hover) {
-        &:hover{
-            ${IconBackground} {
-                opacity: 1;
-            }
-            ${IconTitle} {
-                opacity: 1;
-            }
+    &:hover{
+        ${IconBackground} {
+            opacity: 1;
         }
-        &:focus{
-            ${IconBackground} {
-                opacity: 1;
-            }
-            ${IconTitle} {
-                opacity: 1;
-            }
+        ${IconTitle} {
+            opacity: 1;
         }
-        &:not(:hover) {
-
+    }
+    &:focus{
+        ${IconBackground} {
+            opacity: 1;
+        }
+        ${IconTitle} {
+            opacity: 1;
         }
     }
 `

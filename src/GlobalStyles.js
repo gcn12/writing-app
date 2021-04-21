@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
             box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
             outline: none;
         }
+        -webkit-overflow-scrolling: touch;
     }
 
     html, body, div, object, iframe,
