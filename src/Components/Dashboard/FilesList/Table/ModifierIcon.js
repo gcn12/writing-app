@@ -2,8 +2,14 @@ import styled from 'styled-components'
 import IconComponent from '../../../../Icons/IconComponent'
 
 const ModifierIcon = (props) => {
+
+    const openIcon = (e) => {
+        document.activeElement.blur()
+        props.openModal(e)
+    }
+
     return(
-        <IconBackgroundContainer onClick={(e)=>props.openModal(e)} label={props.labelName} >
+        <IconBackgroundContainer onClick={openIcon} label={props.labelName} >
             <IconTitle>{props.title}</IconTitle>
             <IconBackground />
             <Icon><IconComponent>
