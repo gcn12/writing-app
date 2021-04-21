@@ -4,7 +4,6 @@ import IconComponent from '../../../../Icons/IconComponent'
 const ModifierIcon = (props) => {
 
     const openIcon = (e) => {
-        document.activeElement.blur()
         props.openModal(e)
     }
 
@@ -47,11 +46,11 @@ const IconBackground = styled.div`
     border-radius: 50%;
     background-color: var(--background);
     @media(hover: hover) {
-
-            background-color: var(--sidebar);
+        background-color: var(--sidebar);
         &:not(:hover) {
-        /* background-color: var(--background); */
-
+            &:active{
+                opacity: 1;
+            }
         }
     }
     &:hover{
