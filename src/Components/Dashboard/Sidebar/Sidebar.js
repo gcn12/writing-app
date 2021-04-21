@@ -68,7 +68,7 @@ const Container = styled.div`
         display: none;
     }
     /* transition: height 100ms ease-in-out; */
-    height: 100vh;
+    height: 150vh;
 `
 
 const ListContainer = styled.div`
