@@ -47,7 +47,7 @@ export default connect(mapStateToProps)(Sidebar)
 const SignoutContainer = styled.ul`
     position: absolute;
     /* bottom: 15px; */
-    bottom: 5%;
+    bottom: 2%;
     /* height: 6vh; */
 `
 
