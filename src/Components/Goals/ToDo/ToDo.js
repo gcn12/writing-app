@@ -130,12 +130,12 @@ const Title = styled.h1`
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: calc(100% - 80px);
     padding: 60px 30px 0px 30px;
     overflow: scroll;
     @media(max-width: 800px) { 
         padding: 0px 15px;
-        margin-top: 100px;
+        margin-top: 80px;
     } 
     -webkit-overflow-scrolling: touch;
 `

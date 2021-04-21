@@ -75,10 +75,10 @@ const Container = styled.div`
     /* height: 100vh; */
     padding: 0 30px;
     overflow: scroll;
-    height: 100%;
+    height: calc(100% - 80px);
     -webkit-overflow-scrolling: touch;
     @media(max-width: 800px) {
-        margin-top: 100px;
+        margin-top: 80px;
         padding-bottom: 0px;
     }
     @media(max-width: 500px) {
