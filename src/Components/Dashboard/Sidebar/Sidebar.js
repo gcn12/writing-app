@@ -52,8 +52,8 @@ const SignoutContainer = styled.ul`
 `
 
 const GoalsContainer = styled.div`
-    /* height: 45%; */
-    height: 45vh;
+    height: 45%;
+    /* height: 45vh; */
     display: grid;
     align-items: center;
     min-height: 250px;
