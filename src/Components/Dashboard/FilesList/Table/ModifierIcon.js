@@ -83,9 +83,9 @@ const IconBackgroundContainer = styled.button`
         }
        
         &:not(:hover) {
-            /* &:active{
+            &:active{
                 opacity: 1;
-            } */
+            }
         }
     }
 `
