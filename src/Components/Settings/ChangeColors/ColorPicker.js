@@ -44,18 +44,21 @@ const ColorPicker = (props) => {
 
 export default ColorPicker
 
+
 const Picker = styled.div`
-    /* margin-right: 30px;
-    margin-bottom: 30px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    max-width: 220px;
+    /* max-width: 220px; */
+    /* justify-items: center; */
+    /* border: 1px solid white; */
+    width: 105px;
+    /* width: 101px; */
 `
 
 const PickerLabel = styled.label`
-    margin-right: 5px;
+    /* margin-right: 5px; */
 `
 
 const ColorLabel = styled.button`

@@ -197,7 +197,7 @@ const ColorPickers = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-gap: 30px;
-    @media(max-width: 400px) {
+    @media(max-width: 800px) {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     } 
 ` 
