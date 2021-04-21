@@ -56,18 +56,22 @@ const Row = styled.div`
     display: table-row;
     background-color: var(--sidebar);
     transition: background-color 70ms ease-in-out;
-    &:hover{ 
-        background-color: var(--highlight);
-        ${IconContainer} {
-            opacity: 1;
-            transition: opacity 500ms ease-in-out;
+    @media(hover: hover) {
+        &:hover{ 
+            background-color: var(--highlight);
+            ${IconContainer} {
+                opacity: 1;
+                transition: opacity 500ms ease-in-out;
+            }
         }
-    }
-    &:focus-within{ 
-        background-color: var(--highlight);
-        ${IconContainer} {
-            opacity: 1;
-            transition: opacity 500ms ease-in-out;
+        &:focus-within{ 
+            background-color: var(--highlight);
+            ${IconContainer} {
+                opacity: 1;
+                transition: opacity 500ms ease-in-out;
+            }
+        }
+        &:not(:hover) {
         }
     }
     &:first-of-type {

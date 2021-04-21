@@ -182,7 +182,6 @@ const ProjectsTable = (props) => {
                         <TableHead hide='550px' aria-label='settings' role='heading'></TableHead>
                     </RowHeader>
                 </Head>
-
                 <TableBodyComponent selectItem={selectItem} selectProject={selectProject} showRenameProject={showRenameProject} showDeleteProject={showDeleteProject} buttonPress={buttonPress} currentLayer={props.currentLayer} folderMap={folderMap} />
             </Table> 
             <RenameDocModal showRenameModal={showRenameModal} projectSelectedData={props.projectSelectedData} setShowRenameModal={setShowRenameModal} />
@@ -206,11 +205,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ProjectsTable)
 
 const Container = styled.div`
-    /* flex-grow: 1; */
-    /* overflow: scroll; */
-    @media(max-width: 900px) {
-        /* margin-bottom: 110px; */
-    } 
 `
 
 const TableHead = styled.div`
