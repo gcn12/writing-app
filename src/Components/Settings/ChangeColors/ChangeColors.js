@@ -78,10 +78,10 @@ const Container = styled.div`
     /* --webkit-overflow-scrolling: touch; */
     @media(max-width: 800px) {
         margin-top: 100px;
-        padding-bottom: 100px;
+        padding-bottom: 0px;
     }
     @media(max-width: 500px) {
         padding: 0 15px;
-        padding-bottom: 100px;
+        padding-bottom: 0px;
     }
 `

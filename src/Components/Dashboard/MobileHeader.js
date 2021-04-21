@@ -36,13 +36,6 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     z-index: 100;
-    /* display: none;
-    @media(max-height: 550px) {
-        display: block;
-    }
-    @media(max-width: 800px) {
-        display: block;
-    } */
 `
 
 const Logo = styled.h1`

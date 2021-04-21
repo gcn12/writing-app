@@ -57,6 +57,7 @@ const Title = styled.h2`
 
 const Container = styled.div`
     margin-bottom: 100px;
+    padding-bottom: 40px;
 `
 
 const Cards = styled.div`
