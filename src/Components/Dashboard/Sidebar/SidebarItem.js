@@ -45,7 +45,6 @@ const LiButton = styled.span`
     font-size: 1.25rem;
     width: 100%;
     border-radius: 5px;
-    /* box-shadow: none; */
     transition: background-color 50ms ease-in-out;
     &:hover {
         background-color: ${props=> props.hover};
