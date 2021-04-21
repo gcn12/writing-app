@@ -33,6 +33,9 @@ const Container = styled.div`
     @media(min-width: 800px) {
         display: none;
     }
+    position: fixed;
+    top: 0;
+    z-index: 100;
     /* display: none;
     @media(max-height: 550px) {
         display: block;

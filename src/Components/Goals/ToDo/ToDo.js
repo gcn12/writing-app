@@ -130,11 +130,12 @@ const Title = styled.h1`
 const Container = styled.div`
     width: 100%;
     min-height: 100%;
-    --webkit-overflow-scrolling: touch;
+    /* --webkit-overflow-scrolling: touch; */
     padding: 60px 30px 0px 30px;
-    overflow: scroll;
+    /* overflow: scroll; */
     @media(max-width: 800px) { 
         padding: 0px 15px;
+        margin-top: 100px;
     } 
 `
 
