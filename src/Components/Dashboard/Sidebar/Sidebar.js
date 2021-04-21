@@ -28,9 +28,9 @@ const Sidebar = (props) => {
             <GoalsContainer>
                 <DailyGoals />
             </GoalsContainer>
-            <SignoutContainer>
+            <UL>
                 <Signout />
-            </SignoutContainer>
+            </UL>
         </Container>
     )
 }
@@ -43,11 +43,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(Sidebar)
-
-const SignoutContainer = styled.ul`
-    /* position: absolute; */
-    bottom: 10px;
-`
 
 const GoalsContainer = styled.div`
     height: 45%;

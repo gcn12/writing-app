@@ -46,6 +46,7 @@ export default connect(mapStateToProps)(Dashboard)
 
 const FileContainer = styled.div`
     padding: 0 30px;
+    height: 100vh;
     overflow: scroll;
     @media(max-width: 500px) {
         padding: 0 15px;
@@ -53,7 +54,7 @@ const FileContainer = styled.div`
 `
 
 export const FilesContainer = styled.div`
-    height: 100vh;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;

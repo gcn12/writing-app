@@ -206,6 +206,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ProjectsTable)
 
 const Container = styled.div`
+    /* flex-grow: 1; */
+    overflow: scroll;
     @media(max-width: 900px) {
         margin-bottom: 110px;
     } 
