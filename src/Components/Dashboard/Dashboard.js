@@ -51,7 +51,7 @@ const FileContainer = styled.div`
     /* height: 100vh; */
     height: 100%;
     overflow-y: scroll;
-    --webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
     @media(max-width: 800px) {
         margin-top: 100px;
     }
