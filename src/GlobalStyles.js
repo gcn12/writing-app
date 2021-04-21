@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
     html, body {
         background-color: var(--background);
         height: 100%;
-        /* overflow: ${props=>props.isDashboard ? 'hidden' : 'scroll'}; */
+        overflow: ${props=>props.isDashboard ? 'hidden' : 'scroll'};
     }
 
     body {

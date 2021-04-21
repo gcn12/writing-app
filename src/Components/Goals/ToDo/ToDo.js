@@ -132,12 +132,12 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     padding: 60px 30px 0px 30px;
-    /* overflow: scroll; */
+    overflow: scroll;
     @media(max-width: 800px) { 
         padding: 0px 15px;
         margin-top: 100px;
     } 
-    /* -webkit-overflow-scrolling: touch; */
+    -webkit-overflow-scrolling: touch;
 `
 
 const CardContainer = styled.div`
