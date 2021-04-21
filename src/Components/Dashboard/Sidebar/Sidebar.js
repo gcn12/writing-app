@@ -49,7 +49,8 @@ const SignoutContainer = styled.ul`
 `
 
 const GoalsContainer = styled.div`
-    height: 45%;
+    /* height: 45%; */
+    height: 45vh;
     display: grid;
     align-items: center;
     min-height: 250px;
@@ -60,20 +61,19 @@ const Container = styled.div`
     flex-grow: 1;
     padding: 0 20px;
     background-color: var(--sidebar);
-    height: 100%;
+    /* height: 100%; */
     min-width: 200px;
     position: fixed;
     @media(max-width: 800px) {
         display: none;
     }
-    transition: height 100ms ease-in-out;
-    /* @media(max-height: 550px) {
-        display: none;
-    } */
+    /* transition: height 100ms ease-in-out; */
+    height: 100vh;
 `
 
 const ListContainer = styled.div`
-    height: 25%;
+    /* height: 25%; */
+    height: 25vh;
     display: grid;
     min-height: 100px;
 `
@@ -89,5 +89,6 @@ const Logo = styled.h1`
     align-items: center;
     padding: 20px;
     margin: 0px 0 0px 0;
-    height: 20%;
+    /* height: 20%; */
+    height: 18vh;
 `
