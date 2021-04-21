@@ -54,9 +54,9 @@ const IconBackground = styled.div`
             opacity: 1;
         }
         &:not(:hover) {
-            &:active{
+            /* &:active{
                 opacity: 1;
-            }
+            } */
         }
     }
 `
