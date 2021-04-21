@@ -54,9 +54,9 @@ const IconBackground = styled.div`
             opacity: 1;
         }
         &:not(:hover) {
-            /* &:active{
+            &:active{
                 opacity: 1;
-            } */
+            }
         }
     }
 `
@@ -64,20 +64,28 @@ const IconBackground = styled.div`
 const IconBackgroundContainer = styled.button`
     position: relative;
     margin-right: 10px;
-    &:hover{
-        ${IconBackground} {
-            opacity: 1;
+    @media(hover: hover) {
+        &:hover{
+            ${IconBackground} {
+                opacity: 1;
+            }
+            ${IconTitle} {
+                opacity: 1;
+            }
         }
-        ${IconTitle} {
-            opacity: 1;
+        &:focus{
+            ${IconBackground} {
+                opacity: 1;
+            }
+            ${IconTitle} {
+                opacity: 1;
+            }
         }
-    }
-    &:focus{
-        ${IconBackground} {
-            opacity: 1;
-        }
-        ${IconTitle} {
-            opacity: 1;
+       
+        &:not(:hover) {
+            /* &:active{
+                opacity: 1;
+            } */
         }
     }
 `
