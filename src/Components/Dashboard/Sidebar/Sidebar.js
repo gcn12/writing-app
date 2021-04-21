@@ -45,7 +45,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Sidebar)
 
 const SignoutContainer = styled.ul`
-    position: absolute;
+    /* position: absolute; */
 `
 
 const GoalsContainer = styled.div`
@@ -60,12 +60,13 @@ const Container = styled.div`
     flex-grow: 1;
     padding: 0 20px;
     background-color: var(--sidebar);
-    height: 100vh;
+    height: 100%;
     min-width: 200px;
     position: fixed;
     @media(max-width: 800px) {
         display: none;
     }
+    transition: height 100ms ease-in-out;
     /* @media(max-height: 550px) {
         display: none;
     } */
