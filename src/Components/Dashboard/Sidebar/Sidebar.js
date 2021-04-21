@@ -48,7 +48,7 @@ const SignoutContainer = styled.ul`
     /* position: absolute; */
     /* bottom: 15px; */
     /* bottom: 2vh; */
-    height: 5vh;
+    height: 6vh;
 `
 
 const GoalsContainer = styled.div`
@@ -64,14 +64,14 @@ const Container = styled.div`
     flex-grow: 1;
     padding: 0 20px;
     background-color: var(--sidebar);
-    /* height: 100%; */
+    height: 100%;
     min-width: 200px;
     position: fixed;
     @media(max-width: 800px) {
         display: none;
     }
     /* transition: height 100ms ease-in-out; */
-    height: 100vh;
+    /* height: 100vh; */
 `
 
 const ListContainer = styled.div`
