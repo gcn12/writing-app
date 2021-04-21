@@ -73,12 +73,12 @@ const Row = styled.div`
             opacity: 1;
             transition: opacity 500ms ease-in-out;
         }
-        &:active{
-            background-color: var(--highlight);
-            ${IconContainer} {
-                opacity: 1;
-                transition: opacity 500ms ease-in-out;
-            }
+    }
+    &:active{
+        background-color: var(--highlight);
+        ${IconContainer} {
+            opacity: 1;
+            transition: opacity 500ms ease-in-out;
         }
     }
     &:first-of-type {
