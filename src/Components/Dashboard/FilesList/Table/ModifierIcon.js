@@ -51,20 +51,25 @@ const IconBackground = styled.div`
 const IconBackgroundContainer = styled.button`
     position: relative;
     margin-right: 10px;
-    &:hover{
-        ${IconBackground} {
-            opacity: 1;
+    @media(hover: hover) {
+        &:hover{
+            ${IconBackground} {
+                opacity: 1;
+            }
+            ${IconTitle} {
+                opacity: 1;
+            }
         }
-        ${IconTitle} {
-            opacity: 1;
+        &:focus{
+            ${IconBackground} {
+                opacity: 1;
+            }
+            ${IconTitle} {
+                opacity: 1;
+            }
         }
-    }
-    &:focus{
-        ${IconBackground} {
-            opacity: 1;
-        }
-        ${IconTitle} {
-            opacity: 1;
+        &:not(:hover) {
+
         }
     }
 `
