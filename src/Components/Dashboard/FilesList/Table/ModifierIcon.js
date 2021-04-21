@@ -47,17 +47,17 @@ const IconBackground = styled.div`
     background-color: var(--background);
     @media(hover: hover) {
         background-color: var(--sidebar);
+        &:hover{
+            opacity: 1;
+        }
+        &:focus{
+            opacity: 1;
+        }
         &:not(:hover) {
             &:active{
                 opacity: 1;
             }
         }
-    }
-    &:hover{
-        opacity: 1;
-    }
-    &:focus{
-        opacity: 1;
     }
 `
 
