@@ -44,9 +44,9 @@ const IconBackground = styled.div`
     width: 35px;
     position: relative;
     border-radius: 50%;
-    background-color: var(--background);
-    @media(hover: hover) {
+    /* background-color: var(--background); */
         background-color: var(--sidebar);
+    @media(hover: hover) {
         &:hover{
             opacity: 1;
         }
