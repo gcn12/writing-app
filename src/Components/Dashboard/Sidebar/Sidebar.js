@@ -58,7 +58,7 @@ const Container = styled.div`
     background-color: var(--sidebar);
     height: 100%;
     min-width: 200px;
-    /* position: fixed; */
+    position: fixed;
     @media(max-width: 800px) {
         display: none;
     }

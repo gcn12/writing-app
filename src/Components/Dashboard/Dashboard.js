@@ -16,6 +16,7 @@ const Dashboard = (props) => {
     return(
         <Container>
             <MobileHeader  />
+            {/* <EmptySidebar /> */}
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/dashboard' render={(props)=> (
@@ -53,14 +54,28 @@ const FileContainer = styled.div`
     }
 `
 
+// const EmptySidebar = styled.div`
+//     width: 18%;
+//     flex-grow: 1;
+//     padding: 0 20px;
+//     background-color: transparent;
+//     height: 100%;
+//     min-width: 200px;
+//     @media(max-width: 800px) {
+//         display: none;
+//     }
+// `
+
 export const FilesContainer = styled.div`
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: center;
+    margin-left: max(18%, 200px);
+    /* display: flex;
+    justify-content: flex-end; */
 
     @media(max-width: 800px) {
         margin-left: 0;
+        padding-left: 0;
     } 
     margin-bottom: 250px;
 `
