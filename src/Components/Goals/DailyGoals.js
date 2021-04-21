@@ -83,11 +83,11 @@ const DailyGoals = (props) => {
         <Container>
             {/* <Title>Daily goal</Title> */}
             {props.goals.goal - props.goals.wordsWritten <= 0 ?
-            <Met>Goal Achieved</Met>
+            <Met><p>Goal</p><p>Achieved</p></Met>
             : 
             <div>
                 <Goal>{isVisible && props.goals.goal - props.goals.wordsWritten}</Goal>
-                <Subtitle>words to go</Subtitle>
+                <Subtitle>{props.goals.goal - props.goals.wordsWritten === 1 ? 'word' :'words'} to go</Subtitle>
             </div>
             }
             <SetGoal onClick={()=>setShowChangeGoal(true)}>Set daily goal</SetGoal>
