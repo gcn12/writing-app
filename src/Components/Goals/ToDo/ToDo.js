@@ -138,7 +138,6 @@ const Container = styled.div`
         padding: 0px 15px;
         margin-top: 80px;
     } 
-    -webkit-overflow-scrolling: touch;
 `
 
 const CardContainer = styled.div`

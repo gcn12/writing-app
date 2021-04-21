@@ -64,16 +64,16 @@ const Row = styled.div`
                 transition: opacity 500ms ease-in-out;
             }
         }
-        &:focus-within{ 
+        &:not(:hover) {
+        }
+    }
+    &:focus-within{ 
             background-color: var(--highlight);
             ${IconContainer} {
                 opacity: 1;
                 transition: opacity 500ms ease-in-out;
             }
         }
-        &:not(:hover) {
-        }
-    }
     &:first-of-type {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
