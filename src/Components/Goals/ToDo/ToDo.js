@@ -95,6 +95,7 @@ const CreateTaskContainer = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 25px;
+    
 `
 
 const CreateTask = styled.button`
@@ -129,14 +130,14 @@ const Title = styled.h1`
 
 const Container = styled.div`
     width: 100%;
-    min-height: 100%;
-    /* --webkit-overflow-scrolling: touch; */
+    height: 100%;
     padding: 60px 30px 0px 30px;
     /* overflow: scroll; */
     @media(max-width: 800px) { 
         padding: 0px 15px;
         margin-top: 100px;
     } 
+    /* -webkit-overflow-scrolling: touch; */
 `
 
 const CardContainer = styled.div`
@@ -145,7 +146,6 @@ const CardContainer = styled.div`
     grid-template-columns: 1fr 1fr;
     padding-bottom: 40px;
     @media(max-width: 700px) {
-        /* padding-bottom: 200px; */
         grid-template-columns: 1fr;
     } 
 `

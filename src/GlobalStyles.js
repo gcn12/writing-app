@@ -18,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        position: fixed;
+        /* position: fixed; */
         /* height: 100%; */
         overscroll-behavior-block: none;
         /* overscroll-behavior-y: ${props=>props.isDashboard ? 'none' : 'scroll'}; */
