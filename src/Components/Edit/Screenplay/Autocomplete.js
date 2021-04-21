@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Autocomplete = (props) => {
     return(
-        <AutocompleteContainer >
+        <AutocompleteContainer>
             <AutocompleteBackground position={props.position}>
                 {props.items.map((item, index)=> {
                     return <AutocompleteItem isSelected={index===props.index} key={item}>{item}</AutocompleteItem>

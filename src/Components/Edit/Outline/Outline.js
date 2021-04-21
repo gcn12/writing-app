@@ -48,8 +48,9 @@ const Outline = (props) => {
         .doc(props.match.params.fileID)
         .get()
         .then((result)=> {
-            if(result.data() !== undefined) {
-                const outline = result.data()
+            const outline = result.data()
+            if(outline !== undefined) {
+                document.title = outline.name
                 const outlineItems = outline.data
                 props.dispatch(outlineData(outline))
                 if(outlineItems.length > 0) {

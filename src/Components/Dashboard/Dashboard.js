@@ -53,8 +53,6 @@ const FileContainer = styled.div`
 `
 
 export const FilesContainer = styled.div`
-    /* overflow-y: scroll;
-    --webkit-overflow-scrolling: touch; */
     height: 100vh;
     width: 100%;
     display: flex;
@@ -62,16 +60,13 @@ export const FilesContainer = styled.div`
 
     @media(max-width: 800px) {
         margin-left: 0;
-        /* padding: 0 20px; */
     } 
     margin-bottom: 250px;
-
-    /* padding: 0 30px; */
 `
 
 export const Container = styled.div`
-    /* height: 100%; */
     width: 100%;
+    height: 100%;
     @media(min-width: 800px) {
         display: flex;
     } 

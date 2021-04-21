@@ -39,7 +39,9 @@ const Screenplay = (props) => {
         .doc(props.match.params.fileID)
         .get()
         .then(data=> {
-            const script = data.data().text
+            const scriptData = data.data()
+            const script = scriptData.text
+            document.title = scriptData.name
             setScriptID(data.data().docID)
             if(script.length > 0) {
                 setValue(script)
@@ -132,15 +134,15 @@ const Screenplay = (props) => {
         })
     }
 
-
     const getCharacterCount = (scriptObject) => {
-        const characters = {}
+        const charactersObject = {}
         scriptObject.forEach(item=> {
             if(item?.type !== 'character') return
             const name = item.children[0].text.toUpperCase()
-            incrementItem(name, characters)
+            const nameNoParentheses = removeParenthesesFromCharacter(name)
+            incrementItem(nameNoParentheses, charactersObject)
         })
-        return characters
+        return charactersObject
     }
 
     const sortArray = (array) => {
@@ -159,6 +161,7 @@ const Screenplay = (props) => {
     }
 
     const incrementItem = (itemName, itemCount) => {
+        if(itemName.length===0) return
         if(itemCount[itemName]) {
             return itemCount[itemName] += 1
         }else{
@@ -166,11 +169,23 @@ const Screenplay = (props) => {
         }
     }
 
+    const removeParenthesesFromCharacter = (characterName) => {
+        if(characterName.includes('(')) {
+            const split = characterName.split('(')
+            split.pop()
+            console.log(split)
+            return split.join('').trim()
+        }
+        return characterName
+    }
+
     const addCharacter = (characterName) => {
         const characterUppercase = characterName.toUpperCase()
-        const characterCount = incrementItem(characterUppercase, {...charactersObj})
-        setCharactersObj(characterCount)
-        const charactersArray =  Object.entries(characters)
+        const characterNoParentheses = removeParenthesesFromCharacter(characterUppercase)
+        const characterCopy = {...charactersObj}
+        incrementItem(characterNoParentheses, characterCopy)
+        setCharactersObj(characterCopy)
+        const charactersArray =  Object.entries(characterCopy)
         const charactersList = sortArray(charactersArray)
         setCharacters(charactersList)
     }
@@ -200,6 +215,7 @@ const Screenplay = (props) => {
 
     const addLocation = (heading) => {
         const splitHeading = heading.split(' ')
+        const locationsCopy = {...locationsObj}
         if(splitHeading.length < 2) return
         splitHeading.shift()
         const joined = splitHeading.join(' ')
@@ -207,9 +223,10 @@ const Screenplay = (props) => {
         splitDash.pop()
         splitDash.join('')
         const location = splitDash[0].trim().toUpperCase()
-        const incrementedLocations = incrementItem(location, {...locationsObj})
-        setLocationsObj(incrementedLocations)
-        const locationsArray = Object.entries(incrementedLocations)
+        incrementItem(location, locationsCopy)
+        setLocationsObj(locationsCopy)
+        console.log(locationsCopy)
+        const locationsArray = Object.entries(locationsCopy)
         const locationsList = sortArray(locationsArray)
         setLocations(locationsList)
     }

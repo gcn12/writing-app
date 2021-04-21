@@ -74,6 +74,7 @@ export const CenteredItemsContainer = styled.div`
 
 export const CharacterStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
     /* color: black; */
 `
 
