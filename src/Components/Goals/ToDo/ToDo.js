@@ -130,10 +130,11 @@ const Title = styled.h1`
 
 const Container = styled.div`
     width: 100%;
-    height: calc(100% - 80px);
+    height: 100%;
     padding: 60px 30px 0px 30px;
     overflow: scroll;
     @media(max-width: 800px) { 
+        height: calc(100% - 80px);
         padding: 0px 15px;
         margin-top: 80px;
     } 
