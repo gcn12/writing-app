@@ -173,7 +173,6 @@ const Screenplay = (props) => {
         if(characterName.includes('(')) {
             const split = characterName.split('(')
             split.pop()
-            console.log(split)
             return split.join('').trim()
         }
         return characterName
@@ -225,7 +224,6 @@ const Screenplay = (props) => {
         const location = splitDash[0].trim().toUpperCase()
         incrementItem(location, locationsCopy)
         setLocationsObj(locationsCopy)
-        console.log(locationsCopy)
         const locationsArray = Object.entries(locationsCopy)
         const locationsList = sortArray(locationsArray)
         setLocations(locationsList)

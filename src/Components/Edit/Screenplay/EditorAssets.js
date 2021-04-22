@@ -103,8 +103,11 @@ export const Container = styled.div`
         width: 95vw;
         padding: 80px 35px 50px 35px;
     }
-    /* overflow: scroll;
-    height: 90vh; */
+`
+
+export const Decorations = styled.span`
+    font-style: ${props=>props.italics};
+    font-weight: ${props=>props.weight};
 `
 
 // dropdown items

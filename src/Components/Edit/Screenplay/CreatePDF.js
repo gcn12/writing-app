@@ -2,6 +2,8 @@ import { jsPDF } from 'jspdf'
 import '../../../App.css'
 import '../../../CourierPrime-Regular-normal'
 import '../../../CourierPrime-Bold-normal'
+import '../../../CourierPrime-BoldItalic-bolditalic'
+import '../../../CourierPrime-Italic-italic'
 
 const createPage = () => {
     return new jsPDF({
@@ -18,7 +20,7 @@ export const createPDF = (text) => {
     let currentPage = '2'
     script.lineHeightProportion = 1
     script.setFontSize(12)
-
+    console.log(text)
     text.forEach((item, index)=> {
         if(newPage <= 0) {
             script.addPage()
@@ -38,8 +40,7 @@ export const createPDF = (text) => {
             script.text(words.toUpperCase(), 1.5, line)
             newPage -= 1
             line+=.16
-        }
-        if(!item.type) {
+        }else if(!item.type) {
             const lineWrap = script.splitTextToSize(words, 6)
             script.setFont('CourierPrime-Regular', 'normal')
             lineWrap.forEach(item=> {
@@ -54,23 +55,18 @@ export const createPDF = (text) => {
                     newPage = 56
                 }
             })
-        }
-
-
-        if(item.type === 'transition') {
+        }else if(item.type === 'transition') {
             script.setFont('CourierPrime-Regular', 'normal')
             const stringWidth = script.getTextWidth(words)
             script.text(words.toUpperCase(), script.internal.pageSize.width - 1 - stringWidth, line)
             line+=.16
             newPage -= 1
-        }
-        if(item.type === 'character') {
+        }else if(item.type === 'character') {
             script.setFont('CourierPrime-Regular', 'normal')
             script.text(words.toUpperCase(), 3.7, line)
             line+= .15
             newPage -= 1
-        }
-        if(item.type === 'parenthetical') {
+        }else if(item.type === 'parenthetical') {
             const lineWrap = script.splitTextToSize(words, 2)
             script.setFont('CourierPrime-Regular', 'normal')
             lineWrap.forEach(item=> {
@@ -85,15 +81,8 @@ export const createPDF = (text) => {
                     newPage = 56
                 }
             })
-            // script.text(lineWrap, 3.1, line)
-            // line+= (.15 * lineWrap.length)
-            // newPage -= lineWrap.length
-        }
-        if(item.type === 'dialog') {
+        }else if(item.type === 'dialog') {
             const lineWrap = script.splitTextToSize(words, 3.3)
-            // script.text(lineWrap, 2.5, line)
-            // line+= (.15 * lineWrap.length)
-            // newPage -= lineWrap.length
             lineWrap.forEach(item=> {
                 script.text(item, 2.5, line)
                 line+=.16
@@ -107,10 +96,6 @@ export const createPDF = (text) => {
                 }
             })
         }
-        // line+=.17
-        // newPage -= 1
-
     })
-    
     script.save('script-test-export.pdf')
 }

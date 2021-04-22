@@ -24,6 +24,9 @@ export default Header
 const RightContainer = styled.div`
     display: flex;
     margin-right: 50px;
+    @media(max-width: 800px) {
+        margin-right: 20px;
+    }
 `
 
 const Container = styled.nav`
@@ -76,4 +79,7 @@ const Logo = styled.h1`
     font-size: 2rem;
     font-weight: 700;
     margin-left: 50px;
+    @media(max-width: 800px) {
+        margin-left: 20px;
+    }
 `

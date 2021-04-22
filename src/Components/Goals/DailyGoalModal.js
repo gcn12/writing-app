@@ -24,7 +24,7 @@ const DailyGoalModal = (props) => {
     }
 
     const updateGoal = (goal) => {
-        if(goal > 0) {
+        if(goal > 0 && !isNaN(goal)) {
             props.setShowChangeGoal(false)
             sendGoalToDatabase(goal)
             updateStateGoal(goal)
@@ -53,7 +53,7 @@ const DailyGoalModal = (props) => {
             <TitleCloseContainer>
                 <Title>Set new goal</Title>
             </TitleCloseContainer>
-            <GoalInput onKeyDown={(e)=>onEnter(e, goal)} defaultValue={props.goals.goal} onChange={(e)=>setGoal(e.target.value)} />
+            <GoalInput maxLength='7' onKeyDown={(e)=>onEnter(e, goal)} defaultValue={props.goals.goal} onChange={(e)=>setGoal(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setShowChangeGoal(false)}>Cancel</Cancel>
                 <Save onClick={()=>updateGoal(goal)}>Save goal</Save>

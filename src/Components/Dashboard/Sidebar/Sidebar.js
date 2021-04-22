@@ -32,9 +32,9 @@ const Sidebar = (props) => {
 
                     
             <SignoutContainer>
-                <Test>
+                {/* <Test> */}
                     <Signout />
-                </Test>
+                {/* </Test> */}
             </SignoutContainer>
         </Container>
     )
@@ -49,23 +49,23 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Sidebar)
 
-const Test = styled.div`
-    width: 18vw;
-    min-width: 200px;
-    padding: 0 20px;
-`
+// const Test = styled.div`
+// width: 18vw;
+// min-width: 200px;
+// padding: 0 20px;
+// `
 
 const SignoutContainer = styled.ul`
     position: absolute;
     bottom: 2%;
     left: 0;
-    
-    /* bottom: 15px; */
-    /* height: 5%; */
+    width: 18vw;
+    min-width: 200px;
+    padding: 0 20px;
 `
 
 const GoalsContainer = styled.div`
-    height: 47%;
+    height: 45%;
     /* height: 45vh; */
     display: grid;
     align-items: center;
