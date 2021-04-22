@@ -32,14 +32,10 @@ const Sidebar = (props) => {
 
                     
             <SignoutContainer>
-            <Test>
-                <Signout />
-            </Test>
+                <Test>
+                    <Signout />
+                </Test>
             </SignoutContainer>
-
-
-
-
         </Container>
     )
 }
@@ -54,14 +50,15 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Sidebar)
 
 const Test = styled.div`
-    /* width: 18vw;
+    width: 18vw;
     min-width: 200px;
-    padding: 0 20px; */
+    padding: 0 20px;
 `
 
 const SignoutContainer = styled.ul`
-    /* position: absolute; */
-    /* bottom: 2%; */
+    position: absolute;
+    bottom: 2%;
+    left: 0;
     
     /* bottom: 15px; */
     /* height: 5%; */
