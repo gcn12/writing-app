@@ -26,7 +26,11 @@ const Breadcrumbs = (props) => {
             {props.breadcrumbs.map((crumb, index)=> {
                 return(
                     <CrumbContainer key={index}>
-                        <Crumb isLast={index === props.breadcrumbs.length -1} onClick={()=>breadcrumbRoute(index)}>{crumb.name}</Crumb>
+                        {index === props.breadcrumbs.length -1 ? 
+                        <LastCrumb>{crumb.name}</LastCrumb>
+                        :
+                        <Crumb onClick={()=>breadcrumbRoute(index)}>{crumb.name}</Crumb>
+                        }
                         {index !== props.breadcrumbs.length -1 &&
                         <IconContainer>
                             <IconComponent><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></IconComponent>
@@ -58,19 +62,26 @@ const IconContainer = styled.div`
 const CrumbContainer = styled.div`
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
+`
+
+const LastCrumb = styled.h2`
+    font-size: 1.75rem;
+    font-weight: 500;
 `
 
 const Crumb = styled.button`
-    cursor: ${props=>props.isLast ? 'initial' : 'pointer'};
+    cursor: pointer;
     font-size: 1.75rem;
     font-weight: 500;
     &:hover{
         opacity: 1;
     }
-    opacity: ${props=>props.isLast ? '1' : '.6'};
+    opacity: .6;
 `
 
 const Container = styled.nav`
     display: flex;
     margin: 20px 0;
+    flex-wrap: wrap;
 `
