@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 const LandingPage = (props) => {
 
     useEffect(()=> {
+        props.setIsLoading(false)
         props.dispatch(colors({
             background: 'white',
             primaryText: 'black',

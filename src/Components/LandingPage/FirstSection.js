@@ -13,9 +13,9 @@ const FirstSection = () => {
                 </StyledLink>
             </div>
             <Image src='dashboard.png' alt='interface' />
-            <BackgroundColorDecoration color='#cfd1fa' blur='60px' height='270px' width='270px' top='-5%' left='25%' opacity='.4' />
-            <BackgroundColorDecoration color='#ffd8cc' blur='50px' height='200px' width='200px' top='30%' right='0' opacity='.6' />
-            <BackgroundColorDecoration color='#f8ffc7' blur='50px' height='300px' width='300px' top='60%' left='0%' opacity='.2' />
+            <BackgroundColorDecoration color='#cfd1fa' blur='60px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='-5%' left='25%' opacity='.4' />
+            <BackgroundColorDecoration color='#ffd8cc' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='30%' right='0' opacity='.7' />
+            <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='60%' left='0%' opacity='.3' />
         </Container>
     )
 }
@@ -25,6 +25,8 @@ export default FirstSection
 const BackgroundColorDecoration = styled.div`
     height: ${props=>props.height}; 
     width: ${props=>props.width};
+    min-height: ${props=>props.minHeight}; 
+    min-width: ${props=>props.minWidth};
     border-radius: 50%;
     background-color: ${props=>props.color};
     filter: blur(${props=>props.blur});

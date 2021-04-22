@@ -37,12 +37,13 @@ const App = (props) => {
         props.dispatch(colors({
           background: 'white'
         }))
-        setIsLoading(false)
         if(props.match.params.page!==undefined 
           && props.match.params.page!=='signup' 
           && props.match.params.page!=='signin') {
-            history.push('/writing-app')
-          }
+          history.push('/writing-app')
+        }else{
+          setIsLoading(false)
+        }
       }
     });
     // eslint-disable-next-line
@@ -73,7 +74,7 @@ const App = (props) => {
       <GlobalStyles isDashboard={props.match.params.page==='dashboard'} />
 
       <Route exact path='/writing-app/' render={(props)=> (
-        <LandingPage {...props} />
+        <LandingPage setIsLoading={setIsLoading} {...props} />
       )} />
     </div>
   );

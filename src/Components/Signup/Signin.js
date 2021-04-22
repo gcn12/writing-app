@@ -46,9 +46,9 @@ const SignUp = (props) => {
                 </InputLabelContainer>
                 <Submit onClick={submit}>SIGN IN</Submit>
             </Form>
-            <BackgroundColorDecoration color='#96ffd7' blur='40px' height='200px' width='200px' top='0' left='0'  opacity='.7' />
-            <BackgroundColorDecoration color='#cfc2ff' blur='50px' height='200px' width='200px' top='20%' right='0' opacity='.6' />
-            <BackgroundColorDecoration color='#fdffb5' blur='80px' height='300px' width='300px' top='65%' left='25%' opacity='.5' />
+            <BackgroundColorDecoration color='#96ffd7' blur='40px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='.7' />
+            <BackgroundColorDecoration color='#cfc2ff' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='20%' right='0' opacity='.6' />
+            <BackgroundColorDecoration color='#fdffb5' blur='80px' minHeight='200px' minWidth='200px' height='20vw' width='20vw' top='65%' left='25%' opacity='.5' />
         </Container>
     )
 }
@@ -117,6 +117,8 @@ const Password = styled.input`
 const BackgroundColorDecoration = styled.div`
     height: ${props=>props.height}; 
     width: ${props=>props.width};
+    min-height: ${props=>props.minHeight}; 
+    min-width: ${props=>props.minWidth};
     border-radius: 50%;
     background-color: ${props=>props.color};
     filter: blur(${props=>props.blur});

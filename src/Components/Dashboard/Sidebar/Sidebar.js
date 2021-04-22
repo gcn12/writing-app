@@ -27,14 +27,9 @@ const Sidebar = (props) => {
             </ListContainer>
             <GoalsContainer>
                 <DailyGoals />
-            </GoalsContainer>
-
-
-                    
+            </GoalsContainer>   
             <SignoutContainer>
-                {/* <Test> */}
-                    <Signout />
-                {/* </Test> */}
+                <Signout />
             </SignoutContainer>
         </Container>
     )
