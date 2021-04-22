@@ -1,18 +1,19 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import EditorPreview from './EditorPreview'
 
 const FirstSection = () => {
     return(
         <Container>
-            <div>
-                <Title>Screenwriting, </Title>
-                <Title>essentials only.</Title>
+            <ContentContainer>
+                <Title>Screenwriting, essentials only.</Title>
                 <Subtitle>Redraft gives you everything you need to write your next best screenplay.</Subtitle>
+                <EditorPreview />
                 <StyledLink to='/writing-app/signup'>
                     <GetStarted>Get started now</GetStarted>
                 </StyledLink>
-            </div>
-            <Image src='dashboard.png' alt='interface' />
+            </ContentContainer>
+            {/* <Image src='dashboard.png' alt='interface' /> */}
             <BackgroundColorDecoration color='#cfd1fa' blur='60px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='-5%' left='25%' opacity='.4' />
             <BackgroundColorDecoration color='#ffd8cc' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='30%' right='0' opacity='.7' />
             <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='60%' left='0%' opacity='.3' />
@@ -21,6 +22,10 @@ const FirstSection = () => {
 }
 
 export default FirstSection
+
+const ContentContainer = styled.div`
+    padding: 0 30px;
+`
 
 const BackgroundColorDecoration = styled.div`
     height: ${props=>props.height}; 
@@ -41,7 +46,7 @@ const BackgroundColorDecoration = styled.div`
 const Subtitle = styled.h2`
     font-size: 1.25rem;
     font-weight: 400;
-    max-width: 30ch;
+    /* max-width: 30ch; */
     margin: 20px 0;
 `
 
