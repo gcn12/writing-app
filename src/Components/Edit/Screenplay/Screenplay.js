@@ -254,7 +254,10 @@ const InterfaceContainer = styled.div`
     display: grid;
     align-items: center;
     justify-content: center;
+    /* height: 100%; */
+    position: relative;
 `
 
 export const Container = styled.div`
+    /* height: 100%; */
 `

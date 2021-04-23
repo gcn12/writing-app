@@ -31,6 +31,7 @@ const RightContainer = styled.div`
 
 const Container = styled.nav`
     padding-top: 20px;
+    position: relative;
 `
 
 const UL = styled.ul`

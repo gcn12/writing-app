@@ -1,10 +1,11 @@
 import styled from 'styled-components'
+import image from '../../dark.png'
 
 const FirstSection = () => {
     return(
         <Container>
             <ContentContainer>
-                <Image src='dark.png' alt='dark interface' />
+                <Image src={image} alt='dark interface' />
                 <div>
                     <Title>Make it yours</Title>
                     <Subtitle>Customize the app with your favorite colors.</Subtitle>
@@ -45,7 +46,7 @@ const Image = styled.img`
     max-height: 300px;
     width: min(40vw, 100%); 
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
-    outline: 1px solid rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .1);
     margin-right: 50px;
     @media(max-width: 900px) {
         /* flex-direction: row-reverse; */

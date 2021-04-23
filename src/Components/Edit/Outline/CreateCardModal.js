@@ -127,8 +127,7 @@ const Description = styled.textarea`
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     @media(max-width: 1000px) {
         width: 300px;
     } 
@@ -145,8 +144,7 @@ const Title = styled.input`
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     @media(max-width: 1000px) {
         width: 300px;
     } 
@@ -161,8 +159,7 @@ const Location = styled.input`
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
 `
 
 const Label = styled.label`

@@ -19,19 +19,19 @@ const Dashboard = (props) => {
             {/* <EmptySidebar /> */}
             <Sidebar match={props.match} />
             <FilesContainer>
-                <Route exact path='/writing-app/dashboard' render={(props)=> (
+                <Route exact path='/writing-app/' render={(props)=> (
                     <FileContainer>
                         <Breadcrumbs />
                         <AllFiles {...props} />
                     </FileContainer>
                 )} />
-                <Route exact path='/writing-app/dashboard/goals' render={(props)=> (
+                <Route exact path='/writing-app/goals' render={(props)=> (
                     <ToDo {...props} />
                 )} />
-                <Route exact path='/writing-app/dashboard/settings' render={(props)=> (
+                <Route exact path='/writing-app/settings' render={(props)=> (
                     <Settings {...props} />
                 )} />
-                <Route exact path='/writing-app/dashboard/themes' render={(props)=> (
+                <Route exact path='/writing-app/themes' render={(props)=> (
                     <ChangeColors {...props} />
                 )} />
             </FilesContainer>

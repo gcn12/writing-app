@@ -2,13 +2,16 @@ import IconComponent from '../../../Icons/IconComponent'
 import styled from 'styled-components'
 import firebase from 'firebase'
 import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { userData } from '../../../redux/actions/appActions'
 
-const Signout = () => {
+const Signout = (props) => {
     const history = useHistory()
 
     const signout = () => {
         firebase.auth().signOut()
         .then(()=> {
+            props.dispatch(userData({userID: ''}))
             history.push('/writing-app')
         })
         .catch(err=> {
@@ -26,7 +29,9 @@ const Signout = () => {
     )
 }
 
-export default Signout
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(Signout)
 
 const LiButton = styled.button`
     display: flex;

@@ -2,10 +2,11 @@ import firebase from 'firebase'
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { colors } from '../../redux/actions/appActions'
+import { db } from '../../firebase'
+import { colors, userData } from '../../redux/actions/appActions'
 import { connect } from 'react-redux'
 
-const SignUp = (props) => {
+const SignIn = (props) => {
     const history = useHistory()
     useEffect(()=> {
         props.dispatch(colors({
@@ -24,7 +25,17 @@ const SignUp = (props) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             console.log('signed in')
-            history.push('/writing-app/dashboard')
+            const userID = userCredential.user.uid
+            props.dispatch(userData({ userID }))
+            db.collection('users')
+            .doc(userID)
+            .get()
+            .then(data=> {
+                const preferences = data.data().preferences
+                const colorsData = preferences.colors
+                props.dispatch(colors(colorsData))
+                history.push('/writing-app/')
+            })
         })
         .catch((error) => {
             console.log(error)
@@ -46,16 +57,16 @@ const SignUp = (props) => {
                 </InputLabelContainer>
                 <Submit onClick={submit}>SIGN IN</Submit>
             </Form>
-            <BackgroundColorDecoration color='#96ffd7' blur='40px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='.7' />
+            <BackgroundColorDecoration color='#96ffd7' blur='40px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='.8' />
             <BackgroundColorDecoration color='#cfc2ff' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='20%' right='0' opacity='.6' />
-            <BackgroundColorDecoration color='#fdffb5' blur='80px' minHeight='200px' minWidth='200px' height='20vw' width='20vw' top='65%' left='25%' opacity='.5' />
+            <BackgroundColorDecoration color='#fdffb5' blur='60px' minHeight='200px' minWidth='200px' height='20vw' width='20vw' bottom='5%' left='25%' opacity='.5' />
         </Container>
     )
 }
 
 const mapStateToProps = state => ({})
 
-export default connect(mapStateToProps)(SignUp)
+export default connect(mapStateToProps)(SignIn)
 
 const InputLabelContainer = styled.div`
     display: flex;

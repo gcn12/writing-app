@@ -32,7 +32,7 @@ const Container = styled.div`
     /* opacity: 0; */
     top: 0;
     transition: opacity 300ms ease-in-out;
-    outline: 1px solid rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .1);
     &:hover {
         opacity: 1;
     }

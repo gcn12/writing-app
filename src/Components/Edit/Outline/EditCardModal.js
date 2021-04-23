@@ -113,8 +113,7 @@ const Title = styled.input`
     height: 40px;
     background-color: var(--secondary);
     color: var(--primary-text);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     @media(max-width: 600px) {
         width: 60vw;
     } 
@@ -125,8 +124,7 @@ const Text = styled.textarea`
     height: 100px;
     background-color: var(--secondary);
     color: var(--primary-text);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     @media(max-width: 600px) {
         width: 60vw;
     } 

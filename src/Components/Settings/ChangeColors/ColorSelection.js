@@ -161,8 +161,7 @@ const ThemeName = styled.input`
     width: 300px;
     flex: 1;
     background-color: var(--background);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     color: var(--primary-text);
     font-size: 20px;
     @media(max-width: 900px) {
@@ -174,7 +173,7 @@ const SaveTheme = styled.button`
     height: 40px;
     flex: 0;
     background-color: var(--primary-text);
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     color: var(--sidebar);
     font-size: 1.125rem;
     padding: 10px 30px;

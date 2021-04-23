@@ -98,6 +98,9 @@ export const Container = styled.div`
     padding: 80px 75px 50px 75px;
     border-radius: 5px;
     min-height: 92vh;
+    /* height: 100%; */
+    /* max-height: 80vh; */
+    /* overflow: scroll; */
     margin: 45px 0;
     @media(max-width: 900px) {
         width: 95vw;

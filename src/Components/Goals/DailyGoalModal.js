@@ -87,8 +87,7 @@ const GoalInput = styled.input`
     height: 40px;
     width: 220px;
     background-color: var(--secondary);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
     color: var(--primary-text);
     font-size: 20px;
 `

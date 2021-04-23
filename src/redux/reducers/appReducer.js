@@ -1,7 +1,7 @@
 import * as actions from '../actions/appActions'
 
 const initialState = {
-    userData: {},
+    userData: {userID: ''},
     currentProjectID: '',
     projectFiles: [],
     currentFileID: '',

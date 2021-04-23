@@ -13,10 +13,9 @@ const FirstSection = () => {
                     <GetStarted>Get started now</GetStarted>
                 </StyledLink>
             </ContentContainer>
-            {/* <Image src='dashboard.png' alt='interface' /> */}
-            <BackgroundColorDecoration color='#cfd1fa' blur='60px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='-5%' left='25%' opacity='.5' />
+            <BackgroundColorDecoration color='#cfd1fa' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='0%' left='25%' opacity='.7' />
             <BackgroundColorDecoration color='#ffd8cc' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='30%' right='0' opacity='.8' />
-            <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='60%' left='0%' opacity='.4' />
+            <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='35%' left='0%' opacity='.4' />
         </Container>
     )
 }
@@ -41,6 +40,9 @@ const BackgroundColorDecoration = styled.div`
     left: ${props=>props.left};
     bottom: ${props=>props.bottom};
     right: ${props=>props.right};
+    @media(max-width: 800px) {
+        filter: blur(45px);
+    }
 `
 
 const Subtitle = styled.h2`
@@ -56,18 +58,16 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     /* gap: 50px; */
-    height: 95vh;
-    position: relative;
+    min-height: 95vh;
 `
-const Image = styled.img`
-    max-height: 300px;
-    max-width: auto; 
-    box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
-    outline: 1px solid rgba(0, 0, 0, .1);
-    margin-left: 50px;
-    position: relative;
-    z-index: 1;
-`
+// const Image = styled.img`
+//     max-height: 300px;
+//     max-width: auto; 
+//     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
+//     outline: 1px solid rgba(0, 0, 0, .1);
+//     margin-left: 50px;
+//     z-index: 1;
+// `
 
 const GetStarted = styled.div`
     background-color: black;

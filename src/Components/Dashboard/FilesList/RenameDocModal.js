@@ -140,8 +140,7 @@ const DocumentTitle = styled.input`
     font-size: 1.25rem;
     color: var(--primary-text);
     background-color: var(--secondary);
-    border: none;
-    outline: 1px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
 `
 
 const NewModal = styled(Dialog)`

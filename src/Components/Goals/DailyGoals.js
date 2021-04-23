@@ -16,16 +16,27 @@ const DailyGoals = (props) => {
 
     useEffect(()=> {
         getData()
-        goalListener()
+    })
+
+    useEffect(()=> {
+        const unsubscribe = goalListener()
+        return ()=> unsubscribe()
         // eslint-disable-next-line
     }, [])
 
-    useEffect(()=> {
-        // const { goal, wordsWritten } = props.goals
-        // if(wordsWritten===0) return setProgress(0)
-        // const progressAmount = wordsWritten / goal * 100
-        // setProgress(progressAmount)
-    }, [props.goals])
+    const goalListener = () => {
+        return db.collection('users')
+        .doc(props.userData.userID)
+        .collection('goals')
+        .doc('daily-goal')
+        .onSnapshot((doc)=> {
+            const goalsObject = doc.data()
+            props.dispatch(goals({
+                goal: goalsObject.goal,
+                wordsWritten: goalsObject.wordsWritten.words
+            }))
+        }) 
+    }
 
     const getData = () => {
         db.collection('users')
@@ -59,20 +70,6 @@ const DailyGoals = (props) => {
                 })
             }
             setIsVisible(true)
-        })
-    }
-
-    const goalListener = () => {
-        db.collection('users')
-        .doc(props.userData.userID)
-        .collection('goals')
-        .doc('daily-goal')
-        .onSnapshot((doc)=> {
-            const goalsObject = doc.data()
-            props.dispatch(goals({
-                goal: goalsObject.goal,
-                wordsWritten: goalsObject.wordsWritten.words
-            }))
         })
     }
 

@@ -1,8 +1,20 @@
 import firebase from 'firebase'
 import { db } from '../../firebase'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { colors } from '../../redux/actions/appActions'
+import { useEffect } from 'react'
 
-const SignUp = () => {
+const SignUp = (props) => {
+
+    useEffect(()=> {
+        props.dispatch(colors({
+            background: 'white',
+            primaryText: 'black',
+        }))
+        // eslint-disable-next-line
+    }, [])
+
     const submit = () => {
         firebase.auth().createUserWithEmailAndPassword('hel2lo@gai1l.com', 'hello123')
         .then((userCredential) => {
@@ -33,12 +45,14 @@ const SignUp = () => {
             </Form>
             <BackgroundColorDecoration color='#c4ffd6' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='1' />
             <BackgroundColorDecoration color='#fffca8' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='20%' right='0' opacity='.7' />
-            <BackgroundColorDecoration color='#b5f1ff' blur='70px' minHeight='200px' minWidth='200px' height='20vw' width='20vw' top='60%' left='30%' opacity='.9' />
+            <BackgroundColorDecoration color='#b5f1ff' blur='50px' minHeight='200px' minWidth='200px' height='20vw' width='20vw' bottom='2%' left='30%' opacity='.9' />
         </Container>
     )
 }
 
-export default SignUp
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(SignUp)
 
 const InputLabelContainer = styled.div`
     display: flex;

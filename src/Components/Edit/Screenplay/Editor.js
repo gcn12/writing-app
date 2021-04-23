@@ -45,6 +45,7 @@ const EditorInterface = (props) => {
             if (target && searchType.length > 0 && searchResults?.length > 0 && currentText?.length > 0) {
                 const domRange = ReactEditor.toDOMRange(editor, target)
                 const rect = domRange.getBoundingClientRect()
+                console.log(window.pageYOffset)
                 setPosition({
                     top: `${rect.top + window.pageYOffset + 25}px`,
                     left: `${rect.left + window.pageXOffset}px`,
@@ -59,7 +60,7 @@ const EditorInterface = (props) => {
             }
         }
         // eslint-disable-next-line 
-    }, [searchResults?.length, searchType, editor.selection, searchQuery, target])
+    }, [searchResults?.length, index, searchType, editor, searchQuery, target])
     
     const renderElement = useCallback((props)=> {
         const { type } = props.element
@@ -164,6 +165,7 @@ const EditorInterface = (props) => {
                 && !currentText.includes('INT.')
                 && !currentText.includes('EXT.')
                 && !currentText.includes('INT./EXT.')
+                && !currentText.includes(':')
             ) {
                 setNode('character')
                 return true
@@ -512,6 +514,7 @@ const EditorInterface = (props) => {
 
     return(
         <Container>
+            {console.log(position)}
             <Slate value={props.value} editor={editor} onChange={newValue => {
                 props.setValue(newValue)
                 if(editor.selection) {

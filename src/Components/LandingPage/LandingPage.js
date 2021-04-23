@@ -34,4 +34,5 @@ const mapStateToProps = state => ({})
 export default connect(mapStateToProps)(LandingPage)
 
 const Container = styled.div`
+    position: relative;
 `
