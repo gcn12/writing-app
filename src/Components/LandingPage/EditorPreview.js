@@ -231,14 +231,14 @@ const EditorPreview = (props) => {
         setSearchQuery('')
     }
 
-    const replaceLocationEnter = (path) => {
-        const currentText = value[path[0]].children[path[1]].text
-        replaceLocation(path, currentText)
-        insertNodes(null)
-        insertNodes(null)
-    }
+    // const replaceLocationEnter = (path) => {
+    //     const currentText = value[path[0]].children[path[1]].text
+    //     replaceLocation(path, currentText)
+    //     insertNodes(null)
+    //     insertNodes(null)
+    // }
 
-    const replaceLocationTab = (path) => {
+    const replaceLocationAddDash = (path) => {
         const currentText = value[path[0]].children[path[1]].text
         replaceLocation(path, currentText)
         if(!currentText.includes('-')) {
@@ -329,7 +329,7 @@ const EditorPreview = (props) => {
             setSearchQuery('')
             setIndex(0)
             if(searchType==='names') return replaceCharacterEnter(path)
-            if(searchType==='locations') return replaceLocationEnter(path)
+            if(searchType==='locations') return replaceLocationAddDash(path)
             return replaceTimeEnter(path)
         } else if (type === 'character') {
             e.preventDefault()
@@ -379,7 +379,7 @@ const EditorPreview = (props) => {
             setSearchQuery('')
             setIndex(0)
             if(searchType==='names') return replaceCharacter(path)
-            if(searchType==='locations') return replaceLocationTab(path)
+            if(searchType==='locations') return replaceLocationAddDash(path)
             return replaceTime(path)
         } 
     }
@@ -409,7 +409,7 @@ const EditorPreview = (props) => {
             )
         }
         if(isHotKey('mod+c', e)) return
-        if(isHotKey('mod+v', e)) e.preventDefault()
+        // if(isHotKey('mod+v', e)) e.preventDefault()
         if(isHotKey('mod+x', e)) return
         if(isHotKey('mod', e)) return
         const anchor = editor.selection.anchor
@@ -597,7 +597,7 @@ const EditorPreview = (props) => {
                     handleOnChange(newValue)
                 }
             }}>
-                <StyledEditable renderLeaf={renderLeaf} placeholder='Try it out here' onKeyDown={modifiers} renderElement={renderElement} />
+                <StyledEditable autoFocus renderLeaf={renderLeaf} placeholder='Try it out here' onKeyDown={modifiers} renderElement={renderElement} />
                 {((searchQuery.length > 1 && searchType==='names') || (searchQuery.length > 0 && searchType==='names' && value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
                 <Autocomplete position={position} items={searchResults} index={index} />
                 }

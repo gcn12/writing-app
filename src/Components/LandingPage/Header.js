@@ -31,7 +31,7 @@ const RightContainer = styled.div`
 
 const Container = styled.nav`
     padding-top: 20px;
-    position: relative;
+    background-color: hsl(184, 30%, 92%);
 `
 
 const UL = styled.ul`
@@ -54,6 +54,7 @@ const SignIn = styled.div`
 
 const SignUp= styled.div`
     background-color: black;
+    border: 1px solid black;
     color: white;
     padding: 15px;
     border-radius: 7px;

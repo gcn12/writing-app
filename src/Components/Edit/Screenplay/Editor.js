@@ -216,14 +216,14 @@ const EditorInterface = (props) => {
         setSearchQuery('')
     }
 
-    const replaceLocationEnter = (path) => {
-        const currentText = props.value[path[0]].children[path[1]].text
-        replaceLocation(path, currentText)
-        insertNodes(null)
-        insertNodes(null)
-    }
+    // const replaceLocationEnter = (path) => {
+    //     const currentText = props.value[path[0]].children[path[1]].text
+    //     replaceLocation(path, currentText)
+    //     insertNodes(null)
+    //     insertNodes(null)
+    // }
 
-    const replaceLocationTab = (path) => {
+    const replaceLocationAddDash = (path) => {
         const currentText = props.value[path[0]].children[path[1]].text
         replaceLocation(path, currentText)
         if(!currentText.includes('-')) {
@@ -314,7 +314,7 @@ const EditorInterface = (props) => {
             setSearchQuery('')
             setIndex(0)
             if(searchType==='names') return replaceCharacterEnter(path)
-            if(searchType==='locations') return replaceLocationEnter(path)
+            if(searchType==='locations') return replaceLocationAddDash(path)
             return replaceTimeEnter(path)
         } else if (type === 'character') {
             e.preventDefault()
@@ -363,7 +363,7 @@ const EditorInterface = (props) => {
             setSearchQuery('')
             setIndex(0)
             if(searchType==='names') return replaceCharacter(path)
-            if(searchType==='locations') return replaceLocationTab(path)
+            if(searchType==='locations') return replaceLocationAddDash(path)
             return replaceTime(path)
         } 
     }
