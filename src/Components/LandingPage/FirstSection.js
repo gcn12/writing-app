@@ -14,9 +14,9 @@ const FirstSection = () => {
                 </StyledLink>
             </ContentContainer>
             {/* <Image src='dashboard.png' alt='interface' /> */}
-            <BackgroundColorDecoration color='#cfd1fa' blur='60px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='-5%' left='25%' opacity='.4' />
-            <BackgroundColorDecoration color='#ffd8cc' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='30%' right='0' opacity='.7' />
-            <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='60%' left='0%' opacity='.3' />
+            <BackgroundColorDecoration color='#cfd1fa' blur='60px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='-5%' left='25%' opacity='.5' />
+            <BackgroundColorDecoration color='#ffd8cc' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='30%' right='0' opacity='.8' />
+            <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='60%' left='0%' opacity='.4' />
         </Container>
     )
 }
