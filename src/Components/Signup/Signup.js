@@ -237,6 +237,7 @@ const Password = styled.input`
     width: 100%;
     height: 35px;
     margin-bottom: 30px;
+    font-size: 20px;
 `
 
 const BackgroundColorDecoration = styled.div`
