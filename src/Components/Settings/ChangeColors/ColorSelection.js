@@ -145,10 +145,10 @@ const NameLabel = styled.h2`
 `
 
 const Container = styled.div`
-    margin-top: 50px;
-    @media(max-width: 800px) {
+    margin-top: 20px;
+    /* @media(max-width: 800px) {
         margin-top: 20px;
-    }
+    } */
 `
 
 const Title = styled.h1`

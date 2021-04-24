@@ -2,6 +2,7 @@
 import { createEditor, Editor, Transforms, Range, Text } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { useMemo, useState, useCallback, useEffect } from 'react'
+import { withHistory } from 'slate-history'
 import { connect } from 'react-redux'
 import Autocomplete from './Autocomplete'
 import styled from 'styled-components'
@@ -19,7 +20,7 @@ import {
 } from './EditorAssets'
 
 const EditorInterface = (props) => {
-    const editor = useMemo(()=> withReact(createEditor()), [])
+    const editor = useMemo(()=> withReact(withHistory(createEditor())), [])
     const [target, setTarget] = useState()
     const [index, setIndex] = useState(0)
     const [position, setPosition] = useState({top: '-9999px', left: '-9999px', display: 'none',})
@@ -77,22 +78,8 @@ const EditorInterface = (props) => {
         return <Paragraph {...props} />
     }, [])
 
-    const checkTransition = (e, currentText) => {
-        if(e.code==='Semicolon' 
-        && e.shiftKey
-        && currentText === currentText.toUpperCase()
-        ) {
-            setNode('transition')
-            return true
-        }
-        if(
-            currentText === currentText.toUpperCase()
-            && currentText.includes('(')
-        ) return true
-        return false
-    }
-
-    const checkDescription = (path, e, currentText) => {
+    const checkDescription = (path, e, currentText, type) => {
+        if(!type) return false
         const previousText = props.value[path[0]-1].children[0].text 
         const previousPreviousType = props.value[path[0]-2].type
         const currentTextUppercase = currentText.toUpperCase()
@@ -115,7 +102,8 @@ const EditorInterface = (props) => {
         return false
     }
 
-    const checkDialog = (path) => {
+    const checkDialog = (path, type) => {
+        if(type==='dialog') return false
         const currentText = props.value[path[0]].children[0].text
         const previousText = props.value[path[0]-1].children[0].text
         const previousType = props.value[path[0]-1].type
@@ -146,7 +134,8 @@ const EditorInterface = (props) => {
         return false
     }
 
-    const checkParenthetical = (path, currentText, e) => {
+    const checkParenthetical = (path, currentText, e, type) => {
+        if (type==='parenthetical') return false
         const character = props.value[path[0]-1].children[0].text
         if(character === character.toUpperCase() 
         && (currentText[0] === '(' || (e.key==='(' && e.shiftKey))
@@ -167,6 +156,7 @@ const EditorInterface = (props) => {
     }
 
     const checkCharacter = (path, currentText, currentType) => {
+        if (currentType==='character') return false
         if(path[0] > 1) {
             const previousType = props.value[path[0]-2].type
             if(
@@ -226,13 +216,6 @@ const EditorInterface = (props) => {
         setIndex(0)
         setSearchQuery('')
     }
-
-    // const replaceLocationEnter = (path) => {
-    //     const currentText = props.value[path[0]].children[path[1]].text
-    //     replaceLocation(path, currentText)
-    //     insertNodes(null)
-    //     insertNodes(null)
-    // }
 
     const replaceLocationAddDash = (path) => {
         const currentText = props.value[path[0]].children[path[1]].text
@@ -302,7 +285,25 @@ const EditorInterface = (props) => {
         return insertNodes(null)
     }
 
-    const checkHeading = (splitText) => {
+    const checkTransition = (e, currentText, type) => {
+        if(type==='transition') return false
+        if(
+            e.code==='Semicolon' 
+            && e.shiftKey
+            && currentText === currentText.toUpperCase()
+        ) {
+            setNode('transition')
+            return true
+        }
+        if(
+            currentText === currentText.toUpperCase()
+            && currentText.includes('(')
+        ) return true
+        return false
+    }
+
+    const checkHeading = (splitText, type) => {
+        if(type==='heading') return false
         const intExt = splitText[0].toUpperCase()
         if(intExt === 'INT.' || intExt === 'EXT.' || intExt === 'INT./EXT.') {
             setNode('heading')
@@ -447,8 +448,19 @@ const EditorInterface = (props) => {
         }
     }
 
+    const handleUndo = () => {
+        setTarget(null)
+    }
+
     const modifiers = (e) => {
-        // const { path } = editor.selection.focus
+        if(e.key==='h' && e.ctrlKey) {
+            setNode('character')
+            insertNodes(null)
+            insertNodes(null)
+        }
+        if(e.key==='a' && e.ctrlKey) {
+            setNode(null)
+        }
         if(e.key==='ArrowRight') return
         if(e.key==='ArrowLeft') return
         if(e.key==='ArrowUp' && searchQuery.length===0) return
@@ -478,6 +490,8 @@ const EditorInterface = (props) => {
         if(isHotKey('mod+c', e)) return
         if(isHotKey('mod+v', e)) return 
         if(isHotKey('mod+x', e)) return
+        if(isHotKey('mod+z+shift', e)) return handleUndo()
+        if(isHotKey('mod+z', e)) return handleUndo()
         if(isHotKey('mod', e)) return
         const anchor = editor.selection.anchor
         const focus = editor.selection.focus
@@ -495,17 +509,16 @@ const EditorInterface = (props) => {
         const splitText = currentText.split(' ')
         if (e.key==='Backspace') return handleDelete(path, e, type)
         if (e.key === 'Enter') return handleEnter(path, e, type)
-        // if (e.key === 'Tab') return handleReplace(path, e, type)
         if (e.key === 'Tab') return handleTab(path, e, type)
-        if (checkTransition(e, currentText)) return
-        if (checkHeading(splitText)) return
+        if (checkTransition(e, currentText, type)) return
+        if (checkHeading(splitText, type)) return
         if(path[0] > 1) {
-            if (checkDescription(path, e, currentText)) return
+            checkDescription(path, e, currentText, type)
         }
         if (checkCharacter(path, currentText, type)) return
         if(path[0] > 0) {
-            if (checkParenthetical(path, currentText, e)) return
-            if (checkDialog(path)) return
+            if (checkParenthetical(path, currentText, e, type)) return
+            if (checkDialog(path, type)) return
         }
     }
 

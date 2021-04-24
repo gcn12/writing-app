@@ -27,6 +27,7 @@ const ContentContainer = styled.div`
     width: 80vw;
     max-width: 800px;
     @media(max-width: 800px) {
+        margin-top: 40px;
         width: 100%
     }
 `
@@ -64,7 +65,7 @@ const Container = styled.div`
     align-items: center;
     background-color: hsl(184, 30%, 92%);
     /* gap: 50px; */
-    min-height: 95vh;
+    height: 95vh;
 `
 // const Image = styled.img`
 //     max-height: 300px;
@@ -87,6 +88,9 @@ const GetStarted = styled.div`
 const Title = styled.h1`
     font-size: 2.75rem;
     font-weight: 600;
+    @media(max-width: 800px) {
+        font-size: 2.5rem;
+    }
 `
 
 const StyledLink = styled(Link)`

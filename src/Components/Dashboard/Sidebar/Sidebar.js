@@ -49,7 +49,7 @@ const SignoutContainer = styled.ul`
     bottom: 2%;
     left: 0;
     width: 18vw;
-    min-width: 220px;
+    min-width: 200px;
     padding: 0 20px;
 `
 
@@ -67,7 +67,7 @@ const Container = styled.div`
     padding: 0 20px;
     background-color: var(--sidebar);
     height: 100%;
-    min-width: 220px;
+    min-width: 200px;
     position: fixed;
     @media(max-width: 800px) {
         display: none;

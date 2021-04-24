@@ -5,6 +5,7 @@ import { useMemo, useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import Autocomplete from '../Edit/Screenplay/Autocomplete'
 import isHotKey from 'is-hotkey'
+import { withHistory } from 'slate-history'
 import {
     TIME_OF_DAY,
     Dialog,
@@ -30,7 +31,7 @@ const EditorPreview = (props) => {
         {children: [{text: ''}]},
         {children: [{text: ''}]},
     ])
-    const editor = useMemo(()=> withReact(createEditor()), [])
+    const editor = useMemo(()=> withReact(withHistory(createEditor())), [])
     const [target, setTarget] = useState()
     const [index, setIndex] = useState(0)
     const [position, setPosition] = useState({top: '-9999px', left: '-9999px', display: 'none',})
@@ -92,7 +93,8 @@ const EditorPreview = (props) => {
         return <Paragraph {...props} />
     }, [])
 
-    const checkTransition = (e, currentText) => {
+    const checkTransition = (e, currentText, type) => {
+        if(type==='transition') return false
         if(e.code==='Semicolon' 
         && e.shiftKey
         && currentText === currentText.toUpperCase()
@@ -103,7 +105,8 @@ const EditorPreview = (props) => {
         return false
     }
 
-    const checkDescription = (path, e, currentText) => {
+    const checkDescription = (path, e, currentText, type) => {
+        if(!type) return false
         const previousText = value[path[0]-1].children[0].text 
         const previousPreviousType = value[path[0]-2].type
         const currentTextUppercase = currentText.toUpperCase()
@@ -126,7 +129,8 @@ const EditorPreview = (props) => {
         return false
     }
 
-    const checkDialog = (path) => {
+    const checkDialog = (path, type) => {
+        if(type==='dialog') return false
         const previousText = value[path[0]-1].children[0].text
         const previousType = value[path[0]-1].type
         if(
@@ -155,7 +159,8 @@ const EditorPreview = (props) => {
         return false
     }
 
-    const checkParenthetical = (path, currentText, e) => {
+    const checkParenthetical = (path, currentText, e, type) => {
+        if(type==='parenthetical') return false
         const character = value[path[0]-1].children[0].text
         if(character === character.toUpperCase() 
         && (currentText[0] === '(' || (e.key==='(' && e.shiftKey))
@@ -175,7 +180,8 @@ const EditorPreview = (props) => {
         return false
     }
 
-    const checkCharacter = (path, currentText, currentType) => {
+    const checkCharacter = (path, currentText, currentType, type) => {
+        if(type==='character') return false
         if(path[0] > 1) {
             const previousType = value[path[0]-2].type
             if(
@@ -311,7 +317,8 @@ const EditorPreview = (props) => {
         return insertNodes(null)
     }
 
-    const checkHeading = (splitText) => {
+    const checkHeading = (splitText, type) => {
+        if(type==='heading') return false
         const intExt = splitText[0].toUpperCase()
         if(intExt === 'INT.' || intExt === 'EXT.' || intExt === 'INT./EXT.') {
             setNode('heading')
@@ -389,6 +396,10 @@ const EditorPreview = (props) => {
         } 
     }
 
+    const handleUndo = () => {
+        setTarget(null)
+    }
+
     const modifiers = (e) => {
         // const { path } = editor.selection.focus
         if(isHotKey('mod+b', e)) {
@@ -416,6 +427,8 @@ const EditorPreview = (props) => {
         if(isHotKey('mod+c', e)) return
         // if(isHotKey('mod+v', e)) e.preventDefault()
         if(isHotKey('mod+x', e)) return
+        if(isHotKey('mod+z+shift', e)) return handleUndo()
+        if(isHotKey('mod+z', e)) return handleUndo()
         if(isHotKey('mod', e)) return
         const anchor = editor.selection.anchor
         const focus = editor.selection.focus
@@ -435,15 +448,15 @@ const EditorPreview = (props) => {
         if (e.key === 'Enter') return handleEnter(path, e, type)
         // if (e.key === 'Tab') return handleReplace(path, e, type)
         if (e.key === 'Tab') return handleTab(path, e, type)
-        if (checkTransition(e, currentText)) return
-        if (checkHeading(splitText)) return
+        if (checkTransition(e, currentText, type)) return
+        if (checkHeading(splitText, type)) return
         if(path[0] > 1) {
-            if (checkDescription(path, e, currentText)) return
+            if (checkDescription(path, e, currentText, type)) return
         }
         if (checkCharacter(path, currentText, type)) return
         if(path[0] > 0) {
-            if (checkParenthetical(path, currentText, e)) return
-            if (checkDialog(path)) return
+            if (checkParenthetical(path, currentText, e, type)) return
+            if (checkDialog(path, type)) return
         }
     }
 

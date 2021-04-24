@@ -117,6 +117,7 @@ const TaskInput = styled.input`
     color: var(--primary-text);
     font-size: 20px;
     margin-right: 20px;
+    padding-left: 5px;
 `
 
 const Title = styled.h1`
@@ -131,8 +132,9 @@ const Title = styled.h1`
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    padding: 60px 30px 0px 30px;
+    padding: 0 30px;
     overflow: scroll;
+    margin-top: 20px;
     @media(max-width: 800px) { 
         height: calc(100% - 80px);
         padding: 0px 15px;
