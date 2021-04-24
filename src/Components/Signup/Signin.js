@@ -18,6 +18,7 @@ const SignIn = (props) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [message, setMessage] = useState('')
 
     const submit = (e) => {
         e.preventDefault()
@@ -38,6 +39,7 @@ const SignIn = (props) => {
             })
         })
         .catch((error) => {
+            setMessage('Invalid email or password')
             console.log(error)
         });
         return true
@@ -46,7 +48,7 @@ const SignIn = (props) => {
     return(
         <Container>
             <Form onSubmit={submit}>
-                <Logo>Redraft</Logo>
+                <Logo>Welcome back</Logo>
                 <InputLabelContainer>
                     <Label>Email</Label>
                     <Username onChange={(e)=>setEmail(e.target.value)} />
@@ -55,6 +57,9 @@ const SignIn = (props) => {
                     <Label>Password</Label>
                     <Password type='password' onChange={(e)=>setPassword(e.target.value)} />
                 </InputLabelContainer>
+                {message.length > 0 &&
+                    <Message>{message}</Message>
+                }
                 <Submit onClick={submit}>SIGN IN</Submit>
             </Form>
             <BackgroundColorDecoration color='#96ffd7' blur='40px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='.8' />
@@ -67,6 +72,11 @@ const SignIn = (props) => {
 const mapStateToProps = state => ({})
 
 export default connect(mapStateToProps)(SignIn)
+
+const Message = styled.h3`
+    color: red;
+    margin-bottom: 20px;
+`
 
 const InputLabelContainer = styled.div`
     display: flex;

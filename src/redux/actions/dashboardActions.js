@@ -2,6 +2,13 @@ export const CURRENT_PROJECT_ID = 'CURRENT_PROJECT_ID'
 export const NOTES_DATA = 'NOTES_DATA'
 export const BREADCRUMBS = 'BREADCRUMBS'
 export const SORT_METHOD = 'SORT_METHOD'
+export const RESET_DASHBOARD = 'RESET_DASHBOARD'
+
+export function resetDashboard() {
+    return(dispatch) => {
+        dispatch({type: RESET_DASHBOARD})
+    }
+}
 
 export function sortMethod(data) {
     return(dispatch) => {

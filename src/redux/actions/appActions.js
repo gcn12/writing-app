@@ -16,6 +16,13 @@ export const COLOR_THEMES = 'COLOR_THEMES'
 export const COLORS = 'COLORS'
 export const TASKS = 'TASKS'
 export const GOALS = 'GOALS'
+export const RESET = 'RESET'
+
+export function reset() {
+    return(dispatch) => {
+        dispatch({type: RESET})
+    }
+}
 
 export function goals(data) {
     return(dispatch) => {

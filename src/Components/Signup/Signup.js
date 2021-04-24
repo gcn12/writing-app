@@ -3,10 +3,16 @@ import { db } from '../../firebase'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { colors } from '../../redux/actions/appActions'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import moment from 'moment'
 
 const SignUp = (props) => {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [message, setMessage] = useState('')
+    const history = useHistory()
     useEffect(()=> {
         props.dispatch(colors({
             background: 'white',
@@ -15,32 +21,148 @@ const SignUp = (props) => {
         // eslint-disable-next-line
     }, [])
 
-    const submit = () => {
-        firebase.auth().createUserWithEmailAndPassword('hel2lo@gai1l.com', 'hello123')
+    const addUserIDToDatabase = (userID) => {
+        return db.collection('users').doc(userID).set({
+            userID: userID,
+        })
+    }
+
+    const addUserColorsToDatabase = (userID) => {
+        return db.collection('users').doc(userID).set({
+            preferences: {
+                colors: {
+                    name: 'Light 1',
+                    background: '#c7b9ca',
+                    highlight: '#e3e3e3',
+                    primaryText: '#0f0f0f',
+                    secondary: '#ffffff',
+                    sidebar: '#f7f7f7',
+                }
+            }
+        })
+        .catch(err=>console.log(err))
+    }
+    
+    const addColorThemesToDatabase = (userID) => {
+        return db.collection('users')
+        .doc(userID)
+        .collection('page-preferences')
+        .doc('color-themes')
+        .set({
+            themes: [
+                {colors: {
+                    isDefault: true,
+                    name: 'Light 1',
+                    background: '#c7b9ca',
+                    highlight: '#e3e3e3',
+                    primaryText: '#0f0f0f',
+                    secondary: '#ffffff',
+                    sidebar: '#f7f7f7',
+                }},
+                {colors: {
+                    isDefault: true,
+                    name: 'Dark 1',
+                    background: '#433f4b',
+                    highlight: '#3e3d4d',
+                    primaryText: '#fbebff',
+                    secondary: '#53566a',
+                    sidebar: '#141415',
+                }},
+            ]
+        })
+        .catch(err=>console.log(err))
+    }
+
+    const addGoalsToDatabase = (userID) => {
+        return db.collection('users')
+        .doc(userID)
+        .collection('goals')
+        .doc('daily-goal')
+        .set({
+            goal: 100,
+            wordsWritten: {
+                date: moment().format('L'),
+                words: 0,
+            }
+        })
+        .catch(err=>console.log(err))
+    }
+
+    const addTasksToDatabase = (userID) => {
+        return db.collection('users')
+        .doc(userID)
+        .collection('goals')
+        .doc('todo')
+        .set({
+            todo: []
+        })
+        .catch(err=>console.log(err))
+    }
+
+    const createFilesFolders = (userID) => {
+        return db.collection('users')
+        .doc(userID)
+        .collection('files-folders')
+        .doc('preferences')
+        .set({
+            parentID: userID, 
+            sortMethod: 'dateDesc'
+        })
+        .catch(err=>console.log(err))
+    }
+
+    const addColorsToState = () => {
+        const colorsObj = {
+            name: 'Light 1',
+            background: '#c7b9ca',
+            highlight: '#e3e3e3',
+            primaryText: '#0f0f0f',
+            secondary: '#ffffff',
+            sidebar: '#f7f7f7',
+        }
+        props.dispatch(colors(colorsObj))
+    }
+
+    const submit = (e) => {
+        e.preventDefault()
+        firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in 
-            var user = userCredential.user;
-            console.log(user)
-            db.collection('users').doc(user.uid).set({
-                userID: user.uid
+            const userID = userCredential.user.uid
+            addUserIDToDatabase(userID).then(()=> {
+                addUserColorsToDatabase(userID)
+                addColorThemesToDatabase(userID)
+                addGoalsToDatabase(userID)
+                addTasksToDatabase(userID)
+                createFilesFolders(userID)
+                addColorsToState()
+                history.push('/writing-app')
             })
         })
         .catch((error) => {
-            console.log('error signing up', error)
+            if(error.code==='auth/invalid-email') {
+                setMessage('Invalid email')
+            }
+            if(error.code==='auth/weak-password') {
+                setMessage('Password must be at least six characters')
+            }
         });
     }
     return(
         <Container>
             <Form>
-                <Logo>Redraft</Logo>
+                <Logo>Sign up</Logo>
                 <InputLabelContainer>
-                    <Label>Username</Label>
-                    <Username></Username>
+                    <Label>Email</Label>
+                    <Email type='email' onChange={(e)=>setEmail(e.target.value)} /> 
                 </InputLabelContainer>
                 <InputLabelContainer>
                     <Label>Password</Label>
-                    <Password type='password'></Password>
+                    <Password onChange={(e)=>setPassword(e.target.value)} type='password' />
                 </InputLabelContainer>
+                {message.length > 0 &&
+                    <Message>{message}</Message>
+                }
                 <Submit onClick={submit}>CREATE ACCOUNT</Submit>
             </Form>
             <BackgroundColorDecoration color='#c4ffd6' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='1' />
@@ -53,6 +175,11 @@ const SignUp = (props) => {
 const mapStateToProps = state => ({})
 
 export default connect(mapStateToProps)(SignUp)
+
+const Message = styled.h3`
+    color: red;
+    margin-bottom: 20px;
+`
 
 const InputLabelContainer = styled.div`
     display: flex;
@@ -99,7 +226,7 @@ const Container = styled.div`
     width: 100%;
 `
 
-const Username = styled.input`
+const Email = styled.input`
     width: 100%;
     height: 35px;
     margin-bottom: 20px;

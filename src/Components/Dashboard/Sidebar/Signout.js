@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import firebase from 'firebase'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { userData } from '../../../redux/actions/appActions'
+import { reset, userData } from '../../../redux/actions/appActions'
+import { resetDashboard } from '../../../redux/actions/dashboardActions'
 
 const Signout = (props) => {
     const history = useHistory()
@@ -12,6 +13,8 @@ const Signout = (props) => {
         firebase.auth().signOut()
         .then(()=> {
             props.dispatch(userData({userID: ''}))
+            props.dispatch(reset())
+            props.dispatch(resetDashboard())
             history.push('/writing-app')
         })
         .catch(err=> {

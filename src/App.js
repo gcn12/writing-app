@@ -24,9 +24,11 @@ const App = (props) => {
         .doc(user.uid)
         .get()
         .then(data=> {
-          const preferences = data.data().preferences
-          const colorsData = preferences.colors
-          props.dispatch(colors(colorsData))
+          if(data.data().preferences) {
+            const preferences = data.data().preferences
+            const colorsData = preferences.colors
+            props.dispatch(colors(colorsData))
+          }
           if(props.match.params.page==='signup' 
             || props.match.params.page==='signin') {
             history.push('/writing-app')
@@ -74,7 +76,6 @@ const App = (props) => {
           )} />
       </Switch>
       <GlobalStyles page={props.match.params.page} userID={props.userData.userID} />
-      
     </div>
   );
 }

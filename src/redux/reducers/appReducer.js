@@ -23,6 +23,8 @@ const initialState = {
 
 const appReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.RESET:
+            return initialState
         case actions.GOALS:
             return {
                 ...state,

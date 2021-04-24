@@ -7,6 +7,8 @@ const initialState = {
 
 const dashboardReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.RESET_DASHBOARD:
+            return initialState
         case actions.SORT_METHOD:
             return {
                 ...state,
