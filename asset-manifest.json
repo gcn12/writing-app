@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/writing-app/static/css/main.ada2019d.chunk.css",
-    "main.js": "/writing-app/static/js/main.b8e0eb2c.chunk.js",
-    "main.js.map": "/writing-app/static/js/main.b8e0eb2c.chunk.js.map",
+    "main.js": "/writing-app/static/js/main.b5c77378.chunk.js",
+    "main.js.map": "/writing-app/static/js/main.b5c77378.chunk.js.map",
     "runtime-main.js": "/writing-app/static/js/runtime-main.527e12f8.js",
     "runtime-main.js.map": "/writing-app/static/js/runtime-main.527e12f8.js.map",
     "static/js/2.73e284e9.chunk.js": "/writing-app/static/js/2.73e284e9.chunk.js",
@@ -30,6 +30,6 @@
     "static/css/3.ea627e78.chunk.css",
     "static/js/3.212de4b9.chunk.js",
     "static/css/main.ada2019d.chunk.css",
-    "static/js/main.b8e0eb2c.chunk.js"
+    "static/js/main.b5c77378.chunk.js"
   ]
 }
