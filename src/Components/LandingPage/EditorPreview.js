@@ -60,12 +60,17 @@ const EditorPreview = (props) => {
             if (target && searchType.length > 0 && searchResults?.length > 0 && currentText?.length > 0) {
                 const domRange = ReactEditor.toDOMRange(editor, target)
                 const rect = domRange.getBoundingClientRect()
-                console.log(rect.top, window.pageYOffset)
-                setPosition({
+                const newPosition = {
                     top: `${rect.top + window.pageYOffset + 25}px`,
-                    left: `${rect.left + window.pageXOffset}px`,
                     display: 'flex',
-                })
+                }
+                if(searchType==='locations' || 'times') {
+                    newPosition['left'] = `${rect.left + window.pageXOffset + 10}px`
+                }
+                if (searchType==='names') {
+                    newPosition['left'] = `${rect.left + window.pageXOffset}px`
+                }
+                setPosition(newPosition)
             }else{
                 setPosition({
                     top: '-9999px',

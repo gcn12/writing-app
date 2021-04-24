@@ -45,12 +45,17 @@ const EditorInterface = (props) => {
             if (target && searchType.length > 0 && searchResults?.length > 0 && currentText?.length > 0) {
                 const domRange = ReactEditor.toDOMRange(editor, target)
                 const rect = domRange.getBoundingClientRect()
-                console.log(window.pageYOffset)
-                setPosition({
+                const newPosition = {
                     top: `${rect.top + window.pageYOffset + 25}px`,
-                    left: `${rect.left + window.pageXOffset}px`,
                     display: 'flex',
-                })
+                }
+                if(searchType==='locations' || 'times') {
+                    newPosition['left'] = `${rect.left + window.pageXOffset + 10}px`
+                }
+                if(searchType==='names'){
+                    newPosition['left'] = `${rect.left + window.pageXOffset}px`
+                }
+                setPosition(newPosition)
             }else{
                 setPosition({
                     top: '-9999px',
@@ -80,6 +85,10 @@ const EditorInterface = (props) => {
             setNode('transition')
             return true
         }
+        if(
+            currentText === currentText.toUpperCase()
+            && currentText.includes('(')
+        ) return true
         return false
     }
 
@@ -107,12 +116,14 @@ const EditorInterface = (props) => {
     }
 
     const checkDialog = (path) => {
+        const currentText = props.value[path[0]].children[0].text
         const previousText = props.value[path[0]-1].children[0].text
         const previousType = props.value[path[0]-1].type
         if(
             previousText === previousText.toUpperCase() 
             && previousText.length > 0
             && previousText[previousText.length - 1] !== ':'
+            && currentText[currentText.length - 1] !== ':'
             && !previousText.includes('INT.')
             && !previousText.includes('EXT.')
             && !previousText.includes('INT./EXT.')
@@ -128,7 +139,7 @@ const EditorInterface = (props) => {
             )
             setNode('dialog')
             return true
-        }else if(previousText[0] === '(' || previousType==='character') {
+        }else if(previousText.length > 0 &&(previousText[0] === '(' || previousType==='character')) {
             setNode('dialog')
             return true
         }
@@ -368,8 +379,80 @@ const EditorInterface = (props) => {
         } 
     }
 
+    const pasteCheckHeading = (text) => {
+        const split = text.split(' ')
+        if(
+            split[0].toUpperCase().includes('INT.')
+            || split[0].toUpperCase().includes('EXT.')
+            || split[0].toUpperCase().includes('INT./EXT.')
+        ) return true
+        return false
+    }
+
+    const pasteCheckCharacter = (text, next) => {
+        if(!next) return false
+        if(next.length === 0) return false
+        if(text.toUpperCase() !== text) return false
+        return true
+    }
+
+    const pasteCheckTransition = (text) => {
+        if(
+            text.toUpperCase() === text
+            && text.includes(':')
+        ) return true
+        return false
+    }
+
+    const checkPasteParenthetical = (current, previous) => {
+        if(!previous) return false
+        if(!previous.length > 0) return false
+        if(current.trim()[0] !== '(') return false
+        return true
+    }
+
+    const pasteCheckDialog = (current, previous, next) => {
+        if(!previous) return false
+        if(previous.length === 0) return false
+        if(previous.toUpperCase()!==previous) return true
+        if(previous[0] !== '(') return true
+        return false
+    }
+
+    const pasteText = (text, type, currentIndex, maxIndex) => {
+        Transforms.setNodes(editor, {type})
+        Transforms.insertText(editor, text)
+        if(currentIndex !== maxIndex - 1) return insertNodes(null)
+    }
+
+    const checkPaste = (current, previous, next, currentIndex, maxIndex) => {
+        if(pasteCheckHeading(current)===true) return pasteText(current, 'heading', currentIndex, maxIndex)
+        if(pasteCheckTransition(current)) return pasteText(current, 'transition', currentIndex, maxIndex)
+        if(pasteCheckCharacter(current, next)) return pasteText(current, 'character', currentIndex, maxIndex)
+        if(checkPasteParenthetical(current, previous)) return pasteText(current, 'parenthetical', currentIndex, maxIndex)
+        if(pasteCheckDialog(current, previous)) return pasteText(current, 'dialog', currentIndex, maxIndex)
+        return pasteText(current, null)
+    }
+
+    editor.insertData = (data) => {
+        const currentText = data.getData('text/plain')
+        const splitText = currentText.split('\n')
+        for (let i = 0; i < splitText.length; i ++) {
+            const current = splitText[i]
+            let previous
+            let next
+            if(i - 1 >= 0) previous = splitText[i - 1]
+            if(i + 1 < splitText.length) next = splitText[i + 1]
+            checkPaste(current, previous, next, i, splitText.length)
+        }
+    }
+
     const modifiers = (e) => {
         // const { path } = editor.selection.focus
+        if(e.key==='ArrowRight') return
+        if(e.key==='ArrowLeft') return
+        if(e.key==='ArrowUp' && searchQuery.length===0) return
+        if(e.key==='ArrowDown' && searchQuery.length===0) return
         if(isHotKey('mod+b', e)) {
             e.preventDefault()
             const [match] = Editor.nodes(editor, {
@@ -393,7 +476,7 @@ const EditorInterface = (props) => {
             )
         }
         if(isHotKey('mod+c', e)) return
-        if(isHotKey('mod+v', e)) return
+        if(isHotKey('mod+v', e)) return 
         if(isHotKey('mod+x', e)) return
         if(isHotKey('mod', e)) return
         const anchor = editor.selection.anchor
@@ -464,7 +547,6 @@ const EditorInterface = (props) => {
     const handleOnChange = (newValue) => {
         const { path } = editor.selection.focus
         const currentText = newValue[path[0]]?.children[path[1]]?.text
-
         if((
             currentText?.length > 0 
             && (newValue[path[0]].type === 'character'
@@ -498,9 +580,17 @@ const EditorInterface = (props) => {
     }
 
     const Leaf = (props) => {
+        let weight 
+        if(props.leaf.bold) {
+            weight = 600
+        }else if(props?.children?.props?.parent?.type==='heading') { 
+            weight = 600
+        } else {
+            weight = 500
+        }
         return(
             <Decorations {...props.attributes}
-                weight={props.leaf.bold ? 700 : 500}
+                weight={weight}
                 italics={props.leaf.italics ? 'italic' : 'normal'}
             >
                 {props.children}
@@ -514,7 +604,6 @@ const EditorInterface = (props) => {
 
     return(
         <Container>
-            {console.log(position)}
             <Slate value={props.value} editor={editor} onChange={newValue => {
                 props.setValue(newValue)
                 if(editor.selection) {
