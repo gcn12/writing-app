@@ -2,13 +2,19 @@ import styled from 'styled-components'
 import firebase from 'firebase'
 import { useHistory } from 'react-router-dom'
 import IconComponent from '../../Icons/IconComponent'
+import { connect } from 'react-redux'
+import { reset, userData } from '../../redux/actions/appActions'
+import { resetDashboard } from '../../redux/actions/dashboardActions'
 
-const MobileSignout = () => {
+const MobileSignout = (props) => {
     const history = useHistory()
 
     const signout = () => {
         firebase.auth().signOut()
         .then(()=> {
+            props.dispatch(userData({userID: ''}))
+            props.dispatch(reset())
+            props.dispatch(resetDashboard())
             history.push('/writing-app')
         })
         .catch(err=> {
@@ -26,7 +32,9 @@ const MobileSignout = () => {
     )
 }
 
-export default MobileSignout
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(MobileSignout)
 
 const Name = styled.h2`
     margin-left: 10px; 

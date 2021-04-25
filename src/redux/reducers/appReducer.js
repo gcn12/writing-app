@@ -19,10 +19,16 @@ const initialState = {
     colors: {},
     tasks: [],
     goals: {goal: 100, wordsWritten: 0},
+    goalIsVisible: false,
 }
 
 const appReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.GOAL_IS_VISIBLE:
+            return {
+                ...state,
+                goalIsVisible: action.payload
+            }
         case actions.RESET:
             return initialState
         case actions.GOALS:

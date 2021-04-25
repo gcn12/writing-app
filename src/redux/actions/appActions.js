@@ -17,6 +17,13 @@ export const COLORS = 'COLORS'
 export const TASKS = 'TASKS'
 export const GOALS = 'GOALS'
 export const RESET = 'RESET'
+export const GOAL_IS_VISIBLE = 'GOAL_IS_VISIBLE'
+
+export function goalIsVisible(data) {
+    return(dispatch) => {
+        dispatch({type: GOAL_IS_VISIBLE, payload: data})
+    }
+}
 
 export function reset() {
     return(dispatch) => {

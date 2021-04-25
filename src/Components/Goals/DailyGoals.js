@@ -1,89 +1,23 @@
 import styled from 'styled-components'
 import CircleProgress from './CircleProgress'
 import CirclePlaceholder from './CirclePlaceholder'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
-import { db } from '../../firebase'
-import { goals } from '../../redux/actions/appActions'
 import DailyGoalModal from './DailyGoalModal'
 
 const DailyGoals = (props) => {
 
-    const [isVisible, setIsVisible] = useState(false)
+    // const [isVisible, setIsVisible] = useState(false)
     const [showChangeGoal, setShowChangeGoal] = useState(false)
-    // const [progress, setProgress] = useState(0)
-
-    useEffect(()=> {
-        getData()
-    })
-
-    useEffect(()=> {
-        const unsubscribe = goalListener()
-        return ()=> unsubscribe()
-        // eslint-disable-next-line
-    }, [])
-
-    const goalListener = () => {
-        return db.collection('users')
-        .doc(props.userData.userID)
-        .collection('goals')
-        .doc('daily-goal')
-        .onSnapshot((doc)=> {
-            const goalsObject = doc.data()
-            props.dispatch(goals({
-                goal: goalsObject.goal,
-                wordsWritten: goalsObject.wordsWritten.words
-            }))
-        }) 
-    }
-
-    const getData = () => {
-        db.collection('users')
-        .doc(props.userData.userID)
-        .collection('goals')
-        .doc('daily-goal')
-        .get()
-        .then(data=> {
-            const goalsObject = data.data()
-            const date = goalsObject.wordsWritten.date
-            const currentDate = moment().format('L')
-            if(date === moment().format('L')) {
-                props.dispatch(goals({
-                    goal: goalsObject.goal,
-                    wordsWritten: goalsObject.wordsWritten.words
-                }))
-            }else{
-                props.dispatch(goals({
-                    goal: goalsObject.goal,
-                    wordsWritten: 0
-                }))
-                db.collection('users')
-                .doc(props.userData.userID)
-                .collection('goals')
-                .doc('daily-goal')
-                .update({
-                    wordsWritten: {
-                        date: currentDate,
-                        words: 0,
-                    }
-                })
-            }
-            setIsVisible(true)
-        })
-    }
-
-    
+    // const [progress, setProgress] = useState(0)    
 
     return(
-        // isVisible &&
         <Container>
-            {/* <Title>Daily goal</Title> */}
             {props.goals.goal - props.goals.wordsWritten <= 0 ?
             <Met><p>Goal</p><p>Achieved</p></Met>
             : 
             <div>
-                <Goal>{isVisible && props.goals.goal - props.goals.wordsWritten}</Goal>
+                <Goal>{props.goalIsVisible && props.goals.goal - props.goals.wordsWritten}</Goal>
                 <Subtitle>{props.goals.goal - props.goals.wordsWritten === 1 ? 'word' :'words'} to go</Subtitle>
             </div>
             }
@@ -106,6 +40,7 @@ const DailyGoals = (props) => {
 const mapStateToProps = state => ({
     userData: state.app.userData,
     goals: state.app.goals,
+    goalIsVisible: state.app.goalIsVisible,
 })
 
 export default connect(mapStateToProps)(DailyGoals)

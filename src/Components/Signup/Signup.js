@@ -49,26 +49,7 @@ const SignUp = (props) => {
         .collection('page-preferences')
         .doc('color-themes')
         .set({
-            themes: [
-                {colors: {
-                    isDefault: true,
-                    name: 'Light 1',
-                    background: '#c7b9ca',
-                    highlight: '#e3e3e3',
-                    primaryText: '#0f0f0f',
-                    secondary: '#ffffff',
-                    sidebar: '#f7f7f7',
-                }},
-                {colors: {
-                    isDefault: true,
-                    name: 'Dark 1',
-                    background: '#433f4b',
-                    highlight: '#3e3d4d',
-                    primaryText: '#fbebff',
-                    secondary: '#53566a',
-                    sidebar: '#141415',
-                }},
-            ]
+            themes
         })
         .catch(err=>console.log(err))
     }
@@ -204,8 +185,8 @@ const Form = styled.form`
     width: 400px;
     position: relative;
     z-index: 1;
-    @media(max-width: 800px) {
-        width: 70vw;
+    @media(max-width: 500px) {
+        width: 80vw;
     }
 `
 
@@ -262,3 +243,61 @@ const Logo = styled.h1`
     margin-bottom: 20px;
     /* align-self: flex-start; */
 `
+
+const themes = [
+    {colors: {
+        isDefault: true,
+        name: 'Light 1',
+        background: '#c7b9ca',
+        highlight: '#e3e3e3',
+        primaryText: '#0f0f0f',
+        secondary: '#ffffff',
+        sidebar: '#f7f7f7',
+    }},
+    {colors: {
+        isDefault: true,
+        name: 'Light 2',
+        background: '#ffb4a2',
+        highlight: '#e4c5b4',
+        primaryText: '#1a0f2c',
+        secondary: '#ffe6e0',
+        sidebar: '#ffd7c2',
+    }},
+    {colors: {
+        isDefault: true,
+        name: 'Light 3',
+        background: '#a7bed3',
+        highlight: '#b3ced5',
+        primaryText: '#000000',
+        secondary: '#f1ffc4',
+        sidebar: '#c6e2e9',
+    }},
+    {colors: {
+        isDefault: true,
+        name: 'Dark 1',
+        background: '#433f4b',
+        highlight: '#3e3d4d',
+        primaryText: '#fbebff',
+        secondary: '#53566a',
+        sidebar: '#141415',
+    }},
+    {colors: {
+        isDefault: true,
+        name: 'Dark 2',
+        background: '#847996',
+        highlight: '#442b44',
+        primaryText: '#F4ECD6',
+        secondary: '#5f576c',
+        sidebar: '#2c142c',
+    }},
+    {colors: {
+        isDefault: true,
+        name: 'Dark 3',
+        background: '#294c60',
+        highlight: '#192a37',
+        primaryText: '#ffefd3',
+        secondary: '#adb6c4',
+        sidebar: '#001b2e',
+    }},
+    
+]

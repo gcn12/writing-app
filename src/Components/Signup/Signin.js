@@ -101,8 +101,8 @@ const Form = styled.form`
     width: 400px;
     position: relative;
     z-index: 1;
-    @media(max-width: 800px) {
-        width: 70vw;
+    @media(max-width: 500px) {
+        width: 80vw;
     }
 `
 
