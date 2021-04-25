@@ -8,8 +8,8 @@ import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 
 const EditCardModal = (props) => {
-    const [newTitle, setNewTitle] = useState('')
-    const [newText, setNewText] = useState('')
+    const [newTitle, setNewTitle] = useState(props.title)
+    const [newText, setNewText] = useState(props.text)
 
     const saveCardEdits = () => {
         const newOutline = [...props.outlineItemsForUpdate]

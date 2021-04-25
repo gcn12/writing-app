@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import FirstSection from './FirstSection'
 import SecondSection from './SecondSection'
 import ThirdSection from './ThirdSection'
+import FourthSection from './FourthSection'
+import FifthSection from './FifthSection'
 import { colors } from '../../redux/actions/appActions'
 import { connect } from 'react-redux'
 
@@ -13,7 +15,7 @@ const LandingPage = (props) => {
     useEffect(()=> {
         props.setIsLoading(false)
         props.dispatch(colors({
-            background: 'white',
+            background: '#fafafa',
             primaryText: 'black',
         }))
         // eslint-disable-next-line
@@ -23,8 +25,10 @@ const LandingPage = (props) => {
         <Container>
             <Header />
             <FirstSection />
-            <SecondSection />
             <ThirdSection />
+            <SecondSection />
+            <FifthSection />
+            <FourthSection />
         </Container>
     )
 }

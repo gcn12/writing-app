@@ -12,6 +12,8 @@ const GoalCard = (props) => {
 export default GoalCard
 
 const Delete = styled.button`
+    padding: 5px;
+    margin-left: 10px;
 `
 
 const Goal = styled.h1`

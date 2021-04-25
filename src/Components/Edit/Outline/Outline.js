@@ -167,6 +167,7 @@ const Plus = styled.span`
 
 const Container = styled.div`
     width: 100%;
+    /* padding: 50px; */
 `
 
 const CreateNew = styled.button`

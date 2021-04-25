@@ -13,9 +13,6 @@ const FirstSection = () => {
                     <GetStarted>Get started now</GetStarted>
                 </StyledLink>
             </ContentContainer>
-            {/* <BackgroundColorDecoration color='#f8ffc7' blur='50px' minHeight='150px' minWidth='150px' height='10vw' width='10vw' top='0%' left='25%' opacity='.6' />
-            <BackgroundColorDecoration color='#ffd8cc' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='30%' right='0' opacity='.7' />
-            <BackgroundColorDecoration color='#cfd1fa' blur='50px' minHeight='150px' minWidth='150px' height='20vw' width='20vw' top='33%' left='0%' opacity='.5' /> */}
         </Container>
     )
 }
@@ -27,29 +24,10 @@ const ContentContainer = styled.div`
     width: 80vw;
     max-width: 800px;
     @media(max-width: 800px) {
-        margin-top: 40px;
-        width: 100%
+        /* margin-top: 40px; */
+        width: 100%;
     }
 `
-
-// const BackgroundColorDecoration = styled.div`
-//     height: ${props=>props.height}; 
-//     width: ${props=>props.width};
-//     min-height: ${props=>props.minHeight}; 
-//     min-width: ${props=>props.minWidth};
-//     border-radius: 50%;
-//     background-color: ${props=>props.color};
-//     filter: blur(${props=>props.blur});
-//     opacity: ${props=>props.opacity};
-//     position: absolute;
-//     top: ${props=>props.top};
-//     left: ${props=>props.left};
-//     bottom: ${props=>props.bottom};
-//     right: ${props=>props.right};
-//     @media(max-width: 800px) {
-//         filter: blur(45px);
-//     }
-// `
 
 const Subtitle = styled.h2`
     font-size: 1.25rem;
@@ -63,16 +41,11 @@ const Container = styled.div`
     align-items: center;
     background-color: hsl(184, 30%, 92%);
     height: 95vh;
-    min-height: 700px;
+    min-height: 600px;
+    @media(max-width: 600px) {
+        height: 80vh;
+    }
 `
-// const Image = styled.img`
-//     max-height: 300px;
-//     max-width: auto; 
-//     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
-//     outline: 1px solid rgba(0, 0, 0, .1);
-//     margin-left: 50px;
-//     z-index: 1;
-// `
 
 const GetStarted = styled.div`
     background-color: black;

@@ -38,7 +38,6 @@ const RenameFileModal = (props) => {
             })
             .then(()=> {
                 console.log('file rename successful')
-                closeModal(e)
                 props.setShowRenameModal(false)
             })
         }

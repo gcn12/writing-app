@@ -21,6 +21,7 @@ export default ThirdSection
 const Container = styled.section`
     display: flex;
     justify-content: center;
+    /* background-color: green; */
 `
 
 const Preview = styled.video`
@@ -29,7 +30,6 @@ const Preview = styled.video`
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     border: 1px solid rgba(0, 0, 0, .1);
     @media(max-width: 900px) {
-        /* flex-direction: row-reverse; */
         width: 80vw;
         max-height: none;
         height: auto;
@@ -40,9 +40,8 @@ const ContentContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 25vh;
-    height: 40vh;
-    min-height: 500px;
+    height: 100%;
+    margin: 8% 0;
     @media(max-width: 900px) {
         flex-direction: column;
         align-items: flex-start;

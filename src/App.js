@@ -54,11 +54,6 @@ const App = (props) => {
     // eslint-disable-next-line
   }, [])
 
-  // useEffect(()=> {
-    
-  //   // eslint-disable-next-line
-  // }, [])
-
   useEffect(()=> {
     if(props.userData.userID.length > 0) {
       const unsubscribe = goalListener()
@@ -130,7 +125,7 @@ const App = (props) => {
           wordsWritten: 0
         }))
         db.collection('users')
-        .doc(props.userData.userID)
+        .doc(userID)
         .collection('goals')
         .doc('daily-goal')
         .update({
