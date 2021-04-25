@@ -104,6 +104,26 @@ const SignUp = (props) => {
         props.dispatch(colors(colorsObj))
     }
 
+    const addToDoItems = (userID) => {
+        return db.collection('users')
+        .doc(userID)
+        .collection('goals')
+        .doc('todo')
+        .set({
+            todo: [
+                {
+                    goal: 'And add some of your own.',
+                },
+                {
+                    goal: 'Feel free to delete these ones.',
+                },
+                {
+                    goal: 'This is where you can add tasks.',
+                },
+            ]
+        })
+    }
+
     const submit = (e) => {
         e.preventDefault()
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -116,6 +136,7 @@ const SignUp = (props) => {
                 addGoalsToDatabase(userID)
                 addTasksToDatabase(userID)
                 createFilesFolders(userID)
+                addToDoItems(userID)
                 addColorsToState()
                 history.push('/writing-app')
             })
@@ -177,7 +198,6 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid black; */
     box-shadow: 0px 5px 7px rgba(0, 0, 0, .3);
     background-color: white;
     border-radius: 5px;
@@ -299,5 +319,4 @@ const themes = [
         secondary: '#adb6c4',
         sidebar: '#001b2e',
     }},
-    
 ]

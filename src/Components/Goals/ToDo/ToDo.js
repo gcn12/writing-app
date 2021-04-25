@@ -31,7 +31,6 @@ const ToDo = (props) => {
         if(task.length > 0) {
             const toUpload = {
                 goal: task,
-                isCompleted: false,
             }
             const tasksCopy = [...props.tasks]
             tasksCopy.unshift(toUpload)

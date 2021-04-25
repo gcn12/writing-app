@@ -19,7 +19,7 @@ const CreateDocModal = (props) => {
 
     const createProject = () => {
         if (props.createType==='folder' && props.currentLayer < 3) return createFolder()
-        if (props.createType!=='folder') return startFileCreation(props.createType)
+        return startFileCreation(props.createType)
     }
 
     const getParentId = () => {

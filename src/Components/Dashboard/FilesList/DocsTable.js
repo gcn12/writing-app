@@ -204,7 +204,22 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ProjectsTable)
 
+// const FilesSVGContainer = styled.div`
+//     /* display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     align-items: center; */
+//     display: grid;
+//     place-items: center;
+// `
+
+// const AddFilesText = styled.h4`
+//     color: var(--primary-text);
+//     font-size: 1.75rem;
+// `
+
 const Container = styled.div`
+    /* height: 100%; */
 `
 
 const TableHead = styled.div`

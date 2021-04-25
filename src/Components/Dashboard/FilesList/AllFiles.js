@@ -83,7 +83,7 @@ const AllFiles = (props) => {
 
     return(
         <Container>
-            <div style={{flexGrow: 0}}>
+            <div>
                 <CreateDocModal isCreateProjectModal={isCreateProjectModal} projectSelectedData={projectSelectedData} setProjectSelectedData={setProjectSelectedData} createType={createType} setIsCreateProjectModal={setIsCreateProjectModal} />
                 <Menu>
                     <CreateNew><Plus>+</Plus> Create new</CreateNew>
@@ -114,11 +114,7 @@ export default connect(mapStateToProps)(AllFiles)
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    /* padding-bottom: 100px; */
     /* height: 100%; */
-    @media(max-width: 800px) {
-        /* padding-bottom: 100px; */
-    }
 `
 
 const Plus = styled.span`
