@@ -50,6 +50,7 @@ const SignIn = styled.div`
     border: 1px solid black;
     padding: 15px;
     border-radius: 7px;
+    white-space: nowrap;
     @media(max-width: 500px) {
         font-size: .9rem;
         padding: 12px;
@@ -67,6 +68,7 @@ const SignUp = styled.div`
     padding: 15px;
     border-radius: 7px;
     margin-left: 10px;
+    white-space: nowrap;
     @media(max-width: 500px) {
         font-size: .9rem;
         padding: 12px;
