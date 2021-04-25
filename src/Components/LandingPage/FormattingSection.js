@@ -8,7 +8,7 @@ const FormattingSection = () => {
                     <Title>Leave the formatting to us</Title>
                     <Subtitle>Redraft formats your script as you type.</Subtitle>
                 </div>
-                <Preview autoPlay muted loop>
+                <Preview playsInline autoPlay muted loop>
                     <source src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/app%20preview.mov?alt=media&token=0e668593-cc11-410e-b899-22aeaa83938d' />
                 </Preview>
             </ContentContainer>
