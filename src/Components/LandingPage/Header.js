@@ -54,8 +54,8 @@ const SignIn = styled.div`
         font-size: .9rem;
         padding: 12px;
     }
-    @media(max-width: 300px) {
-        font-size: .7rem;
+    @media(max-width: 350px) {
+        font-size: .8rem;
         padding: 9px;
     }
 `
@@ -71,8 +71,8 @@ const SignUp = styled.div`
         font-size: .9rem;
         padding: 12px;
     }
-    @media(max-width: 300px) {
-        font-size: .7rem;
+    @media(max-width: 350px) {
+        font-size: .8rem;
         padding: 9px;
     }
 `
@@ -103,7 +103,7 @@ const Logo = styled.h1`
     @media(max-width: 500px) {
         font-size: 1.75rem;
     }
-    @media(max-width: 300px) {
+    @media(max-width: 350px) {
         font-size: 1.5rem;
     }
 `

@@ -120,17 +120,16 @@ const Colors = styled.div`
 const Color = styled.article`
     background-color: ${props=>props.color};
     border-radius: 50%;
-    width: 5.5vw;
-    height: 5.5vw;
+    width: 5vw;
+    height: 5vw;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .1);
     border: 1px solid rgba(0, 0, 0, .2);
     @media(max-width: 900px) {
-        width: 70vw;
-        width: 10vw;
-        height: 10vw;
+        width: 8vw;
+        height: 8vw;
     }
     @media(max-width: 500px) {
-        width: 15vw;
-        height: 15vw;
+        width: 12vw;
+        height: 12vw;
     }
 `
