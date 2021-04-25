@@ -17,7 +17,7 @@ const ColorsSection = () => {
                 </ImageColorsContainer>
                 <div>
                     <Title>Make it yours</Title>
-                    <Subtitle>Customize the app with your favorite colors.</Subtitle>
+                    <Subtitle>Dark mode, light mode, and everything in between. Customize the app with your favorite colors.</Subtitle>
                 </div>
             </ContentContainer>
         </Container>

@@ -218,6 +218,9 @@ const Submit = styled.button`
     height: 50px;
     border-radius: 4px;
     white-space: nowrap;
+    @media(max-width: 600px) {
+        font-size: .9rem;
+    }
 `
 
 const Container = styled.div`
@@ -259,7 +262,7 @@ const BackgroundColorDecoration = styled.div`
 
 const Logo = styled.h1`
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 20px;
     /* align-self: flex-start; */
 `
