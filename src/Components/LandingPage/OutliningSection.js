@@ -51,6 +51,7 @@ const Image = styled.img`
     /* max-height: 300px;
     width: auto; */
     width: 40vw;
+    max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     margin-right: 50px;
     @media(max-width: 900px) {

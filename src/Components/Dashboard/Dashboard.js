@@ -15,8 +15,6 @@ const Dashboard = (props) => {
 
     return(
         <Container>
-            
-            {/* <EmptySidebar /> */}
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/' render={(props)=> (
@@ -48,7 +46,6 @@ export default connect(mapStateToProps)(Dashboard)
 
 const FileContainer = styled.div`
     padding: 0 30px;
-    /* height: 100vh; */
     height: 100%;
     overflow-y: scroll;
     @media(max-width: 800px) {
@@ -60,30 +57,16 @@ const FileContainer = styled.div`
     }
 `
 
-// const EmptySidebar = styled.div`
-//     width: 18%;
-//     flex-grow: 1;
-//     padding: 0 20px;
-//     background-color: transparent;
-//     height: 100%;
-//     min-width: 200px;
-//     @media(max-width: 800px) {
-//         display: none;
-//     }
-// `
-
 export const FilesContainer = styled.div`
     height: 100%;
     width: 100%;
-    margin-left: max(18%, 200px);
-    /* display: flex;
-    justify-content: flex-end; */
-
+    /* margin-left: max(18%, 200px); */
+    margin-left: 250px;
+    margin-bottom: 250px;
     @media(max-width: 800px) {
         margin-left: 0;
         padding-left: 0;
     } 
-    margin-bottom: 250px;
 `
 
 export const Container = styled.div`

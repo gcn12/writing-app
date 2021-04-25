@@ -29,6 +29,7 @@ const Preview = styled.video`
     /* max-height: 300px; */
     /* width: min(40vw, auto, 100%);  */
     width: 40vw;
+    max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     border: 1px solid rgba(0, 0, 0, .1);
     @media(max-width: 900px) {

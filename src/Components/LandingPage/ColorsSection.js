@@ -75,8 +75,9 @@ const Title = styled.h1`
 `
 
 const Image = styled.img`
-    max-height: 300px;
+    max-height: auto;
     width: 40vw;
+    max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     border: 1px solid rgba(0, 0, 0, .1);
     margin-bottom: 10px;
@@ -98,6 +99,7 @@ const ImageColorsContainer = styled.div`
     align-items: center;
     margin-right: 50px;
     width: 40vw;
+    max-width: 700px;
     @media(max-width: 900px) {
         width: 70vw;
         max-height: none;
@@ -120,6 +122,7 @@ const Color = styled.article`
     border-radius: 50%;
     width: 5.5vw;
     height: 5.5vw;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, .1);
     border: 1px solid rgba(0, 0, 0, .2);
     @media(max-width: 900px) {
         width: 70vw;

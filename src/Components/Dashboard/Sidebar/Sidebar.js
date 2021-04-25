@@ -62,12 +62,12 @@ const GoalsContainer = styled.div`
 `
 
 const Container = styled.div`
-    width: 18%;
-    /* flex-grow: 1; */
+    /* width: 18%; */
+    /* min-width: 200px; */
+    width: 250px;
     padding: 0 20px;
     background-color: var(--sidebar);
     height: 100%;
-    min-width: 200px;
     position: fixed;
     @media(max-width: 800px) {
         display: none;
