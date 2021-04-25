@@ -54,9 +54,13 @@ const SignIn = styled.div`
         font-size: .9rem;
         padding: 12px;
     }
+    @media(max-width: 300px) {
+        font-size: .7rem;
+        padding: 9px;
+    }
 `
 
-const SignUp= styled.div`
+const SignUp = styled.div`
     background-color: black;
     border: 1px solid black;
     color: white;
@@ -66,6 +70,10 @@ const SignUp= styled.div`
     @media(max-width: 500px) {
         font-size: .9rem;
         padding: 12px;
+    }
+    @media(max-width: 300px) {
+        font-size: .7rem;
+        padding: 9px;
     }
 `
 
@@ -94,5 +102,8 @@ const Logo = styled.h1`
     }
     @media(max-width: 500px) {
         font-size: 1.75rem;
+    }
+    @media(max-width: 300px) {
+        font-size: 1.5rem;
     }
 `

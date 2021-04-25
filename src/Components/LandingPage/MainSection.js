@@ -60,6 +60,9 @@ const Title = styled.h1`
     @media(max-width: 800px) {
         font-size: 2.5rem;
     }
+    @media(max-width: 300px) {
+        font-size: 1.75rem;
+    }
 `
 
 const StyledLink = styled(Link)`

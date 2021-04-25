@@ -45,6 +45,10 @@ const ContentContainer = styled.div`
     height: 10vh;
     min-height: 300px;
     position: relative;
+    @media(max-width: 600px) {
+        height: 28vh;
+        min-height: 200px;
+    }
 `
 
 const Title = styled.h1`
@@ -57,6 +61,9 @@ const Title = styled.h1`
     }
     @media(max-width: 500px) {
         font-size: 1.65rem;
+    }
+    @media(max-width: 300px) {
+        font-size: 1.25rem;
     }
 `
 
