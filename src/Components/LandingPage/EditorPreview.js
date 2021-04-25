@@ -648,7 +648,11 @@ const Container = styled.div`
     box-shadow: 2px 5px 7px rgba(0, 0, 0, .2);
     @media(max-width: 650px) {
         /* width: 95vw; */
-        padding: 40px 40px 50px 40px;
+        padding: 40px 40px 40px 40px;
+    }
+    @media(max-width: 400px) {
+        /* width: 95vw; */
+        padding: 40px 25px 40px 25px;
     }
 `
 
