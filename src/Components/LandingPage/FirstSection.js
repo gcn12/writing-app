@@ -54,18 +54,16 @@ const ContentContainer = styled.div`
 const Subtitle = styled.h2`
     font-size: 1.25rem;
     font-weight: 400;
-    /* max-width: 30ch; */
     margin: 20px 0;
 `
 
 const Container = styled.div`
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     background-color: hsl(184, 30%, 92%);
-    /* gap: 50px; */
     height: 95vh;
+    min-height: 700px;
 `
 // const Image = styled.img`
 //     max-height: 300px;

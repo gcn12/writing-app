@@ -35,6 +35,7 @@ const ContentContainer = styled.div`
     align-items: center;
     margin-bottom: 25vh;
     height: 60vh;
+    min-height: 600px;
     position: relative;
     @media(max-width: 900px) {
         /* flex-direction: row-reverse; */

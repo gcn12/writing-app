@@ -42,8 +42,8 @@ const ContentContainer = styled.div`
     align-items: center;
     padding-bottom: 25vh;
     height: 40vh;
+    min-height: 500px;
     @media(max-width: 900px) {
-        /* flex-direction: row-reverse; */
         flex-direction: column;
         align-items: flex-start;
     }
