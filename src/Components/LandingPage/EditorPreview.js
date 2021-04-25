@@ -24,7 +24,7 @@ const EditorPreview = (props) => {
         {children: [{text: 'Water rushes down the stairs.'}]},
         {children: [{text: ''}]},
         {type: 'character', children: [{text: 'JASMINE'}]},
-        {type: 'parenthetical', children: [{text: '(softly)'}]},
+        // {type: 'parenthetical', children: [{text: '(softly)'}]},
         {type: 'dialog', children: [{text: 'What day is it?'}]},
         {children: [{text: ''}]},
         {type: 'transition', children: [{text: 'CUT TO:'}]},
