@@ -213,9 +213,10 @@ const Form = styled.form`
 const Submit = styled.button`
     background-color: black;
     color: white;
-    padding: 10px 50px;
+    /* padding: 10px 50px; */
     width: 70%;
     height: 50px;
+    text-align: center;
     border-radius: 4px;
     white-space: nowrap;
     @media(max-width: 600px) {
