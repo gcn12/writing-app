@@ -2,11 +2,11 @@
 import styled from 'styled-components'
 import Header from './Header'
 import { useEffect } from 'react'
-import FirstSection from './FirstSection'
-import SecondSection from './SecondSection'
-import ThirdSection from './ThirdSection'
-import FourthSection from './FourthSection'
-import FifthSection from './FifthSection'
+import MainSection from './MainSection'
+import FormattingSection from './FormattingSection'
+import ColorsSection from './ColorsSection'
+import OutliningSection from './OutliningSection'
+import Footer from './Footer'
 import { colors } from '../../redux/actions/appActions'
 import { connect } from 'react-redux'
 
@@ -24,11 +24,11 @@ const LandingPage = (props) => {
     return(
         <Container>
             <Header />
-            <FirstSection />
-            <ThirdSection />
-            <SecondSection />
-            <FifthSection />
-            <FourthSection />
+            <MainSection />
+            <FormattingSection />
+            <ColorsSection />
+            <OutliningSection />
+            <Footer />
         </Container>
     )
 }

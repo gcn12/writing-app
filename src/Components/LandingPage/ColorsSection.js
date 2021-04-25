@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import image from '../../dark.png'
 
-const SecondSection = () => {
+const ColorsSection = () => {
     return(
         <Container>
             <ContentContainer>
@@ -32,7 +32,7 @@ const colors = [
     '#141415',
 ]
 
-export default SecondSection
+export default ColorsSection
 
 const Container = styled.section`
     display: flex;
@@ -41,6 +41,7 @@ const Container = styled.section`
 `
 
 const ContentContainer = styled.div`
+    padding: 0 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,6 +51,11 @@ const ContentContainer = styled.div`
     @media(max-width: 900px) {
         flex-direction: column-reverse;
         align-items: flex-start;
+    }
+    @media(max-width: 600px) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        margin: 8% 0;
     }
 `
 
@@ -63,19 +69,25 @@ const Subtitle = styled.h2`
 const Title = styled.h1`
     font-size: 2.75rem;
     font-weight: 600;
+    @media(max-width: 600px) {
+        font-size: 2.5rem;
+    }
 `
 
 const Image = styled.img`
     max-height: 300px;
-    width: min(40vw, 100%); 
+    width: 40vw;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     border: 1px solid rgba(0, 0, 0, .1);
     margin-bottom: 10px;
-    /* margin-right: 50px; */
     @media(max-width: 900px) {
-        width: 80vw;
+        width: 70vw;
         max-height: none;
         height: auto;
+        margin-right: 0px;
+    }
+    @media(max-width: 500px) {
+        width: 100%;
     }
 `
 
@@ -84,17 +96,16 @@ const ImageColorsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 50px; 
-    /* max-height: 300px;
-    width: min(40vw, 100%); 
-    width: 100%; */
-    height: 350px;
-    width: 500px;
+    margin-right: 50px;
+    width: 40vw;
     @media(max-width: 900px) {
-        width: 80vw;
+        width: 70vw;
         max-height: none;
         height: auto;
         margin-right: 0px;
+    }
+    @media(max-width: 500px) {
+        width: 100%;
     }
 `
 
@@ -107,7 +118,16 @@ const Colors = styled.div`
 const Color = styled.article`
     background-color: ${props=>props.color};
     border-radius: 50%;
-    height: 60px;
-    width: 60px;
+    width: 5.5vw;
+    height: 5.5vw;
     border: 1px solid rgba(0, 0, 0, .2);
+    @media(max-width: 900px) {
+        width: 70vw;
+        width: 10vw;
+        height: 10vw;
+    }
+    @media(max-width: 500px) {
+        width: 15vw;
+        height: 15vw;
+    }
 `

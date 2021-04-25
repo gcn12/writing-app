@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import EditorPreview from './EditorPreview'
 
-const FirstSection = () => {
+const MainSection = () => {
     return(
         <Container>
             <ContentContainer>
@@ -17,14 +17,13 @@ const FirstSection = () => {
     )
 }
 
-export default FirstSection
+export default MainSection
 
 const ContentContainer = styled.div`
     padding: 0 30px;
     width: 80vw;
     max-width: 800px;
     @media(max-width: 800px) {
-        /* margin-top: 40px; */
         width: 100%;
     }
 `
@@ -41,7 +40,7 @@ const Container = styled.div`
     align-items: center;
     background-color: hsl(184, 30%, 92%);
     height: 95vh;
-    min-height: 600px;
+    min-height: 650px;
     @media(max-width: 600px) {
         height: 80vh;
     }
@@ -53,7 +52,6 @@ const GetStarted = styled.div`
     padding: 20px;
     border-radius: 7px;
     display: inline-block;
-    /* margin-bottom: 80px; */
 `
 
 const Title = styled.h1`

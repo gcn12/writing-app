@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const FourthSection = () => {
+const Footer = () => {
     return(
         <Container>
             <ContentContainer>
@@ -14,7 +14,7 @@ const FourthSection = () => {
     )
 }
 
-export default FourthSection
+export default Footer
 
 const Container = styled.section`
     display: flex;
@@ -30,9 +30,13 @@ const GetStarted = styled.div`
     border-radius: 7px;
     display: inline-block;
     /* margin-bottom: 80px; */
+    @media(max-width: 500px) {
+        font-size: .9rem;
+    }
 `
 
 const ContentContainer = styled.div`
+    padding: 0 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,6 +51,13 @@ const Title = styled.h1`
     font-size: 2.25rem;
     font-weight: 600;
     margin-bottom: 15px;
+    white-space: nowrap;
+    @media(max-width: 600px) {
+        font-size: 2rem;
+    }
+    @media(max-width: 500px) {
+        font-size: 1.65rem;
+    }
 `
 
 const StyledLink = styled(Link)`

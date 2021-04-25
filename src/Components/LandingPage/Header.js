@@ -50,6 +50,10 @@ const SignIn = styled.div`
     border: 1px solid black;
     padding: 15px;
     border-radius: 7px;
+    @media(max-width: 500px) {
+        font-size: .9rem;
+        padding: 12px;
+    }
 `
 
 const SignUp= styled.div`
@@ -59,6 +63,10 @@ const SignUp= styled.div`
     padding: 15px;
     border-radius: 7px;
     margin-left: 10px;
+    @media(max-width: 500px) {
+        font-size: .9rem;
+        padding: 12px;
+    }
 `
 
 const StyledLink = styled(Link)`
@@ -83,5 +91,8 @@ const Logo = styled.h1`
     margin-left: 50px;
     @media(max-width: 800px) {
         margin-left: 20px;
+    }
+    @media(max-width: 500px) {
+        font-size: 1.75rem;
     }
 `

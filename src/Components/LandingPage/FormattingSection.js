@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const ThirdSection = () => {
+const FormattingSection = () => {
     return(
         <Container>
             <ContentContainer>
@@ -16,23 +16,29 @@ const ThirdSection = () => {
     )
 }
 
-export default ThirdSection
+export default FormattingSection
 
 const Container = styled.section`
     display: flex;
     justify-content: center;
+    padding: 0 30px;
     /* background-color: green; */
 `
 
 const Preview = styled.video`
-    max-height: 300px;
-    width: min(40vw, auto, 100%); 
+    /* max-height: 300px; */
+    /* width: min(40vw, auto, 100%);  */
+    width: 40vw;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     border: 1px solid rgba(0, 0, 0, .1);
     @media(max-width: 900px) {
-        width: 80vw;
+        width: 70vw;
         max-height: none;
         height: auto;
+        margin-right: 0px;
+    }
+    @media(max-width: 500px) {
+        width: 100%;
     }
 `
 
@@ -46,12 +52,18 @@ const ContentContainer = styled.div`
         flex-direction: column;
         align-items: flex-start;
     }
+    @media(max-width: 600px) {
+        margin: 14% 0;
+    }
 `
 
 const Title = styled.h1`
     font-size: 2.75rem;
     font-weight: 600;
     max-width: 15ch;
+    @media(max-width: 600px) {
+        font-size: 2.5rem;
+    }
 `
 
 const Subtitle = styled.h2`
