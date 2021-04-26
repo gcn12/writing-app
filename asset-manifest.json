@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/writing-app/static/css/main.ada2019d.chunk.css",
-    "main.js": "/writing-app/static/js/main.6ca3b48c.chunk.js",
-    "main.js.map": "/writing-app/static/js/main.6ca3b48c.chunk.js.map",
+    "main.js": "/writing-app/static/js/main.1d4550b6.chunk.js",
+    "main.js.map": "/writing-app/static/js/main.1d4550b6.chunk.js.map",
     "runtime-main.js": "/writing-app/static/js/runtime-main.9d063c7d.js",
     "runtime-main.js.map": "/writing-app/static/js/runtime-main.9d063c7d.js.map",
     "static/js/2.9629a42f.chunk.js": "/writing-app/static/js/2.9629a42f.chunk.js",
@@ -23,7 +23,7 @@
     "static/js/3.477cdeb2.chunk.js.LICENSE.txt": "/writing-app/static/js/3.477cdeb2.chunk.js.LICENSE.txt",
     "static/js/4.f6053ef1.chunk.js.LICENSE.txt": "/writing-app/static/js/4.f6053ef1.chunk.js.LICENSE.txt",
     "static/js/5.0a8f20d9.chunk.js.LICENSE.txt": "/writing-app/static/js/5.0a8f20d9.chunk.js.LICENSE.txt",
-    "static/media/dark.08ef8d2f.png": "/writing-app/static/media/dark.08ef8d2f.png",
+    "static/media/dark.ddd5d07e.png": "/writing-app/static/media/dark.ddd5d07e.png",
     "static/media/outline.9d829ff1.png": "/writing-app/static/media/outline.9d829ff1.png"
   },
   "entrypoints": [
@@ -31,6 +31,6 @@
     "static/css/3.ea627e78.chunk.css",
     "static/js/3.477cdeb2.chunk.js",
     "static/css/main.ada2019d.chunk.css",
-    "static/js/main.6ca3b48c.chunk.js"
+    "static/js/main.1d4550b6.chunk.js"
   ]
 }
