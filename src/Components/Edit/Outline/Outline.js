@@ -156,7 +156,9 @@ const Outline = (props) => {
                     <Grid>
                         {itemIndexes.map((itemIndex, index)=> {
                             return(
-                                <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
+                                <div style={{touchAction: 'none'}}>
+                                    <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
+                                </div>
                             )
                         })}
                     </Grid>

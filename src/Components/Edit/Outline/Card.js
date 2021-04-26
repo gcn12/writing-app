@@ -66,6 +66,11 @@ const Card = (props) => {
             </IconTitleContainer>
             <div></div>
             <Text>{props.text}</Text>
+            <div style={{touchAction: 'none'}}>
+                <IconComponent>
+                    <path d="M24 12l-6-5v4h-5v-5h4l-5-6-5 6h4v5h-5v-4l-6 5 6 5v-4h5v5h-4l5 6 5-6h-4v-5h5v4z"/>
+                </IconComponent>
+            </div>
         </Container>
     )
 }
