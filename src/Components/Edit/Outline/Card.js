@@ -48,16 +48,16 @@ const Card = (props) => {
                                 <path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/>
                             </CardIcons>
                         </Icons>
+                        <DragIconContainer>
+                            <IconComponent>
+                                <path d="M24 12l-6-5v4h-5v-5h4l-5-6-5 6h4v5h-5v-4l-6 5 6 5v-4h5v5h-4l5 6 5-6h-4v-5h5v4z"/>
+                            </IconComponent>
+                        </DragIconContainer>    
                         <CardNumber aria-label={`card ${props.index + 1}`}>{props.index + 1}</CardNumber>
                     </IconContainer>
                 </IconTitleContainer>
                 <Text>{props.text}</Text>
             </MainContentContainer>
-            <DragIconContainer>
-                <IconComponent>
-                    <path d="M24 12l-6-5v4h-5v-5h4l-5-6-5 6h4v5h-5v-4l-6 5 6 5v-4h5v5h-4l5 6 5-6h-4v-5h5v4z"/>
-                </IconComponent>
-            </DragIconContainer>
         </Container>
     )
 }
@@ -70,8 +70,15 @@ const MainContentContainer = styled.div`
 `
 
 const DragIconContainer = styled.div`
+    transform: scale(.8);
+    opacity: .8;
     touch-action: none; 
     align-self: flex-end;
+    position: relative;
+    @media(min-width: 700px) {
+        top: -5px;
+
+    }
     @media(hover: hover) {
         &:not(:hover) {
             display: none;
@@ -95,6 +102,9 @@ const Icons = styled.div`
         &:not(:hover) {
             opacity: 0;
         }
+    }
+    @media(max-width: 700px) {
+        display: none;
     }
 `
 
