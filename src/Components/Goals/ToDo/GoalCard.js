@@ -4,7 +4,7 @@ const GoalCard = (props) => {
     return(
         <Container>
             <Goal>{props.task.goal}</Goal>
-            <Delete onClick={()=>props.deleteTask(props.task, props.index)}>X</Delete>
+            <Delete aria-label='delete task' onClick={()=>props.deleteTask(props.task, props.index)}>X</Delete>
         </Container>
     )
 }

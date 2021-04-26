@@ -50,12 +50,12 @@ const SignIn = (props) => {
             <Form onSubmit={submit}>
                 <Logo>Welcome back</Logo>
                 <InputLabelContainer>
-                    <Label>Email</Label>
-                    <Username onChange={(e)=>setEmail(e.target.value)} />
+                    <Label htmlFor='signin-email'>Email</Label>
+                    <Email id='signin-email' onChange={(e)=>setEmail(e.target.value)} />
                 </InputLabelContainer>
                 <InputLabelContainer>
-                    <Label>Password</Label>
-                    <Password type='password' onChange={(e)=>setPassword(e.target.value)} />
+                    <Label htmlFor='signin-password'>Password</Label>
+                    <Password id='signin-password' type='password' onChange={(e)=>setPassword(e.target.value)} />
                 </InputLabelContainer>
                 {message.length > 0 &&
                     <Message>{message}</Message>
@@ -125,7 +125,7 @@ const Container = styled.div`
     width: 100%;
 `
 
-const Username = styled.input`
+const Email = styled.input`
     width: 100%;
     height: 35px;
     margin-bottom: 20px;

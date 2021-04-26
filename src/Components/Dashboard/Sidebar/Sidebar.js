@@ -44,12 +44,12 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Sidebar)
 
-const SignoutContainer = styled.ul`
+const SignoutContainer = styled.div`
     position: absolute;
     bottom: 2%;
     left: 0;
-    width: 18vw;
-    min-width: 200px;
+    /* width: 18vw; */
+    width: 250px;
     padding: 0 20px;
 `
 

@@ -143,13 +143,13 @@ const CreateDocModal = (props) => {
  
     return (
         <Modal aria-label='create document' isOpen={props.isCreateProjectModal} onDismiss={()=>props.setIsCreateProjectModal(false)}>
-            <CloseDialog label='close rename dialog' onClick={()=>props.setIsCreateProjectModal(false)}>
+            <CloseDialog aria-label='close dialog' onClick={()=>props.setIsCreateProjectModal(false)}>
                 <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
             </CloseDialog>
             <HeaderIconContainer>
                 <Header>Create new {props.createType}</Header>
             </HeaderIconContainer>
-            <DocumentTitle onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} />
+            <DocumentTitle aria-label='document title' onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setIsCreateProjectModal(false)}>Cancel</Cancel>
                 <Create onClick={createProject}>Create project</Create>

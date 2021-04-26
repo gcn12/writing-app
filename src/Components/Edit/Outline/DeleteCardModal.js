@@ -49,7 +49,7 @@ const DeleteCardModal = (props) => {
     }
 
     return(
-        <Modal aria-label='delete card dialog' isOpen={props.showDeleteModal} onDismiss={()=>props.setShowDeleteModal(false)}>
+        <Modal aria-label='Are you sure you want to delete this card?' isOpen={props.showDeleteModal} onDismiss={()=>props.setShowDeleteModal(false)}>
             <Header>Delete card</Header>
             <p>Are you sure you want to delete this card?</p>
             <div>

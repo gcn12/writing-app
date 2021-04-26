@@ -123,14 +123,35 @@ const Outline = (props) => {
         }
     }
 
+    const screenReaderInstructions = `
+        To pick up a card, press space or enter.
+        Use the arrow keys to move cards in any direction.
+        Press space or enter to confirm move, or press escape to cancel move.
+    `
+
+    const announcements = {
+        onDragStart(id) {
+            return `picked up note card ${Number(id + 1)}, ${props.outlineItemsDisplay[id].title}`
+        },
+        onDragOver(id, overId) {
+            return `note card was moved into position ${Number(overId) + 1} of ${props.outlineItemsDisplay.length}`
+        },
+        onDragEnd(id, overId) {
+            return `${props.outlineItemsDisplay[id]} was dropped over in position ${Number(overId) + 1} of ${props.outlineItemsDisplay.length}`
+        }, 
+        onDragCancel(id) {
+            return `Move was canceled.`
+        }
+    }
+
     return (
         <Container>
             <Toolbar savingStatus={savingStatus} />
             <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
             <OutlineContainer>
                 <Title>{props?.outlineData?.name}</Title>
-                <CreateNew onClick={()=>setShowCreateModal(true)}><Plus>+</Plus> Create new card</CreateNew>
-                <DndContext sensors={sensors} collisionDetection={closestCenter}onDragEnd={handleDragEnd}>
+                <CreateNew onClick={()=>setShowCreateModal(true)}><Plus aria-hidden>+</Plus> Create new card</CreateNew>
+                <DndContext screenReaderInstructions={screenReaderInstructions} announcements={announcements} sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                 <SortableContext items={itemIndexes} strategy={rectSortingStrategy}>
                     <Grid>
                         {itemIndexes.map((itemIndex, index)=> {

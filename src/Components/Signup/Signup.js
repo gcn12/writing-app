@@ -155,12 +155,12 @@ const SignUp = (props) => {
             <Form>
                 <Logo>Sign up</Logo>
                 <InputLabelContainer>
-                    <Label>Email</Label>
-                    <Email type='email' onChange={(e)=>setEmail(e.target.value)} /> 
+                    <Label htmlFor='signup-email'>Email</Label>
+                    <Email id='signup-email' type='email' onChange={(e)=>setEmail(e.target.value)} /> 
                 </InputLabelContainer>
                 <InputLabelContainer>
-                    <Label>Password</Label>
-                    <Password onChange={(e)=>setPassword(e.target.value)} type='password' />
+                    <Label htmlFor='signup-password'>Password</Label>
+                    <Password id='signup-password' onChange={(e)=>setPassword(e.target.value)} type='password' />
                 </InputLabelContainer>
                 {message.length > 0 &&
                     <Message>{message}</Message>

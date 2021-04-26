@@ -10,7 +10,6 @@ const DailyGoals = (props) => {
     // const [isVisible, setIsVisible] = useState(false)
     const [showChangeGoal, setShowChangeGoal] = useState(false)
     // const [progress, setProgress] = useState(0)    
-
     return(
         <Container>
             {props.goals.goal - props.goals.wordsWritten <= 0 ?

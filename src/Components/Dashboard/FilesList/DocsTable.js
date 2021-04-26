@@ -171,14 +171,23 @@ const ProjectsTable = (props) => {
         })
     }
 
+    const sortMap = {
+        dateAsc: 'last modified ascending',
+        dateDesc: 'last modified descending',
+        nameAsc: 'name ascending',
+        nameDesc: 'name descending',
+        typeAsc: 'file type ascending',
+        typeDesc: 'file type descending',
+    }
+
     return(
         <Container>
             <Table role='table'>
-                <Head role='heading'> 
+                <Head aria-label={`current sort: ${sortMap[props.sortMethod]}`} role='heading'> 
                     <RowHeader role='rowheader'>
-                        <TableHeadComponent name='Name' sortType='name' sortMethodValue1='nameDesc' sortMethodValue2='nameAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
-                        <TableHeadComponent hide='550px' name='Type' sortType='type' sortMethodValue1='typeDesc' sortMethodValue2='typeAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
-                        <TableHeadComponent name='Last modified' sortType='date' sortMethodValue1='dateDesc' sortMethodValue2='dateAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
+                        <TableHeadComponent sortMap={sortMap} name='Name' sortType='name' sortMethodValue1='nameDesc' sortMethodValue2='nameAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
+                        <TableHeadComponent sortMap={sortMap} hide='550px' name='Type' sortType='type' sortMethodValue1='typeDesc' sortMethodValue2='typeAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
+                        <TableHeadComponent sortMap={sortMap} name='Last modified' sortType='date' sortMethodValue1='dateDesc' sortMethodValue2='dateAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
                         <TableHead hide='550px' aria-label='settings' role='heading'></TableHead>
                     </RowHeader>
                 </Head>

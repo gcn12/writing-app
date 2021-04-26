@@ -63,5 +63,5 @@ const NavigationItem = styled.p`
     text-align: center;
 `
 
-const LI = styled.li`
+const LI = styled.div`
 `

@@ -8,7 +8,7 @@ const ModifierIcon = (props) => {
     }
 
     return(
-        <IconBackgroundContainer onClick={openIcon} label={props.labelName} >
+        <IconBackgroundContainer aria-label={props.ariaLabel} onClick={openIcon} label={props.labelName} >
             <IconTitle>{props.title}</IconTitle>
             <IconBackground />
             <Icon><IconComponent>

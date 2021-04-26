@@ -30,8 +30,8 @@ const ColorPicker = (props) => {
     }
 
     return(
-        <Picker onClick={()=>setIsPickerVisible(true)}>
-            <ColorLabel id={props.name} color={props.color}></ColorLabel>
+        <Picker>
+            <ColorLabel aria-label={props.ariaLabel} onClick={()=>setIsPickerVisible(true)} id={props.name} color={props.color}></ColorLabel>
             <PickerLabel htmlFor='background'>{props.name}</PickerLabel>
             {isPickerVisible &&
                 <ColorPickerContainer>

@@ -3,8 +3,8 @@ import IconsComponent from '../../../../Icons/IconComponent'
 
 const TableHeadComponent = (props) => {
     return(
-        <TableHead hide={props.hide} role='heading'>
-            <ColumnNameButton onClick={()=>props.changeSortOrder(props.sortType)}>
+        <TableHead hide={props.hide}>
+            <ColumnNameButton aria-label={`sort by: ${props.sortMethod===props.sortMethodValue1 ? props.sortMap[props.sortMethodValue1] : props.sortMap[props.sortMethodValue2]}`} onClick={()=>props.changeSortOrder(props.sortType)}>
                 {props.name}
                 {props.sortMethod === props.sortMethodValue1 ? 
                     <ArrowIcon isVisible={props.sortMethod === props.sortMethodValue1} rotate='rotate(180deg)'><IconsComponent><path d="M24 22h-24l12-20z"/></IconsComponent></ArrowIcon>

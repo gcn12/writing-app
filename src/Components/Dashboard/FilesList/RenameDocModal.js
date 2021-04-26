@@ -82,12 +82,12 @@ const RenameFileModal = (props) => {
 
     return (
         <Container>
-            <NewModal aria-label={`change ${props.projectSelectedData.type} name of ${props.projectSelectedData.name}`} isOpen={props.showRenameModal} onDismiss={()=>props.setShowRenameModal(false)}>
-                <CloseDialog label='close rename dialog' onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowRenameModal(false)} id='rename-doc-close-button'>
+            <NewModal aria-label={`change name of ${props.projectSelectedData.name}`} isOpen={props.showRenameModal} onDismiss={()=>props.setShowRenameModal(false)}>
+                <CloseDialog aria-label='close rename dialog' onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowRenameModal(false)} id='rename-doc-close-button'>
                     <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
                 </CloseDialog>
                 <Header>Rename {props.projectSelectedData.type}</Header>
-                <DocumentTitle onKeyDown={onEnter} defaultValue={props.projectSelectedData.name} autoComplete='off' id='rename-file-input' onChange={(e)=>setName(e.target.value)} />
+                <DocumentTitle aria-label='document title' onKeyDown={onEnter} defaultValue={props.projectSelectedData.name} autoComplete='off' id='rename-file-input' onChange={(e)=>setName(e.target.value)} />
                 <div>
                     <Cancel onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowRenameModal(false)}>Cancel</Cancel>
                     <Create onKeyDown={renameFileOnKeyDown} onMouseDown={renameFile}>Rename</Create>

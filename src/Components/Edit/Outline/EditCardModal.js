@@ -66,9 +66,15 @@ const EditCardModal = (props) => {
         <Modal onDismiss={()=>props.setShowEditModal(false)} aria-label='edit card' isOpen={props.showEditModal}>
             <Header>Edit card</Header>
             <div>
-                <Title onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setNewTitle(e.target.value)} id='edit-card-modal-title' defaultValue={props.title}></Title>
+                <LabelInputContainer>
+                    <Label htmlFor='edit-card-modal-title'>Title:</Label>
+                    <Title onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setNewTitle(e.target.value)} id='edit-card-modal-title' defaultValue={props.title}></Title>
+                </LabelInputContainer>
                 <div style={{marginBottom: '20px'}}></div>
-                <Text onKeyDown={onEnter} onChange={(e)=>setNewText(e.target.value)} id='edit-card-modal-text' defaultValue={props.text}></Text>
+                <LabelInputContainer>
+                    <Label htmlFor='edit-card-modal-text'>Content:</Label>
+                    <Text onKeyDown={onEnter} onChange={(e)=>setNewText(e.target.value)} id='edit-card-modal-text' defaultValue={props.text}></Text>
+                </LabelInputContainer>
             </div>
             <div>
                 <Cancel onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowEditModal(false)}>Cancel</Cancel>
@@ -88,6 +94,15 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(EditCardModal)
+
+const LabelInputContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const Label = styled.label`
+    margin-bottom: 10px;
+`
 
 const Header = styled.h1`
     font-size: 1.75rem;

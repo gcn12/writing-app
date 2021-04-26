@@ -108,11 +108,11 @@ const ColorSelection = (props) => {
         <Container>
             <Title>Change colors</Title>
             <ColorPickers>
-                <ColorPicker color={background} setColor={setBackground} name='Background' />
-                <ColorPicker color={primaryText} setColor={setPrimaryText} name='Primary text' />
-                <ColorPicker color={sidebar} setColor={setSidebar} name='Sidebar' />
-                <ColorPicker color={highlight} setColor={setHighlight} name='Highlight' />
-                <ColorPicker color={secondary} setColor={setSecondary} name='Secondary' />
+                <ColorPicker ariaLabel='select background color' color={background} setColor={setBackground} name='Background' />
+                <ColorPicker ariaLabel='select primary text color'  color={primaryText} setColor={setPrimaryText} name='Primary text' />
+                <ColorPicker ariaLabel='select sidebar color'  color={sidebar} setColor={setSidebar} name='Sidebar' />
+                <ColorPicker ariaLabel='select highlight color'  color={highlight} setColor={setHighlight} name='Highlight' />
+                <ColorPicker ariaLabel='select secondary color'  color={secondary} setColor={setSecondary} name='Secondary' />
             </ColorPickers>
             <InputContainer>
                 <NameLabel htmlFor='theme-name-input'>Theme name:</NameLabel>
@@ -138,7 +138,7 @@ const ButtonInputContainer = styled.div`
     margin-bottom: 70px;
 `
 
-const NameLabel = styled.h2`
+const NameLabel = styled.label`
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 10px;

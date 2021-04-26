@@ -14,7 +14,7 @@ const ColorThemeCard = (props) => {
                 </Colors>
             </SelectOption>
             {!props.theme.colors.isDefault &&
-                <DeleteOption onClick={()=>props.deleteTheme(props.index)}>X</DeleteOption>
+                <DeleteOption aria-label='delete theme' onClick={()=>props.deleteTheme(props.index)}>X</DeleteOption>
             }
         </Option>
     )

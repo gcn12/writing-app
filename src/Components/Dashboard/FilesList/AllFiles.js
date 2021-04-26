@@ -86,7 +86,7 @@ const AllFiles = (props) => {
             <div>
                 <CreateDocModal isCreateProjectModal={isCreateProjectModal} projectSelectedData={projectSelectedData} setProjectSelectedData={setProjectSelectedData} createType={createType} setIsCreateProjectModal={setIsCreateProjectModal} />
                 <Menu>
-                    <CreateNew><Plus>+</Plus> Create new</CreateNew>
+                    <CreateNew><Plus aria-hidden>+</Plus> Create new</CreateNew>
                     <List>
                         {props.currentLayer!==3 &&
                         <NewDocListItem docType='folder' openModal={openModal}><path d="M6.083 4c1.38 1.612 2.578 3 4.917 3h11v13h-20v-16h4.083zm.917-2h-7v20h24v-17h-13c-1.629 0-2.305-1.058-4-3z"/></NewDocListItem>

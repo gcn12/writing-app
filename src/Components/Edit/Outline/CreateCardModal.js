@@ -86,13 +86,13 @@ const CreateCardModal = (props) => {
     return(
         <Modal aria-label='create card' isOpen={props.showCreateModal} onDismiss={()=>props.setShowCreateModal(false)}>
             <Header>Create new card</Header>
-            <Label>Title</Label>
-            <Title onKeyDown={onEnter} onChange={(e)=>setTitle(e.target.value)} />
-            <Label>Description</Label>
-            <Description onKeyDown={onEnter} onChange={(e)=>setText(e.target.value)} />
-            <Label>Insert at location:</Label>
+            <Label htmlFor='create-card-title'>Title</Label>
+            <Title id='create-card-title' onKeyDown={onEnter} onChange={(e)=>setTitle(e.target.value)} />
+            <Label htmlFor='create-card-description'>Description</Label>
+            <Description id='create-card-description' onKeyDown={onEnter} onChange={(e)=>setText(e.target.value)} />
+                <Label aria-label={`insert at position ${props.outlineItemsForUpdate.length + 1} of ${props.outlineItemsDisplay.length + 1}`}  htmlFor='create-card-location'>Insert at location:</Label>
             <div>
-                <Location onKeyDown={onEnter} defaultValue={props.outlineItemsForUpdate.length + 1} id='create-card-location' onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
+                <Location id='create-card-location' onKeyDown={onEnter} defaultValue={props.outlineItemsForUpdate.length + 1} onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
             </div>
             <ButtonsComponent>
                 <Cancel onClick={()=>props.setShowCreateModal(false)}>Cancel</Cancel>

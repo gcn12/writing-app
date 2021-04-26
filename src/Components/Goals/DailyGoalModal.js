@@ -47,13 +47,13 @@ const DailyGoalModal = (props) => {
     return(
         <Modal aria-label='change daily goal' onDismiss={()=>props.setShowChangeGoal(false)} isOpen={props.showChangeGoal}>
             {/* <Close onClick={()=>props.setShowChangeGoal(false)}>X</Close> */}
-            <Close label='set new goal' onClick={()=>props.setShowChangeGoal(false)}>
+            <Close aria-label='close dialog' label='set new goal' onClick={()=>props.setShowChangeGoal(false)}>
                 <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
             </Close>
             <TitleCloseContainer>
                 <Title>Set new goal</Title>
             </TitleCloseContainer>
-            <GoalInput maxLength='7' onKeyDown={(e)=>onEnter(e, goal)} defaultValue={props.goals.goal} onChange={(e)=>setGoal(e.target.value)} />
+            <GoalInput aria-label='daily goal' maxLength='7' onKeyDown={(e)=>onEnter(e, goal)} defaultValue={props.goals.goal} onChange={(e)=>setGoal(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setShowChangeGoal(false)}>Cancel</Cancel>
                 <Save onClick={()=>updateGoal(goal)}>Save goal</Save>
