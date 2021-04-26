@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import AllFiles from './FilesList/AllFiles'
 import Sidebar from './Sidebar/Sidebar'
 // import Goals from '../Goals/Goals'
+import { useEffect } from 'react'
 import ToDo from '../Goals/ToDo/ToDo'
 import MobileHeader from './MobileHeader'
 import ChangeColors from '../Settings/ChangeColors/ChangeColors'
@@ -12,7 +13,9 @@ import { connect } from 'react-redux'
 import Breadcrumbs from './Breadcrumbs'
 
 const Dashboard = (props) => {
-
+    useEffect(()=> {
+        document.title='Redraft'
+    }, [])
     return(
         <Container>
             <Sidebar match={props.match} />
