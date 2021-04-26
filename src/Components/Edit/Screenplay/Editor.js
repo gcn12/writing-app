@@ -112,6 +112,7 @@ const EditorInterface = (props) => {
             && previousText.length > 0
             && previousText[previousText.length - 1] !== ':'
             && currentText[currentText.length - 1] !== ':'
+            && currentText[0] !== '('
             && !previousText.includes('INT.')
             && !previousText.includes('EXT.')
             && !previousText.includes('INT./EXT.')
@@ -127,7 +128,7 @@ const EditorInterface = (props) => {
             )
             setNode('dialog')
             return true
-        }else if(previousText.length > 0 &&(previousText[0] === '(' || previousType==='character')) {
+        }else if(previousText.length > 0 && (currentText[0] !== '(') && (previousText[0] === '(' || previousType==='character')) {
             setNode('dialog')
             return true
         }

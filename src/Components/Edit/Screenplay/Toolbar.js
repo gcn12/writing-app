@@ -26,6 +26,9 @@ const Export = styled.button`
     color: var(--sidebar);
     border-radius: 5px;
     margin-left: 20px;
+    @media(max-width: 500px) {
+        min-width: 120px;
+    }
 `
 
 const RightContainer = styled.div`

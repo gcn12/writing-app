@@ -24,7 +24,7 @@ const EditorPreview = (props) => {
         {children: [{text: 'Water rushes down the stairs.'}]},
         {children: [{text: ''}]},
         {type: 'character', children: [{text: 'JASMINE'}]},
-        // {type: 'parenthetical', children: [{text: '(softly)'}]},
+        {type: 'parenthetical', children: [{text: '(softly)'}]},
         {type: 'dialog', children: [{text: 'What day is it?'}]},
         {children: [{text: ''}]},
         {type: 'transition', children: [{text: 'CUT TO:'}]},
@@ -131,11 +131,14 @@ const EditorPreview = (props) => {
 
     const checkDialog = (path, type) => {
         if(type==='dialog') return false
+        const currentText = value[path[0]].children[0].text
         const previousText = value[path[0]-1].children[0].text
         const previousType = value[path[0]-1].type
         if(
             previousText === previousText.toUpperCase() 
             && previousText.length > 0
+            && currentText[currentText.length - 1] !== ':'
+            && currentText[0] !== '('
             && previousText[previousText.length - 1] !== ':'
             && !previousText.includes('INT.')
             && !previousText.includes('EXT.')
@@ -152,7 +155,7 @@ const EditorPreview = (props) => {
             )
             setNode('dialog')
             return true
-        }else if(previousText[0] === '(' || previousType==='character') {
+        }else if(previousText.length > 0 && (currentText[0] !== '(') && (previousText[0] === '(' || previousType==='character')) {
             setNode('dialog')
             return true
         }

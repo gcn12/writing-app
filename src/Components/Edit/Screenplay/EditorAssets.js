@@ -48,21 +48,18 @@ export const TransitionStyles = styled.p`
     text-transform: uppercase;
     margin-left: 1px;
     transform: translate(-1px);
-    /* color: black; */
 `
 
 export const SceneHeadingStyles = styled.p`
     font-weight: 600;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
-    /* color: black; */
 `
 
 export const ParagraphStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
     max-width: 63ch;
-    /* color: black; */
 `
 
 export const CenteredItemsContainer = styled.div`
@@ -75,19 +72,28 @@ export const CenteredItemsContainer = styled.div`
 export const CharacterStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
-    /* color: black; */
 `
 
 export const ParentheticalStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     width: 26ch;
-    /* color: black; */
+    @media(max-width: 700px) {
+        width: 17ch;
+    }
+    @media(max-width: 700px) {
+        width: 14ch;
+    }
 `
 
 export const DialogStyles = styled.div`
     font-family: 'Courier New', Courier, monospace;
     width: 34ch;
-    /* color: ; */
+    @media(max-width: 700px) {
+        width: 25ch;
+    }
+    @media(max-width: 500px) {
+        width: 20ch;
+    }
 `
 
 export const Container = styled.div`
@@ -97,10 +103,7 @@ export const Container = styled.div`
     background-color: var(--sidebar);
     padding: 80px 75px 50px 75px;
     border-radius: 5px;
-    min-height: 92vh;
-    /* height: 100%; */
-    /* max-height: 80vh; */
-    /* overflow: scroll; */
+    min-height: 100vh;
     margin: 45px 0;
     @media(max-width: 900px) {
         width: 95vw;
