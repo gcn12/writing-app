@@ -31,7 +31,7 @@ const Preview = styled.video`
     width: 40vw;
     max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
-    border: 1px solid rgba(0, 0, 0, .1);
+    /* border: 1px solid rgba(0, 0, 0, .1); */
     @media(max-width: 900px) {
         width: 70vw;
         max-height: none;

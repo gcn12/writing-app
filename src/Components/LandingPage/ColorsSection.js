@@ -79,7 +79,7 @@ const Image = styled.img`
     width: 40vw;
     max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
-    border: 1px solid rgba(0, 0, 0, .1);
+    /* border: 1px solid rgba(0, 0, 0, .1); */
     margin-bottom: 10px;
     @media(max-width: 900px) {
         width: 70vw;

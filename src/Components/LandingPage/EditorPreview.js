@@ -646,7 +646,7 @@ const Container = styled.div`
     padding: 50px 60px 50px 60px;
     border-radius: 5px;
     min-height: 20vh;
-    margin: 45px 0;
+    margin: 45px 0 35px 0;
     z-index: 1;
     box-shadow: 2px 5px 7px rgba(0, 0, 0, .2);
     @media(max-width: 650px) {
