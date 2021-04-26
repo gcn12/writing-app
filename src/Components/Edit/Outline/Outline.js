@@ -156,9 +156,7 @@ const Outline = (props) => {
                     <Grid>
                         {itemIndexes.map((itemIndex, index)=> {
                             return(
-                                <div style={{touchAction: 'none'}}>
-                                    <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
-                                </div>
+                                <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
                             )
                         })}
                     </Grid>
@@ -190,7 +188,6 @@ const Plus = styled.span`
 
 const Container = styled.div`
     width: 100%;
-    /* padding: 50px; */
 `
 
 const CreateNew = styled.button`
