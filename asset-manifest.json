@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/writing-app/static/css/main.ada2019d.chunk.css",
-    "main.js": "/writing-app/static/js/main.a47b7711.chunk.js",
-    "main.js.map": "/writing-app/static/js/main.a47b7711.chunk.js.map",
+    "main.js": "/writing-app/static/js/main.29df4750.chunk.js",
+    "main.js.map": "/writing-app/static/js/main.29df4750.chunk.js.map",
     "runtime-main.js": "/writing-app/static/js/runtime-main.9d063c7d.js",
     "runtime-main.js.map": "/writing-app/static/js/runtime-main.9d063c7d.js.map",
     "static/js/2.9629a42f.chunk.js": "/writing-app/static/js/2.9629a42f.chunk.js",
     "static/js/2.9629a42f.chunk.js.map": "/writing-app/static/js/2.9629a42f.chunk.js.map",
     "static/css/3.ea627e78.chunk.css": "/writing-app/static/css/3.ea627e78.chunk.css",
-    "static/js/3.477cdeb2.chunk.js": "/writing-app/static/js/3.477cdeb2.chunk.js",
-    "static/js/3.477cdeb2.chunk.js.map": "/writing-app/static/js/3.477cdeb2.chunk.js.map",
+    "static/js/3.f38c7289.chunk.js": "/writing-app/static/js/3.f38c7289.chunk.js",
+    "static/js/3.f38c7289.chunk.js.map": "/writing-app/static/js/3.f38c7289.chunk.js.map",
     "static/js/4.f6053ef1.chunk.js": "/writing-app/static/js/4.f6053ef1.chunk.js",
     "static/js/4.f6053ef1.chunk.js.map": "/writing-app/static/js/4.f6053ef1.chunk.js.map",
     "static/js/5.0a8f20d9.chunk.js": "/writing-app/static/js/5.0a8f20d9.chunk.js",
@@ -20,7 +20,7 @@
     "static/css/3.ea627e78.chunk.css.map": "/writing-app/static/css/3.ea627e78.chunk.css.map",
     "static/css/main.ada2019d.chunk.css.map": "/writing-app/static/css/main.ada2019d.chunk.css.map",
     "static/js/2.9629a42f.chunk.js.LICENSE.txt": "/writing-app/static/js/2.9629a42f.chunk.js.LICENSE.txt",
-    "static/js/3.477cdeb2.chunk.js.LICENSE.txt": "/writing-app/static/js/3.477cdeb2.chunk.js.LICENSE.txt",
+    "static/js/3.f38c7289.chunk.js.LICENSE.txt": "/writing-app/static/js/3.f38c7289.chunk.js.LICENSE.txt",
     "static/js/4.f6053ef1.chunk.js.LICENSE.txt": "/writing-app/static/js/4.f6053ef1.chunk.js.LICENSE.txt",
     "static/js/5.0a8f20d9.chunk.js.LICENSE.txt": "/writing-app/static/js/5.0a8f20d9.chunk.js.LICENSE.txt",
     "static/media/dark.ddd5d07e.png": "/writing-app/static/media/dark.ddd5d07e.png",
@@ -29,8 +29,8 @@
   "entrypoints": [
     "static/js/runtime-main.9d063c7d.js",
     "static/css/3.ea627e78.chunk.css",
-    "static/js/3.477cdeb2.chunk.js",
+    "static/js/3.f38c7289.chunk.js",
     "static/css/main.ada2019d.chunk.css",
-    "static/js/main.a47b7711.chunk.js"
+    "static/js/main.29df4750.chunk.js"
   ]
 }
