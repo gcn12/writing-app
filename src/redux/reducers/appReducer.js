@@ -20,10 +20,16 @@ const initialState = {
     tasks: [],
     goals: {goal: 100, wordsWritten: 0},
     goalIsVisible: false,
+    isArrowVisible: false,
 }
 
 const appReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.IS_ARROW_VISIBLE:
+            return {
+                ...state,
+                isArrowVisible: action.payload
+            }
         case actions.GOAL_IS_VISIBLE:
             return {
                 ...state,

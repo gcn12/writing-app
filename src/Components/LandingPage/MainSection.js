@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import EditorPreview from './EditorPreview'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { isArrowVisible } from '../../redux/actions/appActions'
 
-const MainSection = () => {
-    const [isArrowVisible, setIsArrowVisible] = useState(false)
+const MainSection = (props) => {
 
     useEffect(()=> {
-        setIsArrowVisible(true)
+        props.dispatch(isArrowVisible(true))
+        // eslint-disable-next-line
     }, [])
 
     return(
@@ -21,8 +23,8 @@ const MainSection = () => {
                 </StyledLink>
                 <TryItAbsolute>
                     <TryItRelative>
-                        <Arrow isArrowVisible={isArrowVisible} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 15v4l8-8.035-8-7.965v4s-13.277 2.144-16 14c5.796-6.206 16-6 16-6z"/></Arrow>
-                        <TryItText isArrowVisible={isArrowVisible}>Try it out!</TryItText>
+                        <Arrow isArrowVisible={props.isArrowVisible} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 15v4l8-8.035-8-7.965v4s-13.277 2.144-16 14c5.796-6.206 16-6 16-6z"/></Arrow>
+                        <TryItText isArrowVisible={props.isArrowVisible}>Try it out!</TryItText>
                     </TryItRelative>
                 </TryItAbsolute>
             </ContentContainer>
@@ -30,7 +32,11 @@ const MainSection = () => {
     )
 }
 
-export default MainSection
+const mapStateToProps = state => ({
+    isArrowVisible: state.app.isArrowVisible,
+})
+
+export default connect(mapStateToProps)(MainSection)
 
 const Arrow = styled.svg`
     transform: ${props=>props.isArrowVisible ? 'rotate(240deg)' : 'rotate(200deg)'};

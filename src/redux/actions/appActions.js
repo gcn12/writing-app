@@ -18,6 +18,13 @@ export const TASKS = 'TASKS'
 export const GOALS = 'GOALS'
 export const RESET = 'RESET'
 export const GOAL_IS_VISIBLE = 'GOAL_IS_VISIBLE'
+export const IS_ARROW_VISIBLE = 'IS_ARROW_VISIBLE'
+
+export function isArrowVisible(data) {
+    return(dispatch) => {
+        dispatch({type: IS_ARROW_VISIBLE, payload: data})
+    }
+}
 
 export function goalIsVisible(data) {
     return(dispatch) => {
