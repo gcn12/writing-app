@@ -127,10 +127,10 @@ const Icons = styled.div`
     @media(hover: hover) {
         &:not(:hover) {
             opacity: 0;
+            @media(max-width: 700px) {
+                display: none;
+            }
         }
-    }
-    @media(max-width: 700px) {
-        display: none;
     }
 `
 

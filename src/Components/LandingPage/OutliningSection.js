@@ -66,7 +66,7 @@ const Image = styled.img`
 `
 
 const Title = styled.h1`
-    font-size: 2.75rem;
+    font-size: 2.7rem;
     font-weight: 600;
     @media(max-width: 600px) {
         font-size: 2.5rem;

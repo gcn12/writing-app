@@ -48,18 +48,25 @@ export const TransitionStyles = styled.p`
     text-transform: uppercase;
     margin-left: 1px;
     transform: translate(-1px);
+    position: relative;
 `
 
 export const SceneHeadingStyles = styled.p`
     font-weight: 600;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
+    margin-left: 1px;
+    transform: translate(-1px);
+    position: relative;
 `
 
 export const ParagraphStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
     max-width: 63ch;
+    margin-left: 1px;
+    transform: translate(-1px);
+    position: relative;
 `
 
 export const CenteredItemsContainer = styled.div`
@@ -67,11 +74,15 @@ export const CenteredItemsContainer = styled.div`
     justify-content: center;
     margin-left: 1px;
     transform: translate(-1px);
+    position: relative;
 `
 
 export const CharacterStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
+    margin-left: 1px;
+    transform: translate(-1px);
+    position: relative;
 `
 
 export const ParentheticalStyles = styled.p`
@@ -83,6 +94,9 @@ export const ParentheticalStyles = styled.p`
     @media(max-width: 700px) {
         width: 14ch;
     }
+    margin-left: 1px;
+    transform: translate(-1px);
+    position: relative;
 `
 
 export const DialogStyles = styled.div`
@@ -94,6 +108,9 @@ export const DialogStyles = styled.div`
     @media(max-width: 500px) {
         width: 20ch;
     }
+    margin-left: 1px;
+    transform: translate(-1px);
+    position: relative;
 `
 
 export const Container = styled.div`

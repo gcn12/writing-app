@@ -90,10 +90,10 @@ const CreateCardModal = (props) => {
             <Title id='create-card-title' onKeyDown={onEnter} onChange={(e)=>setTitle(e.target.value)} />
             <Label htmlFor='create-card-description'>Description</Label>
             <Description id='create-card-description' onKeyDown={onEnter} onChange={(e)=>setText(e.target.value)} />
-                <Label aria-label={`insert at position ${props.outlineItemsForUpdate.length + 1} of ${props.outlineItemsDisplay.length + 1}`}  htmlFor='create-card-location'>Insert at location:</Label>
-            <div>
+                <Label aria-label={`insert at position ${props.outlineItemsForUpdate.length + 1} of ${props.outlineItemsDisplay.length + 1}`}  htmlFor='create-card-location'>Insert at location</Label>
+            <LocationContainer>
                 <Location id='create-card-location' onKeyDown={onEnter} defaultValue={props.outlineItemsForUpdate.length + 1} onChange={(e)=>setLocation(e.target.value)} /> / {props.outlineItemsDisplay.length + 1}
-            </div>
+            </LocationContainer>
             <ButtonsComponent>
                 <Cancel onClick={()=>props.setShowCreateModal(false)}>Cancel</Cancel>
                 <Create onClick={createNewOutlineCard}>Create</Create>
@@ -122,8 +122,9 @@ const Header = styled.h1`
 `
 
 const Description = styled.textarea`
+    font-size: 1.25rem;
     width: 400px;
-    height: 150px;
+    height: 85px;
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
@@ -138,9 +139,9 @@ const Description = styled.textarea`
 `
 
 const Title = styled.input`
-    /* width: 40vw; */
+    font-size: 1.25rem;
     width: 400px;
-    height: 40px;
+    min-height: 40px;
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
@@ -153,9 +154,14 @@ const Title = styled.input`
     } 
 `
 
+const LocationContainer = styled.div`
+    font-size: 1.25rem;
+`
+
 const Location = styled.input`
+    font-size: inherit;
     width: 50px;
-    height: 40px;
+    min-height: 40px;
     margin-bottom: 36px;
     background-color: var(--secondary);
     color: var(--primary-text);
@@ -180,7 +186,6 @@ const Create = styled.button`
     color: var(--sidebar);
 `
 
-
 const Modal = styled(Dialog)`
     display: grid;
     align-items: center;
@@ -192,8 +197,9 @@ const Modal = styled(Dialog)`
     padding: 50px 15px;
     border-radius: 10px;
     left: 50%;
-    top: 25%;
-    transform: translate(-50%, -25%);
+    top: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
     position: absolute;
     @media(max-width: 1000px) {
         width: 500px;
