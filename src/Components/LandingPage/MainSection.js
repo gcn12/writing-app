@@ -74,6 +74,9 @@ const TryItRelative = styled.div`
 const TryItAbsolute = styled.div`
     position: absolute;
     left: 70%;
+    @media(min-width: 1450px) {
+        left: 60%;
+    }
     @media(max-width: 400px) {
         display: none;
     }
