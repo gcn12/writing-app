@@ -156,14 +156,14 @@ const Title = styled.h1`
 `
 
 const ThemeName = styled.input`
-    height: 40px;
+    min-height: 40px;
     margin: 0px 10px 0px 0px;
     width: 300px;
     flex: 1;
     background-color: var(--background);
     border: 1px solid var(--primary-text);
     color: var(--primary-text);
-    font-size: 20px;
+    font-size: 1.25rem;
     @media(max-width: 900px) {
         width: 100%;
     }

@@ -135,7 +135,7 @@ const Cancel = styled.button`
 
 const DocumentTitle = styled.input`
     width: 200px;
-    height: 40px;
+    min-height: 40px;
     font-size: 1.25rem;
     color: var(--primary-text);
     background-color: var(--secondary);

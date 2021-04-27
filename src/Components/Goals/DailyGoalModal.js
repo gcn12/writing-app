@@ -84,12 +84,12 @@ const Title = styled.h1`
 `
 
 const GoalInput = styled.input`
-    height: 40px;
+    min-height: 40px;
     width: 220px;
     background-color: var(--secondary);
     border: 1px solid var(--primary-text);
     color: var(--primary-text);
-    font-size: 20px;
+    font-size: 1.25rem;
 `
 
 const Modal = styled(Dialog)`

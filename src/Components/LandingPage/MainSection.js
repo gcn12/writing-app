@@ -101,6 +101,7 @@ const Subtitle = styled.h2`
     font-size: 1.25rem;
     font-weight: 400;
     margin: 20px 0;
+    line-height: 1.2;
 `
 
 const Container = styled.div`

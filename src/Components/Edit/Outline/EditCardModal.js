@@ -125,7 +125,8 @@ const Save = styled.button`
 
 const Title = styled.input`
     width: 400px;
-    height: 40px;
+    min-height: 40px;
+    font-size: 1.25rem;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: 1px solid var(--primary-text);
@@ -137,6 +138,7 @@ const Title = styled.input`
 const Text = styled.textarea`
     width: 400px;
     height: 100px;
+    font-size: 1.25rem;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: 1px solid var(--primary-text);
@@ -152,6 +154,8 @@ const Modal = styled(Dialog)`
     justify-content: center;
     width: 500px;
     min-height: 400px;
+    max-height: 75vh;
+    overflow: scroll;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -160,7 +164,7 @@ const Modal = styled(Dialog)`
     box-shadow: none;
     background-color: var(--secondary);
     isolation: isolate;
-    padding: 0px 20px 20px 20px;
+    padding: 20px;
     border-radius: 10px;
     @media(max-width: 600px) {
         width: 80vw;

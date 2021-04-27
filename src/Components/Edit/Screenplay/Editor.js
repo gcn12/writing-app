@@ -126,6 +126,13 @@ const EditorInterface = (props) => {
                     mode: 'lowest',
                 },
             )
+            Transforms.setNodes(
+                editor, 
+                {preventStyle: true},  
+                {at: [path[0]-1], match: n => Text.isText(n), split: true}
+
+            )
+            
             setNode('dialog')
             return true
         }else if(previousText.length > 0 && (currentText[0] !== '(') && (previousText[0] === '(' || previousType==='character')) {
@@ -200,9 +207,18 @@ const EditorInterface = (props) => {
     }
 
     const insertNodes = (type) => {
-        const obj = {children: [{ text: '' }]}
+        let obj = {children: [{ text: '' }]}
         if(type) obj['type'] = type
-        Transforms.insertNodes(editor, [obj])  
+        if(type===null || type === 'dialog') {
+            Transforms.insertNodes(editor, [obj])  
+        }else {
+            Transforms.insertNodes(editor, [obj])  
+            Transforms.setNodes(
+                editor, 
+                {preventStyle: true},  
+                {match: n => Text.isText(n), split: true}
+            )
+        }
     }
 
     const replaceLocation = (path, currentText) => {
@@ -250,11 +266,31 @@ const EditorInterface = (props) => {
         return setNode(null)
     }
     const setNode = (newType) => {
-        return Transforms.setNodes(
-            editor,
-            { type: newType },
-            { match: n => Editor.isBlock(editor, n) },
-        )
+        console.log(newType)
+        if(newType===null || newType === 'dialog') {
+            console.log('bye')
+            Transforms.setNodes(
+                editor, 
+                {preventStyle: false},  
+                {match: n => Text.isText(n), split: true}
+            )
+            return Transforms.setNodes(
+                editor,
+                { type: newType },
+                { match: n => Editor.isBlock(editor, n) },
+            )
+        }else {
+            Transforms.setNodes(
+                editor, 
+                {preventStyle: true},  
+                {match: n => Text.isText(n), split: true}
+            )
+            return Transforms.setNodes(
+                editor,
+                { type: newType },
+                { match: n => Editor.isBlock(editor, n) },
+            )
+        }
     }
 
     const replaceCharacter = (path) => {
@@ -293,13 +329,17 @@ const EditorInterface = (props) => {
             && e.shiftKey
             && currentText === currentText.toUpperCase()
         ) {
+            console.log('hello')
             setNode('transition')
             return true
         }
         if(
             currentText === currentText.toUpperCase()
             && currentText.includes('(')
-        ) return true
+        ) {
+            setNode('transition')
+            return true
+        }
         return false
     }
 
@@ -453,7 +493,19 @@ const EditorInterface = (props) => {
         setTarget(null)
     }
 
+    const checkIsPreventStyle = () => {
+        const [match] = Editor.nodes(editor, {
+            match: n => n.preventStyle === true
+        })
+        return match
+    }
+
     const modifiers = (e) => {
+        const { path } = editor.selection.focus
+        const { type } = props.value[path[0]]
+        if(isHotKey('mod+shift+e', e)) {
+            console.log(type)
+        }
         if(e.key==='h' && e.ctrlKey) {
             setNode('character')
             insertNodes(null)
@@ -466,8 +518,12 @@ const EditorInterface = (props) => {
         if(e.key==='ArrowLeft') return
         if(e.key==='ArrowUp' && searchQuery.length===0) return
         if(e.key==='ArrowDown' && searchQuery.length===0) return
+        
         if(isHotKey('mod+b', e)) {
             e.preventDefault()
+            
+            console.log(checkIsPreventStyle())
+            if(checkIsPreventStyle()) return
             const [match] = Editor.nodes(editor, {
                 match: n => n.bold === true
             })
@@ -504,8 +560,6 @@ const EditorInterface = (props) => {
         if(searchQuery.length > 0 && searchType.length > 0 && searchResults.length > 0) {
             if(incrementIndex(e)) return
         }
-        const { path } = editor.selection.focus
-        const { type } = props.value[path[0]]
         const currentText = props.value[path[0]].children[0].text
         const splitText = currentText.split(' ')
         if (e.key==='Backspace') return handleDelete(path, e, type)
@@ -618,6 +672,7 @@ const EditorInterface = (props) => {
 
     return(
         <Container>
+            {/* {console.log(props.value)} */}
             <Slate value={props.value} editor={editor} onChange={newValue => {
                 props.setValue(newValue)
                 if(editor.selection) {

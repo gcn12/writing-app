@@ -64,6 +64,7 @@ const Subtitle = styled.h2`
     font-weight: 400;
     max-width: 30ch;
     margin: 20px 0;
+    line-height: 1.2;
 `
 
 const Title = styled.h1`

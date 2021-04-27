@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import IconComponent from '../../../Icons/IconComponent'
 import { Link } from 'react-router-dom'
 import { createPDF } from './createPDF'
+import CreatePDFButton from './CreatePDFButton'
 
 const Toolbar = (props) => {
     return(
@@ -12,6 +13,7 @@ const Toolbar = (props) => {
             <RightContainer>
                 {props.savingStatus}
                 <Export onClick={()=> createPDF(props.value)}>Export script</Export>
+                <CreatePDFButton value={props.value} />
             </RightContainer>
         </Container>
     )
@@ -33,7 +35,6 @@ const Export = styled.button`
 
 const RightContainer = styled.div`
     display: flex;
-    /* gap: 10px; */
     align-items: center;
 `
 

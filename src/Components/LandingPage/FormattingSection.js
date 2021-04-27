@@ -9,7 +9,7 @@ const FormattingSection = () => {
                     <Subtitle>Redraft formats your script as you type.</Subtitle>
                 </div>
                 <Preview playsInline autoPlay muted loop>
-                    <source src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/RedraftDemo.mov?alt=media&token=4ebf62b4-6f42-4157-9f38-0f3c1a0fe3fb' />
+                    <source src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/RedraftDemo.mov?alt=media&token=5f526d06-c7d3-4e8f-8d93-fa06e8d194f7' />
                 </Preview>
             </ContentContainer>
         </Container>
@@ -72,4 +72,5 @@ const Subtitle = styled.h2`
     font-weight: 400;
     max-width: 30ch;
     margin: 20px 0;
+    line-height: 1.2;
 `

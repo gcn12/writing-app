@@ -87,7 +87,7 @@ const CreateCardModal = (props) => {
         <Modal aria-label='create card' isOpen={props.showCreateModal} onDismiss={()=>props.setShowCreateModal(false)}>
             <Header>Create new card</Header>
             <Label htmlFor='create-card-title'>Title</Label>
-            <Title id='create-card-title' onKeyDown={onEnter} onChange={(e)=>setTitle(e.target.value)} />
+            <Title autoComplete='off' id='create-card-title' onKeyDown={onEnter} onChange={(e)=>setTitle(e.target.value)} />
             <Label htmlFor='create-card-description'>Description</Label>
             <Description id='create-card-description' onKeyDown={onEnter} onChange={(e)=>setText(e.target.value)} />
                 <Label aria-label={`insert at position ${props.outlineItemsForUpdate.length + 1} of ${props.outlineItemsDisplay.length + 1}`}  htmlFor='create-card-location'>Insert at location</Label>
@@ -162,7 +162,7 @@ const Location = styled.input`
     font-size: inherit;
     width: 50px;
     min-height: 40px;
-    margin-bottom: 36px;
+    margin-bottom: 10px;
     background-color: var(--secondary);
     color: var(--primary-text);
     border: 1px solid var(--primary-text);
@@ -190,8 +190,10 @@ const Modal = styled(Dialog)`
     display: grid;
     align-items: center;
     justify-content: center;
-    width: 700px;
+    width: 500px;
     min-height: 300px;
+    max-height: 85vh;
+    overflow: scroll;
     background-color: var(--secondary);
     isolation: isolate;
     padding: 50px 15px;

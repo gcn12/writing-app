@@ -27,6 +27,7 @@ const AutocompleteBackground = styled.div`
     font-family: 'Courier New', Courier, monospace;
     background-color: white;
     border-radius: 5px;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, .2);
 `
 
 const AutocompleteItem = styled.span`
