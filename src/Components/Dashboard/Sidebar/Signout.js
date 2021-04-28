@@ -1,6 +1,6 @@
 import IconComponent from '../../../Icons/IconComponent'
 import styled from 'styled-components'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { reset, userData } from '../../../redux/actions/appActions'

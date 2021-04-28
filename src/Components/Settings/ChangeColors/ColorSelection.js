@@ -1,6 +1,6 @@
 import { db } from '../../../firebase'
 import { connect } from 'react-redux'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import { colors } from '../../../redux/actions/appActions'
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'

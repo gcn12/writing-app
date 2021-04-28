@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import { useHistory } from 'react-router-dom'
 import IconComponent from '../../Icons/IconComponent'
 import { connect } from 'react-redux'
@@ -38,13 +38,12 @@ export default connect(mapStateToProps)(MobileSignout)
 
 const Name = styled.h2`
     margin-left: 10px; 
-    font-size: 2rem;
+    font-size: 1.75rem;
 `
 
 const Button = styled.button`
     display: flex;
     align-items: center;
-    /* text-decoration: none; */
 `
 
 const Icon = styled.div`

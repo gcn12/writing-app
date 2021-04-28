@@ -1,7 +1,7 @@
 import { db } from '../../../firebase'
 import { useState, useEffect } from 'react'
 import GoalCard from './GoalCard'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { tasks } from '../../../redux/actions/appActions'
@@ -68,8 +68,9 @@ const ToDo = (props) => {
     return(
         <Container>
             <Title>Current tasks</Title>
+            <AddTask htmlFor='todo-input'>Add a task:</AddTask>
             <CreateTaskContainer>
-                <TaskInput placeholder='Add a new task' autoComplete='off' onKeyDown={(e)=>onEnter(e, newTask)} id='todo-input' onChange={(e)=>setNewTask(e.target.value)} />
+                <TaskInput autoComplete='off' onKeyDown={(e)=>onEnter(e, newTask)} id='todo-input' onChange={(e)=>setNewTask(e.target.value)} />
                 <CreateTask onClick={()=>createTask(newTask)}>Create task</CreateTask>
             </CreateTaskContainer>
             <CardContainer>
@@ -90,11 +91,16 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ToDo)
 
+const AddTask = styled.label`
+    font-size: 1.125rem;
+    font-weight: 600;
+`
+
 const CreateTaskContainer = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 25px;
-    
+    margin-top: 10px;
 `
 
 const CreateTask = styled.button`
@@ -102,7 +108,7 @@ const CreateTask = styled.button`
     border-top: 1px solid var(--primary-text);
     border-bottom: 1px solid var(--primary-text);
     height: 40px;
-    padding: 0 10px;
+    padding: 10px 30px;
     background-color: var(--primary-text);
     color: var(--sidebar);
 `
@@ -115,7 +121,7 @@ const TaskInput = styled.input`
     border: 1px solid var(--primary-text);
     color: var(--primary-text);
     font-size: 1.25rem;
-    margin-right: 20px;
+    margin-right: 10px;
     padding-left: 5px;
 `
 

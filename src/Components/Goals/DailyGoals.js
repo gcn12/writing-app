@@ -7,9 +7,7 @@ import DailyGoalModal from './DailyGoalModal'
 
 const DailyGoals = (props) => {
 
-    // const [isVisible, setIsVisible] = useState(false)
     const [showChangeGoal, setShowChangeGoal] = useState(false)
-    // const [progress, setProgress] = useState(0)    
     return(
         <Container>
             {props.goals.goal - props.goals.wordsWritten <= 0 ?
@@ -73,6 +71,8 @@ const Goal = styled.h2`
 `
 
 const SetGoal = styled.button`
+    font-size: 1.125rem;
+    padding: 2px 0;
     position: absolute;
     bottom: 0;
 `
@@ -95,7 +95,6 @@ const CirclePlaceholderContainer = styled.div`
 const Container = styled.article`
     min-height: 200px;
     width: 100%;
-    /* margin: 80px 0; */
     border-radius: 10px;
     padding: 10px;
     position: relative;

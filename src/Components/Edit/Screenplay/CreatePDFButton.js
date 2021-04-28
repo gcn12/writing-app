@@ -49,8 +49,8 @@ const CreatePDFButton = (props) => {
 
     const addTransiton = (script, words) => {
         const stringWidth = script.getTextWidth(words)
-        script.text(words.toUpperCase(), script.internal.pageSize.width - 1 - stringWidth, line)
-        return decrementLine()
+        return script.text(words.toUpperCase(), script.internal.pageSize.width - 1 - stringWidth, line)
+        // return decrementLine()
     }
     
     const addCharacter = (script, words) => {

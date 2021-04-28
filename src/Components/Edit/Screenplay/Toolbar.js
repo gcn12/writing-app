@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import IconComponent from '../../../Icons/IconComponent'
 import { Link } from 'react-router-dom'
-import { createPDF } from './createPDF'
 import CreatePDFButton from './CreatePDFButton'
 
 const Toolbar = (props) => {
@@ -12,7 +11,6 @@ const Toolbar = (props) => {
             </Home>
             <RightContainer>
                 {props.savingStatus}
-                <Export onClick={()=> createPDF(props.value)}>Export script</Export>
                 <CreatePDFButton value={props.value} />
             </RightContainer>
         </Container>
@@ -20,18 +18,6 @@ const Toolbar = (props) => {
 }
 
 export default Toolbar
-
-const Export = styled.button`
-    height: 40px;
-    min-width: 150px;
-    background-color: var(--primary-text);
-    color: var(--sidebar);
-    border-radius: 5px;
-    margin-left: 20px;
-    @media(max-width: 500px) {
-        min-width: 120px;
-    }
-`
 
 const RightContainer = styled.div`
     display: flex;
