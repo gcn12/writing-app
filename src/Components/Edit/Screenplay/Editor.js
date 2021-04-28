@@ -93,6 +93,7 @@ const EditorInterface = (props) => {
             && !currentTextUppercase.includes('INT./EXT.')
             && previousPreviousType !== 'dialog'
             && nextType !== 'dialog'
+            && nextType !== 'parenthetical'
         ) {
             setNode(null)
             return true
@@ -441,46 +442,63 @@ const EditorInterface = (props) => {
         return false
     }
 
-    const checkPasteParenthetical = (current, previous) => {
+    const pastecheckParenthetical = (current, previous) => {
         if(!previous) return false
         if(!previous.length > 0) return false
         if(current.trim()[0] !== '(') return false
         return true
     }
 
-    const pasteCheckDialog = (current, previous, next) => {
+    const pasteCheckDialog = (current, previous) => {
+        console.log(previous)
         if(!previous) return false
         if(previous.length === 0) return false
-        if(previous.toUpperCase()!==previous) return true
-        if(previous[0] !== '(') return true
+        if(previous.toUpperCase()===previous) return true
+        if(previous[0] === '(') return true
         return false
     }
 
-    const pasteText = (text, type, currentIndex, maxIndex) => {
+    const pasteText = (text, type, currentIndex, maxIndex, pasteBlankLine) => {
+        // if(text.length === 0) return pasteBlankLine()
         Transforms.setNodes(editor, {type})
         Transforms.insertText(editor, text)
-        if(currentIndex !== maxIndex - 1) return insertNodes(null)
+        if(currentIndex === maxIndex - 1) return
+        insertNodes(null)
+        // if(currentIndex === maxIndex - 1) console.log(currentIndex, maxIndex)
+        // if(pasteBlankLine) pasteBlankLine()
+        // if(text.length > 0) return insertNodes(null)
     }
 
     const checkPaste = (current, previous, next, currentIndex, maxIndex) => {
+        // if(current.length === 0) return
         if(pasteCheckHeading(current)===true) return pasteText(current, 'heading', currentIndex, maxIndex)
         if(pasteCheckTransition(current)) return pasteText(current, 'transition', currentIndex, maxIndex)
         if(pasteCheckCharacter(current, next)) return pasteText(current, 'character', currentIndex, maxIndex)
-        if(checkPasteParenthetical(current, previous)) return pasteText(current, 'parenthetical', currentIndex, maxIndex)
+        if(pastecheckParenthetical(current, previous)) return pasteText(current, 'parenthetical', currentIndex, maxIndex)
         if(pasteCheckDialog(current, previous)) return pasteText(current, 'dialog', currentIndex, maxIndex)
-        return pasteText(current, null)
+        return pasteText(current, null, currentIndex, maxIndex)
     }
 
     editor.insertData = (data) => {
-        const currentText = data.getData('text/plain')
+        const currentText = data.getData('text/plain').trim()
         const splitText = currentText.split('\n')
+        console.log(splitText)
         for (let i = 0; i < splitText.length; i ++) {
-            const current = splitText[i]
+            const current = splitText[i].trim()
             let previous
             let next
-            if(i - 1 >= 0) previous = splitText[i - 1]
-            if(i + 1 < splitText.length) next = splitText[i + 1]
-            checkPaste(current, previous, next, i, splitText.length)
+            if(i - 1 >= 0) {
+                previous = splitText[i - 1].trim()
+                if(current.length === 0 && previous.length === 0) {
+
+                } else {
+                    if(i + 1 < splitText.length) next = splitText[i + 1].trim()
+                    checkPaste(current, previous, next, i, splitText.length)
+                }
+            }else{
+                if(i + 1 < splitText.length) next = splitText[i + 1].trim()
+                checkPaste(current, previous, next, i, splitText.length)
+            }
         }
     }
 
@@ -540,6 +558,10 @@ const EditorInterface = (props) => {
         if(isHotKey('mod+z+shift', e)) return handleUndo()
         if(isHotKey('mod+z', e)) return handleUndo()
         if(isHotKey('mod', e)) return
+        if(isHotKey('mod+Backspace', e)) {
+            setTarget(null)
+            setSearchQuery('')
+        }
         const anchor = editor.selection.anchor
         const focus = editor.selection.focus
         if(anchor.path[0] !== focus.path[0]) return

@@ -14,43 +14,35 @@ const ColorSelection = (props) => {
     const [highlight, setHighlight] = useState(props.colors.highlight)
     const [secondary, setSecondary] = useState(props.colors.secondary)
 
-    useEffect(()=> {
-        if(background!==props.colors.background) {
-            const timeout = setTimeout(()=>changeColor('background', background), 400)
+    const handleColorPickerChange = (colorType, colorTypeName) => {
+        if(colorType!==props.colors.colorType) {
+            const timeout = setTimeout(()=>changeColor(colorTypeName, colorType), 400)
             return()=> clearTimeout(timeout)
         }
+    }
+
+    useEffect(()=> {
+        return handleColorPickerChange(background, 'background')
         // eslint-disable-next-line
     }, [background, props.colors.background])
 
     useEffect(()=> {
-        if(primaryText!==props.colors.primaryText) {
-            const timeout = setTimeout(()=>changeColor('primaryText', primaryText), 400)
-            return()=> clearTimeout(timeout)
-        }
+        return handleColorPickerChange(primaryText, 'primaryText')
         // eslint-disable-next-line
     }, [primaryText, props.colors.primaryText])
 
     useEffect(()=> {
-        if(sidebar!==props.colors.sidebar) {
-            const timeout = setTimeout(()=>changeColor('sidebar', sidebar), 400)
-            return()=> clearTimeout(timeout)
-        }
+        return handleColorPickerChange(sidebar, 'sidebar')
         // eslint-disable-next-line
     }, [sidebar, props.colors.sidebar])
 
     useEffect(()=> {
-        if(highlight!==props.colors.highlight) {
-            const timeout = setTimeout(()=>changeColor('highlight', highlight), 400)
-            return()=> clearTimeout(timeout)
-        }
+        return handleColorPickerChange(highlight, 'highlight')
         // eslint-disable-next-line
     }, [highlight, props.colors.highlight])
 
     useEffect(()=> {
-        if(secondary!==props.colors.secondary) {
-            const timeout = setTimeout(()=>changeColor('secondary', secondary), 400)
-            return()=> clearTimeout(timeout)
-        }
+        return handleColorPickerChange(secondary, 'secondary')
         // eslint-disable-next-line
     }, [secondary, props.colors.secondary])
 
@@ -146,9 +138,6 @@ const NameLabel = styled.label`
 
 const Container = styled.div`
     margin-top: 20px;
-    /* @media(max-width: 800px) {
-        margin-top: 20px;
-    } */
 `
 
 const Title = styled.h1`
@@ -191,8 +180,6 @@ const InputContainer = styled.div`
 
 const ColorPickers = styled.div`
     margin: 40px 0;
-    /* display: flex;
-    flex-wrap: wrap; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-gap: 30px;

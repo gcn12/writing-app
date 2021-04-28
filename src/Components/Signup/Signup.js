@@ -181,6 +181,7 @@ export default connect(mapStateToProps)(SignUp)
 const Message = styled.h3`
     color: red;
     margin-bottom: 20px;
+    padding: 0 10px;
 `
 
 const InputLabelContainer = styled.div`
