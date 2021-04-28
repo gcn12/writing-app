@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { jsPDF } from 'jspdf'
-import '../../../CourierPrime-Regular-normal'
-import '../../../CourierPrime-Bold-normal'
-import '../../../CourierPrime-BoldItalic-bolditalic'
-import '../../../CourierPrime-Italic-italic'
+import '../../../fonts/CourierPrime-Regular-normal'
+import '../../../fonts/CourierPrime-Bold-normal'
+import '../../../fonts/CourierPrime-BoldItalic-bolditalic'
+import '../../../fonts/CourierPrime-Italic-italic'
 
 const CreatePDFButton = (props) => {
     let line = 1

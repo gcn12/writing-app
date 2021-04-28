@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { jsPDF } from 'jspdf'
 import '../../App.css'
-import '../../CourierPrime-Regular-normal'
-import '../../CourierPrime-Bold-normal'
+import '../../fonts/CourierPrime-Regular-normal'
+import '../../fonts/CourierPrime-Bold-normal'
 
 const Screenplay = () => {
     const getContent = () => {

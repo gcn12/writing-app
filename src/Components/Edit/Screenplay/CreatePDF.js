@@ -1,9 +1,9 @@
 import { jsPDF } from 'jspdf'
 import '../../../App.css'
-import '../../../CourierPrime-Regular-normal'
-import '../../../CourierPrime-Bold-normal'
-import '../../../CourierPrime-BoldItalic-bolditalic'
-import '../../../CourierPrime-Italic-italic'
+import '../../../fonts/CourierPrime-Regular-normal'
+import '../../../fonts/CourierPrime-Bold-normal'
+import '../../../fonts/CourierPrime-BoldItalic-bolditalic'
+import '../../../fonts/CourierPrime-Italic-italic'
 
 const createPage = () => {
     return new jsPDF({
