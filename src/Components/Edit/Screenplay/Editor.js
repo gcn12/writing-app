@@ -33,11 +33,9 @@ const EditorInterface = (props) => {
         locations: props.locations,
     }
 
-
     const searchResults = searchMap[searchType]?.filter(item=> {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
     })
-
 
     useEffect(() => {
         if(editor.selection) {
