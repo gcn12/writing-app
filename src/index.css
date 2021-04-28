@@ -16,28 +16,33 @@ code {
   font-family: Montserrat;
   src: url('./fonts/Montserrat-Light.ttf') format('truetype');
   font-weight: 300;
+  font-display: auto;
 }
 
 @font-face {
   font-family: Montserrat;
   src: url('./fonts/Montserrat-Regular.ttf') format('truetype');
   font-weight: 400;
+  font-display: auto;
 }
 
 @font-face {
   font-family: Montserrat;
   src: url('./fonts/Montserrat-Medium.ttf') format('truetype');
   font-weight: 500;
+  font-display: auto;
 }
 
 @font-face {
   font-family: Montserrat;
   src: url('./fonts/Montserrat-SemiBold.ttf') format('truetype');
   font-weight: 600;
+  font-display: auto;
 }
 
 @font-face {
   font-family: Montserrat;
   src: url('./fonts/Montserrat-Bold.ttf') format('truetype');
   font-weight: 700;
+  font-display: auto;
 }
