@@ -266,9 +266,7 @@ const EditorInterface = (props) => {
         return setNode(null)
     }
     const setNode = (newType) => {
-        console.log(newType)
         if(newType===null || newType === 'dialog') {
-            console.log('bye')
             Transforms.setNodes(
                 editor, 
                 {preventStyle: false},  
@@ -329,7 +327,6 @@ const EditorInterface = (props) => {
             && e.shiftKey
             && currentText === currentText.toUpperCase()
         ) {
-            console.log('hello')
             setNode('transition')
             return true
         }
@@ -503,9 +500,6 @@ const EditorInterface = (props) => {
     const modifiers = (e) => {
         const { path } = editor.selection.focus
         const { type } = props.value[path[0]]
-        if(isHotKey('mod+shift+e', e)) {
-            console.log(type)
-        }
         if(e.key==='h' && e.ctrlKey) {
             setNode('character')
             insertNodes(null)
@@ -521,8 +515,6 @@ const EditorInterface = (props) => {
         
         if(isHotKey('mod+b', e)) {
             e.preventDefault()
-            
-            console.log(checkIsPreventStyle())
             if(checkIsPreventStyle()) return
             const [match] = Editor.nodes(editor, {
                 match: n => n.bold === true

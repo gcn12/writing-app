@@ -72,61 +72,79 @@ const CreatePDFButton = (props) => {
         script.text(words.toUpperCase(), 1.5, line)
     }
 
-    const addDialog = (script, words) => {
-        let maxLineLength = 3.3
-        let lineLength = 0
-        const addDialog = (words) => {
-            words.forEach(word=> {
-                const wordLength = script.getTextWidth(word)
-                if(maxLineLength - wordLength < 0) {
-                    decrementLine()
-                    maxLineLength = 3.3
-                    lineLength = 0
-                }
-                script.text(word, 2.5 + lineLength, line)
-                maxLineLength -= (wordLength + .1)
-                lineLength += (wordLength + .1)
-            })
+    const handleDialogPageBreak = (script, words, wordIndex, text, index) => {
+        console.log(newPage)
+        if(newPage === 1 && words.length > wordIndex + 1) {
+            addParenthetical(script, '(MORE)')
+            addNewPage(script)
+            addCharacter(script, `${text[index-1].children[0].text} (CONT'D)`)
+            decrementLine( )
+        }else if(newPage <= 0) {
+            addNewPage(script)
         }
+    }
+
+    let dialogLineLengthMax = 3.3
+    let dialogLineLength = 0
+    const addDialogWords = (words, script, index, text) => {
+        words.forEach((word, wordIndex)=> {
+            const wordLength = script.getTextWidth(word)
+            if(dialogLineLengthMax - wordLength < 0) {
+                decrementLine()
+                dialogLineLengthMax = 3.3
+                dialogLineLength = 0
+                handleDialogPageBreak(script, words, wordIndex, text, index)
+            }
+            script.text(word, 2.5 + dialogLineLength, line)
+            dialogLineLengthMax -= (wordLength + .1)
+            dialogLineLength += (wordLength + .1)
+        })
+    }
+
+    const addDialog = (script, words, index, text) => {
+        dialogLineLengthMax = 3.3
+        dialogLineLength = 0
         if(Array.isArray(words)){
             words.forEach(wordItem=> {
                 script.setFont(...selectFont(wordItem))
                 const splitWords = wordItem.text.trim().split(' ')
-                addDialog(splitWords)
+                addDialogWords(splitWords, script, index, text)
             })
         }else {
             const splitWords = words.trim().split(' ')
-            addDialog(splitWords)
+            addDialogWords(splitWords, script, index, text)
         }
-        if(newPage <= 0) addNewPage(script)
+    }
+
+    let descriptionLineLengthMax = 6
+    let descriptionLineLength = 0
+    const addDescriptionWords = (words, script) => {
+        words.forEach(word => {
+            let wordLength = script.getTextWidth(word)
+            if(descriptionLineLengthMax - wordLength < 0) {
+                if(newPage <= 0) addNewPage(script)
+                decrementLine()
+                descriptionLineLengthMax = 6
+                descriptionLineLength = 0
+            }
+            script.text(word, 1.5 + descriptionLineLength, line)
+            descriptionLineLengthMax -= (wordLength + .1)
+            descriptionLineLength += (wordLength + .1)
+        })
     }
 
     const addDescription = (script, words) => {
-        let lineLengthMax = 6
-        let lineLength = 0
-        const addDescriptionWords = (words) => {
-            words.forEach(word => {
-                let wordLength = script.getTextWidth(word)
-                if(lineLengthMax - wordLength < 0) {
-                    if(newPage <= 0) addNewPage(script)
-                    decrementLine()
-                    lineLengthMax = 6
-                    lineLength = 0
-                }
-                script.text(word, 1.5 + lineLength, line)
-                lineLengthMax -= (wordLength + .1)
-                lineLength += (wordLength + .1)
-            })
-        }
+        descriptionLineLengthMax = 6
+        descriptionLineLength = 0
         if(Array.isArray(words)) {
             words.forEach(wordItem=> {
                 script.setFont(...selectFont(wordItem))
                 const splitWords = wordItem.text.trim().split(' ')
-                addDescriptionWords(splitWords)
+                addDescriptionWords(splitWords, script)
             })
         }else{
             const splitWords = words.trim().split(' ')
-            addDescriptionWords(splitWords)
+            addDescriptionWords(splitWords, script)
         }
     }
 
@@ -135,7 +153,7 @@ const CreatePDFButton = (props) => {
         if(type === 'character') addCharacter(script, words)
         if(type === 'parenthetical') addParenthetical(script, words)
         if(type === 'heading') addHeading(script, text, index, words)
-        if(type === 'dialog') addDialog(script, words)
+        if(type === 'dialog') addDialog(script, words, index, text)
         if(!type) addDescription(script, words)
     }
 
