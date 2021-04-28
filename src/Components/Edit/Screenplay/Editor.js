@@ -481,8 +481,8 @@ const EditorInterface = (props) => {
 
     editor.insertData = (data) => {
         const currentText = data.getData('text/plain').trim()
+        console.log(currentText)
         const splitText = currentText.split('\n')
-        console.log(splitText)
         for (let i = 0; i < splitText.length; i ++) {
             const current = splitText[i].trim()
             let previous
@@ -684,7 +684,7 @@ const EditorInterface = (props) => {
 
     return(
         <Container>
-            {/* {console.log(props.value)} */}
+            {console.log(props.value)}
             <Slate value={props.value} editor={editor} onChange={newValue => {
                 props.setValue(newValue)
                 if(editor.selection) {
