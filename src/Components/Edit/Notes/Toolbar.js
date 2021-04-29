@@ -29,7 +29,6 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 60px;
-    /* opacity: 0; */
     top: 0;
     transition: opacity 300ms ease-in-out;
     border: 1px solid rgba(0, 0, 0, .1);

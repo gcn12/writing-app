@@ -7,24 +7,29 @@ import Toolbar from './Toolbar'
 import { notesData } from '../../../redux/actions/appActions'
 
 const Notes = (props) => {
+
     const [note, setNote] = useState('')
     const [lastSaved, setLastSaved] = useState(0)
     const [isPreventSave, setIsPreventSave] = useState(true)
     const [savedStatus, setSavedStatus] = useState('All changes saved')
+
     useEffect(()=> {
         getNotes()
         // eslint-disable-next-line
     }, [props.match])
-
     
     useEffect(()=> {
         if(props.userData.userID && !isPreventSave) {
-            setSavedStatus('Saving...')
-            const timeout = setTimeout(()=>saveWork(), 1000)
-            return  ()=>clearTimeout(timeout)
+            return autosave()
         }
         // eslint-disable-next-line 
     }, [note])
+
+    const autosave = () => {
+        setSavedStatus('Saving...')
+        const timeout = setTimeout(()=>saveWork(), 1000)
+        return  ()=>clearTimeout(timeout)
+    }
 
     const getNotes = () => {
         db.collection('users')
@@ -33,14 +38,14 @@ const Notes = (props) => {
         .doc(props.match.params.fileID)
         .get()
         .then(result=> {
-            if(result.data() !== undefined) {
-                document.getElementById('notes-textarea').value = result.data().text
+            if(result.exists) {
+                const notesInfo = result.data()
+                document.getElementById('notes-textarea').value = notesInfo.text
+                document.title = notesInfo.name
+                props.dispatch(notesData(notesInfo))
+                const textarea = document.getElementById('notes-textarea')
+                fitTextarea.watch(textarea)
             }
-            const notesInfo = result.data()
-            document.title = notesInfo.name
-            props.dispatch(notesData(notesInfo))
-            const textarea = document.getElementById('notes-textarea');
-            fitTextarea.watch(textarea);
         })
     }
 
@@ -59,7 +64,6 @@ const Notes = (props) => {
             text: note,
         })
         .then(()=> {
-            console.log('work saved')
             setSavedStatus('All changes saved')
         })
     }
@@ -72,9 +76,7 @@ const Notes = (props) => {
         .update({
             lastModified: currentTime,
         })
-        .then(()=> {
-            console.log('updated')
-        })
+        .catch((err)=>console.log(err))
     }
 
     const updateLastUpdated = (currentTime) => {
@@ -112,7 +114,6 @@ const Notes = (props) => {
 const mapStateToProps = state => ({
     userData: state.app.userData,
     notesData: state.app.notesData,
-    outlineData: state.app.outlineData
 })
 
 export default connect(mapStateToProps)(Notes)
@@ -127,7 +128,6 @@ const NotesContainer = styled.div`
 `
 
 const Container = styled.div`
-    
 `
 
 const Title = styled.h1`
@@ -140,7 +140,7 @@ const Title = styled.h1`
 `
 
 const TextAreaPage = styled.textarea`
-    margin: 40px 0 0 0;
+    margin-top: 40px;
     background-color: transparent;
     border-radius: 15px;
     font-size: 1rem;
@@ -149,11 +149,7 @@ const TextAreaPage = styled.textarea`
     color: var(--primary-text);
     border: none;
     resize: none;
-    /* overflow: hidden; */
     &:focus{
         box-shadow: none;
-    }
-    @media(max-width: 900px) {
-        /* width: 90vw; */
     }
 `

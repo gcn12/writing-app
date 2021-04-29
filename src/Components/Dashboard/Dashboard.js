@@ -1,14 +1,11 @@
-// import Projects from './FilesList/Projects'
 import styled from 'styled-components'
 import { Route } from 'react-router-dom'
 import AllFiles from './FilesList/AllFiles'
 import Sidebar from './Sidebar/Sidebar'
-// import Goals from '../Goals/Goals'
 import { useEffect } from 'react'
 import ToDo from '../Goals/ToDo/ToDo'
-import MobileHeader from './MobileHeader'
+import MobileHeader from '../MobileNavigation/MobileHeader'
 import ChangeColors from '../Settings/ChangeColors/ChangeColors'
-import Settings from '../Settings/Settings'
 import { connect } from 'react-redux'
 import Breadcrumbs from './Breadcrumbs'
 
@@ -26,11 +23,8 @@ const Dashboard = (props) => {
                         <AllFiles {...props} />
                     </FileContainer>
                 )} />
-                <Route exact path='/writing-app/goals' render={(props)=> (
+                <Route exact path='/writing-app/tasks' render={(props)=> (
                     <ToDo {...props} />
-                )} />
-                <Route exact path='/writing-app/settings' render={(props)=> (
-                    <Settings {...props} />
                 )} />
                 <Route exact path='/writing-app/themes' render={(props)=> (
                     <ChangeColors {...props} />
@@ -64,7 +58,6 @@ const FileContainer = styled.div`
 export const FilesContainer = styled.div`
     height: 100%;
     width: 100%;
-    /* margin-left: max(18%, 200px); */
     margin-left: 250px;
     margin-bottom: 250px;
     @media(max-width: 800px) {

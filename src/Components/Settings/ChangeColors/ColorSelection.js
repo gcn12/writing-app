@@ -98,21 +98,23 @@ const ColorSelection = (props) => {
 
     return(
         <Container>
-            <Title>Change colors</Title>
-            <ColorPickers>
-                <ColorPicker ariaLabel='select background color' color={background} setColor={setBackground} name='Background' />
-                <ColorPicker ariaLabel='select primary text color'  color={primaryText} setColor={setPrimaryText} name='Primary text' />
-                <ColorPicker ariaLabel='select sidebar color'  color={sidebar} setColor={setSidebar} name='Sidebar' />
-                <ColorPicker ariaLabel='select highlight color'  color={highlight} setColor={setHighlight} name='Highlight' />
-                <ColorPicker ariaLabel='select secondary color'  color={secondary} setColor={setSecondary} name='Secondary' />
-            </ColorPickers>
-            <InputContainer>
-                <NameLabel htmlFor='theme-name-input'>Theme name:</NameLabel>
-                <ButtonInputContainer>
-                    <ThemeName onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} id='theme-name-input'></ThemeName>
-                    <SaveTheme onClick={saveTheme}>Save theme</SaveTheme>
-                </ButtonInputContainer>
-            </InputContainer>
+            <Title>Select colors</Title>
+            <Background>
+                <ColorPickers>
+                    <ColorPicker ariaLabel='select background color' color={background} setColor={setBackground} name='Background' />
+                    <ColorPicker ariaLabel='select primary text color'  color={primaryText} setColor={setPrimaryText} name='Primary text' />
+                    <ColorPicker ariaLabel='select sidebar color'  color={sidebar} setColor={setSidebar} name='Sidebar' />
+                    <ColorPicker ariaLabel='select highlight color'  color={highlight} setColor={setHighlight} name='Highlight' />
+                    <ColorPicker ariaLabel='select secondary color'  color={secondary} setColor={setSecondary} name='Secondary' />
+                </ColorPickers>
+                <InputContainer>
+                    <NameLabel htmlFor='theme-name-input'>Theme name:</NameLabel>
+                    <ButtonInputContainer>
+                        <ThemeName onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} id='theme-name-input'></ThemeName>
+                        <SaveTheme onClick={saveTheme}>Save theme</SaveTheme>
+                    </ButtonInputContainer>
+                </InputContainer>
+            </Background>
         </Container>
     )
 }
@@ -124,16 +126,24 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ColorSelection)
 
+const Background = styled.div`
+    background-color: var(--sidebar);
+    padding: 40px; 
+    border-radius: 10px;
+    margin-bottom: 20px;
+`
+
 const ButtonInputContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 70px;
+    /* margin-bottom: 70px; */
 `
 
 const NameLabel = styled.label`
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 10px;
+    margin-top: 40px;
 `
 
 const Container = styled.div`
@@ -141,7 +151,10 @@ const Container = styled.div`
 `
 
 const Title = styled.h1`
-    font-size: 2rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    margin-top: 40px;
 `
 
 const ThemeName = styled.input`
@@ -150,7 +163,8 @@ const ThemeName = styled.input`
     width: 300px;
     flex: 1;
     background-color: var(--background);
-    border: 1px solid var(--primary-text);
+    /* border: 1px solid var(--primary-text); */
+    border: none;
     color: var(--primary-text);
     font-size: 1.25rem;
     @media(max-width: 900px) {
@@ -179,7 +193,7 @@ const InputContainer = styled.div`
 `
 
 const ColorPickers = styled.div`
-    margin: 40px 0;
+    /* margin: 40px 0; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-gap: 30px;

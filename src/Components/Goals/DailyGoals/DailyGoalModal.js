@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import { Dialog } from '@reach/dialog'
 import '@reach/dialog/styles.css'
-import { db } from '../../firebase'
+import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import { useState } from 'react'
-import IconComponent from '../../Icons/IconComponent'
-import { goals } from '../../redux/actions/appActions'
+import IconComponent from '../../../Icons/IconComponent'
+import { goals } from '../../../redux/actions/appActions'
 
 
 const DailyGoalModal = (props) => {

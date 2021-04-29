@@ -14,7 +14,7 @@ const initialState = {
     layerOneDocs: [],
     layerTwoDocs: [],
     layerThreeDocs: [],
-    currentLayer: null,
+    currentLayer: 0,
     colorThemes: [],
     colors: {},
     tasks: [],

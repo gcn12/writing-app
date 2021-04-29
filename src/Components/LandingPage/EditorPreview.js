@@ -591,7 +591,7 @@ const EditorPreview = (props) => {
         let weight 
         if(props.leaf.bold) {
             weight = 600
-        }else if(props.children.props.parent.type==='heading') { 
+        }else if(props?.children?.props?.parent?.type==='heading') { 
             weight = 600
         } else {
             weight = 500
@@ -618,7 +618,7 @@ const EditorPreview = (props) => {
                     handleOnChange(newValue)
                 }
             }}>
-                <StyledEditable autoFocus renderLeaf={renderLeaf} placeholder='Try it out here' onKeyDown={modifiers} renderElement={renderElement} />
+                <StyledEditable autoFocus renderLeaf={renderLeaf} onKeyDown={modifiers} renderElement={renderElement} />
                 {((searchQuery.length > 1 && searchType==='names') || (searchQuery.length > 0 && searchType==='names' && value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
                 <Autocomplete position={position} items={searchResults} index={index} />
                 }

@@ -181,7 +181,6 @@ const Text = styled.h2`
 
 const Container = styled.article`
     touch-action: manipulation;
-    /* font-size: 1.3rem;  */
     background-color: var(--sidebar);
     padding: 30px;
     display: flex;

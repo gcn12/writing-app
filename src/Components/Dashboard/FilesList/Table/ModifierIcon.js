@@ -2,13 +2,8 @@ import styled from 'styled-components'
 import IconComponent from '../../../../Icons/IconComponent'
 
 const ModifierIcon = (props) => {
-
-    const openIcon = (e) => {
-        props.openModal(e)
-    }
-
     return(
-        <IconBackgroundContainer aria-label={props.ariaLabel} onClick={openIcon} label={props.labelName} >
+        <IconBackgroundContainer aria-label={props.ariaLabel} onClick={(e)=>props.openModal(e)} label={props.labelName} >
             <IconTitle>{props.title}</IconTitle>
             <IconBackground />
             <Icon><IconComponent>
@@ -27,14 +22,13 @@ const IconTitle = styled.div`
     min-height: 20px;
     min-width: 50px;
     position: absolute;
-    /* z-index: 10; */
     top: 165%;
     left: 50%;
     transform: translate(-50%, -50%); 
     border-radius: 5px;
     color: var(--sidebar);
     vertical-align: middle;
-    padding: 10px 10px;
+    padding: 10px;
 `
 
 const IconBackground = styled.div`
@@ -44,7 +38,6 @@ const IconBackground = styled.div`
     width: 35px;
     position: relative;
     border-radius: 50%;
-    /* background-color: var(--background); */
     background-color: var(--sidebar);
     @media(hover: hover) {
         &:hover{
@@ -96,7 +89,6 @@ const IconBackgroundContainer = styled.button`
 `
 
 const Icon = styled.div`
-    /* z-index: 100; */
     top: 50%;
     left: 50%;
     position: absolute;

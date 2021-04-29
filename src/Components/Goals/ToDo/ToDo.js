@@ -68,11 +68,13 @@ const ToDo = (props) => {
     return(
         <Container>
             <Title>Current tasks</Title>
-            <AddTask htmlFor='todo-input'>Add a task:</AddTask>
-            <CreateTaskContainer>
-                <TaskInput autoComplete='off' onKeyDown={(e)=>onEnter(e, newTask)} id='todo-input' onChange={(e)=>setNewTask(e.target.value)} />
-                <CreateTask onClick={()=>createTask(newTask)}>Create task</CreateTask>
-            </CreateTaskContainer>
+            <Background>
+                <AddTask htmlFor='todo-input'>Add a task:</AddTask>
+                <CreateTaskContainer>
+                    <TaskInput autoComplete='off' onKeyDown={(e)=>onEnter(e, newTask)} id='todo-input' onChange={(e)=>setNewTask(e.target.value)} />
+                    <CreateTask onClick={()=>createTask(newTask)}>Create task</CreateTask>
+                </CreateTaskContainer>
+            </Background>
             <CardContainer>
                 {props.tasks.map((task, index) => {
                     return(
@@ -91,6 +93,13 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ToDo)
 
+const Background = styled.div`
+    background-color: var(--sidebar);
+    padding: 40px; 
+    border-radius: 10px;
+    margin-bottom: 20px;
+`
+
 const AddTask = styled.label`
     font-size: 1.125rem;
     font-weight: 600;
@@ -99,8 +108,7 @@ const AddTask = styled.label`
 const CreateTaskContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 25px;
-    margin-top: 10px;
+    margin: 10px 0;
 `
 
 const CreateTask = styled.button`
@@ -111,6 +119,7 @@ const CreateTask = styled.button`
     padding: 10px 30px;
     background-color: var(--primary-text);
     color: var(--sidebar);
+    white-space: nowrap;
 `
 
 const TaskInput = styled.input`
@@ -118,7 +127,6 @@ const TaskInput = styled.input`
     min-height: 40px;
     background-color: var(--background);
     border: none;
-    border: 1px solid var(--primary-text);
     color: var(--primary-text);
     font-size: 1.25rem;
     margin-right: 10px;
@@ -126,7 +134,8 @@ const TaskInput = styled.input`
 `
 
 const Title = styled.h1`
-    font-size: 2.5rem;
+    margin-top: 40px;
+    font-size: 2.25rem;
     font-weight: 600;
     margin-bottom: 25px;
     @media(max-width: 750px) { 
@@ -139,7 +148,6 @@ const Container = styled.div`
     height: 100%;
     padding: 0 30px;
     overflow: scroll;
-    margin-top: 20px;
     @media(max-width: 800px) { 
         height: calc(100% - 80px);
         padding: 0px 15px;

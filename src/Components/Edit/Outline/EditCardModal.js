@@ -37,7 +37,7 @@ const EditCardModal = (props) => {
         .collection('files')
         .doc(props.match.params.fileID)
         .update({
-            data: newOutline,
+            text: newOutline,
         })
         .then(()=> {
             props.setShowEditModal(false)

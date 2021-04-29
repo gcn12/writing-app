@@ -12,7 +12,6 @@ const ColorTemplates = (props) => {
             if(color[0] === 'name') return
             if(color[0] === 'isDefault') return
             colorsObject[color[0]] = color[1]
-            // document.getElementById(color[0]).value = color[1]
         })
     }
 
@@ -29,7 +28,7 @@ const ColorTemplates = (props) => {
 
     return(
         <Container>
-            <Title>Color Themes:</Title>
+            <Title>Color themes</Title>
             <Cards>
                 {props.colorThemes.map((theme, index)=> {
                     return(
@@ -56,14 +55,10 @@ const Title = styled.h2`
 `
 
 const Container = styled.div`
-    /* margin-bottom: 100px; */
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 `
 
 const Cards = styled.div`
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     grid-gap: 15px;

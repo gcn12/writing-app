@@ -12,21 +12,13 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html, body {
-        /* min-height: 100vh; */
         height: 100%;
         background-color: var(--background);
-        /* overflow: ${props=> props.page==='goals' || props.page==='themes' || (props.page===undefined && props.userID.length > 0) ? 'hidden' : 'scroll'}; */
-        /* overflow: hidden; */
     }
 
     body {
-        /* position: fixed; */
-        /* height: 100%; */
-        /* overscroll-behavior-block: none; */
-        /* position: relative; */
-        overflow: ${props=> props.page==='goals' || props.page==='themes' || (props.page===undefined && props.userID.length > 0) ? 'hidden' : 'scroll'};
+        overflow: ${props=> props.page==='tasks' || props.page==='themes' || (props.page===undefined && props.userID.length > 0) ? 'hidden' : 'scroll'};
         overscroll-behavior-block: ${props=> props.page==='goals' || props.page==='themes' || (props.page===undefined && props.userID.length > 0) ? 'none' : 'auto'};
-        /* overscroll-behavior-y: ${props=>props.isDashboard ? 'none' : 'scroll'}; */
     }
 
     * {

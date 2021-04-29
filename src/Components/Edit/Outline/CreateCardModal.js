@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { db } from '../../../firebase'
 import { connect } from 'react-redux'
 import { updateLastModified } from '../../../globalFunctions'
@@ -13,57 +13,60 @@ const CreateCardModal = (props) => {
     const [location, setLocation] = useState(null)
 
     useEffect(()=> {
-        // document.getElementById('create-card-location').value = props.outlineItemsForUpdate.length + 1
         setLocation(props?.outlineItemsForUpdate?.length + 1)
         // eslint-disable-next-line 
     }, [props.outlineItemsForUpdate])
 
-
-    const createNewOutlineCard = () => {
-        if(!createCardCheckConditions()) return
-        let numberOfCards = 0
-        if(props.outlineItemsForUpdate) {
-            numberOfCards = props.outlineItemsForUpdate.length 
-        }
+    const getUpdatedOutline = () => {
         const dataObject = {
             title, 
             text,
             index: location,
         }
         const updateCopy = [...props.outlineItemsForUpdate]
-        const indexesCopy = [...props.itemIndexes]
-
         updateCopy.splice(location - 1, 0, dataObject)
-        const outlineNewIndexes = updateCopy.map((card, index)=> {
+        return updateCopy.map((card, index)=> {
             return {...card, index}
         })
+    }
 
-        indexesCopy.splice(location, 0, String(numberOfCards))
-        const dataIndexArray = []
-        for(let i = 0; i<props.itemIndexes.length + 1; i++) {
-            dataIndexArray.push(String(i))
-        }
-
-        props.setItemIndexes(dataIndexArray)
-        props.dispatch(outlineItemsDisplay(outlineNewIndexes))
-        props.dispatch(outlineItemsForUpdate(outlineNewIndexes))
-
-        db.collection('users')
+    const addCardToDatabase = (outlineNewIndexes) => {
+        return db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
         .doc(props.match.params.fileID)
         .update({
-            data: outlineNewIndexes,
+            text: outlineNewIndexes,
         })
+    }
+
+    const addUpdatedCardsToState = (outlineNewIndexes) => {
+        props.dispatch(outlineItemsDisplay(outlineNewIndexes))
+        props.dispatch(outlineItemsForUpdate(outlineNewIndexes))
+    }
+
+    const addNewIndexesToState = () => {
+        const dataIndexArray = []
+        for(let i = 0; i<props.itemIndexes.length + 1; i++) {
+            dataIndexArray.push(String(i))
+        }
+        props.setItemIndexes(dataIndexArray)
+    }
+
+    const createNewOutlineCard = () => {
+        if(!checkConditions()) return
+        addNewIndexesToState()
+        const updatedOutline = getUpdatedOutline()
+        addCardToDatabase(updatedOutline)
         .then(()=> {
+            addUpdatedCardsToState(updatedOutline)
             props.setShowCreateModal(false)
         })
         clearState()
-
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
-    const createCardCheckConditions = () => {
+    const checkConditions = () => {
         if(title.length === 0) return false
         if(text.length === 0) return false
         if(location < 1 || location > props.outlineItemsForUpdate.length + 1) return false
@@ -105,7 +108,6 @@ const CreateCardModal = (props) => {
 const mapStateToProps = state => ({
     userData: state.app.userData,
     outlineData: state.app.outlineData,
-    currentFileID: state.app.currentFileID,
     outlineItemsForUpdate: state.app.outlineItemsForUpdate,
     outlineItemsDisplay: state.app.outlineItemsDisplay,
 })
@@ -195,7 +197,6 @@ const Modal = styled(Dialog)`
     max-height: 85vh;
     overflow: scroll;
     background-color: var(--secondary);
-    isolation: isolate;
     padding: 50px 15px;
     border-radius: 10px;
     left: 50%;

@@ -72,7 +72,6 @@ export default connect(mapStateToProps)(ChangeColors)
 
 const Container = styled.div`
     width: 100%;
-    /* height: 100vh; */
     padding: 0 30px;
     overflow: scroll;
     height: 100%;

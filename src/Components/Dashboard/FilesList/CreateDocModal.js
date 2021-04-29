@@ -42,7 +42,8 @@ const CreateDocModal = (props) => {
 
     const addDocID = (docID) => {
         db.collection('docID')
-        .add({
+        .doc(docID)
+        .set({
             docID,
         })
         .catch(err=> console.log(err))
@@ -55,18 +56,10 @@ const CreateDocModal = (props) => {
             type,
             parentID: String(parentID),
             docID: String(docID),
-            dateCreated: timestamp,
-            lastModified: timestamp,
         }
-        addFileToPreviews(docID, fileProperties)
-        if(type==='outline') {
-            fileProperties['data'] = []
-        }
-        if(type==='notes' || type==='screenplay') {
-            fileProperties['text'] = ''
-        }
-        const { lastModified, ...fileProps } = fileProperties
-        addFileToDatabase(docID, fileProps, type)
+        addFileToPreviews(docID, {...fileProperties, lastModified: timestamp})
+        let text = (type==='notes' ? '' : [])
+        addFileToDatabase(docID, {...fileProperties, text}, type)
     }
 
     const addFileToPreviews = (docID, fileProperties, closeModal) => {
@@ -78,7 +71,6 @@ const CreateDocModal = (props) => {
             ...fileProperties
         })
         .then(()=> {
-            console.log('new file preview created')
             addDocToStore(fileProperties)
             if(closeModal) closeModal(false)
         })
@@ -93,7 +85,6 @@ const CreateDocModal = (props) => {
             ...fileProps
         })
         .then(()=> {
-            console.log('new file created')
             openFileInNewTab(type, docID)
             props.setIsCreateProjectModal(false)
             if(props.projectSelectedData.docID) {
@@ -146,9 +137,7 @@ const CreateDocModal = (props) => {
             <CloseDialog aria-label='close dialog' onClick={()=>props.setIsCreateProjectModal(false)}>
                 <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
             </CloseDialog>
-            <HeaderIconContainer>
-                <Header>Create new {props.createType}</Header>
-            </HeaderIconContainer>
+            <Header>Create new {props.createType}</Header>
             <DocumentTitle aria-label='document title' onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setIsCreateProjectModal(false)}>Cancel</Cancel>
@@ -172,11 +161,6 @@ export default connect(mapStateToProps)(CreateDocModal)
 
 const Header = styled.h1`
     font-size: 1.75rem;
-`
-
-const HeaderIconContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
 `
 
 const CloseDialog = styled.button`

@@ -27,6 +27,7 @@ const Color = styled.div`
     height: 15px;
     width: 15px;
     border: 1px solid var(--primary-text);
+    /* border: 1px solid var(--sidebar); */
     margin-right: 5px;
 `
 
@@ -45,10 +46,12 @@ const SelectOption = styled.button`
 
 const DeleteOption = styled.button`
     margin-left: 20px;
+    /* color: var(--sidebar); */
 `
 
 const Name = styled.p`
     text-align: left;
+    /* color: var(--sidebar); */
 `
 
 const Option = styled.article`
@@ -56,12 +59,14 @@ const Option = styled.article`
     align-items: flex-start;
     justify-content: space-between;
     background-color: var(--sidebar);
-    padding: 15px;
+    /* background-color: var(--primary-text); */
+    padding: 20px;
+    border-radius: 5px;
     max-width: 300px;
     width: 100%;
     min-height: 50px;
     /* margin: 0 10px 10px 0; */
-    border: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'};
+    /* border: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}; */
     @media(max-width: 500px) {
         min-height: 80px;
     } 

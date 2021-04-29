@@ -33,7 +33,6 @@ const IconsContainer = styled.div`
 
 const Name = styled.p`
     word-break: break-all;
-    /* max-width: 200px; */
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

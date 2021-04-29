@@ -30,7 +30,7 @@ const IconTitle = styled.div`
     border-radius: 5px;
     color: var(--sidebar);
     vertical-align: middle;
-    padding: 10px 10px;
+    padding: 10px;
     font-size: 1rem;
 `
 
@@ -73,7 +73,6 @@ const IconBackgroundContainer = styled.button`
 
 const Icon = styled.div` 
     transform: translate(-50%, -50%) scale(.7);
-    /* z-index: 10; */
     opacity: .8;
     top: 50%;
     left: 50%;

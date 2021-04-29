@@ -20,11 +20,9 @@ export default TableHeadComponent
 
 const TableHead = styled.div`
     display: table-cell;
-    text-align: left;
     padding: 10px 15px;
     border-bottom: 2px solid var(--primary-text);
     border-top: 2px solid var(--primary-text);
-    color: hsl(0, 0%, 20%);
     font-weight: 400;
     white-space: nowrap;
     @media(max-width: ${props=>props.hide}) {

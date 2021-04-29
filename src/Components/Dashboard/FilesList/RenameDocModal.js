@@ -15,31 +15,35 @@ import {
 const RenameFileModal = (props) => {
     const [name, setName] = useState('')
 
-    const renameFile = (e) => {
-        db.collection('users')
+    const updateFilesFoldersName = () => {
+        return db.collection('users')
         .doc(props.userData.userID)
         .collection('files-folders')
         .doc(String(props.projectSelectedData.docID))
         .update({
             name,
         })
+    }
+
+    const updateFilesName = () => {
+        return db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files')
+        .doc(String(props.projectSelectedData.docID))
+        .update({
+            name,
+        })
+    }
+
+    const renameFile = () => {
+        updateFilesFoldersName()
         .then(()=> {
             renameStoreDocs()
-            console.log('file rename successful')
             props.setShowRenameModal(false)
         })
         if(props.projectSelectedData.type!=='folder') {
-            db.collection('users')
-            .doc(props.userData.userID)
-            .collection('files')
-            .doc(String(props.projectSelectedData.docID))
-            .update({
-                name,
-            })
-            .then(()=> {
-                console.log('file rename successful')
-                props.setShowRenameModal(false)
-            })
+            updateFilesName()
+            .catch((err)=>console.log(err))
         }
     }
 
@@ -53,10 +57,10 @@ const RenameFileModal = (props) => {
     const renameStoreDocs = () => {
         let renamedItems = folderMap[props.currentLayer]
         renamedItems[props.projectSelectedData.currentIndex].name = name
-        if(props.currentLayer===0) props.dispatch(rootDocs(renamedItems))
-        if(props.currentLayer===1) props.dispatch(layerOneDocs(renamedItems))
-        if(props.currentLayer===2) props.dispatch(layerTwoDocs(renamedItems))
-        if(props.currentLayer===3) props.dispatch(layerThreeDocs(renamedItems))
+        if(props.currentLayer===0) return props.dispatch(rootDocs(renamedItems))
+        if(props.currentLayer===1) return props.dispatch(layerOneDocs(renamedItems))
+        if(props.currentLayer===2) return props.dispatch(layerTwoDocs(renamedItems))
+        if(props.currentLayer===3) return props.dispatch(layerThreeDocs(renamedItems))
     }
 
     const closeModal = (e) => {
@@ -69,7 +73,7 @@ const RenameFileModal = (props) => {
     const renameFileOnKeyDown = (e) => {
         if(e.code==='Enter' || e.code==='Space' || e.code==='Escape') {
             e.preventDefault()
-            renameFile(e)
+            renameFile()
         }
     }
 
@@ -83,13 +87,13 @@ const RenameFileModal = (props) => {
     return (
         <Container>
             <NewModal aria-label={`change name of ${props.projectSelectedData.name}`} isOpen={props.showRenameModal} onDismiss={()=>props.setShowRenameModal(false)}>
-                <CloseDialog aria-label='close rename dialog' onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowRenameModal(false)} id='rename-doc-close-button'>
+                <CloseDialog aria-label='close rename dialog' onKeyDown={closeModal} onMouseDown={()=>props.setShowRenameModal(false)} id='rename-doc-close-button'>
                     <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
                 </CloseDialog>
                 <Header>Rename {props.projectSelectedData.type}</Header>
                 <DocumentTitle aria-label='document title' onKeyDown={onEnter} defaultValue={props.projectSelectedData.name} autoComplete='off' id='rename-file-input' onChange={(e)=>setName(e.target.value)} />
                 <div>
-                    <Cancel onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowRenameModal(false)}>Cancel</Cancel>
+                    <Cancel onKeyDown={closeModal} onMouseDown={()=>props.setShowRenameModal(false)}>Cancel</Cancel>
                     <Create onKeyDown={renameFileOnKeyDown} onMouseDown={renameFile}>Rename</Create>
                 </div>
             </NewModal>
@@ -150,7 +154,6 @@ const NewModal = styled(Dialog)`
     flex-direction: column;
     padding: 20px 50px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     position: absolute;

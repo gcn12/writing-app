@@ -1,12 +1,5 @@
 import styled from 'styled-components'
 import { db } from '../../../firebase'
-import { 
-    rootDocs,
-    layerOneDocs,
-    layerTwoDocs,
-    layerThreeDocs,
-    currentLayer,
-} from '../../../redux/actions/appActions'
 import TableBodyComponent from './Table/TableBodyComponent'
 import RenameDocModal from './RenameDocModal'
 import DeleteProjectModal from './DeleteDocModal'
@@ -14,6 +7,13 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { breadcrumbs, sortMethod } from '../../../redux/actions/dashboardActions'
 import TableHeadComponent from './Table/TableHeadComponent'
+import { 
+    rootDocs,
+    layerOneDocs,
+    layerTwoDocs,
+    layerThreeDocs,
+    currentLayer,
+} from '../../../redux/actions/appActions'
 
 const ProjectsTable = (props) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -41,49 +41,66 @@ const ProjectsTable = (props) => {
         setShowRenameModal(true)
     }
 
-
     const showDeleteProject = (e) => {
         e.stopPropagation()
         setShowDeleteModal(true)
     }
 
+    const getSortMethod = (sortMethod) => {
+        if(sortMethod==='dateAsc') return sortProjectsDateAsc
+        if(sortMethod==='dateDesc') return sortProjectsDateDesc
+        if(sortMethod==='typeAsc') return sortProjectsTypeAsc
+        if(sortMethod==='typeDesc') return sortProjectsTypeDesc
+        if(sortMethod==='nameAsc') return sortProjectsNameAsc
+        if(sortMethod==='nameDesc') return sortProjectsNameDesc
+    }
+
+    const getFolderContents = (docID) => {
+        return db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files-folders')
+        .where('parentID', '==', docID)
+        .get()
+    }
+
+    const addSortedFilesToState = (files) => {
+        const sortMethodToUse = getSortMethod(props.sortMethod)
+        const sortedFiles = files.sort(sortMethodToUse)
+        if(props.currentLayer === 0) return props.dispatch(layerOneDocs(sortedFiles))
+        if(props.currentLayer === 1) return props.dispatch(layerTwoDocs(sortedFiles))
+        if(props.currentLayer === 2) return props.dispatch(layerThreeDocs(sortedFiles))
+    }
+
+    const addBreadcrumbToState = (docID, name) => {
+        const breadcrumb = { name, docID, }
+        const breadcrumbsCopy = [...props.breadcrumbs]
+        breadcrumbsCopy.push(breadcrumb)
+        props.dispatch(breadcrumbs(breadcrumbsCopy))
+    }
+
+    const incrementCurrentLayer = () => props.dispatch(currentLayer(props.currentLayer + 1))
+
+    const sendFilesToState = (data) => {
+        const unsortedFiles = []
+        data.forEach(item=> {
+            unsortedFiles.push(item.data())
+        })
+        addSortedFilesToState(unsortedFiles)
+    }
+
+    const openFolder = (docID, name) => {
+        getFolderContents(docID)
+        .then(data=> {
+            sendFilesToState(data)
+            incrementCurrentLayer()
+            addBreadcrumbToState(docID, name)
+        })
+    }
+
     const selectItem = (type, docID, name) => {
         document.activeElement.blur()
         if(type==='folder') {
-            db.collection('users')
-            .doc(props.userData.userID)
-            .collection('files-folders')
-            .where('parentID', '==', docID)
-            .get()
-            .then(data=> {
-                const dataArr = []
-                data.forEach(item=> {
-                    dataArr.push(item.data())
-                })
-                let sortMethodToUse
-                if(props.sortMethod==='dateAsc') sortMethodToUse = sortProjectsDateAsc
-                if(props.sortMethod==='dateDesc') sortMethodToUse = sortProjectsDateDesc
-                if(props.sortMethod==='typeAsc') sortMethodToUse = sortProjectsTypeAsc
-                if(props.sortMethod==='typeDesc') sortMethodToUse = sortProjectsTypeDesc
-                if(props.sortMethod==='nameAsc') sortMethodToUse = sortProjectsNameAsc
-                if(props.sortMethod==='nameDesc') sortMethodToUse = sortProjectsNameDesc
-                if(props.currentLayer === 0) {
-                    props.dispatch(layerOneDocs(dataArr.sort(sortMethodToUse)))
-                }else if(props.currentLayer === 1) {
-                    props.dispatch(layerTwoDocs(dataArr.sort(sortMethodToUse)))
-                }else if(props.currentLayer === 2) {
-                    props.dispatch(layerThreeDocs(dataArr.sort(sortMethodToUse)))
-                    console.log(dataArr)
-                }
-                props.dispatch(currentLayer(props.currentLayer + 1))
-                const breadcrumb = {
-                    name,
-                    docID, 
-                }
-                const breadcrumbsCopy = [...props.breadcrumbs]
-                breadcrumbsCopy.push(breadcrumb)
-                props.dispatch(breadcrumbs(breadcrumbsCopy))
-            })
+            openFolder(docID, name)
         }else{
             openFile(type, docID)
         }
@@ -91,65 +108,27 @@ const ProjectsTable = (props) => {
 
     const openFile = (fileType, docID) => {
         const location = `/writing-app/edit/${fileType}/${docID}`
-        // document.location = location
         window.open(location, "_blank") || (document.location = location)
     }
 
-    const sortProjectsDateAsc = (a, b) => {
-        return a.lastModified - b.lastModified  
+    const sortProjectsDateAsc = (a, b) => a.lastModified - b.lastModified
+    const sortProjectsDateDesc = (a, b) => b.lastModified - a.lastModified
+    const sortProjectsNameAsc = (a, b) => b.name.localeCompare(a.name)
+    const sortProjectsNameDesc = (a, b) => a.name.localeCompare(b.name)
+    const sortProjectsTypeAsc = (a, b) => b.type.localeCompare(a.type)
+    const sortProjectsTypeDesc = (a, b) => a.type.localeCompare(b.type)
+
+    const addSortMethodToDatabase = (sortMethodName) => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files-folders')
+        .doc('preferences')
+        .update({
+            sortMethod: sortMethodName
+        })
     }
 
-    const sortProjectsDateDesc = (a, b) => {
-        return b.lastModified - a.lastModified  
-    }
-
-    const sortProjectsNameAsc = (a, b) => {
-        return b.name.localeCompare(a.name)
-    }
-
-    const sortProjectsNameDesc = (a, b) => {
-        return a.name.localeCompare(b.name)
-    }
-
-    const sortProjectsTypeAsc = (a, b) => {
-        return b.type.localeCompare(a.type)
-    }
-
-    const sortProjectsTypeDesc = (a, b) => {
-        return a.type.localeCompare(b.type)
-    }
-
-    const changeSortOrder = (sortType) => {
-        let sortMethodToUse
-        let sortMethodName
-        if(sortType === 'name') {
-            if(props.sortMethod === 'nameDesc') {
-                sortMethodToUse = sortProjectsNameAsc
-                sortMethodName = 'nameAsc'
-            }else{
-                sortMethodToUse = sortProjectsNameDesc
-                sortMethodName = 'nameDesc'
-            }
-        }
-        if(sortType === 'type') {
-            if(props.sortMethod === 'typeDesc') {
-                sortMethodToUse = sortProjectsTypeAsc
-                sortMethodName = 'typeAsc'
-            }else{
-                sortMethodToUse = sortProjectsTypeDesc
-                sortMethodName = 'typeDesc'
-            }
-        }
-        if(sortType === 'date') {
-            if(props.sortMethod === 'dateDesc') {
-                sortMethodToUse = sortProjectsDateAsc
-                sortMethodName = 'dateAsc'
-            }else{
-                sortMethodToUse = sortProjectsDateDesc
-                sortMethodName = 'dateDesc'
-            }
-        }
-        props.dispatch(sortMethod(sortMethodName))
+    const sendSortedFilesToState = (sortMethodToUse) => {
         if(props.rootDocs.length > 0) {
             props.dispatch(rootDocs(props.rootDocs.sort(sortMethodToUse)))
         }
@@ -162,13 +141,28 @@ const ProjectsTable = (props) => {
         if(props.layerThreeDocs.length > 0) {
             props.dispatch(layerThreeDocs(props.layerThreeDocs.sort(sortMethodToUse)))
         }
-        db.collection('users')
-        .doc(props.userData.userID)
-        .collection('files-folders')
-        .doc('preferences')
-        .update({
-            sortMethod: sortMethodName
-        })
+    }
+
+    const getSortMethodData = (sortType) => {
+        if(sortType === 'name') {
+            if(props.sortMethod === 'nameDesc') return [sortProjectsNameAsc, 'nameAsc']
+            return [sortProjectsNameDesc, 'nameDesc']
+        }
+        if(sortType === 'type') {
+            if(props.sortMethod === 'typeDesc') return [sortProjectsTypeAsc, 'typeAsc']
+            return [sortProjectsTypeDesc, 'typeDesc']
+        }
+        if(sortType === 'date') {
+            if(props.sortMethod === 'dateDesc') return [sortProjectsDateAsc, 'dateAsc']
+            return [sortProjectsDateDesc, 'dateDesc']
+        }
+    }
+
+    const changeSortOrder = (sortType) => {
+        const [sortMethodToUse, sortMethodName] = getSortMethodData(sortType)
+        props.dispatch(sortMethod(sortMethodName))
+        sendSortedFilesToState(sortMethodToUse)
+        addSortMethodToDatabase(sortMethodName)
     }
 
     const sortMap = {
@@ -213,22 +207,7 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(ProjectsTable)
 
-// const FilesSVGContainer = styled.div`
-//     /* display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-//     align-items: center; */
-//     display: grid;
-//     place-items: center;
-// `
-
-// const AddFilesText = styled.h4`
-//     color: var(--primary-text);
-//     font-size: 1.75rem;
-// `
-
 const Container = styled.div`
-    /* height: 100%; */
 `
 
 const TableHead = styled.div`

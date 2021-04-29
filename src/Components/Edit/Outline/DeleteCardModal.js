@@ -28,7 +28,7 @@ const DeleteCardModal = (props) => {
         .collection('files')
         .doc(props.match.params.fileID)
         .update({
-            data: outlineNewIndexes,
+            text: outlineNewIndexes,
         })
         .then(()=> {
             props.setShowDeleteModal(false)

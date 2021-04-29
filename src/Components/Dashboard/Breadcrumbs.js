@@ -11,14 +11,24 @@ import { breadcrumbs } from '../../redux/actions/dashboardActions'
 
 const Breadcrumbs = (props) => {
 
-    const breadcrumbRoute = (indexToRoute) => {
-        props.dispatch(currentLayer(indexToRoute))
+    const changeCurrentLayer = (indexToRoute) => props.dispatch(currentLayer(indexToRoute))
+
+    const removeBreadcrumbs = (indexToRoute) => {
         const crumbsCopy = [...props.breadcrumbs]
         const breadcrumbsReduced = crumbsCopy.slice(0, indexToRoute+1)
         props.dispatch(breadcrumbs(breadcrumbsReduced))
+    }
+
+    const clearFilesFromState = (indexToRoute) => {
         if(indexToRoute <= 0) props.dispatch(layerOneDocs([]))
         if(indexToRoute <= 1) props.dispatch(layerTwoDocs([]))
         if(indexToRoute <= 2) props.dispatch(layerThreeDocs([]))
+    }
+
+    const breadcrumbChangeRoute = (indexToRoute) => {
+        changeCurrentLayer(indexToRoute)
+        removeBreadcrumbs(indexToRoute)
+        clearFilesFromState(indexToRoute)
     }
 
     return(
@@ -29,7 +39,7 @@ const Breadcrumbs = (props) => {
                         {index === props.breadcrumbs.length -1 ? 
                         <LastCrumb>{crumb.name}</LastCrumb>
                         :
-                        <Crumb onClick={()=>breadcrumbRoute(index)}>{crumb.name}</Crumb>
+                        <Crumb onClick={()=>breadcrumbChangeRoute(index)}>{crumb.name}</Crumb>
                         }
                         {index !== props.breadcrumbs.length -1 &&
                         <IconContainer>
@@ -46,7 +56,6 @@ const Breadcrumbs = (props) => {
 const mapStateToProps = state => ({
     breadcrumbs: state.dashboard.breadcrumbs,
     currentLayer: state.app.currentLayer,
-    rootLayer: state.app.rootLayer,
     layerOneDocs: state.app.layerOneDocs,
     layerTwoDocs: state.app.layerTwoDocs,
     layerThreeDocs: state.app.layerThreeDocs,
@@ -74,10 +83,10 @@ const Crumb = styled.button`
     cursor: pointer;
     font-size: 1.75rem;
     font-weight: 500;
+    opacity: .6;
     &:hover{
         opacity: 1;
     }
-    opacity: .6;
 `
 
 const Container = styled.nav`

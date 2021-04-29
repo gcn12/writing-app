@@ -51,7 +51,7 @@ const Outline = (props) => {
             const outline = result.data()
             if(outline !== undefined) {
                 document.title = outline.name
-                const outlineItems = outline.data
+                const outlineItems = outline.text
                 props.dispatch(outlineData(outline))
                 if(outlineItems.length > 0) {
                     props.dispatch(outlineItemsDisplay([...outlineItems]))
@@ -75,7 +75,7 @@ const Outline = (props) => {
         .collection('files')
         .doc(props.match.params.fileID)
         .update({
-            data: cardsNewIndexes,
+            text: cardsNewIndexes,
         })
         .then(()=> {
             console.log('updated')

@@ -13,13 +13,14 @@ import {
 
 const DeleteDocModal = (props) => {
 
+    const initialDelete = (docData) => {
+        deleteDoc(docData)
+        removeDocFromStore(docData.currentIndex)
+    }
+
     const deleteDoc = (docData) => {
-        console.log('deleting docs')
-        if(docData.type!=='folder') {
-            deleteFile(docData.docID, docData.currentIndex)
-        }else{
-            deleteFolder(docData.docID, docData.currentIndex)
-        }
+        if(docData.type==='folder') return deleteFolder(docData.docID)
+        return deleteFileAndPreview(docData.docID)
     }
 
     const deleteFile = (docID) => {
@@ -29,7 +30,43 @@ const DeleteDocModal = (props) => {
         .doc(String(docID))
         .delete()
         .catch(err=>console.log(err))
-        
+    }
+
+    const deletePreview = (docID) => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files-folders')
+        .doc(String(docID))
+        .delete()
+        .catch(err=>console.log(err))
+    }
+
+    const deleteFileAndPreview = (docID) => {
+        deleteFile(docID)
+        deletePreview(docID)
+        deleteDatabaseID(docID)
+        props.setShowDeleteModal(false)
+    }
+
+    const getFolderContents = (docID) => {
+        return db.collection('users')
+        .doc(props.userData.userID)
+        .collection('files-folders')
+        .where('parentID', '==', String(docID))
+        .get()
+    }
+    
+    const deleteFolderContents = () => {
+        getFolderContents()
+        .then((data)=> {
+            data.forEach(item=> {
+               deleteDoc(item.data())
+            })
+        })
+    }
+  
+    const deleteFolder = (docID) => {
+        deleteFolderContents()
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files-folders')
@@ -37,29 +74,6 @@ const DeleteDocModal = (props) => {
         .delete()
         .catch(err=>console.log(err))
         props.setShowDeleteModal(false)
-    }
-
-    const deleteFolder = (docID) => {
-        db.collection('users')
-        .doc(props.userData.userID)
-        .collection('files-folders')
-        .where('parentID', '==', String(docID))
-        .get()
-        .then((data)=> {
-            data.forEach(item=> {
-               deleteDoc(item.data())
-            })
-        })
-        .then(()=> {
-            db.collection('users')
-            .doc(props.userData.userID)
-            .collection('files-folders')
-            .doc(String(docID))
-            .delete()
-            .then(()=>null)
-            .catch(err=>console.log(err))
-            props.setShowDeleteModal(false)
-        })
     }
 
     const folderMap = {
@@ -72,19 +86,10 @@ const DeleteDocModal = (props) => {
     const removeDocFromStore = (currentIndex) => {
         let deletedItem = [...folderMap[props.currentLayer]]
         deletedItem.splice(currentIndex, 1)
-        if(props.currentLayer===0) props.dispatch(rootDocs(deletedItem))
-        if(props.currentLayer===1) props.dispatch(layerOneDocs(deletedItem))
-        if(props.currentLayer===2) props.dispatch(layerTwoDocs(deletedItem))
-        if(props.currentLayer===3) props.dispatch(layerThreeDocs(deletedItem))
-    }
-
-    const initialDelete = (docData) => {
-        if(docData.type!=='folder') {
-            deleteFile(docData.docID)
-        }else{
-            deleteFolder(docData.docID)
-        }
-        removeDocFromStore(docData.currentIndex)
+        if(props.currentLayer===0) return props.dispatch(rootDocs(deletedItem))
+        if(props.currentLayer===1) return props.dispatch(layerOneDocs(deletedItem))
+        if(props.currentLayer===2) return props.dispatch(layerTwoDocs(deletedItem))
+        if(props.currentLayer===3) return props.dispatch(layerThreeDocs(deletedItem))
     }
 
     const closeModal = (e) => {
@@ -94,15 +99,20 @@ const DeleteDocModal = (props) => {
         }
     }
 
+    const deleteDatabaseID = (docID) => {
+        db.collection('docID')
+        .doc(docID)
+        .delete()
+        .catch((err)=>console.log(err))
+    }
+
     return(      
         <div>
             <Modal isOpen={props.showDeleteModal} onDismiss={()=>props.setShowDeleteModal(false)} aria-label={`Are you sure you want to delete ${props.projectSelectedData.name} ?`}>
                 <CloseDialog aria-label='close rename dialog' onKeyDown={(e)=> closeModal(e)} onMouseDown={()=>props.setShowDeleteModal(false)}>
                     <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
                 </CloseDialog>
-                <HeaderIconContainer>
-                    <Header>{`Delete ${props.projectSelectedData.type}`}</Header>
-                </HeaderIconContainer>
+                <Header>{`Delete ${props.projectSelectedData.type}`}</Header>
                 <p>Are you sure you want to delete <Name>{props.projectSelectedData.name}</Name> ?</p>
                 <div>
                     <Cancel onKeyDown={(e)=> closeModal(e)}  onMouseDown={()=>props.setShowDeleteModal(false)}>Cancel</Cancel>
@@ -134,11 +144,6 @@ const Name = styled.span`
     font-weight: 700;
 `
 
-const HeaderIconContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`
-
 const Header = styled.h1`
     font-size: 1.75rem;
 `
@@ -151,7 +156,6 @@ const Cancel = styled.button`
     height: 50px;
     width: 100px;
     margin: 10px;
-    
 `
 
 const Delete = styled.button`
@@ -161,7 +165,6 @@ const Delete = styled.button`
     width: 100px;
     color: white;
 `
-
 
 const Modal = styled(Dialog)`
     z-index: 100;
