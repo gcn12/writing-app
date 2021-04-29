@@ -29,7 +29,6 @@ const GetStarted = styled.div`
     padding: 20px;
     border-radius: 7px;
     display: inline-block;
-    /* margin-bottom: 80px; */
     @media(max-width: 500px) {
         font-size: .9rem;
     }

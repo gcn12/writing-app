@@ -46,7 +46,6 @@ const DailyGoalModal = (props) => {
 
     return(
         <Modal aria-label='change daily goal' onDismiss={()=>props.setShowChangeGoal(false)} isOpen={props.showChangeGoal}>
-            {/* <Close onClick={()=>props.setShowChangeGoal(false)}>X</Close> */}
             <Close aria-label='close dialog' label='set new goal' onClick={()=>props.setShowChangeGoal(false)}>
                 <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
             </Close>

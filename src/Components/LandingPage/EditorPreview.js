@@ -48,11 +48,9 @@ const EditorPreview = (props) => {
         locations: locations,
     }
 
-
     const searchResults = searchMap[searchType]?.filter(item=> {
         return item.startsWith(searchQuery.toUpperCase()) && item!==searchQuery.toUpperCase()
     })
-
 
     useEffect(() => {
         if(editor.selection) {
@@ -641,7 +639,6 @@ const StyledSlate = styled(Slate)`
 const Container = styled.div`
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
-    /* height: 100%; */
     background-color: white;
     padding: 50px 60px 50px 60px;
     border-radius: 5px;
@@ -650,11 +647,9 @@ const Container = styled.div`
     z-index: 1;
     box-shadow: 2px 5px 7px rgba(0, 0, 0, .2);
     @media(max-width: 650px) {
-        /* width: 95vw; */
         padding: 40px 40px 40px 40px;
     }
     @media(max-width: 400px) {
-        /* width: 95vw; */
         padding: 40px 25px 40px 25px;
     }
 `

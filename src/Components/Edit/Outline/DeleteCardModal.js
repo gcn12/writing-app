@@ -8,35 +8,42 @@ import "@reach/dialog/styles.css";
 
 const DeleteCardModal = (props) => {
 
-    const deleteCard = () => {
+    const removeCardFromOutline = () => {
         let newOutline = [...props.outlineItemsForUpdate]
         newOutline.splice(props.cardIndex, 1)
-        const outlineNewIndexes = newOutline.map((card, index)=> {
+        return newOutline.map((card, index)=> {
             return {...card, index}
         })
+    }
+
+    const removeCardFromState = (outlineNewIndexes) => {
         props.dispatch(outlineItemsForUpdate(outlineNewIndexes))
         props.dispatch(outlineItemsDisplay(outlineNewIndexes))
+    }
 
+    const createNewIndexes = () => {
         const dataIndexArray = []
         for(let i = 0; i<props.itemIndexes.length - 1; i++) {
             dataIndexArray.push(String(i))
         }
         props.setItemIndexes(dataIndexArray)
+    }
 
+    const sendUpdatedOutlineToDatabase = (outlineNewIndexes) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
         .doc(props.match.params.fileID)
-        .update({
-            text: outlineNewIndexes,
-        })
-        .then(()=> {
-            props.setShowDeleteModal(false)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        .update({ text: outlineNewIndexes })
+        .then(()=> props.setShowDeleteModal(false))
+        .catch((err)=>console.log(err))
+    }
 
+    const deleteCard = () => {
+        const updatedOutline = removeCardFromOutline()
+        createNewIndexes()
+        removeCardFromState(updatedOutline)
+        sendUpdatedOutlineToDatabase(updatedOutline)
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
@@ -105,7 +112,6 @@ const Modal = styled(Dialog)`
     margin: 0;
     box-shadow: none;
     background-color: var(--secondary);
-    isolation: isolate;
     padding: 0px 20px 20px 20px;
     border-radius: 10px;
     @media(max-width: 600px) {

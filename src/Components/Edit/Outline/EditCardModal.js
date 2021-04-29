@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { db } from '../../../firebase'
 import { outlineItemsDisplay, outlineItemsForUpdate } from '../../../redux/actions/appActions'
@@ -8,27 +8,48 @@ import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 
 const EditCardModal = (props) => {
-    const [newTitle, setNewTitle] = useState(props.title)
-    const [newText, setNewText] = useState(props.text)
+    const [newTitle, setNewTitle] = useState('')
+    const [newText, setNewText] = useState('')
+
+    useEffect(()=> {
+        setNewText(props.text)
+        setNewTitle(props.title)
+    }, [props.title, props.text])
 
     const saveCardEdits = () => {
-        const newOutline = [...props.outlineItemsForUpdate]
-        addChangesToState(newOutline)
-        addChangesToDatabase(newOutline)
+        console.log(newTitle, newText)
+        const updatedCard = createUpdatedCard()
+        const newOutlineForDisplay = updateOutlineForDisplay(updatedCard)
+        const newOutlineForUpdate = updateOutlineForUpdate(updatedCard)
+        addChangesToState(newOutlineForUpdate, newOutlineForDisplay)
+        addChangesToDatabase(newOutlineForUpdate)
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
-    const addChangesToState = (newOutline) => {
-        const newCard = {
+    const createUpdatedCard = () => {
+        return {
             index: props.cardIndex,
-            title: newTitle || props.title,
-            text: newText || props.text,
+            title: newTitle,
+            text: newText,
         }
+    }
+
+    const updateOutlineForDisplay = (newCard) => {
         const newOutlineForDisplay = [...props.outlineItemsDisplay]
-        newOutline[props.cardIndex] = newCard
         newOutlineForDisplay[props.itemIndexes[props.cardIndex]] = newCard
+        return newOutlineForDisplay
+    }
+
+    const updateOutlineForUpdate = (newCard) => {
+        console.log(props.outlineItemsForUpdate)
+        const newOutline = [...props.outlineItemsForUpdate]
+        newOutline[props.cardIndex] = newCard 
+        return newOutline
+    }
+
+    const addChangesToState = (newOutlineForUpdate, newOutlineForDisplay) => {
         props.dispatch(outlineItemsDisplay([...newOutlineForDisplay]))
-        props.dispatch(outlineItemsForUpdate(newOutline))
+        props.dispatch(outlineItemsForUpdate(newOutlineForUpdate))
     }
 
     const addChangesToDatabase = (newOutline) => {
@@ -39,12 +60,8 @@ const EditCardModal = (props) => {
         .update({
             text: newOutline,
         })
-        .then(()=> {
-            props.setShowEditModal(false)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        .then(()=> props.setShowEditModal(false))
+        .catch((err)=>console.log(err))
     }
 
     const closeModal = (e) => {

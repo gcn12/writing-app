@@ -34,54 +34,53 @@ const Outline = (props) => {
     const [cardIndex, setCardIndex] = useState(null)
     const [itemIndexes, setItemIndexes] = useState([])
     const [savingStatus, setSavingStatus] = useState('All changes saved')
+    const [cardsPerRow, setCardsPerRow] = useState(3)
 
     useEffect(()=> {
         getOutline()
         // eslint-disable-next-line
     }, [props.match])
 
-
-    const getOutline = () => {
-        db.collection('users')
+    const getOutlineElements = () => {
+        return db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
         .doc(props.match.params.fileID)
         .get()
+    }
+
+    const createOutlineIndexes = (outlineItems) => {
+        const dataIndexArray = []
+        for(let i = 0; i<outlineItems.length; i++) {
+            dataIndexArray.push(String(i))
+        }
+        setItemIndexes(dataIndexArray)
+    }
+
+    const getOutline = () => {
+        getOutlineElements()
         .then((result)=> {
+            if(!result.exists) return
             const outline = result.data()
-            if(outline !== undefined) {
-                document.title = outline.name
-                const outlineItems = outline.text
-                props.dispatch(outlineData(outline))
-                if(outlineItems.length > 0) {
-                    props.dispatch(outlineItemsDisplay([...outlineItems]))
-                    props.dispatch(outlineItemsForUpdate([...outlineItems]))
-                }
-                const dataIndexArray = []
-                for(let i = 0; i<outlineItems.length; i++) {
-                    dataIndexArray.push(String(i))
-                }
-                setItemIndexes(dataIndexArray)
-            }
+            props.dispatch(outlineData(outline))
+            document.title = outline.name
+            setCardsPerRow(outline.cardsPerRow)
+            const outlineItems = outline.text
+            props.dispatch(outlineItemsDisplay(outlineItems))
+            props.dispatch(outlineItemsForUpdate(outlineItems))
+            createOutlineIndexes(outlineItems)
         })
     }
 
-    const updateToDatabase = (cardsInput) => {
-        const cardsNewIndexes = cardsInput.map((card, index)=> {
-            return {...card, index}
-        })
+    const updateToDatabase = (updatedOutline) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('files')
         .doc(props.match.params.fileID)
         .update({
-            text: cardsNewIndexes,
+            text: updatedOutline,
         })
-        .then(()=> {
-            console.log('updated')
-            setSavingStatus('All changes saved')
-        })
-
+        .then(()=> setSavingStatus('All changes saved'))
         updateLastModified(props.userData.userID, String(props.outlineData.docID), props.match.params.fileID)
     }
 
@@ -90,31 +89,31 @@ const Outline = (props) => {
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
         })
-    );
+    )
 
-    
+    const switchCardPosition = (oldIndex, newIndex) => {
+        let itemsCopy = [...props.outlineItemsForUpdate]
+        const removedItem = itemsCopy.splice(oldIndex, 1)
+        itemsCopy.splice(newIndex, 0, ...removedItem)
+        return itemsCopy.map((item, index)=> {
+            return {...item, index}
+        })
+    }
+
+    const updateStateAndDatabase = (updatedOutline) => {
+        props.dispatch(outlineItemsForUpdate(updatedOutline))
+        updateToDatabase(updatedOutline)
+    }
 
     const handleDragEnd = (e) => {
         const {active, over} = e
-        if (active.id !== over.id) {
-            setSavingStatus('Saving...')
-            let oldIndex 
-            let newIndex 
-            setItemIndexes((itemIndexes) => {
-                oldIndex = itemIndexes.indexOf(active.id);
-                newIndex = itemIndexes.indexOf(over.id);
-                const result = arrayMove(itemIndexes, oldIndex, newIndex)
-                return result;
-            });
-            let itemsCopy = [...props.outlineItemsForUpdate]
-            const removedItem = itemsCopy.splice(oldIndex, 1)
-            itemsCopy.splice(newIndex, 0, ...removedItem)
-            const newIndexItems = itemsCopy.map((item, index)=> {
-                return {...item, index}
-            })
-            props.dispatch(outlineItemsForUpdate([...newIndexItems]))
-            updateToDatabase(newIndexItems)
-        }
+        if(active.id === over.id) return
+        setSavingStatus('Saving...')
+        const oldIndex = itemIndexes.indexOf(active.id)
+        const newIndex = itemIndexes.indexOf(over.id)
+        setItemIndexes(arrayMove(itemIndexes, oldIndex, newIndex))
+        const updatedOutline = switchCardPosition(oldIndex, newIndex)
+        updateStateAndDatabase(updatedOutline)
     }
 
     window.onbeforeunload = function() {
@@ -139,21 +138,21 @@ const Outline = (props) => {
         onDragEnd(id, overId) {
             return `${props.outlineItemsDisplay[id]} was dropped over in position ${Number(overId) + 1} of ${props.outlineItemsDisplay.length}`
         }, 
-        onDragCancel(id) {
+        onDragCancel() {
             return `Move was canceled.`
         }
     }
 
     return (
         <Container>
-            <Toolbar savingStatus={savingStatus} />
+            <Toolbar fileID={props.match.params.fileID} userID={props.userData.userID} setCardsPerRow={setCardsPerRow} cardsPerRow={cardsPerRow} savingStatus={savingStatus} />
             <CreateCardModal showCreateModal={showCreateModal} itemIndexes={itemIndexes}  setItemIndexes={setItemIndexes}  match={props.match} setShowCreateModal={setShowCreateModal} getOutline={getOutline} />
             <OutlineContainer>
                 <Title>{props?.outlineData?.name}</Title>
                 <CreateNew onClick={()=>setShowCreateModal(true)}><Plus aria-hidden>+</Plus> Create new card</CreateNew>
                 <DndContext screenReaderInstructions={screenReaderInstructions} announcements={announcements} sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                 <SortableContext items={itemIndexes} strategy={rectSortingStrategy}>
-                    <Grid>
+                    <Grid cardsPerRow={cardsPerRow}>
                         {itemIndexes.map((itemIndex, index)=> {
                             return(
                                 <SortableItem index={index} setCardIndex={setCardIndex} setTitle={setTitle} setText={setText} setShowEditModal={setShowEditModal} setShowDeleteModal={setShowDeleteModal} key={itemIndex} id={itemIndex} text={props.outlineItemsDisplay} />
@@ -166,7 +165,7 @@ const Outline = (props) => {
             <EditCardModal showEditModal={showEditModal} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowEditModal={setShowEditModal} title={title} text={text} />
             <DeleteCardModal showDeleteModal={showDeleteModal} setItemIndexes={setItemIndexes} itemIndexes={itemIndexes} match={props.match} cardIndex={cardIndex} setShowDeleteModal={setShowDeleteModal} />
         </Container>
-    );
+    )
 }
 
 const mapStateToProps = state => ({
@@ -188,6 +187,8 @@ const Plus = styled.span`
 
 const Container = styled.div`
     width: 100%;
+    padding: 0px 50px;
+    margin-top: 50px;
 `
 
 const CreateNew = styled.button`
@@ -196,7 +197,8 @@ const CreateNew = styled.button`
     color: var(--sidebar);
     padding: 12px 15px;
     border-radius: 10px;
-    margin: 0px 0 20px 0;
+    /* margin-bottom: 20px; */
+    margin-bottom: 50px;
     display: flex;
     align-items: center;
     font-size: .875rem;
@@ -208,15 +210,16 @@ const OutlineContainer = styled.div`
 
 const Title = styled.h1`
     font-size: 2rem;
-    margin: 40px 0 20px 0;
+    /* margin: 40px 0 20px 0; */
+    margin: 40px 0 25px 0;
 `
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(${props=>props.cardsPerRow}, 1fr);
     grid-gap: 20px;
     grid-template-rows: auto;
-    @media(max-width: 900px) {
-        grid-template-columns: repeat(1, 1fr);
+    @media(max-width: 450px) {
+        grid-template-columns: repeat(1, 1fr); 
     }
 `

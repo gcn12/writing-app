@@ -9,7 +9,10 @@ const OutliningSection = () => {
                     <Title>Outlining tools</Title>
                     <Subtitle>Virtual notecards make it easy to structure your story.</Subtitle>
                 </div>
-                <Image src={image} alt='dark interface' />
+                <Preview playsInline autoPlay muted loop>
+                    <source src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/OutlineDemoVideo.mov?alt=media&token=e2d2118e-85df-47a5-ad31-f6e706894627' />
+                </Preview>
+                {/* <Image src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/OutlineDemo.png?alt=media&token=9ef8acf2-5ab5-4ba7-ba6b-50b5c77b5983' alt='dark interface' /> */}
             </ContentContainer>
         </Container>
     )
@@ -18,10 +21,24 @@ const OutliningSection = () => {
 
 export default OutliningSection
 
+const Preview = styled.video`
+    width: 40vw;
+    max-width: 700px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
+    @media(max-width: 900px) {
+        width: 70vw;
+        max-height: none;
+        height: auto;
+        margin-right: 0px;
+    }
+    @media(max-width: 500px) {
+        width: 100%;
+    }
+`
+
 const Container = styled.section`
     display: flex;
     justify-content: center;
-    /* background-color: blanchedalmond; */
 `
 
 const Subtitle = styled.h2`
@@ -49,8 +66,6 @@ const ContentContainer = styled.div`
     }
 `
 const Image = styled.img`
-    /* max-height: 300px;
-    width: auto; */
     width: 40vw;
     max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);

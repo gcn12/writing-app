@@ -1,6 +1,6 @@
 import { db } from '../../../firebase'
 import { useState, useEffect } from 'react'
-import GoalCard from './GoalCard'
+import CardComponent from './CardComponent'
 import firebase from 'firebase/app'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
@@ -22,43 +22,54 @@ const ToDo = (props) => {
         .collection('goals')
         .doc('todo')
         .get()
-        .then(data=> {
-            props.dispatch(tasks(data.data().todo.reverse()))
-        })
+        .then(data=> props.dispatch(tasks(data.data().todo.reverse())))
     }
 
-    const createTask = (task) => {
-        if(task.length > 0) {
-            const toUpload = {
-                goal: task,
-            }
-            const tasksCopy = [...props.tasks]
-            tasksCopy.unshift(toUpload)
-            props.dispatch(tasks(tasksCopy))
-            db.collection('users')
-            .doc(props.userData.userID)
-            .collection('goals')
-            .doc('todo')
-            .update({
-                todo: firebase.firestore.FieldValue.arrayUnion(toUpload)
-            })
-            .catch(err=>console.log(err))
-            document.getElementById('todo-input').value = ''
-        }
-    }
-
-    const deleteTask = (toDelete, index) => {
-        const tasksCopy = [...props.tasks]
-        tasksCopy.splice(index, 1)
-        props.dispatch(tasks(tasksCopy))
+    const sendTaskToDatabase = (toUpload) => {
         db.collection('users')
         .doc(props.userData.userID)
         .collection('goals')
         .doc('todo')
         .update({
-            todo: firebase.firestore.FieldValue.arrayRemove(toDelete)
+            todo: firebase.firestore.FieldValue.arrayUnion(toUpload)
         })
         .catch(err=>console.log(err))
+    }
+
+    const sendTaskToState = (toUpload) => {
+        const tasksCopy = [...props.tasks]
+        tasksCopy.unshift(toUpload)
+        props.dispatch(tasks(tasksCopy))
+    }
+
+    const createTask = (task) => {
+        if(task.length === 0) return
+        const toUpload = {
+            goal: task,
+        }
+        sendTaskToDatabase(toUpload)
+        sendTaskToState(toUpload)
+        document.getElementById('todo-input').value = ''
+    }
+
+    const removeTaskFromDatabase = (toDelete) => {
+        db.collection('users')
+        .doc(props.userData.userID)
+        .collection('goals')
+        .doc('todo')
+        .update({ todo: firebase.firestore.FieldValue.arrayRemove(toDelete) })
+        .catch(err=>console.log(err))
+    }
+
+    const removeTaskFromState = (index) => {
+        const tasksCopy = [...props.tasks]
+        tasksCopy.splice(index, 1)
+        props.dispatch(tasks(tasksCopy))
+    }
+
+    const deleteTask = (toDelete, index) => {
+        removeTaskFromState(index)
+        removeTaskFromDatabase(toDelete)
     }
 
     const onEnter = (e, task) => {
@@ -75,13 +86,7 @@ const ToDo = (props) => {
                     <CreateTask onClick={()=>createTask(newTask)}>Create task</CreateTask>
                 </CreateTaskContainer>
             </Background>
-            <CardContainer>
-                {props.tasks.map((task, index) => {
-                    return(
-                        <GoalCard deleteTask={deleteTask} index={index} task={task} key={index} />
-                    )
-                })}
-            </CardContainer>
+            <CardComponent tasks={props.tasks} deleteTask={deleteTask} />
         </Container>
     )
 }
@@ -152,15 +157,5 @@ const Container = styled.div`
         height: calc(100% - 80px);
         padding: 0px 15px;
         margin-top: 80px;
-    } 
-`
-
-const CardContainer = styled.div`
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    padding-bottom: 40px;
-    @media(max-width: 700px) {
-        grid-template-columns: 1fr;
     } 
 `

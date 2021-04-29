@@ -62,4 +62,7 @@ const Cards = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     grid-gap: 15px;
+    @media(max-width: 520px) {
+        grid-template-columns: 1fr;
+    }
 `

@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import DailyGoalModal from './DailyGoalModal'
 
 const DailyGoals = (props) => {
-
     const [showChangeGoal, setShowChangeGoal] = useState(false)
     return(
         <Container>

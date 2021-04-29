@@ -59,15 +59,13 @@ const Option = styled.article`
     align-items: flex-start;
     justify-content: space-between;
     background-color: var(--sidebar);
-    /* background-color: var(--primary-text); */
     padding: 20px;
     border-radius: 5px;
     max-width: 300px;
     width: 100%;
     min-height: 50px;
-    /* margin: 0 10px 10px 0; */
-    /* border: ${props=>props.isSelected===null ? 'transparent' : '1px solid white'}; */
-    @media(max-width: 500px) {
+    @media(max-width: 520px) {
         min-height: 80px;
+        max-width: 500px;
     } 
 `

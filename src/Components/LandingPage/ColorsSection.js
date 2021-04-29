@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import image from '../../dark.png'
 
 const ColorsSection = () => {
     return(
         <Container>
             <ContentContainer>
                 <ImageColorsContainer>
-                    <Image src={image} alt='dark interface' />
+                    <Image src='https://firebasestorage.googleapis.com/v0/b/writing-136ac.appspot.com/o/dark.png?alt=media&token=a0bc5acd-7950-4998-b106-7fbada394e95' alt='color selection demo' />
                     <Colors>
                         {colors.map((color, index)=> {
                             return(
@@ -37,7 +36,6 @@ export default ColorsSection
 const Container = styled.section`
     display: flex;
     justify-content: center;
-    /* background-color: blanchedalmond; */
 `
 
 const ContentContainer = styled.div`
@@ -80,7 +78,6 @@ const Image = styled.img`
     width: 40vw;
     max-width: 700px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
-    /* border: 1px solid rgba(0, 0, 0, .1); */
     margin-bottom: 10px;
     @media(max-width: 900px) {
         width: 70vw;
@@ -94,7 +91,6 @@ const Image = styled.img`
 `
 
 const ImageColorsContainer = styled.div`
-    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     align-items: center;

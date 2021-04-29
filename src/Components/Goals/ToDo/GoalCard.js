@@ -23,7 +23,6 @@ const Goal = styled.h1`
 const Container = styled.div`
     min-height: 50px;
     min-width: 200px;
-    /* width: 48%; */
     width: 100%;
     background-color: var(--sidebar);
     padding: 40px 30px;
@@ -31,8 +30,6 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* margin: 0px 20px 10px 0px; */
-    /* gap: 15px; */
     @media(max-width: 550px) {
         width: 100%;
     }

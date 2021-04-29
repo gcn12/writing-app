@@ -59,6 +59,7 @@ const CreateDocModal = (props) => {
         }
         addFileToPreviews(docID, {...fileProperties, lastModified: timestamp})
         let text = (type==='notes' ? '' : [])
+        if(type==='outline') fileProperties['cardsPerRow'] = 2
         addFileToDatabase(docID, {...fileProperties, text}, type)
     }
 
