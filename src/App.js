@@ -70,7 +70,7 @@ const App = (props) => {
   const checkAuthentication = () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) return handleAuthenticatedUser(user)
-      return handleUnauthenticatedUser
+      return handleUnauthenticatedUser()
     })
   }
 
