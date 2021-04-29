@@ -18,7 +18,8 @@ export default CardComponent
 const CardContainer = styled.div`
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     padding-bottom: 40px;
     @media(max-width: 700px) {
         grid-template-columns: 1fr;

@@ -7,7 +7,6 @@ import ToDo from '../Goals/ToDo/ToDo'
 import MobileHeader from '../MobileNavigation/MobileHeader'
 import ChangeColors from '../ChangeColors/ChangeColors'
 import { connect } from 'react-redux'
-import Breadcrumbs from './Breadcrumbs'
 
 const Dashboard = (props) => {
     useEffect(()=> {
@@ -19,7 +18,6 @@ const Dashboard = (props) => {
             <FilesContainer>
                 <Route exact path='/writing-app/' render={(props)=> (
                     <FileContainer>
-                        <Breadcrumbs />
                         <AllFiles {...props} />
                     </FileContainer>
                 )} />
@@ -43,7 +41,6 @@ export default connect(mapStateToProps)(Dashboard)
 
 const FileContainer = styled.div`
     padding: 0 30px;
-    height: 100%;
     padding-top: 10px;
     overflow-y: scroll;
     @media(max-width: 800px) {
@@ -53,6 +50,7 @@ const FileContainer = styled.div`
     @media(max-width: 500px) {
         padding: 0 15px;
     }
+    height: 100%;
 `
 
 export const FilesContainer = styled.div`

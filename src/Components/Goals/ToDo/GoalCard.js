@@ -23,6 +23,7 @@ const Goal = styled.h1`
 const Container = styled.div`
     min-height: 50px;
     min-width: 200px;
+    max-width: 100%;
     width: 100%;
     background-color: var(--sidebar);
     padding: 40px 30px;

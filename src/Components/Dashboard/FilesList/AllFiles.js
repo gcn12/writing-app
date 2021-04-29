@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import CreateDocModal from './CreateDocModal'
 import CreateDocButton from './CreateDocButton'
+import Breadcrumbs from '../Breadcrumbs'
 import ProjectsTable from './DocsTable'
 import { rootDocs } from '../../../redux/actions/appActions'
 import { sortMethod } from '../../../redux/actions/dashboardActions'
@@ -59,6 +60,7 @@ const AllFiles = (props) => {
 
     return(
         <Container>
+            <Breadcrumbs />
             <CreateDocModal isCreateProjectModal={isCreateProjectModal} projectSelectedData={projectSelectedData} setProjectSelectedData={setProjectSelectedData} createType={createType} setIsCreateProjectModal={setIsCreateProjectModal} />
             <div>
                 <CreateDocButton setIsCreateProjectModal={setIsCreateProjectModal} setCreateType={setCreateType} />
