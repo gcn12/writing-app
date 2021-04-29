@@ -1,7 +1,7 @@
-import { db } from '../../../firebase'
+import { db } from '../../firebase'
 import { connect } from 'react-redux'
 import firebase from 'firebase/app'
-import { colors } from '../../../redux/actions/appActions'
+import { colors } from '../../redux/actions/appActions'
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ColorPicker from './ColorPicker'
@@ -131,12 +131,17 @@ const Background = styled.div`
     padding: 40px; 
     border-radius: 10px;
     margin-bottom: 20px;
+    width: 100%;
 `
 
 const ButtonInputContainer = styled.div`
     display: flex;
     align-items: center;
-    /* margin-bottom: 70px; */
+    width: 100%;
+    @media(max-width: 500px) {
+        flex-direction: column;
+        align-items: initial;
+    }
 `
 
 const NameLabel = styled.label`
@@ -148,6 +153,7 @@ const NameLabel = styled.label`
 
 const Container = styled.div`
     margin-top: 20px;
+    width: 100%;
 `
 
 const Title = styled.h1`
@@ -161,14 +167,17 @@ const ThemeName = styled.input`
     min-height: 40px;
     margin: 0px 10px 0px 0px;
     width: 300px;
-    flex: 1;
+    /* flex: 1; */
     background-color: var(--background);
-    /* border: 1px solid var(--primary-text); */
     border: none;
     color: var(--primary-text);
     font-size: 1.25rem;
     @media(max-width: 900px) {
         width: 100%;
+    }
+    @media(max-width: 500px) {
+        width: 100%;
+        margin-bottom: 10px;
     }
 `
 
@@ -181,6 +190,9 @@ const SaveTheme = styled.button`
     font-size: 1.125rem;
     padding: 10px 30px;
     white-space: nowrap;
+    @media(max-width: 900px) {
+        width: 100%;
+    }
     @media(max-width: 400px) {
         padding: 10px 15px;
     }
@@ -190,10 +202,10 @@ const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
 `
 
 const ColorPickers = styled.div`
-    /* margin: 40px 0; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-gap: 30px;

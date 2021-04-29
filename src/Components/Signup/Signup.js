@@ -14,12 +14,16 @@ const SignUp = (props) => {
     const [message, setMessage] = useState('')
     const history = useHistory()
     useEffect(()=> {
+        updateColors()
+        // eslint-disable-next-line
+    }, [])
+
+    const updateColors = () => {
         props.dispatch(colors({
             background: 'white',
             primaryText: 'black',
         }))
-        // eslint-disable-next-line
-    }, [])
+    }
 
     const addUserIDToDatabase = (userID) => {
         return db.collection('users').doc(userID).set({
@@ -104,23 +108,16 @@ const SignUp = (props) => {
         props.dispatch(colors(colorsObj))
     }
 
-    const addToDoItems = (userID) => {
-        return db.collection('users')
-        .doc(userID)
-        .collection('goals')
-        .doc('todo')
-        .set({
-            todo: [
-                {
-                    goal: 'And add some of your own.',
-                },
-                {
-                    goal: 'Feel free to delete these ones.',
-                },
-                {
-                    goal: 'This is where you can add tasks.',
-                },
-            ]
+    const addUserFilesToDatabase = (userCredential) => {
+        const userID = userCredential.user.uid
+        addUserIDToDatabase(userID).then(()=> {
+            addUserColorsToDatabase(userID)
+            addColorThemesToDatabase(userID)
+            addGoalsToDatabase(userID)
+            addTasksToDatabase(userID)
+            createFilesFolders(userID)
+            addColorsToState()
+            history.push('/writing-app')
         })
     }
 
@@ -128,27 +125,12 @@ const SignUp = (props) => {
         e.preventDefault()
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Signed in 
-            const userID = userCredential.user.uid
-            addUserIDToDatabase(userID).then(()=> {
-                addUserColorsToDatabase(userID)
-                addColorThemesToDatabase(userID)
-                addGoalsToDatabase(userID)
-                addTasksToDatabase(userID)
-                createFilesFolders(userID)
-                addToDoItems(userID)
-                addColorsToState()
-                history.push('/writing-app')
-            })
+            addUserFilesToDatabase(userCredential)
         })
         .catch((error) => {
-            if(error.code==='auth/invalid-email') {
-                setMessage('Invalid email')
-            }
-            if(error.code==='auth/weak-password') {
-                setMessage('Password must be at least six characters')
-            }
-        });
+            if(error.code==='auth/invalid-email') return setMessage('Invalid email')
+            if(error.code==='auth/weak-password') return setMessage('Password must be at least six characters')
+        })
     }
     return(
         <Container>
@@ -214,7 +196,6 @@ const Form = styled.form`
 const Submit = styled.button`
     background-color: black;
     color: white;
-    /* padding: 10px 50px; */
     width: 70%;
     height: 50px;
     text-align: center;
@@ -266,7 +247,6 @@ const Logo = styled.h1`
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 20px;
-    /* align-self: flex-start; */
 `
 
 const themes = [

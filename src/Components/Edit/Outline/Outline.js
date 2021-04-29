@@ -187,8 +187,6 @@ const Plus = styled.span`
 
 const Container = styled.div`
     width: 100%;
-    padding: 0px 50px;
-    margin-top: 50px;
 `
 
 const CreateNew = styled.button`
@@ -197,8 +195,7 @@ const CreateNew = styled.button`
     color: var(--sidebar);
     padding: 12px 15px;
     border-radius: 10px;
-    /* margin-bottom: 20px; */
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     font-size: .875rem;
@@ -210,8 +207,7 @@ const OutlineContainer = styled.div`
 
 const Title = styled.h1`
     font-size: 2rem;
-    /* margin: 40px 0 20px 0; */
-    margin: 40px 0 25px 0;
+    margin: 40px 0 20px 0;
 `
 
 const Grid = styled.div`

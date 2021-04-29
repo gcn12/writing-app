@@ -5,7 +5,7 @@ import Sidebar from './Sidebar/Sidebar'
 import { useEffect } from 'react'
 import ToDo from '../Goals/ToDo/ToDo'
 import MobileHeader from '../MobileNavigation/MobileHeader'
-import ChangeColors from '../Settings/ChangeColors/ChangeColors'
+import ChangeColors from '../ChangeColors/ChangeColors'
 import { connect } from 'react-redux'
 import Breadcrumbs from './Breadcrumbs'
 

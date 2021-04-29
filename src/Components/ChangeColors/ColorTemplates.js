@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import { colors } from '../../../redux/actions/appActions'
-import { db } from '../../../firebase'
+import { colors } from '../../redux/actions/appActions'
+import { db } from '../../firebase'
 import ColorThemeCard from './ColorThemeCard'
 import styled from 'styled-components'
 

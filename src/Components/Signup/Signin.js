@@ -7,47 +7,54 @@ import { colors, userData } from '../../redux/actions/appActions'
 import { connect } from 'react-redux'
 
 const SignIn = (props) => {
+
     const history = useHistory()
     useEffect(()=> {
+        setBackgroundColors()
+        // eslint-disable-next-line
+    }, [])
+
+    const setBackgroundColors = () => {
         props.dispatch(colors({
             background: 'white',
             primaryText: 'black',
         }))
-        // eslint-disable-next-line
-    }, [])
+    }
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
 
-    const submit = (e) => {
+    const getUserPreferences = (userID) => {
+        db.collection('users')
+        .doc(userID)
+        .get()
+        .then(data=> {
+            const preferences = data.data().preferences
+            const colorsData = preferences.colors
+            props.dispatch(colors(colorsData))
+            history.push('/writing-app/')
+        })
+        .catch((error) => console.log(error))
+    }
+
+    const signin = (e) => {
         e.preventDefault()
-        // firebase.auth().signInWithEmailAndPassword('hel2lo@gai1l.com', 'hello123')
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            console.log('signed in')
             const userID = userCredential.user.uid
             props.dispatch(userData({ userID }))
-            db.collection('users')
-            .doc(userID)
-            .get()
-            .then(data=> {
-                const preferences = data.data().preferences
-                const colorsData = preferences.colors
-                props.dispatch(colors(colorsData))
-                history.push('/writing-app/')
-            })
+            getUserPreferences(userID)
         })
         .catch((error) => {
             setMessage('Invalid email or password')
             console.log(error)
-        });
-        return true
+        })
     }
 
     return(
         <Container>
-            <Form onSubmit={submit}>
+            <Form onSubmit={signin}>
                 <Logo>Welcome back</Logo>
                 <InputLabelContainer>
                     <Label htmlFor='signin-email'>Email</Label>
@@ -60,7 +67,7 @@ const SignIn = (props) => {
                 {message.length > 0 &&
                     <Message>{message}</Message>
                 }
-                <Submit onClick={submit}>SIGN IN</Submit>
+                <Submit onClick={signin}>SIGN IN</Submit>
             </Form>
             <BackgroundColorDecoration color='#96ffd7' blur='40px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='0' left='0'  opacity='.8' />
             <BackgroundColorDecoration color='#cfc2ff' blur='50px' minHeight='150px' minWidth='150px' height='15vw' width='15vw' top='20%' right='0' opacity='.6' />
@@ -93,7 +100,6 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid black; */
     box-shadow: 0px 5px 7px rgba(0, 0, 0, .3);
     background-color: white;
     border-radius: 5px;
@@ -159,5 +165,4 @@ const Logo = styled.h1`
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 30px;
-    /* align-self: flex-start; */
 `

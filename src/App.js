@@ -18,42 +18,6 @@ import { db } from './firebase'
 const App = (props) => {
   const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
-  useEffect(()=> {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log('logged in')
-        props.dispatch(userData({ userID: user.uid }))
-        getGoalData(user.uid)
-        db.collection('users')
-        .doc(user.uid)
-        .get()
-        .then(data=> {
-          if(data.data().preferences) {
-            const preferences = data.data().preferences
-            const colorsData = preferences.colors
-            props.dispatch(colors(colorsData))
-          }
-          if(props.match.params.page==='signup' 
-            || props.match.params.page==='signin') {
-            history.push('/writing-app')
-          }
-          setIsLoading(false)
-        })
-      }else{
-        props.dispatch(colors({
-          background: 'white'
-        }))
-        if(props.match.params.page!==undefined 
-          && props.match.params.page!=='signup' 
-          && props.match.params.page!=='signin') {
-          history.push('/writing-app')
-        }else{
-          setIsLoading(false)
-        }
-      }
-    });
-    // eslint-disable-next-line
-  }, [])
 
   useEffect(()=> {
     if(props.userData.userID.length > 0) {
@@ -63,30 +27,98 @@ const App = (props) => {
     // eslint-disable-next-line
   }, [props.userData.userID])
 
+  useEffect(()=> {
+    checkAuthentication()
+    // eslint-disable-next-line
+  }, [])
+
+  const getUserData = (user) => {
+    return db.collection('users')
+    .doc(user.uid)
+    .get()
+  }
+
+  const sendPreferencesToState = (data) => {
+    const preferences = data.data().preferences
+    const colorsData = preferences.colors
+    props.dispatch(colors(colorsData))
+  }
+
+  const handleAuthenticatedUser = (user) => {
+    props.dispatch(userData({ userID: user.uid }))
+    getGoalData(user.uid)
+    getUserData(user)
+    .then(data=> {
+      sendPreferencesToState(data)
+      if(props.match.params.page==='signup' 
+      || props.match.params.page==='signin') {
+        history.push('/writing-app')
+      }
+      setIsLoading(false)
+    })
+  }
+
+  const handleUnauthenticatedUser = () => {
+    if(props.match.params.page!==undefined 
+      && props.match.params.page!=='signup' 
+      && props.match.params.page!=='signin') {
+      history.push('/writing-app')
+    }
+    setIsLoading(false)
+  }
+ 
+  const checkAuthentication = () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) return handleAuthenticatedUser(user)
+      return handleUnauthenticatedUser
+    })
+  }
+
+  const updateGoalsAfterListen = (data) => {
+    const currentDate = moment().format('L')
+    const goalsObject = createGoalsObject(data, currentDate)
+    updateGoalsInState(goalsObject)
+  }
+
+  const createGoalsObject = (data, currentDate) => {
+    if(data.exists) return data.data()
+    return {
+      goal: 100,
+      wordsWritten: {
+        words: 0,
+        date: currentDate,
+      }
+    }
+  }
+
   const goalListener = () => {
     return db.collection('users')
     .doc(props.userData.userID)
     .collection('goals')
     .doc('daily-goal')
-    .onSnapshot((doc)=> {
-      const currentDate = moment().format('L')
-      let goalsObject
-      if(doc.exists) {
-        goalsObject = doc.data()
-      }else {
-        goalsObject = {
-          goal: 100,
-          wordsWritten: {
-            words: 0,
-            date: currentDate,
-          }
-        }
-      }
-      props.dispatch(goals({
-        goal: goalsObject.goal,
-        wordsWritten: goalsObject.wordsWritten.words
-      }))
+    .onSnapshot((data)=> {
+      updateGoalsAfterListen(data)
     }) 
+  }
+
+  const updateGoalsInState = (goalsObject) => {
+    props.dispatch(goals({
+      goal: goalsObject.goal,
+      wordsWritten: goalsObject.wordsWritten.words
+    }))
+  }
+
+  const handleGoalData = (data, userID) => {
+    const currentDate = moment().format('L')
+    const goalsObject = createGoalsObject(data, currentDate)
+    const date = goalsObject.wordsWritten.date
+    if(date === currentDate) {
+      updateGoalsInState(goalsObject)
+    }else{
+      resetDailyGoalDatabase(userID, currentDate)
+      resetDailyGoalState(goalsObject)
+    }
+    props.dispatch(goalIsVisible(true))
   }
 
   const getGoalData = (userID) => {
@@ -96,48 +128,28 @@ const App = (props) => {
     .doc('daily-goal')
     .get()
     .then(data=> {
-      const currentDate = moment().format('L')
-      let goalsObject
-      if(data.exists) {
-        goalsObject = data.data()
-      }else {
-        goalsObject = {
-          goal: 100,
-          wordsWritten: {
-            words: 0,
-            date: currentDate,
-          }
-        }
-      }
-      let date
-      if(goalsObject !== undefined) {
-        date = goalsObject.wordsWritten.date
-      }else{
-        date = currentDate
-      }
-      if(date === currentDate) {
-        props.dispatch(goals({
-          goal: goalsObject.goal,
-          wordsWritten: goalsObject.wordsWritten.words
-        }))
-      }else{
-        props.dispatch(goals({
-          goal: goalsObject.goal,
-          wordsWritten: 0
-        }))
-        db.collection('users')
-        .doc(userID)
-        .collection('goals')
-        .doc('daily-goal')
-        .update({
-          wordsWritten: {
-            date: currentDate,
-            words: 0,
-          }
-        })
-      }
-      props.dispatch(goalIsVisible(true))
+      handleGoalData(data, userID)
     })
+  }
+
+  const resetDailyGoalDatabase = (userID, currentDate) => {
+    db.collection('users')
+    .doc(userID)
+    .collection('goals')
+    .doc('daily-goal')
+    .update({
+      wordsWritten: {
+        date: currentDate,
+        words: 0,
+      }
+    })
+  }
+
+  const resetDailyGoalState = (goalsObject) => {
+    props.dispatch(goals({
+      goal: goalsObject.goal,
+      wordsWritten: 0
+    }))
   }
 
   return (

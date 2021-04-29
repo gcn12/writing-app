@@ -30,7 +30,6 @@ const Preview = styled.video`
     box-shadow: 0 10px 10px rgba(0, 0, 0, .3);
     @media(max-width: 900px) {
         width: 70vw;
-        max-height: none;
         height: auto;
         margin-right: 0px;
     }

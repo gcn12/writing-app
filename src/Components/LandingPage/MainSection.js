@@ -15,7 +15,7 @@ const MainSection = (props) => {
     return(
         <Container>
             <ContentContainer>
-                <Title>Screenwriting, essentials only.</Title>
+                <Title>Screenwriting, <Span>essentials only.</Span></Title>
                 <Subtitle>Everything you need to write your next best screenplay.</Subtitle>
                 <EditorPreview />
                 <StyledLink to='/writing-app/signup'>
@@ -37,6 +37,10 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(MainSection)
+
+const Span = styled.span`
+    white-space: nowrap;
+`
 
 const Arrow = styled.svg`
     transform: ${props=>props.isArrowVisible ? 'rotate(240deg)' : 'rotate(200deg)'};

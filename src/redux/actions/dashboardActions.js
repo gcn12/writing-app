@@ -22,12 +22,6 @@ export function breadcrumbs(data) {
     }
 }
 
-export function notesData(data) {
-    return(dispatch) => {
-        dispatch({type: NOTES_DATA, payload: data})
-    }
-}
-
 export function currentProjectID(data) {
     return(dispatch) => {
         dispatch({type: CURRENT_PROJECT_ID, payload: data})

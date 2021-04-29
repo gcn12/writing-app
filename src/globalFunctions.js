@@ -12,36 +12,17 @@ export const generateID = () => {
 
 export const updateLastModified = (userID, projectID, fileID) => {
     const timestamp = Date.now()
-    const ref = db.collection('users')
-    .doc(userID)
-    
-    if(projectID!==undefined) {
-        ref.collection('files-folders')
-        .doc(projectID)
-        .update({
-            lastModified: timestamp
-        })
-        .then(()=> {
-            console.log('updated')
-        })
-        .catch((err)=> {
-            console.log(err)
-            
-        })
-    }
-    if(fileID) {
-        ref.collection('files-folders')
-        .doc(fileID)
-        .update({
-            lastModified: timestamp
-        })
-        .then(()=> {
-            console.log('updated')
-        })
-        .catch((err)=> {
-            console.log(err)
-            console.log(2)
-        })
-    }
+    if(projectID!==undefined) updateDatabaseFile(projectID, userID, timestamp)
+    if(fileID) return updateDatabaseFile(fileID, userID, timestamp)
+}
 
+const updateDatabaseFile = (id, userID, timestamp) => {
+    db.collection('users')
+    .doc(userID)
+    .collection('files-folders')
+    .doc(id)
+    .update({
+        lastModified: timestamp
+    })
+    .catch((err)=> console.log(err))
 }

@@ -1,9 +1,9 @@
-import { db } from '../../../firebase'
+import { db } from '../../firebase'
 import { useEffect } from 'react'
 import ColorSelection from './ColorSelection'
 import ColorTemplates from './ColorTemplates'
 import { connect } from 'react-redux'
-import { colorThemes } from '../../../redux/actions/appActions'
+import { colorThemes } from '../../redux/actions/appActions'
 import styled from 'styled-components'
 
 const ChangeColors = (props) => {

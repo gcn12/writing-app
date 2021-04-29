@@ -114,21 +114,26 @@ const CreateTaskContainer = styled.div`
     display: flex;
     align-items: center;
     margin: 10px 0;
+    @media(max-width: 500px) {
+        flex-direction: column;
+        align-items: initial;
+    }
 `
 
 const CreateTask = styled.button`
-    border-right: 1px solid var(--primary-text);
-    border-top: 1px solid var(--primary-text);
-    border-bottom: 1px solid var(--primary-text);
-    height: 40px;
+    min-height: 40px;
     padding: 10px 30px;
     background-color: var(--primary-text);
     color: var(--sidebar);
     white-space: nowrap;
+    @media(max-width: 500px) {
+        width: 100%;
+    }
 `
 
 const TaskInput = styled.input`
-    width: 50vw;
+    width: 55%;
+    max-width: 600px;
     min-height: 40px;
     background-color: var(--background);
     border: none;
@@ -136,6 +141,10 @@ const TaskInput = styled.input`
     font-size: 1.25rem;
     margin-right: 10px;
     padding-left: 5px;
+    @media(max-width: 500px) {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 `
 
 const Title = styled.h1`

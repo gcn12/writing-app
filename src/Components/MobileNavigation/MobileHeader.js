@@ -6,23 +6,20 @@ import MobileNavigation from './MobileNavigation'
 const MobileHeader = () => {
     const [showMobileNav, setShowMobileNav] = useState(false)
     return(
-        <div>
-
         <Container>
             <Logo>Redraft</Logo>
             <Icon onClick={()=>setShowMobileNav(true)}>
                 <IconComponent><path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/></IconComponent>
             </Icon>
-        </Container>
             <MobileNavigation setShowMobileNav={setShowMobileNav} showMobileNav={showMobileNav} />
-        </div>
+        </Container>
+
     )
 }
 
 export default MobileHeader
 
 const Icon = styled.button`
-
 `
 
 const Container = styled.div`
@@ -38,7 +35,6 @@ const Container = styled.div`
     }
     position: fixed;
     top: 0;
-    /* z-index: 1; */
     isolation: isolate;
 `
 
