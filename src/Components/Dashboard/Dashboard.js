@@ -12,6 +12,13 @@ const Dashboard = (props) => {
     useEffect(()=> {
         document.title='Redraft'
     }, [])
+
+    useEffect(()=> {
+        if(props.isModalOpen) {
+            window.scrollTo(0, 0)
+            document.body.scrollTop = 0
+        }
+    }, [props.isModalOpen])
     return(
         <Container isModalOpen={props.isModalOpen}>
             <Sidebar match={props.match} />
