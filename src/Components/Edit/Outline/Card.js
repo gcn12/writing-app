@@ -43,7 +43,7 @@ const Card = (props) => {
                 </IconTitleContainer>
                 <Text>{props.text}</Text>
             </MainContentContainer>
-            <MobileIcons />
+            <MobileIcons editCard={editCard} deleteCard={deleteCard} index={props.index}  />
         </Container>
     )
 }
