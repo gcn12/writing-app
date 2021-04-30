@@ -54,9 +54,11 @@ const CardsPerRowLabel = styled.label`
 const CardsPerRow = styled.input`
     width: 30px;
     background-color: var(--background);
-    outline: 1px solid var(--primary-text);
     color: var(--primary-text);
     margin-right: 20px;
+    text-align: center;
+    border: 1px solid var(--primary-text);
+    padding: 2px 0;
 `
 
 const Home = styled(Link)`

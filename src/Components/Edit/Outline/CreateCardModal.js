@@ -168,6 +168,7 @@ const Location = styled.input`
     background-color: var(--secondary);
     color: var(--primary-text);
     border: 1px solid var(--primary-text);
+    text-align: center;
 `
 
 const Label = styled.label`
