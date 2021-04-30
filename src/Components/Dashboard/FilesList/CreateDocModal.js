@@ -20,9 +20,11 @@ const CreateDocModal = (props) => {
     const ref = useRef(null)
 
     useEffect(()=> {
-        ref.current.focus = () => {
-            window.scrollTo(0, 0)
-            document.body.scrollTop = 0
+        if(ref!==null) {
+            ref.current.focus = () => {
+                window.scrollTo(0, 0)
+                document.body.scrollTop = 0
+            }
         }
     })
 
