@@ -164,23 +164,26 @@ const Title = styled.h1`
 
 const ThemeName = styled.input`
     min-height: 40px;
-    margin: 0px 10px 0px 0px;
+    margin-right: 10px;
     width: 300px;
     background-color: var(--background);
     border: none;
     color: var(--primary-text);
     font-size: 1.25rem;
+    border-radius: 0;
     @media(max-width: 900px) {
         width: 100%;
     }
     @media(max-width: 500px) {
         width: 100%;
         margin-bottom: 10px;
+        min-height: 50px;
+        font-size: 1.5rem;
     }
 `
 
 const SaveTheme = styled.button`
-    height: 40px;
+    min-height: 40px;
     flex: 0;
     background-color: var(--primary-text);
     border: 1px solid var(--primary-text);
@@ -190,6 +193,9 @@ const SaveTheme = styled.button`
     white-space: nowrap;
     @media(max-width: 900px) {
         width: 100%;
+    }
+    @media(max-width: 500px) {
+        min-height: 50px;
     }
     @media(max-width: 400px) {
         padding: 10px 15px;

@@ -120,17 +120,6 @@ const CreateTaskContainer = styled.div`
     }
 `
 
-const CreateTask = styled.button`
-    min-height: 40px;
-    padding: 10px 30px;
-    background-color: var(--primary-text);
-    color: var(--sidebar);
-    white-space: nowrap;
-    @media(max-width: 500px) {
-        width: 100%;
-    }
-`
-
 const TaskInput = styled.input`
     width: 55%;
     max-width: 600px;
@@ -141,9 +130,24 @@ const TaskInput = styled.input`
     font-size: 1.25rem;
     margin-right: 10px;
     padding-left: 5px;
+    border-radius: 0;
     @media(max-width: 500px) {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        min-height: 50px;
+        font-size: 1.5rem;
+    }
+`
+
+const CreateTask = styled.button`
+    min-height: 40px;
+    padding: 10px 30px;
+    background-color: var(--primary-text);
+    color: var(--sidebar);
+    white-space: nowrap;
+    @media(max-width: 500px) {
+        width: 100%;
+        min-height: 50px;
     }
 `
 
