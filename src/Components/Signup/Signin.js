@@ -58,7 +58,7 @@ const SignIn = (props) => {
                 <Logo>Welcome back</Logo>
                 <InputLabelContainer>
                     <Label htmlFor='signin-email'>Email</Label>
-                    <Email id='signin-email' onChange={(e)=>setEmail(e.target.value)} />
+                    <Email type='email' id='signin-email' onChange={(e)=>setEmail(e.target.value)} />
                 </InputLabelContainer>
                 <InputLabelContainer>
                     <Label htmlFor='signin-password'>Password</Label>

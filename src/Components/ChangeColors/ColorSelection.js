@@ -160,14 +160,12 @@ const Title = styled.h1`
     font-size: 2.25rem;
     font-weight: 600;
     margin-bottom: 25px;
-    margin-top: 40px;
 `
 
 const ThemeName = styled.input`
     min-height: 40px;
     margin: 0px 10px 0px 0px;
     width: 300px;
-    /* flex: 1; */
     background-color: var(--background);
     border: none;
     color: var(--primary-text);
