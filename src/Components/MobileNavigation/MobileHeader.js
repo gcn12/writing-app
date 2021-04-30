@@ -38,7 +38,8 @@ const Container = styled.div`
     @media(min-width: 800px) {
         display: none;
     }
-    position: ${props=>props.isModalOpen ? 'relative' : 'fixed'};
+    position: fixed;
+    /* position: ${props=>props.isModalOpen ? 'relative' : 'fixed'}; */
     top: 0;
     isolation: isolate;
 `
