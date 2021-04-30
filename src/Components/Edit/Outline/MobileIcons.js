@@ -30,10 +30,12 @@ const MobileIconContainer = styled.div`
     transform: scale(.8);
     touch-action: none;
     /* display: none; */
+    display: initial;
     @media(hover: hover) {
         /* display: inline; */
-        &:not(:hover) {
             display: none;
+        &:not(:hover) {
+            display: initial;
         }
     }
 `
