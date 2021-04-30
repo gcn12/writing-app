@@ -162,6 +162,7 @@ export default connect(mapStateToProps)(CreateDocModal)
 
 const Header = styled.h1`
     font-size: 1.75rem;
+    text-align: center;
 `
 
 const CloseDialog = styled.button`
