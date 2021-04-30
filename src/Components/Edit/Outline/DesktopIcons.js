@@ -22,11 +22,11 @@ export default DesktopIcons
 const Icons = styled.div`
     transition: opacity 300ms ease-in-out;
     @media(hover: hover) {
-        &:not(:hover) {
-            opacity: 0;
-            @media(max-width: 700px) {
-                display: none;
-            }
+        /* opacity: 0; */
+    }
+    @media(hover: none) {
+        display: none;
+        @media(max-width: 700px) {
         }
     }
 `

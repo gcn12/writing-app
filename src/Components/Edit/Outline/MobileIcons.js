@@ -32,11 +32,11 @@ const MobileIconContainer = styled.div`
     /* display: none; */
     display: initial;
     @media(hover: hover) {
-        /* display: inline; */
-            display: none;
-        &:not(:hover) {
-            display: initial;
-        }
+        display: none;
+    }
+    @media(hover: none) {
+        display: initial;
+
     }
 `
 
