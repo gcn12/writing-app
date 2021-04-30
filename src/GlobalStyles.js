@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        position: fixed;
+        /* position: fixed; */
         overflow: ${props=> props.page==='tasks' || props.page==='themes' || (props.page===undefined && props.userID.length > 0) ? 'hidden' : 'scroll'};
         overscroll-behavior-block: ${props=> props.page==='goals' || props.page==='themes' || (props.page===undefined && props.userID.length > 0) ? 'none' : 'auto'};
     }
