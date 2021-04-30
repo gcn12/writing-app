@@ -76,7 +76,8 @@ export const FilesContainer = styled.div`
 export const Container = styled.div`
     width: 100%;
     height: 100%;
-    position: ${props=>props.isModalOpen ? 'fixed' : 'static'};
+    /* position: ${props=>props.isModalOpen ? 'fixed' : 'static'}; */
+    position: fixed;
     @media(min-width: 800px) {
         display: flex;
     } 
