@@ -21,10 +21,16 @@ const initialState = {
     goals: {goal: 100, wordsWritten: 0},
     goalIsVisible: false,
     isArrowVisible: false,
+    isModalOpen: false,
 }
 
 const appReducer = (state=initialState, action) => {
     switch(action.type) {
+        case actions.IS_MODAL_OPEN:
+            return {
+                ...state,
+                isModalOpen: action.payload
+            }
         case actions.IS_ARROW_VISIBLE:
             return {
                 ...state,

@@ -13,7 +13,7 @@ const Dashboard = (props) => {
         document.title='Redraft'
     }, [])
     return(
-        <Container>
+        <Container isModalOpen={props.isModalOpen}>
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/' render={(props)=> (
@@ -35,6 +35,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = state => ({
     showProjects: state.dashboard.showProjects,
+    isModalOpen: state.app.isModalOpen,
 })
 
 export default connect(mapStateToProps)(Dashboard)
@@ -67,6 +68,7 @@ export const FilesContainer = styled.div`
 export const Container = styled.div`
     width: 100%;
     height: 100%;
+    position: ${props=>props.isModalOpen ? 'absolute' : 'static'};
     @media(min-width: 800px) {
         display: flex;
     } 
