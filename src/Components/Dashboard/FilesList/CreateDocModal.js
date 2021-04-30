@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { db } from '../../../firebase'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { generateID } from '../../../globalFunctions'
 import { updateLastModified } from '../../../globalFunctions'
