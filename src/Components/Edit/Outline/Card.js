@@ -71,13 +71,13 @@ const IconTitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 `
 
 const Title = styled.h1`
     font-size: 1rem;
     opacity: .8;
     color: var(--primary-text);
-    margin-bottom: 20px;
 `
 
 const Text = styled.h2`

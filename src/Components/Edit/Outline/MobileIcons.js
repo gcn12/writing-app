@@ -29,14 +29,12 @@ const MobileIconContainer = styled.div`
     margin-left: 15px;
     transform: scale(.8);
     touch-action: none;
-    /* display: none; */
     display: initial;
     @media(hover: hover) {
         display: none;
     }
     @media(hover: none) {
         display: initial;
-
     }
 `
 

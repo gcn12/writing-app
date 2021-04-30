@@ -40,7 +40,6 @@ const IconBackground = styled.div`
     background-color: var(--background);
     height: 35px;
     width: 35px;
-    position: relative;
     border-radius: 50%;
     &:hover{
         opacity: 1;
