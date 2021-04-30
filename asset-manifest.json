@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/writing-app/static/css/main.aaccf4f0.chunk.css",
+    "main.css": "/writing-app/static/css/main.b39f76ef.chunk.css",
     "main.js": "/writing-app/static/js/main.5859cde6.chunk.js",
     "main.js.map": "/writing-app/static/js/main.5859cde6.chunk.js.map",
     "runtime-main.js": "/writing-app/static/js/runtime-main.959a1811.js",
@@ -18,17 +18,18 @@
     "static/js/6.93fbc5ba.chunk.js.map": "/writing-app/static/js/6.93fbc5ba.chunk.js.map",
     "index.html": "/writing-app/index.html",
     "static/css/3.ea627e78.chunk.css.map": "/writing-app/static/css/3.ea627e78.chunk.css.map",
-    "static/css/main.aaccf4f0.chunk.css.map": "/writing-app/static/css/main.aaccf4f0.chunk.css.map",
+    "static/css/main.b39f76ef.chunk.css.map": "/writing-app/static/css/main.b39f76ef.chunk.css.map",
     "static/js/2.b8cbf316.chunk.js.LICENSE.txt": "/writing-app/static/js/2.b8cbf316.chunk.js.LICENSE.txt",
     "static/js/3.84975eff.chunk.js.LICENSE.txt": "/writing-app/static/js/3.84975eff.chunk.js.LICENSE.txt",
     "static/js/4.396f542e.chunk.js.LICENSE.txt": "/writing-app/static/js/4.396f542e.chunk.js.LICENSE.txt",
-    "static/js/5.ac6dd614.chunk.js.LICENSE.txt": "/writing-app/static/js/5.ac6dd614.chunk.js.LICENSE.txt"
+    "static/js/5.ac6dd614.chunk.js.LICENSE.txt": "/writing-app/static/js/5.ac6dd614.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/writing-app/static/media/Montserrat-SemiBold.fa8441f3.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.959a1811.js",
     "static/css/3.ea627e78.chunk.css",
     "static/js/3.84975eff.chunk.js",
-    "static/css/main.aaccf4f0.chunk.css",
+    "static/css/main.b39f76ef.chunk.css",
     "static/js/main.5859cde6.chunk.js"
   ]
 }
