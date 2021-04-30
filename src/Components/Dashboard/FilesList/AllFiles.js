@@ -61,9 +61,6 @@ const AllFiles = (props) => {
     return(
         <Container>
             <Breadcrumbs />
-            <Test>
-                <Input />
-            </Test>
             <CreateDocModal isCreateProjectModal={isCreateProjectModal} projectSelectedData={projectSelectedData} setProjectSelectedData={setProjectSelectedData} createType={createType} setIsCreateProjectModal={setIsCreateProjectModal} />
             <div>
                 <CreateDocButton setIsCreateProjectModal={setIsCreateProjectModal} setCreateType={setCreateType} />
@@ -81,20 +78,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(AllFiles)
-
-const Input = styled.input`
-
-`
-
-const Test = styled.div`
-    height: 200px;
-    width: 200px;
-    background-color: green;
-    position: absolute;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-`
 
 const Container = styled.div`
     display: flex;
