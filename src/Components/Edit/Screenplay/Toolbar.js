@@ -10,7 +10,7 @@ const Toolbar = (props) => {
                 <IconComponent><path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/></IconComponent>
             </Home>
             <RightContainer>
-                {props.savingStatus}
+                <Status>{props.savingStatus}</Status>
                 <CreatePDFButton value={props.value} />
             </RightContainer>
         </Container>
@@ -18,6 +18,12 @@ const Toolbar = (props) => {
 }
 
 export default Toolbar
+
+const Status = styled.h3`
+    @media(max-width: 500px) {
+        font-size: .85rem;
+    }
+`
 
 const RightContainer = styled.div`
     display: flex;

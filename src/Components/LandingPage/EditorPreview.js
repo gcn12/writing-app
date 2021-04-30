@@ -243,13 +243,6 @@ const EditorPreview = (props) => {
         setSearchQuery('')
     }
 
-    // const replaceLocationEnter = (path) => {
-    //     const currentText = value[path[0]].children[path[1]].text
-    //     replaceLocation(path, currentText)
-    //     insertNodes(null)
-    //     insertNodes(null)
-    // }
-
     const replaceLocationAddDash = (path) => {
         const currentText = value[path[0]].children[path[1]].text
         replaceLocation(path, currentText)
@@ -402,7 +395,6 @@ const EditorPreview = (props) => {
     }
 
     const modifiers = (e) => {
-        // const { path } = editor.selection.focus
         if(isHotKey('mod+b', e)) {
             e.preventDefault()
             const [match] = Editor.nodes(editor, {
@@ -426,7 +418,6 @@ const EditorPreview = (props) => {
             )
         }
         if(isHotKey('mod+c', e)) return
-        // if(isHotKey('mod+v', e)) e.preventDefault()
         if(isHotKey('mod+x', e)) return
         if(isHotKey('mod+z+shift', e)) return handleUndo()
         if(isHotKey('mod+z', e)) return handleUndo()
@@ -447,7 +438,6 @@ const EditorPreview = (props) => {
         const splitText = currentText.split(' ')
         if (e.key==='Backspace') return handleDelete(path, e, type)
         if (e.key === 'Enter') return handleEnter(path, e, type)
-        // if (e.key === 'Tab') return handleReplace(path, e, type)
         if (e.key === 'Tab') return handleTab(path, e, type)
         if (checkTransition(e, currentText, type)) return
         if (checkHeading(splitText, type)) return

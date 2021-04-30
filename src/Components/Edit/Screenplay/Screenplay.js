@@ -255,6 +255,9 @@ const InterfaceContainer = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    @media(hover: none) {
+        margin-top: 30px;
+    }
 `
 
 export const Container = styled.div`

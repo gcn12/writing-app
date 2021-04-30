@@ -50,15 +50,10 @@ const Picker = styled.div`
     flex-direction: column;
     align-items: center;
     position: relative;
-    /* max-width: 220px; */
-    /* justify-items: center; */
-    /* border: 1px solid white; */
     width: 105px;
-    /* width: 101px; */
 `
 
 const PickerLabel = styled.label`
-    /* margin-right: 5px; */
 `
 
 const ColorLabel = styled.button`

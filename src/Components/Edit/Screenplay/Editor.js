@@ -459,19 +459,14 @@ const EditorInterface = (props) => {
         return false
     }
 
-    const pasteText = (text, type, currentIndex, maxIndex, pasteBlankLine) => {
-        // if(text.length === 0) return pasteBlankLine()
+    const pasteText = (text, type, currentIndex, maxIndex) => {
         Transforms.setNodes(editor, {type})
         Transforms.insertText(editor, text)
         if(currentIndex === maxIndex - 1) return
         insertNodes(null)
-        // if(currentIndex === maxIndex - 1) console.log(currentIndex, maxIndex)
-        // if(pasteBlankLine) pasteBlankLine()
-        // if(text.length > 0) return insertNodes(null)
     }
 
     const checkPaste = (current, previous, next, currentIndex, maxIndex) => {
-        // if(current.length === 0) return
         if(pasteCheckHeading(current)===true) return pasteText(current, 'heading', currentIndex, maxIndex)
         if(pasteCheckTransition(current)) return pasteText(current, 'transition', currentIndex, maxIndex)
         if(pasteCheckCharacter(current, next)) return pasteText(current, 'character', currentIndex, maxIndex)

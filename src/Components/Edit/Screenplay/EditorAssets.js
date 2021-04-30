@@ -77,7 +77,6 @@ export const ParagraphStyles = styled.p`
 export const CenteredItemsContainer = styled.div`
     display: flex;
     justify-content: center;
-    /* padding: 1px; */
     white-space: pre-wrap;
 `
 
@@ -116,8 +115,6 @@ export const DialogStyles = styled.div`
     }
     padding: 1px;
     white-space: pre-wrap;
-    /* width: 500px; */
-
     margin-left: 1px;
     transform: translate(-1px);
     min-width: 1px;

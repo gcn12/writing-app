@@ -27,13 +27,11 @@ const Color = styled.div`
     height: 15px;
     width: 15px;
     border: 1px solid var(--primary-text);
-    /* border: 1px solid var(--sidebar); */
     margin-right: 5px;
 `
 
 const Colors = styled.div`
     display: flex;
-    /* gap: 5px; */
     margin-top: 5px;
 `
 
@@ -46,12 +44,10 @@ const SelectOption = styled.button`
 
 const DeleteOption = styled.button`
     margin-left: 20px;
-    /* color: var(--sidebar); */
 `
 
 const Name = styled.p`
     text-align: left;
-    /* color: var(--sidebar); */
 `
 
 const Option = styled.article`

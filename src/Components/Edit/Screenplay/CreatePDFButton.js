@@ -50,7 +50,6 @@ const CreatePDFButton = (props) => {
     const addTransiton = (script, words) => {
         const stringWidth = script.getTextWidth(words)
         return script.text(words.toUpperCase(), script.internal.pageSize.width - 1 - stringWidth, line)
-        // return decrementLine()
     }
     
     const addCharacter = (script, words) => {
@@ -186,6 +185,8 @@ const CreatePDF = styled.button`
     border-radius: 5px;
     margin-left: 20px;
     @media(max-width: 500px) {
-        min-width: 120px;
+        min-width: 110px;
+        font-size: .9rem;
+        height: 35px;
     }
 `
