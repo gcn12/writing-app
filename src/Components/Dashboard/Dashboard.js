@@ -42,7 +42,7 @@ export default connect(mapStateToProps)(Dashboard)
 const FileContainer = styled.div`
     padding: 0 30px;
     padding-top: 10px;
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
     @media(max-width: 800px) {
         height: calc(100% - 80px);
         margin-top: 80px;
