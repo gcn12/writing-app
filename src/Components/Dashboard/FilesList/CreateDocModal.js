@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { db } from '../../../firebase'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { generateID } from '../../../globalFunctions'
 import { updateLastModified } from '../../../globalFunctions'
@@ -16,6 +16,15 @@ import {
 
 const CreateDocModal = (props) => {
     const [name, setName] = useState('')
+
+    const ref = useRef(null)
+
+    useEffect(()=> {
+        ref.current.focus = () => {
+            window.scrollTo(0, 0)
+            document.body.scrollTop = 0
+        }
+    })
 
     const createProject = () => {
         if (props.createType==='folder' && props.currentLayer < 3) return createFolder()
@@ -139,7 +148,7 @@ const CreateDocModal = (props) => {
                 <IconComponent><path d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z"/></IconComponent>
             </CloseDialog>
             <Header>Create new {props.createType}</Header>
-            <DocumentTitle aria-label='document title' onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} />
+            <DocumentTitle ref={ref} aria-label='document title' onKeyDown={onEnter} autoComplete='off' onChange={(e)=>setName(e.target.value)} />
             <div>
                 <Cancel onClick={()=>props.setIsCreateProjectModal(false)}>Cancel</Cancel>
                 <Create onClick={createProject}>Create project</Create>

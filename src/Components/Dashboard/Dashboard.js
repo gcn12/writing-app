@@ -9,6 +9,7 @@ import ChangeColors from '../ChangeColors/ChangeColors'
 import { connect } from 'react-redux'
 
 const Dashboard = (props) => {
+
     useEffect(()=> {
         document.title='Redraft'
     }, [])
