@@ -29,9 +29,9 @@ const MobileIconContainer = styled.div`
     margin-left: 15px;
     transform: scale(.8);
     touch-action: none;
-    display: none;
+    /* display: none; */
     @media(hover: hover) {
-        display: inline;
+        /* display: inline; */
         &:not(:hover) {
             display: none;
         }
