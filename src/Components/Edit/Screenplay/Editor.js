@@ -264,6 +264,7 @@ const EditorInterface = (props) => {
         e.preventDefault()
         return setNode(null)
     }
+    
     const setNode = (newType) => {
         if(newType===null || newType === 'dialog') {
             Transforms.setNodes(
@@ -684,7 +685,6 @@ const EditorInterface = (props) => {
 
     return(
         <Container>
-            {console.log(props.value)}
             <Slate value={props.value} editor={editor} onChange={newValue => {
                 props.setValue(newValue)
                 if(editor.selection) {
@@ -692,7 +692,7 @@ const EditorInterface = (props) => {
                 }
             }}>
                 <StyledEditable renderLeaf={renderLeaf} autoFocus placeholder='Masterpiece goes here' onKeyDown={modifiers} renderElement={renderElement} />
-                {((searchQuery.length > 1 && searchType==='names') || (searchQuery.length > 0 && searchType==='names' && props.value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
+                {((searchQuery.length > 1 && searchType==='names' && !props.value[editor?.selection?.focus?.path[0]]?.type) || (searchQuery.length > 0 && searchType==='names' && props.value[editor?.selection?.focus?.path[0]]?.type==='character')) &&
                 <Autocomplete position={position} items={searchResults} index={index} />
                 }
                 {searchQuery.length > 0 && searchType==='locations' && searchResults?.length> 0 &&

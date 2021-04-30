@@ -46,27 +46,30 @@ export const TransitionStyles = styled.p`
     justify-content: flex-end;
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
-    /* margin-left: 1px;
-    transform: translate(-1px); */
+    margin-left: 1px;
+    transform: translate(-1px);
     padding: 1px;
+    min-width: 1px;
 `
 
 export const SceneHeadingStyles = styled.p`
     font-weight: 600;
     text-transform: uppercase;
     font-family: 'Courier New', Courier, monospace;
-    /* margin-left: 1px;
-    transform: translate(-1px); */
+    margin-left: 1px;
+    transform: translate(-1px);
     padding: 1px;
+    min-width: 1px;
 `
 
 export const ParagraphStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
     max-width: 63ch;
-    /* margin-left: 1px;
-    transform: translate(-1px); */
+    margin-left: 1px;
+    transform: translate(-1px);
     padding: 1px;
+    min-width: 1px;
     white-space: pre-wrap;
     word-wrap: normal;
 `
@@ -74,16 +77,17 @@ export const ParagraphStyles = styled.p`
 export const CenteredItemsContainer = styled.div`
     display: flex;
     justify-content: center;
-    padding: 1px;
+    /* padding: 1px; */
     white-space: pre-wrap;
 `
 
 export const CharacterStyles = styled.p`
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
-    /* margin-left: 1px; */
-    /* transform: translate(-1px); */
+    margin-left: 1px;
+    transform: translate(-1px);
     padding: 1px;
+    min-width: 1px;
 `
 
 export const ParentheticalStyles = styled.p`
@@ -95,9 +99,10 @@ export const ParentheticalStyles = styled.p`
     @media(max-width: 700px) {
         width: 14ch;
     }
-    /* margin-left: 1px;
-    transform: translate(-1px); */
+    margin-left: 1px;
+    transform: translate(-1px);
     padding: 1px;
+    min-width: 1px;
 `
 
 export const DialogStyles = styled.div`
@@ -113,8 +118,9 @@ export const DialogStyles = styled.div`
     white-space: pre-wrap;
     /* width: 500px; */
 
-    /* margin-left: 1px;
-    transform: translate(-1px); */
+    margin-left: 1px;
+    transform: translate(-1px);
+    min-width: 1px;
 `
 
 export const Container = styled.div`

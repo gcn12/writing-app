@@ -146,10 +146,17 @@ const TextAreaPage = styled.textarea`
     font-size: 1rem;
     line-height: 1.5;
     width: 50vw;
+    max-width: 800px;
     color: var(--primary-text);
     border: none;
     resize: none;
     &:focus{
         box-shadow: none;
+    }
+    @media(max-width: 900px) {
+        width: 70vw
+    }
+    @media(max-width: 500px) {
+        width: 80vw
     }
 `

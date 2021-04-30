@@ -13,15 +13,8 @@ const Dashboard = (props) => {
     useEffect(()=> {
         document.title='Redraft'
     }, [])
-
-    useEffect(()=> {
-        if(props.isModalOpen) {
-            window.scrollTo(0, 0)
-            document.body.scrollTop = 0
-        }
-    }, [props.isModalOpen])
     return(
-        <Container isModalOpen={props.isModalOpen}>
+        <Container>
             <Sidebar match={props.match} />
             <FilesContainer>
                 <Route exact path='/writing-app/' render={(props)=> (
@@ -43,7 +36,6 @@ const Dashboard = (props) => {
 
 const mapStateToProps = state => ({
     showProjects: state.dashboard.showProjects,
-    isModalOpen: state.app.isModalOpen,
 })
 
 export default connect(mapStateToProps)(Dashboard)
@@ -76,7 +68,6 @@ export const FilesContainer = styled.div`
 export const Container = styled.div`
     width: 100%;
     height: 100%;
-    /* position: ${props=>props.isModalOpen ? 'fixed' : 'static'}; */
     position: fixed;
     @media(min-width: 800px) {
         display: flex;

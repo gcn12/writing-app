@@ -2,12 +2,11 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import IconComponent from '../../Icons/IconComponent'
 import MobileNavigation from './MobileNavigation'
-import { connect } from 'react-redux'
 
 const MobileHeader = (props) => {
     const [showMobileNav, setShowMobileNav] = useState(false)
     return(
-        <Container isModalOpen={props.isModalOpen}>
+        <Container>
             <Logo>Redraft</Logo>
             <Icon onClick={()=>setShowMobileNav(true)}>
                 <IconComponent><path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/></IconComponent>
@@ -18,11 +17,7 @@ const MobileHeader = (props) => {
     )
 }
 
-const mapStateToProps = state => ({
-    isModalOpen: state.app.isModalOpen
-})
-
-export default connect(mapStateToProps)(MobileHeader)
+export default MobileHeader
 
 const Icon = styled.button`
 `
@@ -39,7 +34,6 @@ const Container = styled.div`
         display: none;
     }
     position: fixed;
-    /* position: ${props=>props.isModalOpen ? 'absolute' : 'fixed'}; */
     top: 0;
     isolation: isolate;
 `
