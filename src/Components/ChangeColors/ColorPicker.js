@@ -58,12 +58,16 @@ const PickerLabel = styled.label`
 
 const ColorLabel = styled.button`
     background-color: ${props=>props.color};
-    height: 70px;
-    width: 70px;
+    height: 65px;
+    width: 65px;
     border-radius: 50%;
     border: 1px solid var(--primary-text);
     box-shadow: 0;
     margin-bottom: 5px;
+    @media(max-width: 500px) {
+        height: 60px;
+        width: 60px;
+    }
 `
 
 const StyledColorPicker = styled(HexColorPicker)`
