@@ -59,4 +59,5 @@ const List = styled(MenuList)`
     background-color: var(--sidebar);
     position: absolute;
     left: 10%;
+    /* padding: 10px 15px; */
 `

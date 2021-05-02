@@ -265,7 +265,7 @@ const themes = [
         background: '#ffb4a2',
         highlight: '#e4c5b4',
         primaryText: '#1a0f2c',
-        secondary: '#ffe6e0',
+        secondary: '#ffece8',
         sidebar: '#ffd7c2',
     }},
     {colors: {
@@ -274,7 +274,7 @@ const themes = [
         background: '#a7bed3',
         highlight: '#b3ced5',
         primaryText: '#000000',
-        secondary: '#f1ffc4',
+        secondary: '#e3f0bb',
         sidebar: '#c6e2e9',
     }},
     {colors: {
@@ -292,7 +292,7 @@ const themes = [
         background: '#847996',
         highlight: '#442b44',
         primaryText: '#F4ECD6',
-        secondary: '#5f576c',
+        secondary: '#3c3745',
         sidebar: '#2c142c',
     }},
     {colors: {
@@ -301,7 +301,7 @@ const themes = [
         background: '#294c60',
         highlight: '#192a37',
         primaryText: '#ffefd3',
-        secondary: '#adb6c4',
+        secondary: '#595d63',
         sidebar: '#001b2e',
     }},
 ]
