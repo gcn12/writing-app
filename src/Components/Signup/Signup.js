@@ -265,7 +265,7 @@ const themes = [
         background: '#ffb4a2',
         highlight: '#e4c5b4',
         primaryText: '#1a0f2c',
-        secondary: '#ffece8',
+        secondary: '#fae3de',
         sidebar: '#ffd7c2',
     }},
     {colors: {
