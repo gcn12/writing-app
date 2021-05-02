@@ -299,7 +299,7 @@ const themes = [
         isDefault: true,
         name: 'Dark 3',
         background: '#294c60',
-        highlight: '#192a37',
+        highlight: '#2c4a61',
         primaryText: '#ffefd3',
         secondary: '#595d63',
         sidebar: '#001b2e',
