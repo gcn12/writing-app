@@ -12,7 +12,6 @@ const DesktopIcons = (props) => {
                     <path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/>
                 </CardIcons>
             </Icons>   
-            <CardNumber aria-label={`card ${props.index + 1}`}>{props.index + 1}</CardNumber>
         </IconContainer>
     )
 }
@@ -33,15 +32,5 @@ const IconContainer = styled.div`
         ${Icons} {
             opacity: 1;
         }
-    }
-`
-
-const CardNumber = styled.p`
-    font-size: 1rem;
-    margin-left: 8px;
-    opacity: .8;
-    color: var(--primary-text);
-    &::after {
-        content: '.'
     }
 `

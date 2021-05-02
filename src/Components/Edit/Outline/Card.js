@@ -39,7 +39,12 @@ const Card = (props) => {
             <MainContentContainer>
                 <IconTitleContainer>
                     <Title>{props.title}</Title>
-                    <DesktopIcons editCard={editCard} deleteCard={deleteCard} keyBoardDelete={keyBoardDelete} keyBoardEdit={keyBoardEdit} index={props.index} />
+                    <IconsNumberContainer>
+                        <DesktopIconsContainer>
+                            <DesktopIcons editCard={editCard} deleteCard={deleteCard} keyBoardDelete={keyBoardDelete} keyBoardEdit={keyBoardEdit} index={props.index} />
+                        </DesktopIconsContainer>
+                        <CardNumber aria-label={`card ${props.index + 1}`}>{props.index + 1}</CardNumber>
+                    </IconsNumberContainer>
                 </IconTitleContainer>
                 <Text>{props.text}</Text>
             </MainContentContainer>
@@ -50,21 +55,31 @@ const Card = (props) => {
 
 export default Card
 
+const IconsNumberContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+const CardNumber = styled.p`
+    font-size: 1rem;
+    margin-left: 8px;
+    opacity: .8;
+    color: var(--primary-text);
+    &::after {
+        content: '.'
+    }
+`
+
+const DesktopIconsContainer = styled.div`
+    transition: opacity 300ms ease-in-out;
+    @media(hover: hover) {
+        opacity: 0;
+    }
+`
+
 const MainContentContainer = styled.div`
     display: flex;
     flex-direction: column;
-`
-
-const Icons = styled.div`
-    transition: opacity 300ms ease-in-out;
-    @media(hover: hover) {
-        &:not(:hover) {
-            opacity: 0;
-            @media(max-width: 700px) {
-                display: none;
-            }
-        }
-    }
 `
 
 const IconTitleContainer = styled.div`
@@ -98,7 +113,7 @@ const Container = styled.article`
     height: 100%;
     cursor: move;
     &:hover {
-        ${Icons} {
+        ${DesktopIconsContainer} {
             opacity: 1;
         }
     }
