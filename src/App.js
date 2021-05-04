@@ -4,6 +4,7 @@ import Signin from './Components/Signup/Signin'
 import Outline from './Components/Edit/Outline/Outline'
 import Screenplay from './Components/Edit/Screenplay/Screenplay'
 import firebase from 'firebase/app'
+import LoadingScreen from './LoadingScreen'
 import 'firebase/auth'
 import Notes from './Components/Edit/Notes/Notes'
 import { connect } from 'react-redux'
@@ -17,6 +18,7 @@ import { db } from './firebase'
 
 const App = (props) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   const history = useHistory()
 
   useEffect(()=> {
@@ -45,6 +47,7 @@ const App = (props) => {
   }
 
   const handleAuthenticatedUser = (user) => {
+    setIsLoading(false)
     props.dispatch(userData({ userID: user.uid }))
     getGoalData(user.uid)
     getUserData(user)
@@ -54,11 +57,12 @@ const App = (props) => {
       || props.match.params.page==='signin') {
         history.push('/writing-app')
       }
-      setIsLoading(false)
+      setTimeout(()=>setIsLoggedIn(false), 400)
     })
   }
 
   const handleUnauthenticatedUser = () => {
+    setIsLoggedIn(false)
     if(props.match.params.page!==undefined 
       && props.match.params.page!=='signup' 
       && props.match.params.page!=='signin') {
@@ -69,7 +73,10 @@ const App = (props) => {
  
   const checkAuthentication = () => {
     firebase.auth().onAuthStateChanged(function(user) {
-      if (user) return handleAuthenticatedUser(user)
+      if (user) {
+        // setIsLoggedIn(true)
+        return handleAuthenticatedUser(user)
+      }
       return handleUnauthenticatedUser()
     })
   }
@@ -156,6 +163,10 @@ const App = (props) => {
     isLoading ? 
     null
     :
+    (
+    isLoggedIn ? 
+    <LoadingScreen /> 
+    :
     <div style={{height: '100%'}}>
       <Switch>
         <Route exact path='/writing-app/signup' render={(props)=> (
@@ -179,6 +190,7 @@ const App = (props) => {
       </Switch>
       <GlobalStyles page={props.match.params.page} userID={props.userData.userID} />
     </div>
+    )
   );
 }
 
