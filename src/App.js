@@ -165,7 +165,9 @@ const App = (props) => {
     :
     (
     isLoggedIn ? 
-    <LoadingScreen /> 
+    <div style={{height: '100%'}}>
+      <LoadingScreen /> 
+    </div>
     :
     <div style={{height: '100%'}}>
       <Switch>
