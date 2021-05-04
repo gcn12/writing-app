@@ -4,6 +4,7 @@ import Signin from './Components/Signup/Signin'
 import Outline from './Components/Edit/Outline/Outline'
 import Screenplay from './Components/Edit/Screenplay/Screenplay'
 import firebase from 'firebase/app'
+import styled from 'styled-components'
 import LoadingScreen from './LoadingScreen'
 import 'firebase/auth'
 import Notes from './Components/Edit/Notes/Notes'
@@ -165,11 +166,11 @@ const App = (props) => {
     :
     (
     isLoggedIn ? 
-    <div style={{height: '100%'}}>
+    <Container>
       <LoadingScreen /> 
-    </div>
+    </Container>
     :
-    <div style={{height: '100%'}}>
+    <Container>
       <Switch>
         <Route exact path='/writing-app/signup' render={(props)=> (
           <Signup {...props} />
@@ -191,7 +192,7 @@ const App = (props) => {
           )} />
       </Switch>
       <GlobalStyles page={props.match.params.page} userID={props.userData.userID} />
-    </div>
+    </Container>
     )
   );
 }
@@ -201,3 +202,7 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(App);
+
+const Container = styled.div`
+  height: 100%;
+`

@@ -11,7 +11,7 @@ const LoadingScreen = () => {
 export default LoadingScreen
 
 const Container = styled.div`
-    height: 100%;
+    height: 100vh;
     width: 100vw;
     background-color: black;
     display: grid;
