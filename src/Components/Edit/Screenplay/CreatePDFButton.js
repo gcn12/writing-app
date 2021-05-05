@@ -171,7 +171,7 @@ const CreatePDFButton = (props) => {
 
 
     return(
-        <CreatePDF onClick={()=>createPDF(props.value)}>Export test</CreatePDF>
+        <CreatePDF onClick={()=>createPDF(props.value)}>Export PDF</CreatePDF>
     )
 }
 
