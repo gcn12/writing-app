@@ -13,7 +13,7 @@ export default LoadingScreen
 const Container = styled.div`
     height: 100vh;
     width: 100vw;
-    background-color: black;
+    background-color: #121212;
     display: grid;
     place-items: center;
 `
