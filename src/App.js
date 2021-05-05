@@ -48,7 +48,6 @@ const App = (props) => {
   }
 
   const handleAuthenticatedUser = (user) => {
-    setIsLoading(false)
     props.dispatch(userData({ userID: user.uid }))
     getGoalData(user.uid)
     getUserData(user)
@@ -58,7 +57,13 @@ const App = (props) => {
       || props.match.params.page==='signin') {
         history.push('/writing-app')
       }
-      setTimeout(()=>setIsLoggedIn(false), 400)
+      if(props.match.params.page==='edit') {
+        setIsLoggedIn(false)
+        setIsLoading(false)
+      }else {
+        setTimeout(()=>setIsLoggedIn(false), 400)
+        setIsLoading(false)
+      }
     })
   }
 
@@ -75,7 +80,6 @@ const App = (props) => {
   const checkAuthentication = () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // setIsLoggedIn(true)
         return handleAuthenticatedUser(user)
       }
       return handleUnauthenticatedUser()
