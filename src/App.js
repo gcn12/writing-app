@@ -61,7 +61,7 @@ const App = (props) => {
         setIsLoggedIn(false)
         setIsLoading(false)
       }else {
-        setTimeout(()=>setIsLoggedIn(false), 500)
+        setTimeout(()=>setIsLoggedIn(false), 700)
         setIsLoading(false)
       }
     })
