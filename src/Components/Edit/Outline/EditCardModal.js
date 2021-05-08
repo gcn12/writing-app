@@ -17,7 +17,6 @@ const EditCardModal = (props) => {
     }, [props.title, props.text])
 
     const saveCardEdits = () => {
-        console.log(newTitle, newText)
         const updatedCard = createUpdatedCard()
         const newOutlineForDisplay = updateOutlineForDisplay(updatedCard)
         const newOutlineForUpdate = updateOutlineForUpdate(updatedCard)
@@ -41,7 +40,6 @@ const EditCardModal = (props) => {
     }
 
     const updateOutlineForUpdate = (newCard) => {
-        console.log(props.outlineItemsForUpdate)
         const newOutline = [...props.outlineItemsForUpdate]
         newOutline[props.cardIndex] = newCard 
         return newOutline

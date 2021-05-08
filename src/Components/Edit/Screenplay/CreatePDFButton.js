@@ -72,7 +72,6 @@ const CreatePDFButton = (props) => {
     }
 
     const handleDialogPageBreak = (script, words, wordIndex, text, index) => {
-        console.log(newPage)
         if(newPage === 1 && words.length > wordIndex + 1) {
             addParenthetical(script, '(MORE)')
             addNewPage(script)

@@ -451,7 +451,6 @@ const EditorInterface = (props) => {
     }
 
     const pasteCheckDialog = (current, previous) => {
-        console.log(previous)
         if(!previous) return false
         if(previous.length === 0) return false
         if(previous.toUpperCase()===previous) return true
@@ -477,7 +476,6 @@ const EditorInterface = (props) => {
 
     editor.insertData = (data) => {
         const currentText = data.getData('text/plain').trim()
-        console.log(currentText)
         const splitText = currentText.split('\n')
         for (let i = 0; i < splitText.length; i ++) {
             const current = splitText[i].trim()

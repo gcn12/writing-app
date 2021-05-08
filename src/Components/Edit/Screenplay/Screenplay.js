@@ -66,9 +66,7 @@ const Screenplay = (props) => {
         .update({
             lastModified: currentTime,
         })
-        .then(()=> {
-            console.log('updated')
-        })
+        .catch(err=>console.log(err))
     }
 
     const updateLastUpdated = (currentTime) => {
