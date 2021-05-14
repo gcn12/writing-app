@@ -30,8 +30,8 @@ const ProjectsTable = (props) => {
         props.setProjectSelectedData({...docData, currentIndex: index})
     }
 
-    const buttonPress = (e, type, docID, name) => {
-        if((e === 'Enter' || e === 'Space') && document.activeElement.id==='projects-table-row') {
+    const buttonPress = (e, type, docID, name, index) => {
+        if((e === 'Enter' || e === 'Space') && document.activeElement.id===`projects-table-row-${index}`) {
             selectItem(type, docID, name)
         }
     }
@@ -176,7 +176,7 @@ const ProjectsTable = (props) => {
 
     return(
         <Container>
-            <Table role='table'>
+            <Table role='table' aria-label='Documents table'>
                 <Head aria-label={`current sort: ${sortMap[props.sortMethod]}`} role='heading'> 
                     <RowHeader role='rowheader'>
                         <TableHeadComponent sortMap={sortMap} name='Name' sortType='name' sortMethodValue1='nameDesc' sortMethodValue2='nameAsc' sortMethod={props.sortMethod} changeSortOrder={changeSortOrder} />
@@ -185,7 +185,7 @@ const ProjectsTable = (props) => {
                         <TableHead hide='550px' aria-label='settings' role='heading'></TableHead>
                     </RowHeader>
                 </Head>
-                <TableBodyComponent selectItem={selectItem} selectProject={selectProject} showRenameProject={showRenameProject} showDeleteProject={showDeleteProject} buttonPress={buttonPress} currentLayer={props.currentLayer} folderMap={folderMap} />
+                <TableBody role='rowgroup' Component selectItem={selectItem} selectProject={selectProject} showRenameProject={showRenameProject} showDeleteProject={showDeleteProject} buttonPress={buttonPress} currentLayer={props.currentLayer} folderMap={folderMap} />
             </Table> 
             <RenameDocModal showRenameModal={showRenameModal} projectSelectedData={props.projectSelectedData} setShowRenameModal={setShowRenameModal} />
             <DeleteProjectModal showDeleteModal={showDeleteModal} projectSelectedData={props.projectSelectedData} setShowDeleteModal={setShowDeleteModal} />
