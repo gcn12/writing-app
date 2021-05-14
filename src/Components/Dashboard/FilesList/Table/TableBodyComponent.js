@@ -5,7 +5,7 @@ import moment from 'moment'
 
 const TableBodyComponent = (props) => {
     return(
-        <TableBody role='row'>
+        <TableBody role='rowgroup'>
             {props.folderMap[props.currentLayer]?.map((doc, index)=> {
                 return(
                     <Row role='row' id={`projects-table-row-${index}`} tabIndex='0' onKeyDown={(e)=>props.buttonPress(e.code, doc.type, doc.docID, doc.name, index)} role='button' onFocus={()=>props.selectProject(doc, index)} onClick={()=>props.selectItem(doc.type, doc.docID, doc.name)} key={index}>
