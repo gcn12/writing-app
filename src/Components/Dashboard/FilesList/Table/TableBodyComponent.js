@@ -8,7 +8,7 @@ const TableBodyComponent = (props) => {
         <TableBody role='rowgroup'>
             {props.folderMap[props.currentLayer]?.map((doc, index)=> {
                 return(
-                    <Row role='row' id={`projects-table-row-${index}`} tabIndex='0' onKeyDown={(e)=>props.buttonPress(e.code, doc.type, doc.docID, doc.name, index)} role='button' onFocus={()=>props.selectProject(doc, index)} onClick={()=>props.selectItem(doc.type, doc.docID, doc.name)} key={index}>
+                    <Row role='row' id={`projects-table-row-${index}`} tabIndex='0' onKeyDown={(e)=>props.buttonPress(e.code, doc.type, doc.docID, doc.name, index)} onFocus={()=>props.selectProject(doc, index)} onClick={()=>props.selectItem(doc.type, doc.docID, doc.name)} key={index}>
                         <Cell role='cell'>
                             <FileIcons docType={doc.type} docName={doc.name} />
                         </Cell>
